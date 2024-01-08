@@ -1,0 +1,31 @@
+*{
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+header{
+    width: 100vw;
+    height: 13vh;
+    margin-bottom: 10vh;
+    background-color: #E99857;
+    font-size: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1{
+    position: absolute;
+}
+
+.hroles{
+    font-size: 2vh;
+    text-align: right;
+    width: 87vw;
+    margin-right: 5vw;
+}
+
+.logout{
+    width: 8vh;
+}
+/* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */

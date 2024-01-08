@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Mi Sitio Web</title>
+    <!-- Vincula tu archivo CSS aquí -->
+    <link rel="stylesheet" href="../CSS/menu.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1> {{titulo}} </h1>
+            <div class="hroles">
+                <p>Mostrador: Julio</p>
+                <p>Limpieza: Mikel</p>
+            </div>
+            <a :href="titulo+'.tv'"><img class="logout" src="../IMG/logout.png" alt="logout"></a>
+        </header>
+
+        <!-- Botón 1 -->
+        <button @click="cambiarTitulo('a')" id="boton1">Botón 1</button>
+
+        <!-- Botón 2 -->
+        <button @click="cambiarTitulo('b')" id="boton2">Botón 2</button>
+
+        <!-- Botón 3 -->
+        <button id="boton3">Botón 3</button>
+
+        <!-- Botón 4 -->
+        <button id="boton4">Botón 4</button>
+
+        <!-- Botón 5 -->
+        <button id="boton5">Botón 5</button>
+    </div>
+    <div id="orrialdea">
+    </div>
+</body>
+</html>
+
+<script src="../JS/header.js"></script>
