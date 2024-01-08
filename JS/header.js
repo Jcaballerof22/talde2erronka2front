@@ -4,8 +4,8 @@ var app = new Vue({
         titulo: "pedro"
     },
     methods: {
-        cambiarTitulo(){
-            this.titulo = "a";
+        cambiarTitulo(nuevoValor){
+            this.titulo = nuevoValor;
         }
     },
     watch:{
@@ -21,3 +21,11 @@ var app = new Vue({
     }
 
 });
+
+fetch('b.html')
+            .then(response => response.text())
+            .then(data => {
+                // Inserta el contenido de a.html en el div con id "contenidoDeA"
+                document.getElementById('orrialdea').innerHTML = data;
+            })
+            .catch(error => console.error('Error al obtener el contenido:', error));
