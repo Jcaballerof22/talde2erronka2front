@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="../JS/menu.js"></script>
     <title>Mi Sitio Web</title>
     <!-- Vincula tu archivo CSS aquí -->
     <link rel="stylesheet" href="../CSS/menu.css">
@@ -18,24 +19,50 @@
             </div>
             <a :href="titulo+'.tv'"><img class="logout" src="../IMG/logout.png" alt="logout"></a>
         </header>
-
-        <!-- Botón 1 -->
-        <button @click="cambiarTitulo('a')" id="boton1">Botón 1</button>
-
-        <!-- Botón 2 -->
-        <button @click="cambiarTitulo('b')" id="boton2">Botón 2</button>
-
-        <!-- Botón 3 -->
-        <button id="boton3">Botón 3</button>
-
-        <!-- Botón 4 -->
-        <button id="boton4">Botón 4</button>
-
-        <!-- Botón 5 -->
-        <button id="boton5">Botón 5</button>
+        <div class="menu-container">
+            <div class="menu" onmouseover="openMenu()" onmouseout="closeMenu()">
+            <ul class="menu-items">
+                <li @click="cambiarTitulo('HOME')">
+                <img src="../IMG/home.png" alt="Menu Icon" class="menu-icon">
+                <span class="menu-text"><b>Home</b></span>
+                </li>
+                <li @click="cambiarTitulo('PRODUCTOS')">
+                <img src="../IMG/productos.png" alt="Image 1" class="menu-icon">
+                <span class="menu-text"><b>Productos</b></span>
+                </li>
+                <li @click="cambiarTitulo('MATERIAL')">
+                <img src="../IMG/material.png" alt="Image 2" class="menu-icon">
+                <span class="menu-text"><b>Material</b></span>
+                </li>
+                <li @click="cambiarTitulo('ALUMNOS')">
+                <img src="../IMG/alumnos.png" alt="Image 3" class="menu-icon">
+                <span class="menu-text"><b>Alumnos</b></span>
+                </li>
+                <li @click="cambiarTitulo('GRUPOS')">
+                <img src="../IMG/grupos.png" alt="Image 3" class="menu-icon">
+                <span class="menu-text"><b>Grupos</b></span>
+                </li>
+                <li @click="cambiarTitulo('ESTADISTICAS')">
+                <img src="../IMG/estadisticas.png" alt="Image 3" class="menu-icon">
+                <span class="menu-text"><b>Estadísticas</b></span>
+                </li>
+                <li @click="cambiarTitulo('HISTORIAL')">
+                <img src="../IMG/historial.png" alt="Image 3" class="menu-icon">
+                <span class="menu-text"><b>Historial</b></span>
+                </li>
+                <li @click="cambiarTitulo('TIKETS')">
+                <img src="../IMG/tikets.png" alt="Image 3" class="menu-icon">
+                <span class="menu-text"><b>Tickets</b></span>
+                </li>
+                <li @click="cambiarTitulo('FICHAS')">
+                <img src="../IMG/fichas.png" alt="Image 3" class="menu-icon">
+                <span class="menu-text"><b>Fichas</b></span>
+                </li>
+            </ul>
+            </div>
+        </div>
     </div>
-    <div id="orrialdea">
-    </div>
+    <div class="contenido" id="orrialdea"></div>
 </body>
 </html>
 
