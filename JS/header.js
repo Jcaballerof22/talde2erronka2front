@@ -1,7 +1,7 @@
 var app = new Vue({
     el: '#app',
     data: {
-        titulo: "pedro"
+        titulo: "HOME"
     },
     methods: {
         cambiarTitulo(nuevoValor){
@@ -22,7 +22,7 @@ var app = new Vue({
 
 });
 
-fetch('b.html')
+fetch('home.html')
             .then(response => response.text())
             .then(data => {
                 // Inserta el contenido de a.html en el div con id "contenidoDeA"
