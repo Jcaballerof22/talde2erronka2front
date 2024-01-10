@@ -25,52 +25,31 @@ body {
     text-align: center;
 }
 
-#cerrarVentana{
+#cerrarVentanaLangile{
     /* position: absolute; */
     margin-top: -46vh;
     margin-left: 35vh;
 }
 
-#Label {
+/* #Label {
     display: block;
     font-size: 3em;
     margin-bottom: 1vh;
     margin-left: -27vh;
-}
+} */
 
-#textoPersonalizado{
-    margin-left: -5vh;    
-}
-
-#grupoSelect{
-    margin-left: -38vh;
-    margin-top: 2vh;
-}
-
-#aceptar{
-    margin-top: 8vh;
-    margin-left: 28vh;
-}
-
-/* sasas */
-
-#submitGrupo{
+#submitLangile{
     margin-left: 35vh;
 }
 
-#nombreGrupo{
-    margin-left: -25vh;
-    font-size: 2.5em;
-
-}
-
-#apellidoGrupo{
-    margin-left: -25vh;
+#gruposLabelLangile{
+    margin-left: -15vh;
     font-size: 2.5em;
 }
 
-#codigo{
-     margin-left: -35vh;
+#apellidoLabelLangile{
+    margin-left: -25vh;
+    font-size: 2.5em;
 }
 
 .fondo-oculto {
@@ -88,11 +67,7 @@ body {
     display: block; /* Muestra el fondo oscuro */
 }
 
-#opcion{
-    margin-left: 5vh;
-}
-
-#gruposLangile{
-    margin-left: -10vh;
+#nombreLabelLangile{
+    margin-left: -25vh;
     font-size: 2.5em;
 }

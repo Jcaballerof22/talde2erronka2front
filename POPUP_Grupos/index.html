@@ -9,22 +9,22 @@
 </head>
 <body>
 
-<button id="mostrarVentana">Mostrar Ventana</button>
+<button id="mostrarVentanaGrupos">Mostrar Ventana</button>
 
-<div id="fondoOscuro" class="fondo-oculto"></div>
+<div id="fondoOscuroGrupos" class="fondo-oculto"></div>
 
-<div id="ventanaEmergente" class="ventana-oculta">
+<div id="ventanaEmergenteGrupos" class="ventana-oculta">
     <div class="contenido-ventana">
         <div>
         <!-- Contenido de la ventana -->
-        <button type="button" class="btn-close" aria-label="Close" id="cerrarVentana"></button>
+        <button type="button" class="btn-close" aria-label="Close" id="cerrarVentanaGrupos"></button>
 
         <form action="file:///C:/Users/Ikasle/Documents/GitHub/talde2erronka2/POPUP_Grupos/tu_archivo_php.php" method="post">
-            <label for="mensaje" id="nombreGrupo">Nombre:</label><br><br>
-            <textarea id="mensaje" name="mensaje" rows="1" cols="50" placeholder="Ingresa tu mensaje aquí"></textarea>
+            <label for="mensaje" id="nombreLabelGrupos">Nombre:</label><br><br>
+            <textarea id="nombreTextoGrupos" name="mensaje" rows="1" cols="50" placeholder="Ingresa tu mensaje aquí"></textarea>
             <br><br>
-            <label for="mensaje" id="codigoGrupo">Codigo:</label><br><br>
-            <textarea id="codigo" name="codigo" rows="1" cols="5" placeholder=""></textarea>
+            <label for="mensaje" id="codigoLabelGrupos">Codigo:</label><br><br>
+            <textarea id="codigoTextoGrupos" name="codigo" rows="1" cols="5" placeholder=""></textarea>
             <br><br>
             <input id="submitGrupo" type="submit" class="btn btn-warning" value="Enviar">
         </form>
