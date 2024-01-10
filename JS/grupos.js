@@ -1,5 +1,5 @@
 async function a() {
-    fetch('http://localhost/Cosos/Erronka/talde2erronka2back/Erronka2/public/api/grupos', { method: 'GET'})
+    fetch('../../talde2erronka2back/Erronka2/public/api/grupos', { method: 'GET'})
         .then(response => response.json())
         .then(data => {
             console.log(data); 
