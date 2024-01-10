@@ -55,7 +55,7 @@ body {
 /* sadasdsa */
 
 #submitGrupo{
-    margin-left: 25vh;
+    margin-left: 35vh;
 }
 
 #nombreGrupo{
@@ -71,4 +71,19 @@ body {
 
 #codigo{
      margin-left: -35vh;
+}
+
+.fondo-oculto {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+    z-index: 998; /* Z-index menor que la ventana emergente */
+}
+
+.mostrar-fondo {
+    display: block; /* Muestra el fondo oscuro */
 }
