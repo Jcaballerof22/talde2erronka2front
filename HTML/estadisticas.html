@@ -10,9 +10,9 @@
 <body>
 
     <div class="container">
+        <button type="button" class="btn añadir btn-lg">Roles</button>
         <button type="button" class="btn añadir btn-lg">Tratamientos</button>
         <button type="button" class="btn añadir btn-lg">Alumnos</button>
-        <button type="button" class="btn añadir btn-lg">Roles</button>
 
         <div class="input-group">
             <input type="text" class="form-control" placeholder="Buscar por nombre">
@@ -24,8 +24,10 @@
         </div>
     </div>
 
-    <canvas id="grafikoa" style="max-width: 500px; max-height: 400px;"></canvas>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="../JS/estadisticas.js"></script>
+    <div class="d-flex align-items-center justify-content-center">
+        <canvas id="grafikoa" style="max-width: 700px; max-height: 600px;"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="../JS/estadisticas.js"></script>
+    </div>
 </body>
 </html>
