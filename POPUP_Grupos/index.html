@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es"><head>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <title>Ventana Emergente</title>
+</head>
+<body>
+
+<button id="mostrarVentanaGrupos">Mostrar Ventana</button>
+
+<div id="fondoOscuroGrupos" class="fondo-oculto"></div>
+
+<div id="ventanaEmergenteGrupos" class="ventana-oculta">
+    <div class="contenido-ventana">
+        <div>
+        <!-- Contenido de la ventana -->
+        <button type="button" class="btn-close" aria-label="Close" id="cerrarVentanaGrupos"></button>
+
+        <form action="file:///C:/Users/Ikasle/Documents/GitHub/talde2erronka2/POPUP_Grupos/tu_archivo_php.php" method="post">
+            <label for="mensaje" id="nombreLabelGrupos">Nombre:</label><br><br>
+            <textarea id="nombreTextoGrupos" name="mensaje" rows="1" cols="50" placeholder="Ingresa tu mensaje aquí"></textarea>
+            <br><br>
+            <label for="mensaje" id="codigoLabelGrupos">Codigo:</label><br><br>
+            <textarea id="codigoTextoGrupos" name="codigo" rows="1" cols="5" placeholder=""></textarea>
+            <br><br>
+            <input id="submitGrupo" type="submit" class="btn btn-warning" value="Enviar">
+        </form>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script src="bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
+</body></html>

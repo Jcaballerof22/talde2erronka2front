@@ -192,3 +192,29 @@ body{
 .form-select{
     width: 150px;
 }
+
+.tablaHorarios{
+  display:none;
+}
+
+.contenidoTabla{
+  background-color: rgb(255, 255, 255);
+  padding: 50px;
+  z-index: 1000;
+  position: relative;
+}
+
+.fondo-oculto {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+  z-index: 997; /* Z-index menor que la ventana emergente */
+}
+
+.mostrar-fondo {
+  display: block; /* Muestra el fondo oscuro */
+}
