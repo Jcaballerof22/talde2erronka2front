@@ -13,7 +13,7 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
+    position: fixed;
 }
 
 h1{
@@ -115,6 +115,10 @@ body, html {
 
 .contenido{
     margin-left: 8vw;
+}
+.containerPage{
+  padding-top: 20vh;
+  padding-left: 10vw;
 }
 
 /* Tablas */
