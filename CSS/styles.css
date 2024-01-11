@@ -238,7 +238,7 @@ body{
   border: 2px solid black;
 }
 
-.fondo-oculto {
+.fondo-ocultoHorarios {
   display: none;
   position: fixed;
   top: 0;
