@@ -1,10 +1,10 @@
-body {
+/* body {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-}
+} */
 
 .ventana-oculta {
     display: none;
@@ -30,13 +30,6 @@ body {
     margin-top: -1vh;
     margin-left: 19vh;
 }
-
-/* #Label {
-    display: block;
-    font-size: 3em;
-    margin-bottom: 1vh;
-    margin-left: -27vh;
-} */
 
 #submitGrupo{
     margin-left: 35vh;
