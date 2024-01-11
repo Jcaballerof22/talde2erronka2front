@@ -44,7 +44,7 @@ body, html {
     top: 0;
     left: 0;
     height: 100%;
-    width: 100px; /* Ancho inicial del menú */
+    width: 100px; 
     background-color: #CDDFA0;
     overflow-x: hidden;
     transition: 0.5s;
@@ -104,7 +104,7 @@ body, html {
   }
   
   .menu-items a:hover {
-    color: #ffcc00; /* Cambia el color al pasar el cursor */
+    color: #ffcc00; 
   }
 
   li:hover{
@@ -247,12 +247,12 @@ body{
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
-  z-index: 997; /* Z-index menor que la ventana emergente */
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 997; 
 }
 
 .mostrar-fondo {
-  display: block; /* Muestra el fondo oscuro */
+  display: block; 
 }
 
 /* POPUP Langile */
@@ -303,8 +303,8 @@ body{
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
-  z-index: 998; /* Z-index menor que la ventana emergente */
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 998; 
 }
 
 #nombreLabelLangile{
@@ -365,8 +365,8 @@ body{
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
-  z-index: 998; /* Z-index menor que la ventana emergente */
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 998; 
 }
 
 .mostrar-fondo {display: block;}
