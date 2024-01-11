@@ -1,48 +1,31 @@
-var app = new Vue({
-    el: '#app',
-    data: {
-        titulo: "HOME"
-    },
-    methods: {
-        cambiarTitulo(nuevoValor){
-            this.titulo = nuevoValor;
-        }
-    },
-    watch:{
-        titulo: function(nuevoValor) {
-            fetch(nuevoValor+'.html')
+fetch('menu.html')
             .then(response => response.text())
             .then(data => {
                 // Inserta el contenido de a.html en el div con id "contenidoDeA"
                 document.getElementById('orrialdea').innerHTML = data;
-
-                // Elimina el script anterior si existe
-                var scriptAnterior = document.getElementById("scriptDinamico");
-                if (scriptAnterior) {
-                    scriptAnterior.remove();
-                }
-
-                // Crea un nuevo script y asigna su src según la opción seleccionada
-                var nuevoScript = document.createElement("script");
-                nuevoScript.id = "scriptDinamico";
-                nuevoScript.onload = function() {
-                    console.log("Script cargado exitosamente");
-                };
-                nuevoScript.src = "../JS/"+ nuevoValor.toLowerCase() + ".js"; // Asigna el nombre del script según la opción
-
-                // Agrega el nuevo script al cuerpo del documento
-                document.body.appendChild(nuevoScript);
             })
             .catch(error => console.error('Error al obtener el contenido:', error));
-        }
+
+function openMenu() {
+    var menuContainer = document.querySelector('.menu-container');
+    var menuTexts = menuContainer.querySelectorAll('.menu-text');
+    
+    menuContainer.style.width = '250px'; // Ancho del menú desplegado
+    
+    // Mostrar todos los textos
+    menuTexts.forEach(function (text) {
+        text.style.display = 'inline';
+    });
     }
-
-});
-
-fetch('home.html')
-            .then(response => response.text())
-            .then(data => {
-                // Inserta el contenido de a.html en el div con id "contenidoDeA"
-                document.getElementById('orrialdea').innerHTML = data;
-            })
-            .catch(error => console.error('Error al obtener el contenido:', error));
+    
+    function closeMenu() {
+    var menuContainer = document.querySelector('.menu-container');
+    var menuTexts = menuContainer.querySelectorAll('.menu-text');
+    
+    menuContainer.style.width = '100px'; // Ancho inicial del menú
+    
+    // Ocultar todos los textos
+    menuTexts.forEach(function (text) {
+        text.style.display = 'none';
+    });
+}

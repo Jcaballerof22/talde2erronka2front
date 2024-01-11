@@ -12,7 +12,7 @@
 <body>
     <div id="app">
         <header>
-            <h1> {{titulo}} </h1>
+            <h1 id="titulo"> {{titulo}} </h1>
             <div class="hroles">
                 <p>Mostrador: Julio</p>
                 <p>Limpieza: Mikel</p>
@@ -22,48 +22,63 @@
         <div class="menu-container">
             <div class="menu" onmouseover="openMenu()" onmouseout="closeMenu()">
             <ul class="menu-items">
-                <li @click="cambiarTitulo('HOME')">
-                <img src="../IMG/home.png" alt="Menu Icon" class="menu-icon">
-                <span class="menu-text"><b>Home</b></span>
+                <a href="../HTML/Home.html">
+                    <li>
+                        <img src="../IMG/home.png" alt="Menu Icon" class="menu-icon">
+                        <span class="menu-text"><b>Home</b></span>
+                    </li>
+                </a>
+                <a href="../HTML/Productos.html">
+                    <li>
+                        <img src="../IMG/productos.png" alt="Image 1" class="menu-icon">
+                        <span class="menu-text"><b>Productos</b></span>
+                    </li>
+                </a>
+                <a href="../HTML/Material.html">
+                    <li>
+                        <img src="../IMG/material.png" alt="Image 2" class="menu-icon">
+                        <span class="menu-text"><b>Material</b></span>
+                    </li>
+                </a>
+                <a href="../HTML/Alumnos.html">
+                    <li>
+                        <img src="../IMG/alumnos.png" alt="Image 3" class="menu-icon">
+                        <span class="menu-text"><b>Alumnos</b></span>
+                    </li>
+                </a>
+                <a href="../HTML/Grupos.html">
+                    <li>
+                        <img src="../IMG/grupos.png" alt="Image 3" class="menu-icon">
+                        <span class="menu-text"><b>Grupos</b></span>
+                    </li>
+                </a>
+                <a href="../HTML/Estadísticas.html">
+                    <li>
+                        <img src="../IMG/estadisticas.png" alt="Image 3" class="menu-icon">
+                        <span class="menu-text"><b>Estadísticas</b></span>
+                    </li>
+                </a>
+                <a href="../HTML/Historial.html">
+                    <li>
+                        <img src="../IMG/historial.png" alt="Image 3" class="menu-icon">
+                        <span class="menu-text"><b>Historial</b></span>
+                    </li>
+                </a>
+                <a href="../HTML/Tickets.html">
+                    <li>
+                        <img src="../IMG/tikets.png" alt="Image 3" class="menu-icon">
+                        <span class="menu-text"><b>Tickets</b></span>
                 </li>
-                <li @click="cambiarTitulo('PRODUCTOS')">
-                <img src="../IMG/productos.png" alt="Image 1" class="menu-icon">
-                <span class="menu-text"><b>Productos</b></span>
-                </li>
-                <li @click="cambiarTitulo('MATERIAL')">
-                <img src="../IMG/material.png" alt="Image 2" class="menu-icon">
-                <span class="menu-text"><b>Material</b></span>
-                </li>
-                <li @click="cambiarTitulo('ALUMNOS')">
-                <img src="../IMG/alumnos.png" alt="Image 3" class="menu-icon">
-                <span class="menu-text"><b>Alumnos</b></span>
-                </li>
-                <li @click="cambiarTitulo('GRUPOS')">
-                <img src="../IMG/grupos.png" alt="Image 3" class="menu-icon">
-                <span class="menu-text"><b>Grupos</b></span>
-                </li>
-                <li @click="cambiarTitulo('ESTADISTICAS')">
-                <img src="../IMG/estadisticas.png" alt="Image 3" class="menu-icon">
-                <span class="menu-text"><b>Estadísticas</b></span>
-                </li>
-                <li @click="cambiarTitulo('HISTORIAL')">
-                <img src="../IMG/historial.png" alt="Image 3" class="menu-icon">
-                <span class="menu-text"><b>Historial</b></span>
-                </li>
-                <li @click="cambiarTitulo('TIKETS')">
-                <img src="../IMG/tikets.png" alt="Image 3" class="menu-icon">
-                <span class="menu-text"><b>Tickets</b></span>
-                </li>
-                <li @click="cambiarTitulo('FICHAS')">
-                <img src="../IMG/fichas.png" alt="Image 3" class="menu-icon">
-                <span class="menu-text"><b>Fichas</b></span>
-                </li>
+                </a>
+                <a href="../HTML/Fichas.html">
+                    <li>
+                        <img src="../IMG/fichas.png" alt="Image 3" class="menu-icon">
+                        <span class="menu-text"><b>Fichas</b></span>
+                    </li>
+                </a>
             </ul>
             </div>
         </div>
     </div>
-    <div class="contenido" id="orrialdea"></div>
 </body>
 </html>
-
-<script src="../JS/header.js"></script>

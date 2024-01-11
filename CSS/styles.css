@@ -7,6 +7,7 @@ header{
     width: 100vw;
     height: 13vh;
     margin-bottom: 10vh;
+    margin-left: -8vw;
     background-color: #E99857;
     font-size: 5vh;
     display: flex;
@@ -332,3 +333,5 @@ body{
   background: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
   z-index: 998; /* Z-index menor que la ventana emergente */
 }
+
+.mostrar-fondo {display: block;}
