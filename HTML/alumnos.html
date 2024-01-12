@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link rel="stylesheet" href="../CSS/styles.css">
@@ -19,13 +20,11 @@
                     <textarea id="nombreTextoLangile" name="mensaje" rows="1" cols="50" placeholder="Ingresa tu mensaje aquí" v-model="izena"></textarea>
                     <br><br>
                     <label for="mensaje" id="apellidoLabelLangile">Apellido:</label><br><br>
-                    <textarea id="apellidoTextoLangile" name="mensaje" rows="1" cols="50" placeholder=""></textarea>
+                    <textarea id="apellidoTextoLangile" name="mensaje" rows="1" cols="50" placeholder="" v-model="abizenak"></textarea>
                     <br><br>
                     <label for="mensaje" id="gruposLabelLangile">Grupos:&nbsp</label>
-                    <select id="opcionLangile" class="btn btn-secondary dropdown-toggle" name="opcion">
-                        <option value="opcion1">Opción 1</option>
-                        <option value="opcion2">Opción 2</option>
-                        <option value="opcion3">Opción 3</option>
+                    <select class="form-select" aria-label="Default select example" v-model="kodea">
+                        <option   v-for="(dato,index) in datosTalde" :key="index" :value="dato.kodea">{{ dato.izena }}</option>
                     </select>
                     <br><br>
                     <input id="submitLangile" type="submit" class="btn btn-warning" @click="addDatos" value="Enviar">

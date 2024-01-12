@@ -27,6 +27,9 @@ var app = new Vue({
                     });
             //
                 }
+        },
+        abrirPopup(){
+            //lodelPopup
         }
     },
     watch:{},
