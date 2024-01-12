@@ -32,6 +32,7 @@ var upHorario = new Vue({
         jueves: "",
         viernes: "",
         datos: [],
+        grupo: [],
     },
     methods: {
         nombresGrupo(){
@@ -47,13 +48,24 @@ var upHorario = new Vue({
                 }
             });
         },
-        cambiar(){
-            console.log(this.lunes)            
+        grupoSeleccionado(){
+            fetch('../../talde2erronka2back/Erronka2/public/api/horarios', { method: 'GET'})
+            .then(response => response.json())
+            .then(data => {
+                console.log(data); 
+                console.log(data.length);
+                for (let i = 0; i < data.length; i++) {
+                    // Obtén la referencia de la tabla por su id
+                    this.grupo.push({"IZENA" : data[i].IZENA});
+                    console.log(data[i].IZENA);
+                }
+            });
         }
     },
     watch:{},
     mounted: function() {
         this.nombresGrupo();
+        this.grupoSeleccionado();
         // //
         //         fetch('../../talde2erronka2back/Erronka2/public/api/horarios', { method: 'GET' })
         //             .then(response => response.json())
