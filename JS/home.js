@@ -5,24 +5,23 @@ document.addEventListener('DOMContentLoaded', function() {
         // window.alert('aaaaaaaaaaaaaaaaaaaaAAAAAAAAAAAAAAAA');
     })
     
-});
-
-document.getElementById('cerrarHorarios').addEventListener('click', function() {
-    document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
-    document.getElementById('tablaHorarios').style.display = 'none';
-});
-
-document.getElementById('fondoOscuro').addEventListener('click', function(event) {
-    if (event.target === this) {
-        ocultarVentana();
+    document.getElementById('cerrarHorarios').addEventListener('click', function() {
+        document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
+        document.getElementById('tablaHorarios').style.display = 'none';
+    });
+    
+    document.getElementById('fondoOscuro').addEventListener('click', function(event) {
+        if (event.target === this) {
+            ocultarVentana();
+        }
+    });
+    
+    function ocultarVentana() {
+        document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
+        document.getElementById('tablaHorarios').style.display = 'none';
     }
+
 });
-
-function ocultarVentana() {
-    document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
-    document.getElementById('tablaHorarios').style.display = 'none';
-}
-
 
 var upHorario = new Vue({
     el: '#upHorario',
