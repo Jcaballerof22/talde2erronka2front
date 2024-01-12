@@ -34,7 +34,7 @@
                             <i class="bi bi-x"></i>
                         </button>
                     </div>
-                    <table class="table table-hover table-striped">
+                    <table id="tabla" class="table table-hover table-striped">
                     <thead>
                     <tr>
                         <th scope="col">Día</th>
@@ -42,7 +42,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    <!-- <tr>
                         <td>Lunes</td>
                         <td>
                             <select class="form-select" aria-label="Default select example">
@@ -88,9 +88,12 @@
                             <option value="2">PEL2</option>
                             <option value="3">PEL3</option>
                         </select></td>
-                    </tr>
+                    </tr> -->
                     </tbody>
                     </table>
+                    <div class="input-group-horarios">
+                        <button type="button" id="aceptarHorarios" class="btn añadir btn-lg" onclick="updateHorarios()">Aceptar</button>
+                    </div>
                 </div>
             </div>
         </div>
