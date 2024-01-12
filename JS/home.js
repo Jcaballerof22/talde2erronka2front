@@ -29,8 +29,9 @@ var upHorario = new Vue({
     data: {
         lunes: "",
         martes: "",
-        izena: "",
-        kodea: "",
+        miercoles: "",
+        jueves: "",
+        viernes: "",
         datos: [],
     },
     methods: {
@@ -43,12 +44,12 @@ var upHorario = new Vue({
                 console.log(data); 
                 for (let i = 0; i < data.length; i++) {
                     // Obtén la referencia de la tabla por su id
-                    this.datos.push({"izena" : data[i].izena});
+                    this.datos.push({"izena" : data[i].izena, "kodea" : data[i].kodea});
                 }
             });
         },
-        cambiar(event){
-            console.log(event.target.value)            
+        cambiar(){
+            console.log(this.lunes)            
         }
     },
     watch:{},
