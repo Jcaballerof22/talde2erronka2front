@@ -13,7 +13,7 @@ var app = new Vue({
                 }else{
                     var js = JSON.stringify({"kodea": this.kodea, "izena": this.izena}); 
                     console.log("froga: "+js);
-                    fetch('../../talde2erronka2back/Erronka2/public/api/grupos/txertatu', {method: 'POST', body: js})
+                    fetch('../../talde2erronka2back/Erronka2/public/api/grupos/txertatu', {method: 'POST', body: js, mode: 'no-cors'})
                     .then(function (response) {
                             return response.text();
                     })
@@ -34,7 +34,7 @@ var app = new Vue({
         // Código que se ejecuta cuando la instancia Vue se ha montado en el DOM
         console.log('La instancia Vue se ha montado en el DOM.');
         // Puedes realizar operaciones adicionales aquí
-        fetch('../../talde2erronka2back/Erronka2/public/api/grupos', { method: 'GET'})
+        fetch('../../talde2erronka2back/Erronka2/public/api/grupos', { method: 'GET', mode: 'no-cors'})
         .then(response => response.json())
         .then(data => {
             console.log(data); 
