@@ -15,7 +15,7 @@ async function b() {
                 var celdaNumeroAlumnos = fila.insertCell(1);
     
                 // Agrega contenido a las celdas
-                celdaNombre.innerHTML = data[i].izena + " " + data[i].abizena;
+                celdaNombre.innerHTML = data[i].izena + " " + data[i].abizenak;
                 celdaNumeroAlumnos.innerHTML = data[i].taldea;
             }
         });
