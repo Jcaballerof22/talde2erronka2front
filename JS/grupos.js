@@ -43,3 +43,35 @@ function ocultarVentana() {
     document.getElementById('fondoOscuroGrupos').classList.remove('mostrar-fondo');
     document.getElementById('ventanaEmergenteGrupos').style.display = 'none';
 }
+
+function insertar(){
+    kodea = document.getElementById('codigoTextoGrupos').value;
+    izena = document.getElementById('nombreTextoGrupos').value;
+    if(kodea=="" || izena==""){
+        alert("Datu falta dira")
+    }else{
+        var datos = {kodea, izena};
+        var js = JSON.stringify(datos); 
+        console.log("froga: "+js);
+
+        fetch('../../talde2erronka2back/Erronka2/public/api/grupos/txertatu', {method: 'POST', body: js})
+        .then(function (response) {
+                return response.text();
+        })
+        .then(data=>{
+            console.log(data);
+            // if(data.match("No hay stock suficiente")){
+            //     if(confirm("No puedes insertar más stock. Deseas añadir?")){
+            //         gehituStock();
+            //     }else{
+
+            //     }
+            //     alert(etiketa + " txertatuta");
+            // }
+            //AQUÍ UN WINDOW PROMPT DEL STOCK DISPONIBLE DE ESE EKIPAMENDU
+        })
+        .catch(error => {
+            console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+        });
+    }
+}
