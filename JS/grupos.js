@@ -1,10 +1,12 @@
 var app = new Vue({
     el: '#app',
     data: {
+        bilatu: '',
         izena: "",
         kodea: "",
         aldatu: '',
         datos: [],
+        taula: [],
     },
     methods: {
         addDatuak(){
@@ -65,10 +67,53 @@ var app = new Vue({
                     .catch(error => {
                         console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
                     });
-        }
+        },
+        
+        buscar(){
+            if (this.bilatu == ''){
+                this.taula = this.datos;
+            }else{
+                this.taula = [];
+                for (let i = 0; i < this.datos.length; i++){
+                    if(this.datos[i].izena.startsWith(this.bilatu)){
+                        console.log(this.datos[i].izena + " " + this.datos[i].langileKop+ " " + this.datos[i].kodea)
+                        this.taula.push({"izena" : this.datos[i].izena, "langileKop" : this.datos[i].langileKop,  "kodea" : this.datos[i].kodea});
+                    }
+                }
+            }
+        },
 
+        ezabatu(kodea){
+            var js = JSON.stringify({"kodea": kodea}); 
+            console.log("froga: "+js);
+            fetch('../../talde2erronka2back/Erronka2/public/api/grupos/ezabatu', {method: 'PUT', body: js})
+                    .then(function (response) {
+                            return response.text();
+                    })
+                    .then(data=>{
+                        console.log(data);
+                        this.taula = this.taula.filter(aux => aux.kodea !== kodea);
+                    })
+                    .catch(error => {
+                        console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+                    });
+        }
     },
-    watch:{},
+    watch:{
+        bilatu: function(){
+            if (this.bilatu == ''){
+                this.taula = this.datos;
+            }else{
+                this.taula = [];
+                for (let i = 0; i < this.datos.length; i++){
+                    if(this.datos[i].izena.startsWith(this.bilatu)){
+                        console.log(this.datos[i].izena + " " + this.datos[i].langileKop+ " " + this.datos[i].kodea)
+                        this.taula.push({"izena" : this.datos[i].izena, "langileKop" : this.datos[i].langileKop,  "kodea" : this.datos[i].kodea});
+                    }
+                }
+            }
+        }
+    },
     mounted: function() {
         // Código que se ejecuta cuando la instancia Vue se ha montado en el DOM
         console.log('La instancia Vue se ha montado en el DOM.');
@@ -82,6 +127,7 @@ var app = new Vue({
                 this.datos.push({"izena" : data[i].izena, "langileKop" : data[i].langileak, "kodea" : data[i].kodea});
             }
         });
+        this.buscar();
       }
 });
 
