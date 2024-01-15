@@ -43,36 +43,38 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>Lunes {{lunes}}</td>
+                        <td>Lunes</td>
                         <td>
                             <select class="form-select" aria-label="Default select example" v-model="lunes">
-                                <option   v-for="(dato,index) in datos" :key="index" :value="dato.kodea">{{ dato.izena }}</option>
-                                <option selected>{{ grupo[index].IZENA }}</option>
+                                <!-- <option :value="grupo[0].IZENA" selected>{{ grupo[0].IZENA }}</option> -->
+                                <!-- <option selected>a</option> -->
+                                <!-- <option   v-for="(grupos,index) in grupo" :key="index" :value="grupos.IZENA" >{{ grupos.IZENA }}</option> -->
+                                <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td>Martes</td>
                         <td><select class="form-select" aria-label="Default select example" v-model="martes">
-                            <option   v-for="(dato,index) in datos" :key="index" :value="dato.kodea">{{ dato.izena }}</option>
+                            <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                         </select></td>
                     </tr>
                     <tr>
                         <td>Miércoles</td>
                         <td><select class="form-select" aria-label="Default select example" v-model="miercoles">
-                            <option   v-for="(dato,index) in datos" :key="index" :value="dato.kodea">{{ dato.izena }}</option>
+                            <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                         </select></td>
                     </tr>
                     <tr>
                         <td>Jueves</td>
                         <td><select class="form-select" aria-label="Default select example" v-model="jueves">
-                            <option   v-for="(dato,index) in datos" :key="index" :value="dato.kodea">{{ dato.izena }}</option>
+                            <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                         </select></td>
                     </tr>
                     <tr>
                         <td>Viernes</td>
                         <td><select class="form-select" aria-label="Default select example" v-model="viernes">
-                            <option   v-for="(dato,index) in datos" :key="index" :value="dato.kodea">{{ dato.izena }}</option>
+                            <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                         </select></td>
                     </tr>
                     </tbody>

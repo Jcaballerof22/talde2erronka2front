@@ -21,6 +21,50 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('tablaHorarios').style.display = 'none';
     }
 
+    document.getElementById('aceptarHorarios').addEventListener('click', function() {
+        var filas = document.getElementById('tabla').getElementsByTagName('tr');
+        var datosActualizados = [];
+
+        for (var i = 1; i < filas.length; i++) { 
+            var celdas = filas[i].getElementsByTagName('td');
+            var dia = celdas[0].innerHTML;
+            var grupoSelect = celdas[1].getElementsByTagName('select')[0];
+            var grupoSeleccionado = grupoSelect.options[grupoSelect.selectedIndex].value;
+            
+            if (grupoSeleccionado != "") {
+                updateDia(i, grupoSeleccionado)
+            }
+        }
+
+        console.log(datosActualizados);
+        
+    });
+
+    function updateDia(eguna, izena) {
+                            var datos = {izena, eguna};
+                                var js = JSON.stringify(datos); 
+                                console.log("froga: "+js);
+
+                            fetch('../../talde2erronka2back/Erronka2/public/api/horarios/editatu', {
+                                method: 'PUT',
+                                
+                                body: js,
+                            })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Error en la solicitud');
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                console.log('Respuesta del servidor:', data.message);
+                                ocultarVentana();
+                            })
+                            .catch(error => {
+                                console.error('Error al actualizar los datos en el servidor:', error.message);
+                            });
+                        }
+
 });
 
 var upHorario = new Vue({
@@ -59,8 +103,37 @@ var upHorario = new Vue({
                     this.grupo.push({"IZENA" : data[i].IZENA});
                     console.log(data[i].IZENA);
                 }
+                this.lunes=data[0].IZENA;
+                this.martes=data[1].IZENA;
+                this.miercoles=data[2].IZENA;
+                this.jueves=data[3].IZENA;
+                this.viernes=data[4].IZENA;
             });
-        }
+        },
+        // updateDia(eguna, izena) {
+        //     var datos = {izena, eguna};
+        //         var js = JSON.stringify(datos); 
+        //         console.log("froga: "+js);
+
+        //     fetch('../../talde2erronka2back/Erronka2/public/api/horarios/editatu', {
+        //         method: 'PUT',
+                
+        //         body: js,
+        //     })
+        //     .then(response => {
+        //         if (!response.ok) {
+        //             throw new Error('Error en la solicitud');
+        //         }
+        //         return response.json();
+        //     })
+        //     .then(data => {
+        //         console.log('Respuesta del servidor:', data.message);
+        //         ocultarVentana();
+        //     })
+        //     .catch(error => {
+        //         console.error('Error al actualizar los datos en el servidor:', error.message);
+        //     });
+        // }
     },
     watch:{},
     mounted: function() {
