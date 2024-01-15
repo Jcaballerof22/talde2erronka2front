@@ -47,6 +47,7 @@
                         <td>
                             <select class="form-select" aria-label="Default select example" v-model="lunes">
                                 <option   v-for="(dato,index) in datos" :key="index" :value="dato.kodea">{{ dato.izena }}</option>
+                                <option selected>{{ grupo[index].IZENA }}</option>
                             </select>
                         </td>
                     </tr>
