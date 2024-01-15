@@ -24,7 +24,7 @@
                         <label for="mensaje" id="codigoLabelGrupos">Codigo:</label><br><br>
                         <textarea id="codigoTextoGrupos" name="codigo" rows="1" cols="5" v-model="kodea" placeholder="">{{kodea}}</textarea>
                         <br><br>
-                        <input id="submitGrupo" type="button" class="btn btn-warning" @click="addDatos" value="Enviar">
+                        <input id="submitGrupo" type="button" class="btn btn-warning" @click="txertatuEdoAldatu" value="Enviar">
                     
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                     <button class="btn lupa" type="button">
                         <i class="bi bi-search"></i>
                     </button>
-                    <button id="mostrarVentanaGrupos" type="button" class="btn añadir btn-lg">Añadir Grupo</button>
+                    <button id="mostrarVentanaGrupos" type="button" class="btn añadir btn-lg" @click="abrirPopup('', '', '')">Añadir Grupo</button>
                     </div>
                     
                 </div>
@@ -51,7 +51,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(dato, index) in datos" :key="index" @click="abrirPopup">
+                        <tr v-for="(dato, index) in datos" :key="index" @click="abrirPopup(dato.kodea, dato.izena, dato.kodea)" :id="dato.kodea">
                             <td>{{ dato.izena }}</td>
                             <td>{{ dato.langileKop }}</td>
                         </tr>

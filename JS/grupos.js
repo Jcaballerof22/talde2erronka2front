@@ -3,10 +3,11 @@ var app = new Vue({
     data: {
         izena: "",
         kodea: "",
+        aldatu: '',
         datos: [],
     },
     methods: {
-        addDatos(){
+        addDatuak(){
             //
                 if(this.kodea=="" || this.izena==""){
                     alert("Datu falta dira")
@@ -28,9 +29,44 @@ var app = new Vue({
             //
                 }
         },
-        abrirPopup(){
+        abrirPopup(kodea, izena, aldatu){
             //lodelPopup
+            this.aldatu = aldatu;
+            this.izena = izena;
+            this.kodea = kodea;
+            document.getElementById('fondoOscuroGrupos').classList.add('mostrar-fondo');
+            document.getElementById('ventanaEmergenteGrupos').style.display = 'block';
+        },
+
+        txertatuEdoAldatu(){
+            if(this.aldatu != ''){
+                this.aldatuDatuak();
+            }else{
+                this.addDatuak();
+            }
+        },
+
+        aldatuDatuak(){
+            var js = JSON.stringify({"kodea": this.kodea, "izena": this.izena}); 
+            console.log("froga: "+js);
+            fetch('../../talde2erronka2back/Erronka2/public/api/grupos/editatu', {method: 'PUT', body: js})
+                    .then(function (response) {
+                            return response.text();
+                    })
+                    .then(data=>{
+                        console.log(data);
+                        for (let i = 0; i < this.datos.length; i++) {
+                            if (this.datos[i].kodea == this.aldatu){
+                                this.datos[i].kodea = this.kodea;
+                                this.datos[i].izena = this.izena;
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+                    });
         }
+
     },
     watch:{},
     mounted: function() {
@@ -43,17 +79,17 @@ var app = new Vue({
             console.log(data); 
             for (let i = 0; i < data.length; i++) {
                 // Obtén la referencia de la tabla por su id
-                this.datos.push({"izena" : data[i].izena, "langileKop" : data[i].langileak});
+                this.datos.push({"izena" : data[i].izena, "langileKop" : data[i].langileak, "kodea" : data[i].kodea});
             }
         });
       }
 });
 
 
-document.getElementById('mostrarVentanaGrupos').addEventListener('click', function() {
-    document.getElementById('fondoOscuroGrupos').classList.add('mostrar-fondo');
-    document.getElementById('ventanaEmergenteGrupos').style.display = 'block';
-});
+// document.getElementById('mostrarVentanaGrupos').addEventListener('click', function() {
+//     document.getElementById('fondoOscuroGrupos').classList.add('mostrar-fondo');
+//     document.getElementById('ventanaEmergenteGrupos').style.display = 'block';
+// });
 
 document.getElementById('cerrarVentanaGrupos').addEventListener('click', function() {
     ocultarVentana();
