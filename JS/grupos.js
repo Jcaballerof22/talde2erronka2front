@@ -22,7 +22,7 @@ var app = new Vue({
                     })
                     .then(data=>{
                         console.log(data);
-                        this.datos.push({"izena" : this.izena, "langileKop" : "0"});
+                        this.datos.push({"izena" : this.izena, "langileKop" : "0", "kodea" : this.kodea});
                         
                     })
                     .catch(error => {

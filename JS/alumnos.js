@@ -6,9 +6,12 @@ var app = new Vue({
         datos: [],
         datosTalde : [],
         abizenak: "",
+        bilatu: '',
+        aldatu: '',
+        taula: [],
     },
     methods: {
-        addDatos(){
+        addDatuak(){
             //
                 if(this.abizenak=="" || this.izena==""){
                     alert("Datu falta dira")
@@ -42,7 +45,86 @@ var app = new Vue({
                     this.datosTalde.push({"izena" : data[i].izena, "kodea" : data[i].kodea});
                 }
             });
+        },
+
+        abrirPopup(langilea_izena, langilea_abizenak, taldea_izena, aldatu){
+            //lodelPopup
+            this.aldatu = aldatu;
+            this.izena = langilea_izena;
+            this.abizenak = langilea_abizenak;
+            this.taldea_izena = taldea_izena;
+             
+            document.getElementById('fondoOscuroGrupos').classList.add('mostrar-fondo');
+            document.getElementById('ventanaEmergenteGrupos').style.display = 'block';
+        },
+
+        txertatuEdoAldatu(){
+            if(this.aldatu != ''){
+                this.aldatuDatuak();
+            }else{
+                this.addDatuak();
+            }
+        },
+
+        aldatuDatuak(){
+            var js = JSON.stringify({"kodea": this.kodea, "izena": this.izena}); 
+            console.log("froga: "+js);
+            fetch('../../talde2erronka2back/Erronka2/public/api/alumnos/editatu', {method: 'PUT', body: js})
+                    .then(function (response) {
+                            return response.text();
+                    })
+                    .then(data=>{
+                        console.log(data);
+                        for (let i = 0; i < this.datos.length; i++) {
+                            if (this.datos[i].kodea == this.aldatu){
+                                this.datos[i].langilea_izena = this.izena;
+                                this.datos[i].langilea_abizenak = this.abizenak;
+                                for (let j = 0; j < this.datosTalde.length; j++) {
+                                    if (this.datosTalde[j].kodea == this.kodea){
+                                        this.datos[i].taldea_izena = this.datosTalde[j].kodea;
+                                    }
+                                }
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+                    });
+        },
+
+        buscar(){
+            if (this.bilatu == ''){
+                this.taula = this.datos;
+            }else{
+                this.taula = [];
+                for (let i = 0; i < this.datos.length; i++){
+                    if(this.datos[i].izena.startsWith(this.bilatu)){
+                        for (let j = 0; j < this.datosTalde.length; j++) {
+                            if (this.datosTalde[j].kodea == this.kodea){
+                                this.taula.push({"langilea_izena" : this.izena, "langilea_abizenak" : this.abizenak, "taldea_izena" : datosTalde[j].kodea,});
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        ezabatu(id){
+            var js = JSON.stringify({"id": id}); 
+            console.log("froga: "+js);
+            fetch('../../talde2erronka2back/Erronka2/public/api/alumnos/ezabatu', {method: 'PUT', body: js})
+                    .then(function (response) {
+                            return response.text();
+                    })
+                    .then(data=>{
+                        console.log(data);
+                        this.taula = this.taula.filter(aux => aux.id !== id);
+                    })
+                    .catch(error => {
+                        console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+                    });
         }
+
     },
     watch:{},
     mounted: function() {
