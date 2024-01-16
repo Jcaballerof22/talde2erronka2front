@@ -24,7 +24,7 @@ var app = new Vue({
                     })
                     .then(data=>{
                         console.log(data);
-                        this.datos.push({"langilea_izena" : this.izena, "langilea_abizenak" : this.abizenak, "taldea_izena" : this.kodea});
+                        this.datos.push({"izena" : this.izena, "abizenak" : this.abizenak, "kodea" : this.kodea, "id" : data});
                     })
                     .catch(error => {
                         console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
@@ -47,15 +47,16 @@ var app = new Vue({
             });
         },
 
-        abrirPopup(langilea_izena, langilea_abizenak, taldea_izena, aldatu){
+        abrirPopup(kodea, izena, abizenak, id){
             //lodelPopup
-            this.aldatu = aldatu;
-            this.izena = langilea_izena;
-            this.abizenak = langilea_abizenak;
-            this.taldea_izena = taldea_izena;
+            this.aldatu = id;
+            this.izena = izena;
+            this.abizenak = abizenak;
+            this.kodea = kodea;
+            this.id = id
              
-            document.getElementById('fondoOscuroGrupos').classList.add('mostrar-fondo');
-            document.getElementById('ventanaEmergenteGrupos').style.display = 'block';
+            document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
+            document.getElementById('ventanaEmergenteLangile').style.display = 'block';
         },
 
         txertatuEdoAldatu(){
@@ -67,7 +68,7 @@ var app = new Vue({
         },
 
         aldatuDatuak(){
-            var js = JSON.stringify({"kodea": this.kodea, "izena": this.izena}); 
+            var js = JSON.stringify({"kodea": this.kodea, "izena": this.izena, "id": this.id, "abizenak": this.abizenak}); 
             console.log("froga: "+js);
             fetch('../../talde2erronka2back/Erronka2/public/api/alumnos/editatu', {method: 'PUT', body: js})
                     .then(function (response) {
@@ -76,14 +77,10 @@ var app = new Vue({
                     .then(data=>{
                         console.log(data);
                         for (let i = 0; i < this.datos.length; i++) {
-                            if (this.datos[i].kodea == this.aldatu){
-                                this.datos[i].langilea_izena = this.izena;
-                                this.datos[i].langilea_abizenak = this.abizenak;
-                                for (let j = 0; j < this.datosTalde.length; j++) {
-                                    if (this.datosTalde[j].kodea == this.kodea){
-                                        this.datos[i].taldea_izena = this.datosTalde[j].kodea;
-                                    }
-                                }
+                            if (this.datos[i].id == this.aldatu){
+                                this.datos[i].izena = this.izena;
+                                this.datos[i].abizenak = this.abizenak;
+                                this.datos[i].kodea = this.kodea;
                             }
                         }
                     })
@@ -99,11 +96,7 @@ var app = new Vue({
                 this.taula = [];
                 for (let i = 0; i < this.datos.length; i++){
                     if(this.datos[i].izena.startsWith(this.bilatu)){
-                        for (let j = 0; j < this.datosTalde.length; j++) {
-                            if (this.datosTalde[j].kodea == this.kodea){
-                                this.taula.push({"langilea_izena" : this.izena, "langilea_abizenak" : this.abizenak, "taldea_izena" : datosTalde[j].kodea,});
-                            }
-                        }
+                        this.taula.push({"izena" : this.datos[i].izena, "abizenak" : this.datos[i].abizenak, "kodea" : this.datos[i].kodea, "id" : this.datos[i].id});
                     }
                 }
             }
@@ -126,7 +119,20 @@ var app = new Vue({
         }
 
     },
-    watch:{},
+    watch:{
+        bilatu: function(){
+            if (this.bilatu == ''){
+                this.taula = this.datos;
+            }else{
+                this.taula = [];
+                for (let i = 0; i < this.datos.length; i++){
+                    if(this.datos[i].izena.startsWith(this.bilatu)){
+                        this.taula.push({"izena" : this.datos[i].izena, "abizenak" : this.datos[i].abizenak, "kodea" : this.datos[i].kodea, "id" : this.datos[i].id});
+                    }
+                }
+            }
+        }
+    },
     mounted: function() {
         this.nombresGrupo()
         // Código que se ejecuta cuando la instancia Vue se ha montado en el DOM
@@ -139,9 +145,10 @@ var app = new Vue({
             for (let i = 0; i < data.length; i++) {
                 console.log(data);
                 // Obtén la referencia de la tabla por su id
-                this.datos.push({"langilea_izena" : data[i].langilea_izena, "langilea_abizenak" : data[i].langilea_abizenak, "taldea_izena" : data[i].taldea_izena});
+                this.datos.push({"izena" : data[i].izena, "abizenak" : data[i].abizenak, "kodea" : data[i].kodea, "id" : data[i].id});
             }
         });
+        this.buscar();
       }
 });
 

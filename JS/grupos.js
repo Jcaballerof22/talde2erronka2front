@@ -31,9 +31,9 @@ var app = new Vue({
             //
                 }
         },
-        abrirPopup(kodea, izena, aldatu){
+        abrirPopup(kodea, izena){
             //lodelPopup
-            this.aldatu = aldatu;
+            this.aldatu = kodea;
             this.izena = izena;
             this.kodea = kodea;
             document.getElementById('fondoOscuroGrupos').classList.add('mostrar-fondo');

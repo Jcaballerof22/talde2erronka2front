@@ -49,13 +49,13 @@
                     <tr>
                         <th scope="col">Nombre</th>
                         <th scope="col">Número de alumnos</th>
-                        <th></th>
+                        <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
                         <tr v-for="(dato, index) in taula" :key="index" :id="dato.kodea">
-                            <td @click="abrirPopup(dato.kodea, dato.izena, dato.kodea)">{{ dato.izena }}</td>
-                            <td @click="abrirPopup(dato.kodea, dato.izena, dato.kodea)">{{ dato.langileKop }}</td>
+                            <td @click="abrirPopup(dato.kodea, dato.izena)">{{ dato.izena }}</td>
+                            <td @click="abrirPopup(dato.kodea, dato.izena)">{{ dato.langileKop }}</td>
                             <td>
                                 <i class="bi bi-trash-fill" @click="ezabatu(dato.kodea)"></i>
                             </td>

@@ -27,19 +27,19 @@
                         <option   v-for="(dato,index) in datosTalde" :key="index" :value="dato.kodea">{{ dato.izena }}</option>
                     </select>
                     <br><br>
-                    <input id="submitLangile" type="submit" class="btn btn-warning" @click="addDatos" value="Enviar">
+                    <input id="submitLangile" type="submit" class="btn btn-warning" @click="txertatuEdoAldatu" value="Enviar">
                 
             </div>
         </div>
         <div class="containerPage">
             
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Buscar por nombre">
+                <input type="text" class="form-control" placeholder="Buscar por nombre" v-model="bilatu">
                 <div class="input-group-append">
-                  <button class="btn lupa" type="button">
+                  <button class="btn lupa" type="button" @click="buscar">
                     <i class="bi bi-search"></i>
                   </button>
-                  <button id="mostrarVentanaLangile" type="button" class="btn añadir btn-lg">Añadir Alumno</button>
+                  <button id="mostrarVentanaLangile" type="button" class="btn añadir btn-lg" @click="abrirPopup('', '', '', '')">Añadir Alumno</button>
                 </div>
                 
             </div>
@@ -49,17 +49,17 @@
                 <tr>
                     <th scope="col">Nombre</th>
                     <th scope="col">Grupo</th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Ander Fernández</td>
-                    <td>PEL1</td>
-                </tr>
-                <tr v-for="(dato, index) in datos" :key="index">
-                    <td>{{dato.langilea_izena}} {{ dato.langilea_abizenak }}</td>
-                    <td>{{ dato.taldea_izena }}</td>
-                </tr>
+                    <tr v-for="(dato, index) in taula" :key="index" :id="dato.id">
+                        <td @click="abrirPopup(dato.kodea, dato.izena, dato.abizenak, dato.id)">{{dato.izena}} {{dato.abizenak}}</td>
+                        <td @click="abrirPopup(dato.kodea, dato.izena, dato.abizenak, dato.id)">{{dato.kodea}}</td>
+                        <td>
+                            <i class="bi bi-trash-fill" @click="ezabatu(dato.id)"></i>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
