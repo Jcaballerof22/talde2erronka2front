@@ -21,7 +21,7 @@
                     </button>
                     <button type="button" class="btn añadir btn-lg">Nueva Cita</button>
                     <button type="button" class="btn añadir btn-lg">Asignar Roles</button>
-                    <button type="button" id="editarHorarios" class="btn añadir btn-lg" @click="mostrarVentana()">Editar Horario</button>
+                    <button type="button" id="editarHorarios" class="btn añadir btn-lg" @click="mostrarVentana()">Editar Horario</button> 
                 </div>
             </div>
 
@@ -40,6 +40,8 @@
                     <tr>
                         <th scope="col">Día</th>
                         <th scope="col">Grupo</th>
+                        <th scope="col">Fecha Inicio</th>
+                        <th scope="col">Fecha Fin</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -53,30 +55,40 @@
                                 <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                             </select>
                         </td>
+                        <td>{{ grupo[0].HASIERA_DATA }}</td>
+                        <td>{{ grupo[0].AMAIERA_DATA }}</td>
                     </tr>
                     <tr>
                         <td>Martes</td>
                         <td><select class="form-select" aria-label="Default select example" v-model="martes">
                             <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                         </select></td>
+                        <td>{{ grupo[1].HASIERA_DATA }}</td>
+                        <td>{{ grupo[1].AMAIERA_DATA }}</td>
                     </tr>
                     <tr>
                         <td>Miércoles</td>
                         <td><select class="form-select" aria-label="Default select example" v-model="miercoles">
                             <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                         </select></td>
+                        <td>{{ grupo[2].HASIERA_DATA }}</td>
+                        <td>{{ grupo[2].AMAIERA_DATA }}</td>
                     </tr>
                     <tr>
                         <td>Jueves</td>
                         <td><select class="form-select" aria-label="Default select example" v-model="jueves">
                             <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                         </select></td>
+                        <td>{{ grupo[3].HASIERA_DATA }}</td>
+                        <td>{{ grupo[3].AMAIERA_DATA }}</td>
                     </tr>
                     <tr>
                         <td>Viernes</td>
                         <td><select class="form-select" aria-label="Default select example" v-model="viernes">
                             <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                         </select></td>
+                        <td>{{ grupo[4].HASIERA_DATA }}</td>
+                        <td>{{ grupo[4].AMAIERA_DATA }}</td>
                     </tr>
                     </tbody>
                     </table>

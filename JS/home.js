@@ -106,7 +106,7 @@ var upHorario = new Vue({
                 console.log(data.length);
                 for (let i = 0; i < data.length; i++) {
                     // Obtén la referencia de la tabla por su id
-                    this.grupo.push({"IZENA" : data[i].IZENA});
+                    this.grupo.push({"IZENA" : data[i].IZENA, "HASIERA_DATA" : data[i].HASIERA_DATA, "AMAIERA_DATA" : data[i].AMAIERA_DATA});
                     console.log(data[i].IZENA);
                 }
                 this.lunes=data[0].IZENA;
