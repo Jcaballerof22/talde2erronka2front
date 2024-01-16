@@ -17,3 +17,8 @@ function ocultarVentana() {
     document.getElementById('fondoOscuroGrupos').classList.remove('mostrar-fondo');
     document.getElementById('ventanaEmergenteGrupos').style.display = 'none';
 }
+
+function seleccionarOpcion(texto) {
+    var dropdownButton = document.getElementById("miDropdown");
+    dropdownButton.innerHTML = texto + ' <span class="caret"></span>';
+}

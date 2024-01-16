@@ -16,7 +16,7 @@
     padding-top: 4vh;
     padding-bottom: 6vh;
     padding-left: 7vh;
-    padding-right: 6vh;
+    padding-right: 0vh;
     background-color: white;
     z-index: 999;
 }
@@ -33,6 +33,32 @@
 
 #submitGrupo{
     margin-left: 35vh;
+}
+
+#nombreLabelCitas{
+    font-size: 2.5em;
+}
+
+#observacionesLabelCitas{
+    margin-left: -11vh;
+    font-size: 2.5em;
+}
+
+#telefonoLabelCitas{
+    margin-left: -23vh;
+    font-size: 2.5em;
+}
+
+#delCentro{
+    font-size: 1.3em;
+}
+
+#horaInicio{
+    font-size: 1.5em;
+}
+
+#horaFin{
+    font-size: 1.5em;
 }
 
 #nombreLabelGrupos{
