@@ -1,69 +1,75 @@
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('editarHorarios').addEventListener('click', function() {
-        document.getElementById('tablaHorarios').style.display = 'block';
-        document.getElementById('fondoOscuro').classList.add('mostrar-fondo');
-        // window.alert('aaaaaaaaaaaaaaaaaaaaAAAAAAAAAAAAAAAA');
-    })
+    // document.getElementById('editarHorarios').addEventListener('click', function() {
+    //     document.getElementById('tablaHorarios').style.display = 'block';
+    //     document.getElementById('fondoOscuro').classList.add('mostrar-fondo');
+    //     window.alert('aaaaaaaaaaaaaaaaaaaaAAAAAAAAAAAAAAAA');
+    // })
     
-    document.getElementById('cerrarHorarios').addEventListener('click', function() {
-        document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
-        document.getElementById('tablaHorarios').style.display = 'none';
-    });
-    
-    document.getElementById('fondoOscuro').addEventListener('click', function(event) {
-        if (event.target === this) {
-            ocultarVentana();
-        }
-    });
-    
-    function ocultarVentana() {
-        document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
-        document.getElementById('tablaHorarios').style.display = 'none';
-    }
+    // ocultar ventana
+    // document.getElementById('cerrarHorarios').addEventListener('click', function() {
+    //     document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
+    //     document.getElementById('tablaHorarios').style.display = 'none';
+    // });
 
-    document.getElementById('aceptarHorarios').addEventListener('click', function() {
-        var filas = document.getElementById('tabla').getElementsByTagName('tr');
-        var datosActualizados = [];
+    // ocultar ventana
+    // document.getElementById('cancelarHorarios').addEventListener('click', function() {
+    //     document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
+    //     document.getElementById('tablaHorarios').style.display = 'none';
+    // });
+    
+    // document.getElementById('fondoOscuro').addEventListener('click', function(event) {
+    //     if (event.target === this) {
+    //         ocultarVentana();
+    //     }
+    // });
 
-        for (var i = 1; i < filas.length; i++) { 
-            var celdas = filas[i].getElementsByTagName('td');
-            var dia = celdas[0].innerHTML;
-            var grupoSelect = celdas[1].getElementsByTagName('select')[0];
-            var grupoSeleccionado = grupoSelect.options[grupoSelect.selectedIndex].value;
+    
+    
+    
+
+    // document.getElementById('aceptarHorarios').addEventListener('click', function() {
+    //     var filas = document.getElementById('tabla').getElementsByTagName('tr');
+    //     var datosActualizados = [];
+
+    //     for (var i = 1; i < filas.length; i++) { 
+    //         var celdas = filas[i].getElementsByTagName('td');
+    //         var dia = celdas[0].innerHTML;
+    //         var grupoSelect = celdas[1].getElementsByTagName('select')[0];
+    //         var grupoSeleccionado = grupoSelect.options[grupoSelect.selectedIndex].value;
             
-            if (grupoSeleccionado != "") {
-                updateDia(i, grupoSeleccionado)
-            }
-        }
+    //         if (grupoSeleccionado != "") {
+    //             updateDia(i, grupoSeleccionado)
+    //         }
+    //     }
 
-        console.log(datosActualizados);
+    //     console.log(datosActualizados);
         
-    });
+    // });
 
-    function updateDia(eguna, izena) {
-                            var datos = {izena, eguna};
-                                var js = JSON.stringify(datos); 
-                                console.log("froga: "+js);
+    // function updateDia(eguna, izena) {
+    //                         var datos = {izena, eguna};
+    //                             var js = JSON.stringify(datos); 
+    //                             console.log("froga: "+js);
 
-                            fetch('../../talde2erronka2back/Erronka2/public/api/horarios/editatu', {
-                                method: 'PUT',
+    //                         fetch('../../talde2erronka2back/Erronka2/public/api/horarios/editatu', {
+    //                             method: 'PUT',
                                 
-                                body: js,
-                            })
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Error en la solicitud');
-                                }
-                                return response.json();
-                            })
-                            .then(data => {
-                                console.log('Respuesta del servidor:', data.message);
-                                ocultarVentana();
-                            })
-                            .catch(error => {
-                                console.error('Error al actualizar los datos en el servidor:', error.message);
-                            });
-                        }
+    //                             body: js,
+    //                         })
+    //                         .then(response => {
+    //                             if (!response.ok) {
+    //                                 throw new Error('Error en la solicitud');
+    //                             }
+    //                             return response.json();
+    //                         })
+    //                         .then(data => {
+    //                             console.log('Respuesta del servidor:', data.message);
+    //                             ocultarVentana();
+    //                         })
+    //                         .catch(error => {
+    //                             console.error('Error al actualizar los datos en el servidor:', error.message);
+    //                         });
+    //                     }
 
 });
 
@@ -110,6 +116,56 @@ var upHorario = new Vue({
                 this.viernes=data[4].IZENA;
             });
         },
+        ocultarVentana() {
+            document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
+            document.getElementById('tablaHorarios').style.display = 'none';
+        },
+        mostrarVentana(){
+            document.getElementById('tablaHorarios').style.display = 'block';
+            document.getElementById('fondoOscuro').classList.add('mostrar-fondo');
+        },
+        updateDia(eguna, izena) {
+            var datos = {izena, eguna};
+                var js = JSON.stringify(datos); 
+                console.log("froga: "+js);
+
+            fetch('../../talde2erronka2back/Erronka2/public/api/horarios/editatu', {
+                method: 'PUT',
+                
+                body: js,
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la solicitud');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Respuesta del servidor:', data.message);
+                this.ocultarVentana();
+            })
+            .catch(error => {
+                console.error('Error al actualizar los datos en el servidor:', error.message);
+            });
+        },
+        aceptarCambios(){
+            var filas = document.getElementById('tabla').getElementsByTagName('tr');
+            var datosActualizados = [];
+    
+            for (var i = 1; i < filas.length; i++) { 
+                var celdas = filas[i].getElementsByTagName('td');
+                var dia = celdas[0].innerHTML;
+                var grupoSelect = celdas[1].getElementsByTagName('select')[0];
+                var grupoSeleccionado = grupoSelect.options[grupoSelect.selectedIndex].value;
+                
+                if (grupoSeleccionado != "") {
+                    this.updateDia(i, grupoSeleccionado)
+                }
+            }
+    
+            console.log(datosActualizados);
+        },
+        
         // updateDia(eguna, izena) {
         //     var datos = {izena, eguna};
         //         var js = JSON.stringify(datos); 
