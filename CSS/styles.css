@@ -137,7 +137,7 @@ body{
     cursor: pointer;
 }
 
-/* Añadir botoia */
+/* Botón añadir */
 .añadir{
     background-color: #E99857;
     border-color: black;
@@ -154,6 +154,25 @@ body{
 }
 .añadir:active {
     background-color: #dd6d12;
+}
+
+/*Botón cancelar*/
+.cancelar{
+  background-color: #d8d7d6;
+  border-color: black;
+  color:black;
+  margin: 15px;
+  height: 45px;
+}
+
+.cancelar:hover{
+  background-color: #a8a8a8;
+  border-color: black;
+  color:black;
+  margin: 15px;
+}
+.cancelar:active {
+  background-color: #dd6d12;
 }
 
 /* Botón X editar horarios */
