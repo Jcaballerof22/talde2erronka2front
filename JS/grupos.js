@@ -11,10 +11,10 @@ var app = new Vue({
     methods: {
         addDatuak(){
             //
-                if(this.kodea=="" || this.izena==""){
+                if(this.izena==""){
                     alert("Datu falta dira")
                 }else{
-                    var js = JSON.stringify({"kodea": this.kodea, "izena": this.izena}); 
+                    var js = JSON.stringify({"izena": this.izena}); 
                     console.log("froga: "+js);
                     fetch('../../talde2erronka2back/Erronka2/public/api/grupos/txertatu', {method: 'POST', body: js, mode: 'no-cors'})
                     .then(function (response) {
@@ -22,7 +22,7 @@ var app = new Vue({
                     })
                     .then(data=>{
                         console.log(data);
-                        this.datos.push({"izena" : this.izena, "langileKop" : "0", "kodea" : this.kodea});
+                        this.datos.push({"izena" : this.izena, "langileKop" : "0", "kodea" : data});
                         
                     })
                     .catch(error => {
@@ -46,6 +46,8 @@ var app = new Vue({
             }else{
                 this.addDatuak();
             }
+            document.getElementById('fondoOscuroGrupos').classList.remove('mostrar-fondo');
+            document.getElementById('ventanaEmergenteGrupos').style.display = 'none';
         },
 
         aldatuDatuak(){

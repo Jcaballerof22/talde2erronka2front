@@ -65,6 +65,8 @@ var app = new Vue({
             }else{
                 this.addDatuak();
             }
+            document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
+            document.getElementById('ventanaEmergenteLangile').style.display = 'none';
         },
 
         aldatuDatuak(){

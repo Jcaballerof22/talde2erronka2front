@@ -55,7 +55,7 @@
                 <tbody>
                     <tr v-for="(dato, index) in taula" :key="index" :id="dato.id">
                         <td @click="abrirPopup(dato.kodea, dato.izena, dato.abizenak, dato.id)">{{dato.izena}} {{dato.abizenak}}</td>
-                        <td @click="abrirPopup(dato.kodea, dato.izena, dato.abizenak, dato.id)">{{dato.kodea}}</td>
+                        <td @click="abrirPopup(dato.kodea, dato.izena, dato.abizenak, dato.id)" v-for="(dato2, index2) in datosTalde" v-if="dato2.kodea == dato.kodea">{{dato2.izena}}</td>
                         <td>
                             <i class="bi bi-trash-fill" @click="ezabatu(dato.id)"></i>
                         </td>
