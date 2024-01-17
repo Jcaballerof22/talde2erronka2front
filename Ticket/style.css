@@ -1,0 +1,91 @@
+/* body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+} */
+
+.ventana-oculta {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid black;
+    padding-top: 8vh;
+    padding-bottom: 6vh;
+    padding-left: 10vh;
+    padding-right: 6vh;
+    background-color: white;
+    z-index: 999;
+}
+
+.contenido-ventana {
+    text-align: center;
+}
+
+#cerrarVentanaLangile{
+    /* position: absolute; */
+    margin-top: -46vh;
+    margin-left: 35vh;
+}
+
+/* #Label {
+    display: block;
+    font-size: 3em;
+    margin-bottom: 1vh;
+    margin-left: -27vh;
+} */
+#generarFichaTicket{
+    margin-left: 15vh;
+}
+
+#finalizarTicket{
+    margin-left: 5vh;
+}
+
+#gruposLabelLangile{
+    margin-left: -15vh;
+    font-size: 2.5em;
+}
+
+#apellidoLabelLangile{
+    margin-left: -25vh;
+    font-size: 2.5em;
+}
+
+#tratamientosLabelTicket{
+    font-size: 2.5em;
+    margin-left: -18vh;
+}
+
+#precioLabelTicket{
+    font-size: 2.5em;
+    margin-left: -2vh;
+}
+
+#precioAPagar{
+    font-size: 1.5em;
+    margin-left: 5vh;
+}
+
+.fondo-oculto {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+    z-index: 998; /* Z-index menor que la ventana emergente */
+}
+
+.mostrar-fondo {
+    display: block; /* Muestra el fondo oscuro */
+}
+
+#nombreLabelLangile{
+    margin-left: -25vh;
+    font-size: 2.5em;
+}
