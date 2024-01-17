@@ -326,8 +326,8 @@ body{
 
 #cerrarVentanaLangile{
   /* position: absolute; */
-  margin-top: -46vh;
-  margin-left: 35vh;
+  margin-top: -36vh;
+  margin-left: 45vh;
 }
 
 #submitLangile{
@@ -418,3 +418,9 @@ body{
 }
 
 .mostrar-fondo {display: block;}
+
+/* POPUP ReservarMaterial */
+
+#reservarMaterial{
+  margin-left: 40vh;
+}
