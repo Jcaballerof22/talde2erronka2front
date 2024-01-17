@@ -87,13 +87,11 @@ var upHorario = new Vue({
     methods: {
         nombresGrupo(){
             console.log('La instancia Vue se ha montado en el DOM.');
-            // Puedes realizar operaciones adicionales aquí
             fetch('../../talde2erronka2back/Erronka2/public/api/grupos', { method: 'GET'})
             .then(response => response.json())
             .then(data => {
                 console.log(data); 
                 for (let i = 0; i < data.length; i++) {
-                    // Obtén la referencia de la tabla por su id
                     this.datos.push({"izena" : data[i].izena, "kodea" : data[i].kodea});
                 }
             });
@@ -105,7 +103,6 @@ var upHorario = new Vue({
                 console.log(data); 
                 console.log(data.length);
                 for (let i = 0; i < data.length; i++) {
-                    // Obtén la referencia de la tabla por su id
                     this.grupo.push({"IZENA" : data[i].IZENA, "HASIERA_DATA" : data[i].HASIERA_DATA, "AMAIERA_DATA" : data[i].AMAIERA_DATA});
                     console.log(data[i].IZENA);
                 }
