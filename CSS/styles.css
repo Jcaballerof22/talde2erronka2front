@@ -175,6 +175,22 @@ body{
   background-color: #dd6d12;
 }
 
+/*Botón papelera*/
+.papelera{
+  background-color: #d8d7d6;
+  border-color: black;
+  color:black;
+  /* margin: 15px;
+  height: 45px; */
+}
+
+.papelera:hover{
+  background-color: #a8a8a8;
+  border-color: black;
+  color:black;
+  /* margin: 15px; */
+}
+
 /* Botón X editar horarios */
 .x{
   /* background-color: #E99857;
@@ -229,6 +245,14 @@ body{
     align-items: center;
     justify-content: end;
     margin: 15px;
+}
+.input-group-estadisticas{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15px;
+  align-content: center;
+  flex-wrap: wrap;
 }
 
 .input-group-append{

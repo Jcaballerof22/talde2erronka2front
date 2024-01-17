@@ -99,6 +99,12 @@ var app = new Vue({
                     .catch(error => {
                         console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
                     });
+        },
+
+        teclado(event){
+            if(event.key == "Enter"){
+                this.txertatuEdoAldatu();
+            }
         }
     },
     watch:{
