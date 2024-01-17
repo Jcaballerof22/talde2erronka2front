@@ -1,9 +1,9 @@
 const data = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  labels: ['Jon', 'Mikel', 'Ander', 'Izaskun', 'Asier', 'Sergio', 'Erik'],
   datasets: [
       {
           label: 'Limpieza',
-          data: [50, 75, 30, 40, 60, 80, 20],
+          data: [3, 7, 5, 10, 1, 6, 2],
           borderColor: 'orange',
           backgroundColor: 'rgba(233, 152, 87, 0.5)',
           borderWidth: 2,
@@ -12,7 +12,7 @@ const data = {
       },
       {
           label: 'Recepción',
-          data: [30, 45, 20, 30, 50, 70, 10],
+          data: [3, 5, 2, 5, 7, 9, 10],
           borderColor: 'green',
           backgroundColor: 'rgba(205, 223, 160, 0.5)',
           borderWidth: 2,
@@ -37,3 +37,4 @@ const config = {
 
 const ctx = document.getElementById('grafikoa').getContext('2d');
 new Chart(ctx, config);
+
