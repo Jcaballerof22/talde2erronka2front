@@ -17,10 +17,10 @@
                 <button type="button" class="btn-close" aria-label="Close" id="cerrarVentanaLangile"></button>
                 
                     <label for="mensaje" id="nombreLabelLangile">Nombre:</label><br><br>
-                    <textarea id="nombreTextoLangile" name="mensaje" rows="1" cols="50" placeholder="Ingresa tu mensaje aquí" v-model="izena"></textarea>
+                    <textarea id="nombreTextoLangile" name="mensaje" rows="1" cols="50" placeholder="Ingresa tu mensaje aquí" v-model="izena" @keyup="teclado" ></textarea>
                     <br><br>
                     <label for="mensaje" id="apellidoLabelLangile">Apellido:</label><br><br>
-                    <textarea id="apellidoTextoLangile" name="mensaje" rows="1" cols="50" placeholder="" v-model="abizenak"></textarea>
+                    <textarea id="apellidoTextoLangile" name="mensaje" rows="1" cols="50" placeholder="" v-model="abizenak" @keyup="teclado" ></textarea>
                     <br><br>
                     <label for="mensaje" id="gruposLabelLangile">Grupos:&nbsp</label>
                     <select class="form-select" aria-label="Default select example" v-model="kodea">
@@ -32,8 +32,10 @@
             </div>
         </div>
         <div class="containerPage">
-            
             <div class="input-group">
+                <select class="form-select" aria-label="Default select example" style="max-width: 10vw; margin-right: 3vw;" v-model="sailkatu">
+                    <option   v-for="(dato,index) in datosTalde" :key="index" :value="dato.kodea">{{ dato.izena }}</option>
+                </select>
                 <input type="text" class="form-control" placeholder="Buscar por nombre" v-model="bilatu">
                 <div class="input-group-append">
                   <button class="btn lupa" type="button" @click="buscar">

@@ -20,7 +20,7 @@
                     <button type="button" class="btn-close" aria-label="Close" id="cerrarVentanaGrupos"></button>
             
                         <label for="mensaje" id="nombreLabelGrupos">Nombre:</label><br><br>
-                        <textarea id="nombreTextoGrupos" name="mensaje" rows="1" cols="50" placeholder="Ingresa tu mensaje aquí" v-model="izena">{{izena}}</textarea>
+                        <textarea id="nombreTextoGrupos" name="mensaje" rows="1" cols="50" placeholder="Ingresa tu mensaje aquí" v-model="izena" @keyup="teclado">{{izena}}</textarea>
                         <br><br>
                         <input id="submitGrupo" type="button" class="btn btn-warning" @click="txertatuEdoAldatu" value="Enviar">
                     

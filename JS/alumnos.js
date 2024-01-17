@@ -8,6 +8,7 @@ var app = new Vue({
         abizenak: "",
         bilatu: '',
         aldatu: '',
+        sailkatu: "all",
         taula: [],
     },
     methods: {
@@ -34,8 +35,7 @@ var app = new Vue({
                 
         },
         nombresGrupo(){
-            console.log('La instancia Vue se ha montado en el DOM.');
-            // Puedes realizar operaciones adicionales aquí
+            this.datosTalde.push({"izena" : "All", "kodea" : "all"});
             fetch('../../talde2erronka2back/Erronka2/public/api/grupos', { method: 'GET'})
             .then(response => response.json())
             .then(data => {
@@ -118,6 +118,12 @@ var app = new Vue({
                     .catch(error => {
                         console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
                     });
+        },
+
+        teclado(event){
+            if(event.key == "Enter"){
+                this.txertatuEdoAldatu();
+            }
         }
 
     },
@@ -133,13 +139,23 @@ var app = new Vue({
                     }
                 }
             }
+        },
+
+        sailkatu: function(){
+            if (this.sailkatu == 'all'){
+                this.taula = this.datos;
+            }else{
+                this.taula = [];
+                for (let i = 0; i < this.datos.length; i++){
+                    if(this.datos[i].kodea == this.sailkatu){
+                        this.taula.push({"izena" : this.datos[i].izena, "abizenak" : this.datos[i].abizenak, "kodea" : this.datos[i].kodea, "id" : this.datos[i].id});
+                    }
+                }
+            }
         }
     },
     mounted: function() {
         this.nombresGrupo()
-        // Código que se ejecuta cuando la instancia Vue se ha montado en el DOM
-        console.log('La instancia Vue se ha montado en el DOM.');
-        // Puedes realizar operaciones adicionales aquí
         fetch('../../talde2erronka2back/Erronka2/public/api/alumnos', { method: 'GET', mode: 'no-cors'})
         .then(response => response.json())
         .then(data => {
