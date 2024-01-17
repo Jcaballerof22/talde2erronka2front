@@ -230,6 +230,14 @@ body{
     justify-content: end;
     margin: 15px;
 }
+.input-group-estadisticas{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15px;
+  align-content: center;
+  flex-wrap: wrap;
+}
 
 .input-group-append{
     margin: 15px;

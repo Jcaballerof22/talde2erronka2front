@@ -37,3 +37,22 @@ const config = {
 
 const ctx = document.getElementById('grafikoa').getContext('2d');
 new Chart(ctx, config);
+
+
+// export default {
+//     data() {
+//       return {
+//         value: ''
+//       }
+//     },
+//     methods: {
+//       dateDisabled(ymd, date) {
+//         // Disable weekends (Sunday = `0`, Saturday = `6`) and
+//         // disable days that fall on the 13th of the month
+//         const weekday = date.getDay()
+//         const day = date.getDate()
+//         // Return `true` if the date should be disabled
+//         return weekday === 0 || weekday === 6 || day === 13
+//       }
+//     }
+//   }
