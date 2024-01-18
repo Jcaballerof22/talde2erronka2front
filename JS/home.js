@@ -77,12 +77,14 @@ var upHorario = new Vue({
     el: '#upHorario',
     data: {
         lunes: "",
+        lunes2: "",
         martes: "",
         miercoles: "",
         jueves: "",
         viernes: "",
         datos: [],
         grupo: [],
+        fecha: [],
     },
     methods: {
         nombresGrupo(){
@@ -105,6 +107,7 @@ var upHorario = new Vue({
                 for (let i = 0; i < data.length; i++) {
                     this.grupo.push({"IZENA" : data[i].IZENA, "HASIERA_DATA" : data[i].HASIERA_DATA, "AMAIERA_DATA" : data[i].AMAIERA_DATA});
                     console.log(data[i].IZENA);
+                    this.fecha.push({"HASIERA_DATA" : data[i].HASIERA_DATA, "AMAIERA_DATA" : data[i].AMAIERA_DATA});
                 }
                 this.lunes=data[0].IZENA;
                 this.martes=data[1].IZENA;
@@ -121,15 +124,16 @@ var upHorario = new Vue({
             document.getElementById('tablaHorarios').style.display = 'block';
             document.getElementById('fondoOscuro').classList.add('mostrar-fondo');
         },
-        updateDia(eguna, izena) {
-            var datos = {izena, eguna};
+        updateDia(eguna, izena, fechaInicio, fechaFin) {
+            console.log("froga2: ");
+            var datos = {izena, eguna, fechaInicio, fechaFin};
                 var js = JSON.stringify(datos); 
                 console.log("froga: "+js);
 
             fetch('../../talde2erronka2back/Erronka2/public/api/horarios/editatu', {
                 method: 'PUT',
                 
-                body: js,
+                body: js
             })
             .then(response => {
                 if (!response.ok) {
@@ -138,7 +142,7 @@ var upHorario = new Vue({
                 return response.json();
             })
             .then(data => {
-                console.log('Respuesta del servidor:', data.message);
+                console.log('Respuesta del servidor:', data);
                 this.ocultarVentana();
             })
             .catch(error => {
@@ -147,21 +151,57 @@ var upHorario = new Vue({
         },
         aceptarCambios(){
             var filas = document.getElementById('tabla').getElementsByTagName('tr');
-            var datosActualizados = [];
-    
+            // var datosActualizados = [];
+            console.log("this.fecha", filas.length);
             for (var i = 1; i < filas.length; i++) { 
+                console.log(this.fecha);
+                // if (i==1){
+                //     this.updateDia(i, "PEL1", null, null);
+                // }
+                if(this.fecha[i-1].HASIERA_DATA==null){
+                    console.log("Kaixo");
+                    this.updateDia(i, "PEL1", this.fecha[i-1].HASIERA_DATA, this.fecha[i-1].AMAIERA_DATA);
+                }
+                else{  
                 var celdas = filas[i].getElementsByTagName('td');
                 var dia = celdas[0].innerHTML;
                 var grupoSelect = celdas[1].getElementsByTagName('select')[0];
                 var grupoSeleccionado = grupoSelect.options[grupoSelect.selectedIndex].value;
-                
+                // console.log(celdas[2].innerHTML);
+
                 if (grupoSeleccionado != "") {
-                    this.updateDia(i, grupoSeleccionado)
+                    console.log("kaixo2");
+                    this.updateDia(i, grupoSeleccionado, this.fecha[i-1].HASIERA_DATA, this.fecha[i-1].AMAIERA_DATA);
+                }
                 }
             }
     
-            console.log(datosActualizados);
+            // console.log(datosActualizados);
         },
+        eliminar(id){
+            this.fecha[id].HASIERA_DATA=null;
+            this.fecha[id].AMAIERA_DATA=null;
+            switch (id) {
+                case 0:
+                    this.lunes2 = this.lunes;
+                    this.lunes="";
+                    break;
+                case 1:
+                    this.martes="";
+                    break;
+                case 2:
+                    this.miercoles="";
+                    break;
+                case 3:
+                    this.jueves="";
+                    break;
+                case 4:
+                    this.viernes="";
+                    break;
+                default:
+                    break;
+            }
+        }
         
         // updateDia(eguna, izena) {
         //     var datos = {izena, eguna};

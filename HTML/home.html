@@ -19,7 +19,7 @@
                         <i class="bi bi-search"></i>
                     </button>
                     <button type="button" class="btn añadir btn-lg">Nueva Cita</button>
-                    <button type="button" class="btn añadir btn-lg">Asignar Roles</button>
+                    <button type="button" id="editarRoles" class="btn añadir btn-lg" @click="mostrarVentana">Asignar Roles</button>
                     <button type="button" id="editarHorarios" class="btn añadir btn-lg" @click="mostrarVentana()">Editar Horario</button> 
                 </div>
             </div>
@@ -55,48 +55,122 @@
                                 <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                             </select>
                         </td>
-                        <td>{{ grupo[0].HASIERA_DATA }}</td>
-                        <td>{{ grupo[0].AMAIERA_DATA }}</td>
-                        <td><button type="button" class="btn papelera btn-sm"><i class="bi bi-trash"></i></button></td>
+                        <td><input type="date" id="birthday" name="birthday" v-model="fecha[0].HASIERA_DATA"></td>
+                        <td><input type="date" id="birthday" name="birthday" v-model="fecha[0].AMAIERA_DATA"></td>
+                        <td><button type="button" class="btn papelera btn-sm" @click="eliminar(0)"><i class="bi bi-trash"></i></button></td>
                     </tr>
                     <tr>
                         <td>Martes</td>
                         <td><select class="form-select" aria-label="Default select example" v-model="martes">
                             <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                         </select></td>
-                        <td>{{ grupo[1].HASIERA_DATA }}</td>
-                        <td>{{ grupo[1].AMAIERA_DATA }}</td>
-                        <td><button type="button" class="btn papelera btn-sm"><i class="bi bi-trash"></i></button></td>
+                        <td><input type="date" id="birthday" name="birthday" v-model="fecha[1].HASIERA_DATA"></td>
+                        <td><input type="date" id="birthday" name="birthday" v-model="fecha[1].AMAIERA_DATA"></td>
+                        <td><button type="button" class="btn papelera btn-sm" @click="eliminar(1)"><i class="bi bi-trash"></i></button></td>
                     </tr>
                     <tr>
                         <td>Miércoles</td>
                         <td><select class="form-select" aria-label="Default select example" v-model="miercoles">
                             <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                         </select></td>
-                        <td>{{ grupo[2].HASIERA_DATA }}</td>
-                        <td>{{ grupo[2].AMAIERA_DATA }}</td>
-                        <td><button type="button" class="btn papelera btn-sm"><i class="bi bi-trash"></i></button></td>
+                        <td><input type="date" id="birthday" name="birthday" v-model="fecha[2].HASIERA_DATA"></td>
+                        <td><input type="date" id="birthday" name="birthday" v-model="fecha[2].AMAIERA_DATA"></td>
+                        <td><button type="button" class="btn papelera btn-sm" @click="eliminar(2)"><i class="bi bi-trash"></i></button></td>
                     </tr>
                     <tr>
                         <td>Jueves</td>
                         <td><select class="form-select" aria-label="Default select example" v-model="jueves">
                             <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                         </select></td>
-                        <td>{{ grupo[3].HASIERA_DATA }}</td>
-                        <td>{{ grupo[3].AMAIERA_DATA }}</td>
-                        <td><button type="button" class="btn papelera btn-sm"><i class="bi bi-trash"></i></button></td>
+                        <td><input type="date" id="birthday" name="birthday" v-model="fecha[3].HASIERA_DATA"></td>
+                        <td><input type="date" id="birthday" name="birthday" v-model="fecha[3].AMAIERA_DATA"></td>
+                        <td><button type="button" class="btn papelera btn-sm" @click="eliminar(3)"><i class="bi bi-trash"></i></button></td>
                     </tr>
                     <tr>
                         <td>Viernes</td>
                         <td><select class="form-select" aria-label="Default select example" v-model="viernes">
                             <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                         </select></td>
-                        <td>{{ grupo[4].HASIERA_DATA }}</td>
-                        <td>{{ grupo[4].AMAIERA_DATA }}</td>
-                        <td><button type="button" class="btn papelera btn-sm"><i class="bi bi-trash"></i></button></td>
+                        <td><input type="date" id="birthday" name="birthday" v-model="fecha[4].HASIERA_DATA"></td>
+                        <td><input type="date" id="birthday" name="birthday" v-model="fecha[4].AMAIERA_DATA"></td>
+                        <td><button type="button" class="btn papelera btn-sm" @click="eliminar(4)"><i class="bi bi-trash"></i></button></td>
                     </tr>
                     </tbody>
                     </table>
+                    <div class="input-group-horarios">
+                        <button type="button" id="aceptarHorarios" class="btn añadir btn-lg" @click="aceptarCambios()">Aceptar</button>
+                        <button type="button" id="cancelarHorarios" class="btn cancelar btn-lg" @click="ocultarVentana()">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tablaRoles" id="tablaRoles">
+                <div class="contenidoTabla">
+                    <div class="input-group-horarios">
+                        <button type="button" id="cerrarHorarios" class="btn x" @click="ocultarVentana()">
+                            <i class="bi bi-x"></i>
+                        </button>
+                    </div>
+
+                    <div class="row align-items-start">
+                        <div class="col-md-8">
+                    <table id="tabla" class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Alumno</th>
+                                <th scope="col">Limpieza</th>
+                                <th scope="col">Mostrador</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Juan</td>
+                                <td>1</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>Paco</td>
+                                <td>4</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>Manolo</td>
+                                <td>3</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>Urzelega</td>
+                                <td>1</td>
+                                <td>4</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <div class="col-md-4">
+                        <h2>Asignar Roles</h2>
+                        <hr>
+                        <h3>Mostrador</h3>
+                        <div class="form-floating">
+                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                              <option selected>Open this select menu</option>
+                              <option value="1">One</option>
+                              <option value="2">Two</option>
+                              <option value="3">Three</option>
+                            </select>
+                            <label for="floatingSelect">Works with selects</label>
+                          </div>
+                        <h3>Limpieza</h3>
+                        <div class="form-floating">
+                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                              <option selected>Open this select menu</option>
+                              <option value="1">One</option>
+                              <option value="2">Two</option>
+                              <option value="3">Three</option>
+                            </select>
+                            <label for="floatingSelect">Works with selects</label>
+                          </div>
+                    </div>
+                </div>
                     <div class="input-group-horarios">
                         <button type="button" id="aceptarHorarios" class="btn añadir btn-lg" @click="aceptarCambios()">Aceptar</button>
                         <button type="button" id="cancelarHorarios" class="btn cancelar btn-lg" @click="ocultarVentana()">Cancelar</button>
