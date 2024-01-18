@@ -424,3 +424,70 @@ body{
 #reservarMaterial{
   margin-left: 40vh;
 }
+
+
+/* POPUP TicketMirar */
+
+#nombreLabelTicketMirar{
+  margin-left: -30vh;
+  font-size: 2.5em;
+}
+
+#tratamientosLabelTicketMirar{
+  font-size: 2.5em;
+  margin-left: -21vh;
+  margin-top: -1vh;
+}
+
+#precioLabelTicketMirar{
+  font-size: 2.5em;
+  margin-left: -2vh;
+}
+
+#precioAPagar{
+    font-size: 1.5em;
+    margin-left: 5vh;
+}
+
+#generarFichaTicketMirar{
+  border-color: black;
+  margin-left: 15vh;
+}
+
+#finalizarTicketMirar{
+  border-color: black;
+  margin-left: 5vh;
+}
+
+#fechaTicketMirar{
+  margin-left: 1vh;
+  margin-right: 1vh;
+}
+
+#datosCliente{
+  font-size: 2.5em;
+}
+
+#cerrarVentanaTicketMirar{
+  margin-top: -36vh;
+  margin-left: 50vh;
+}
+
+@media (max-width: 768px) {
+  #generarFichaTicketMirar {
+      font-size: 12px; /* Tamaño de fuente para pantallas pequeñas */
+  }
+  #finalizarTicketMirar {
+    font-size: 12px; /* Tamaño de fuente para pantallas pequeñas */
+  }
+  #tratamientosLabelTicketMirar{
+    margin-left: -20vh;
+  }
+  #cerrarVentanaTicketMirar{
+    margin-right: 6vh;
+  }
+  #datosCliente{
+    font-size: 2.4em;
+  }
+}
+

@@ -3,7 +3,7 @@ document.getElementById('mostrarVentanaLangile').addEventListener('click', funct
     document.getElementById('ventanaEmergenteLangile').style.display = 'block';
 });
 
-document.getElementById('cerrarVentanaLangile').addEventListener('click', function() {
+document.getElementById('cerrarVentanaTicketMirar').addEventListener('click', function() {
     document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
     document.getElementById('ventanaEmergenteLangile').style.display = 'none';
 });
