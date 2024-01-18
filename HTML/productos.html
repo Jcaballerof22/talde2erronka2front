@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../CSS/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="contenido" id="orrialdea"></div>
+    <div class="containerPage">
+        <div class="input-group-estadisticas">
+            <div>
+                <button type="button" class="btn añadir btn-lg">Champoo</button>
+                <button type="button" class="btn añadir btn-lg">Tinte</button>
+                <button type="button" class="btn añadir btn-lg">Decolorante</button>
+                <button type="button" class="btn añadir btn-lg">Serum</button>
+            </div>
+            
+            <div class="input-group">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Marca
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Revlon</a></li>
+                      <li><a class="dropdown-item" href="#">Belle</a></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </div>
+                <input type="text" class="form-control" placeholder="Buscar por nombre">
+                <div class="input-group-append">
+                    <button class="btn lupa" type="button">
+                        <i class="bi bi-search"></i>
+                    </button>
+                    <button type="button" class="btn añadir btn-lg">Añadir producto</button>
+                </div>
+            </div>
+
+            
+            <table id="tabla" class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Número de alumnos</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(dato, index) in taula" :key="index" :id="dato.kodea">
+                        <td>dfgfdtgretertretertewt</td>
+                        <td>dfgdfgfdgdf</td>
+                        <td>
+                            <i class="bi bi-trash-fill" @click="ezabatu(dato.kodea)"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+<script src="../JS/header.js"></script>
