@@ -19,12 +19,12 @@
                         <i class="bi bi-search"></i>
                     </button>
                     <button type="button" class="btn añadir btn-lg">Nueva Cita</button>
-                    <button type="button" id="editarRoles" class="btn añadir btn-lg" @click="mostrarVentana">Asignar Roles</button>
+                    <button type="button" id="editarRoles" class="btn añadir btn-lg" @click="mostrarRoles">Asignar Roles</button>
                     <button type="button" id="editarHorarios" class="btn añadir btn-lg" @click="mostrarVentana()">Editar Horario</button> 
                 </div>
             </div>
 
-            <div id="fondoOscuro" class="fondo-ocultoHorarios" @click="ocultarVentana()"></div>
+            <div id="fondoOscuro" class="fondo-ocultoHorarios" @click="ocultarVentana(), ocultarRoles()"></div>
 
             <div class="tablaHorarios" id="tablaHorarios">
 
@@ -57,7 +57,7 @@
                         </td>
                         <td><input type="date" id="birthday" name="birthday" v-model="fecha[0].HASIERA_DATA"></td>
                         <td><input type="date" id="birthday" name="birthday" v-model="fecha[0].AMAIERA_DATA"></td>
-                        <td><button type="button" class="btn papelera btn-sm" @click="eliminar(0)"><i class="bi bi-trash"></i></button></td>
+                        <td><button type="button" class="btn papelera btn-sm" @click="eliminar(1)"><i class="bi bi-trash"></i></button></td>
                     </tr>
                     <tr>
                         <td>Martes</td>
@@ -66,7 +66,7 @@
                         </select></td>
                         <td><input type="date" id="birthday" name="birthday" v-model="fecha[1].HASIERA_DATA"></td>
                         <td><input type="date" id="birthday" name="birthday" v-model="fecha[1].AMAIERA_DATA"></td>
-                        <td><button type="button" class="btn papelera btn-sm" @click="eliminar(1)"><i class="bi bi-trash"></i></button></td>
+                        <td><button type="button" class="btn papelera btn-sm" @click="eliminar(2)"><i class="bi bi-trash"></i></button></td>
                     </tr>
                     <tr>
                         <td>Miércoles</td>
@@ -75,7 +75,7 @@
                         </select></td>
                         <td><input type="date" id="birthday" name="birthday" v-model="fecha[2].HASIERA_DATA"></td>
                         <td><input type="date" id="birthday" name="birthday" v-model="fecha[2].AMAIERA_DATA"></td>
-                        <td><button type="button" class="btn papelera btn-sm" @click="eliminar(2)"><i class="bi bi-trash"></i></button></td>
+                        <td><button type="button" class="btn papelera btn-sm" @click="eliminar(3)"><i class="bi bi-trash"></i></button></td>
                     </tr>
                     <tr>
                         <td>Jueves</td>
@@ -84,7 +84,7 @@
                         </select></td>
                         <td><input type="date" id="birthday" name="birthday" v-model="fecha[3].HASIERA_DATA"></td>
                         <td><input type="date" id="birthday" name="birthday" v-model="fecha[3].AMAIERA_DATA"></td>
-                        <td><button type="button" class="btn papelera btn-sm" @click="eliminar(3)"><i class="bi bi-trash"></i></button></td>
+                        <td><button type="button" class="btn papelera btn-sm" @click="eliminar(4)"><i class="bi bi-trash"></i></button></td>
                     </tr>
                     <tr>
                         <td>Viernes</td>
@@ -93,7 +93,7 @@
                         </select></td>
                         <td><input type="date" id="birthday" name="birthday" v-model="fecha[4].HASIERA_DATA"></td>
                         <td><input type="date" id="birthday" name="birthday" v-model="fecha[4].AMAIERA_DATA"></td>
-                        <td><button type="button" class="btn papelera btn-sm" @click="eliminar(4)"><i class="bi bi-trash"></i></button></td>
+                        <td><button type="button" class="btn papelera btn-sm" @click="eliminar(5)"><i class="bi bi-trash"></i></button></td>
                     </tr>
                     </tbody>
                     </table>
@@ -106,11 +106,18 @@
 
             <div class="tablaRoles" id="tablaRoles">
                 <div class="contenidoTabla">
-                    <div class="input-group-horarios">
-                        <button type="button" id="cerrarHorarios" class="btn x" @click="ocultarVentana()">
-                            <i class="bi bi-x"></i>
-                        </button>
+                    <div class="row">
+                        <div class="col">
+                            <h2>Grupo: PEL1</h2>
+                        </div>
+                        
+                        <div class="col input-group-horarios">
+                            <button type="button" id="cerrarHorarios" class="btn x" @click="ocultarRoles()">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
                     </div>
+                    
 
                     <div class="row align-items-start">
                         <div class="col-md-8">
@@ -143,37 +150,50 @@
                                 <td>1</td>
                                 <td>4</td>
                             </tr>
+                            <tr>
+                                <td>Urzelega</td>
+                                <td>1</td>
+                                <td>4</td>
+                            </tr>
                         </tbody>
                     </table>
                     </div>
                     <div class="col-md-4">
                         <h2>Asignar Roles</h2>
                         <hr>
-                        <h3>Mostrador</h3>
-                        <div class="form-floating">
-                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                              <option selected>Open this select menu</option>
-                              <option value="1">One</option>
-                              <option value="2">Two</option>
-                              <option value="3">Three</option>
-                            </select>
-                            <label for="floatingSelect">Works with selects</label>
-                          </div>
-                        <h3>Limpieza</h3>
-                        <div class="form-floating">
-                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                              <option selected>Open this select menu</option>
-                              <option value="1">One</option>
-                              <option value="2">Two</option>
-                              <option value="3">Three</option>
-                            </select>
-                            <label for="floatingSelect">Works with selects</label>
-                          </div>
+                        <div class="row">
+                            <div class="col">
+                                <h3>Mostrador</h3>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                      <option selected>Open this select menu</option>
+                                      <option value="1">One</option>
+                                      <option value="2">Two</option>
+                                      <option value="3">Three</option>
+                                    </select>
+                                    <label for="floatingSelect">Works with selects</label>
+                                  </div>
+                            </div>
+                            <div class="col">
+                                <h3>Limpieza</h3>
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                      <option selected>Open this select menu</option>
+                                      <option value="1">One</option>
+                                      <option value="2">Two</option>
+                                      <option value="3">Three</option>
+                                    </select>
+                                    <label for="floatingSelect">Works with selects</label>
+                                  </div>
+                            </div>
+                        </div>
+                        
+                        
                     </div>
                 </div>
                     <div class="input-group-horarios">
                         <button type="button" id="aceptarHorarios" class="btn añadir btn-lg" @click="aceptarCambios()">Aceptar</button>
-                        <button type="button" id="cancelarHorarios" class="btn cancelar btn-lg" @click="ocultarVentana()">Cancelar</button>
+                        <button type="button" id="cancelarHorarios" class="btn cancelar btn-lg" @click="ocultarRoles()">Cancelar</button>
                     </div>
                 </div>
             </div>

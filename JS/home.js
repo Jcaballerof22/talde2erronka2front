@@ -124,6 +124,14 @@ var upHorario = new Vue({
             document.getElementById('tablaHorarios').style.display = 'block';
             document.getElementById('fondoOscuro').classList.add('mostrar-fondo');
         },
+        ocultarRoles() {
+            document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
+            document.getElementById('tablaRoles').style.display = 'none';
+        },
+        mostrarRoles(){
+            document.getElementById('tablaRoles').style.display = 'block';
+            document.getElementById('fondoOscuro').classList.add('mostrar-fondo');
+        },
         updateDia(eguna, izena, fechaInicio, fechaFin) {
             console.log("froga2: ");
             var datos = {izena, eguna, fechaInicio, fechaFin};
@@ -178,29 +186,41 @@ var upHorario = new Vue({
     
             // console.log(datosActualizados);
         },
-        eliminar(id){
-            this.fecha[id].HASIERA_DATA=null;
-            this.fecha[id].AMAIERA_DATA=null;
-            switch (id) {
-                case 0:
-                    this.lunes2 = this.lunes;
-                    this.lunes="";
-                    break;
-                case 1:
-                    this.martes="";
-                    break;
-                case 2:
-                    this.miercoles="";
-                    break;
-                case 3:
-                    this.jueves="";
-                    break;
-                case 4:
-                    this.viernes="";
-                    break;
-                default:
-                    break;
-            }
+        eliminar(eguna){
+            var js = JSON.stringify({"eguna": eguna});
+            console.log("ezabatu: "+js);
+            fetch('../../talde2erronka2back/Erronka2/public/api/horarios/ezabatu', {method: 'PUT', body: js})
+                    .then(function (response) {
+                            return response.text();
+                    })
+                    .then(data=>{
+                        console.log(data);
+                    })
+                    .catch(error => {
+                        console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+                    });
+            // this.fecha[id].HASIERA_DATA=null;
+            // this.fecha[id].AMAIERA_DATA=null;
+            // switch (id) {
+            //     case 0:
+            //         this.lunes2 = this.lunes;
+            //         this.lunes="";
+            //         break;
+            //     case 1:
+            //         this.martes="";
+            //         break;
+            //     case 2:
+            //         this.miercoles="";
+            //         break;
+            //     case 3:
+            //         this.jueves="";
+            //         break;
+            //     case 4:
+            //         this.viernes="";
+            //         break;
+            //     default:
+            //         break;
+            // }
         }
         
         // updateDia(eguna, izena) {
