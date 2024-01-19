@@ -124,14 +124,6 @@ var upHorario = new Vue({
             document.getElementById('tablaHorarios').style.display = 'block';
             document.getElementById('fondoOscuro').classList.add('mostrar-fondo');
         },
-        ocultarRoles() {
-            document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
-            document.getElementById('tablaRoles').style.display = 'none';
-        },
-        mostrarRoles(){
-            document.getElementById('tablaRoles').style.display = 'block';
-            document.getElementById('fondoOscuro').classList.add('mostrar-fondo');
-        },
         updateDia(eguna, izena, fechaInicio, fechaFin) {
             console.log("froga2: ");
             var datos = {izena, eguna, fechaInicio, fechaFin};
