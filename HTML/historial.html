@@ -12,29 +12,24 @@
     <div class="containerPage">
         <div class="input-group-estadisticas">
             <div>
-                <button type="button" class="btn añadir btn-lg">Champoo</button>
-                <button type="button" class="btn añadir btn-lg">Tinte</button>
-                <button type="button" class="btn añadir btn-lg">Decolorante</button>
-                <button type="button" class="btn añadir btn-lg">Serum</button>
+                <button type="button" class="btn añadir btn-lg">Roles</button>
+                <button type="button" class="btn añadir btn-lg">Productos</button>
+                <button type="button" class="btn añadir btn-lg">Material</button>
             </div>
             
             <div class="input-group">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle me-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Marca
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Revlon</a></li>
-                      <li><a class="dropdown-item" href="#">Belle</a></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
+                <div class="me-4">
+                    <h4>De 
+                    <input type="date" id="birthday" name="birthday">
+                    a 
+                    <input type="date" id="birthday" name="birthday">
+                    </h4>
                 </div>
                 <input type="text" class="form-control" placeholder="Buscar por nombre">
                 <div class="input-group-append">
                     <button class="btn lupa" type="button">
                         <i class="bi bi-search"></i>
                     </button>
-                    <button type="button" class="btn añadir btn-lg">Añadir producto</button>
                 </div>
             </div>
 
@@ -42,15 +37,23 @@
             <table id="tabla" class="table table-hover table-striped">
                 <thead>
                 <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Número de alumnos</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Marca</th>
+                    <th scope="col">Modelo</th>
+                    <th scope="col">Alumno</th>
+                    <th scope="col">Inicio</th>
+                    <th scope="col">Fin</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(dato, index) in taula" :key="index" :id="dato.kodea">
                         <td>dfgfdtgretertretertewt</td>
-                        <td>dfgdfgfdgdf</td>
+                        <td>fgfdgdf</td>
+                        <td>dfgdfsdgdf</td>
+                        <td>dfgdfgdjhkf</td>
+                        <td>dfgdfgdf</td>
+                        <td>dfgdf</td>
                         <td>
                             <i class="bi bi-trash-fill" @click="ezabatu(dato.kodea)"></i>
                         </td>
