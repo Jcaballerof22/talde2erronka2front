@@ -279,6 +279,10 @@ body{
   display:none;
 }
 
+.tablaRoles{
+  display: none;
+}
+
 .contenidoTabla{
   background-color: rgb(255, 255, 255);
   padding: 10px;
