@@ -122,6 +122,23 @@ body, html {
   padding-right: 10vw;
 }
 
+/* Contenido productos */
+.contenido-productos{
+  margin-left: 8vw;
+}
+.containerPage-productos{
+  margin-top: -4vw;
+padding-left: 10vw;
+padding-right: 10vw;
+}
+
+/* Cesta productos */
+#cesta-productos{
+  padding-top: 18vh;
+  padding-left: 10vw;
+  padding-right: 5vw;
+}
+
 /* Tablas */
 
 body{
