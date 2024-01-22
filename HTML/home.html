@@ -48,7 +48,7 @@
                     <tr>
                         <td>Lunes</td>
                         <td>
-                            <select class="form-select" aria-label="Default select example" v-model="lunes">
+                            <select class="form-select" aria-label="Default select example" v-model="dias[0]">
                                 <!-- <option :value="grupo[0].IZENA" selected>{{ grupo[0].IZENA }}</option> -->
                                 <!-- <option selected>a</option> -->
                                 <!-- <option   v-for="(grupos,index) in grupo" :key="index" :value="grupos.IZENA" >{{ grupos.IZENA }}</option> -->
@@ -61,7 +61,7 @@
                     </tr>
                     <tr>
                         <td>Martes</td>
-                        <td><select class="form-select" aria-label="Default select example" v-model="martes">
+                        <td><select class="form-select" aria-label="Default select example" v-model="dias[1]">
                             <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                         </select></td>
                         <td><input type="date" id="birthday" name="birthday" v-model="fecha[1].HASIERA_DATA"></td>
@@ -70,7 +70,7 @@
                     </tr>
                     <tr>
                         <td>Miércoles</td>
-                        <td><select class="form-select" aria-label="Default select example" v-model="miercoles">
+                        <td><select class="form-select" aria-label="Default select example" v-model="dias[2]">
                             <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                         </select></td>
                         <td><input type="date" id="birthday" name="birthday" v-model="fecha[2].HASIERA_DATA"></td>
@@ -79,7 +79,7 @@
                     </tr>
                     <tr>
                         <td>Jueves</td>
-                        <td><select class="form-select" aria-label="Default select example" v-model="jueves">
+                        <td><select class="form-select" aria-label="Default select example" v-model="dias[3]">
                             <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                         </select></td>
                         <td><input type="date" id="birthday" name="birthday" v-model="fecha[3].HASIERA_DATA"></td>
@@ -88,7 +88,7 @@
                     </tr>
                     <tr>
                         <td>Viernes</td>
-                        <td><select class="form-select" aria-label="Default select example" v-model="viernes">
+                        <td><select class="form-select" aria-label="Default select example" v-model="dias[4]">
                             <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                         </select></td>
                         <td><input type="date" id="birthday" name="birthday" v-model="fecha[4].HASIERA_DATA"></td>

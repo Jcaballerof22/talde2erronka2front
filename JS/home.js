@@ -84,7 +84,8 @@ var upHorario = new Vue({
         viernes: "",
         datos: [],
         grupo: [],
-        fecha: [],
+        fecha: [{},{},{},{},{}],
+        dias: [],
     },
     methods: {
         nombresGrupo(){
@@ -105,15 +106,31 @@ var upHorario = new Vue({
                 console.log(data); 
                 console.log(data.length);
                 for (let i = 0; i < data.length; i++) {
-                    this.grupo.push({"IZENA" : data[i].IZENA, "HASIERA_DATA" : data[i].HASIERA_DATA, "AMAIERA_DATA" : data[i].AMAIERA_DATA});
-                    console.log(data[i].IZENA);
-                    this.fecha.push({"HASIERA_DATA" : data[i].HASIERA_DATA, "AMAIERA_DATA" : data[i].AMAIERA_DATA});
+                    console.log("DATA:");
+                    console.log(data[i].EZABATZE_DATA);
+                    if(data[i].EZABATZE_DATA !== null){
+                        console.log("Ezabatze data NO es null");
+                        this.grupo.push({"IZENA" : "", "HASIERA_DATA" : null, "AMAIERA_DATA" : null});
+                        this.fecha.push({"HASIERA_DATA" : null, "AMAIERA_DATA" : null, "NUEVO" : true});
+                        // this.dias[i]=("");
+                        console.log("Vacío: "+i+""+data[i].IZENA);
+                    }else{
+                        console.log("Ezabatze data SI es null");
+                        this.grupo.push({"IZENA" : data[i].IZENA, "HASIERA_DATA" : data[i].HASIERA_DATA, "AMAIERA_DATA" : data[i].AMAIERA_DATA});
+                        console.log("No vacio: "+i+""+data[i].IZENA);
+                        this.fecha[data[i].EGUNA-1]=({"HASIERA_DATA" : data[i].HASIERA_DATA, "AMAIERA_DATA" : data[i].AMAIERA_DATA, "NUEVO" : false});
+                        this.dias[data[i].EGUNA-1]=data[i].IZENA;
+                    }
+                    console.log("DIAS: "+this.dias);
+                    // console.log("Array fecha: "+this.fecha[i].HASIERA_DATA+this.fecha[i].NUEVO);
                 }
-                this.lunes=data[0].IZENA;
-                this.martes=data[1].IZENA;
-                this.miercoles=data[2].IZENA;
-                this.jueves=data[3].IZENA;
-                this.viernes=data[4].IZENA;
+                for (let i = 0; i < this.fecha.length; i++) {
+                    // Verificar si la posición está vacía (objeto vacío)
+                    if (Object.keys(this.fecha[i]).length === 0) {
+                        // Asignar los nuevos datos
+                        this.fecha[i] = {"HASIERA_DATA" : null, "AMAIERA_DATA" : null, "NUEVO" : true};
+                    }
+                }
             });
         },
         ocultarVentana() {
@@ -166,25 +183,63 @@ var upHorario = new Vue({
                 // if (i==1){
                 //     this.updateDia(i, "PEL1", null, null);
                 // }
-                if(this.fecha[i-1].HASIERA_DATA==null){
-                    console.log("Kaixo");
-                    this.updateDia(i, "PEL1", this.fecha[i-1].HASIERA_DATA, this.fecha[i-1].AMAIERA_DATA);
+                if(this.fecha[i-1].NUEVO==true){
+                    var celdas = filas[i].getElementsByTagName('td');
+                    var dia = celdas[0].innerHTML;
+                    var grupoSelect = celdas[1].getElementsByTagName('select')[0];
+                    if (grupoSelect !== undefined) {
+                        var grupoSeleccionado = grupoSelect.options[grupoSelect.selectedIndex]?.value;
+                        console.log("Grupo seleccionado: "+grupoSeleccionado);
+                        if (grupoSeleccionado !== undefined) {
+                            console.log("Insert");
+                            this.insertDia(i, this.dias[i-1], this.fecha[i-1].HASIERA_DATA, this.fecha[i-1].AMAIERA_DATA);
+                        } else {
+                            console.log("Es borrado");
+                        }
+                    }
                 }
                 else{  
-                var celdas = filas[i].getElementsByTagName('td');
-                var dia = celdas[0].innerHTML;
-                var grupoSelect = celdas[1].getElementsByTagName('select')[0];
-                var grupoSeleccionado = grupoSelect.options[grupoSelect.selectedIndex].value;
-                // console.log(celdas[2].innerHTML);
-
-                if (grupoSeleccionado != "") {
-                    console.log("kaixo2");
-                    this.updateDia(i, grupoSeleccionado, this.fecha[i-1].HASIERA_DATA, this.fecha[i-1].AMAIERA_DATA);
-                }
+                    var celdas = filas[i].getElementsByTagName('td');
+                    var dia = celdas[0].innerHTML;
+                    var grupoSelect = celdas[1].getElementsByTagName('select')[0];
+                    if (grupoSelect !== undefined) {
+                        var grupoSeleccionado = grupoSelect.options[grupoSelect.selectedIndex]?.value;
+        
+                        if (grupoSeleccionado !== undefined) {
+                            console.log("Update");
+                            this.updateDia(i, grupoSeleccionado, this.fecha[i - 1].HASIERA_DATA, this.fecha[i - 1].AMAIERA_DATA);
+                        } else {
+                            console.log("Es borrado");
+                        }
+                    }
                 }
             }
     
             // console.log(datosActualizados);
+        },
+        insertDia(eguna, izena, fechaInicio, fechaFin) {
+            console.log("froga2: ");
+            var datos = {izena, eguna, fechaInicio, fechaFin};
+                var js = JSON.stringify(datos); 
+                console.log("froga: "+js);
+
+            fetch('../../talde2erronka2back/Erronka2/public/api/horarios/txertatu', {
+                method: 'POST',
+                body: js
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la solicitud');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Respuesta del servidor:', data);
+                this.ocultarVentana();
+            })
+            .catch(error => {
+                console.error('Error al actualizar los datos en el servidor:', error.message);
+            });
         },
         eliminar(eguna){
             var js = JSON.stringify({"eguna": eguna});
@@ -199,6 +254,14 @@ var upHorario = new Vue({
                     .catch(error => {
                         console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
                     });
+
+
+            this.dias.splice(eguna - 1, 1, "");
+            this.fecha[eguna-1].HASIERA_DATA=null;
+            this.fecha[eguna-1].AMAIERA_DATA=null;
+            this.fecha[eguna-1].NUEVO=true;
+            console.log(this.dias);
+
             // this.fecha[id].HASIERA_DATA=null;
             // this.fecha[id].AMAIERA_DATA=null;
             // switch (id) {
