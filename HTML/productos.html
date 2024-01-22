@@ -10,7 +10,9 @@
 <body>
     <div class="contenido-productos" id="orrialdea"></div>
     <div class="col d-flex justify-content-end me-4" id="cesta-productos">
-        <i class="bi bi-basket border border-dark rounded p-1" style="font-size: 30px; background-color: #E99857;"></i>
+        <button id="but-cesta-productos" data-bs-toggle="modal" data-bs-target="#miModal">
+            <i class="bi bi-basket" style="font-size: 30px;"></i>
+        </button>
     </div>
     <div class="containerPage-productos">
         <div class="input-group-estadisticas">
@@ -66,6 +68,85 @@
             </table>
         </div>
     </div>
+    
+    <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="miModalLabel">Productos seleccionados</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                        <thead class="thead-prod-head">
+                            <tr>
+                            <th scope="col" class="border-0">
+                                <div class="p-2 px-3 text-uppercase">Product</div>
+                            </th>
+                            <th scope="col" class="border-0">
+                                <div class="py-2 text-uppercase">Price</div>
+                            </th>
+                            <th scope="col" class="border-0">
+                                <div class="py-2 text-uppercase">Quantity</div>
+                            </th>
+                            <th scope="col" class="border-0">
+                                <div class="py-2 text-uppercase">Remove</div>
+                            </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <th scope="row" class="border-0">
+                                <div class="p-2">
+                                <img src="https://bootstrapious.com/i/snippets/sn-cart/product-1.jpg" alt="" width="70" class="img-fluid rounded shadow-sm">
+                                <div class="ml-3 d-inline-block align-middle">
+                                    <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block align-middle">Timex Unisex Originals</a></h5><span class="text-muted font-weight-normal font-italic d-block">Category: Watches</span>
+                                </div>
+                                </div>
+                            </th>
+                            <td class="border-0 align-middle"><strong>$79.00</strong></td>
+                            <td class="border-0 align-middle"><strong>3</strong></td>
+                            <td class="border-0 align-middle"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a></td>
+                            </tr>
+                            <tr>
+                            <th scope="row">
+                                <div class="p-2">
+                                <img src="https://bootstrapious.com/i/snippets/sn-cart/product-2.jpg" alt="" width="70" class="img-fluid rounded shadow-sm">
+                                <div class="ml-3 d-inline-block align-middle">
+                                    <h5 class="mb-0"><a href="#" class="text-dark d-inline-block">Lumix camera lense</a></h5><span class="text-muted font-weight-normal font-italic">Category: Electronics</span>
+                                </div>
+                                </div>
+                            </th>
+                            <td class="align-middle"><strong>$79.00</strong></td>
+                            <td class="align-middle"><strong>3</strong></td>
+                            <td class="align-middle"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a>
+                            </td>
+                            </tr>
+                            <tr>
+                            <th scope="row">
+                                <div class="p-2">
+                                <img src="https://bootstrapious.com/i/snippets/sn-cart/product-3.jpg" alt="" width="70" class="img-fluid rounded shadow-sm">
+                                <div class="ml-3 d-inline-block align-middle">
+                                    <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block">Gray Nike running shoe</a></h5><span class="text-muted font-weight-normal font-italic">Category: Fashion</span>
+                                </div>
+                                </div>
+                                <td class="align-middle"><strong>$79.00</strong></td>
+                                <td class="align-middle"><strong>3</strong></td>
+                                <td class="align-middle"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
 <script src="../JS/header.js"></script>
