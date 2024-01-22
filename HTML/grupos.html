@@ -17,12 +17,19 @@
                 <div class="contenido-ventana">
                     <div>
                     <!-- Contenido de la ventana -->
-                    <button type="button" class="btn-close" aria-label="Close" id="cerrarVentanaGrupos"></button>
-            
-                        <label for="mensaje" id="nombreLabelGrupos">Nombre:</label><br><br>
+                    <!-- <button type="button" class="btn-close" aria-label="Close" id="cerrarVentanaGrupos"></button> -->
+                    <div class="input-group-horarios">
+                        <button type="button" id="cerrarVentanaGrupos" class="btn x" @click="ocultarVentana()">
+                            <i class="bi bi-x"></i>
+                        </button>
+                    </div>
+                    <div class="mt-2">
+                        <label for="mensaje" id="nombreLabelGrupos">Nombre</label>
+                    </div>
+                    <div class="mt-4">
                         <textarea id="nombreTextoGrupos" name="mensaje" rows="1" cols="50" placeholder="Ingresa tu mensaje aquí" v-model="izena" @keyup="teclado">{{izena}}</textarea>
-                        <br><br>
-                        <input id="submitGrupo" type="button" class="btn btn-warning" @click="txertatuEdoAldatu" value="Enviar">
+                    </div>
+                        <input id="submitGrupo" type="button" class="btn añadir btn-lg mt-4" @click="txertatuEdoAldatu" value="Enviar">
                     
                     </div>
                 </div>

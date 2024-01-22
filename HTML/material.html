@@ -9,6 +9,98 @@
 </head>
 <body>
     <div class="contenido" id="orrialdea"></div>
+    <div id="fondoOscuroLangile" class="fondo-oculto"></div>
+
+    <!-- POPUP para añadir material -->
+
+    <div id="ventanaEmergenteAñadirMaterial" class="ventana-oculta">
+        <div class="contenido-ventana">
+            <!-- <button type="button" class="btn-close" aria-label="Close" id="cerrarVentanaLangile"></button> -->
+                <div class="input-group-horarios">
+                    <button type="button" id="cerrarVentanaAñadirMaterial" class="btn x" @click="ocultarVentana()">
+                        <i class="bi bi-x"></i>
+                    </button>
+                </div>
+                <div>
+                    <label for="mensaje" id="idLabelMaterial">ID</label>
+                </div>
+                <div class="mt-2">
+                    <textarea id="idTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" placeholder="Ingresa el ID aquí"></textarea>
+                </div>
+                <div class="mt-2">
+                    <label for="mensaje" id="modeloLabelMaterial">Modelo</label>
+                </div>
+                <div class="mt-2">
+                    <textarea id="modeloTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" placeholder="Ingresa el Modelo aquí"></textarea>
+                </div>
+                <div class="mt-2">
+                    <label for="mensaje" id="marcaLabelMaterial">Marca</label>
+                </div>
+                <div class="mt-2" >
+                    <textarea id="marcaTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" placeholder="Ingresa la Marca aquí"></textarea>
+                </div>
+                <div class="mt-2">
+                    <label for="mensaje" id="descripcionLabelMaterial">Descripción</label>
+                </div>
+                <div class="mt-2">
+                    <textarea id="descripcionTextoProducto" class="mt-2" name="mensaje" rows="3" cols="50" placeholder="Ingresa la descripcion aquí"></textarea>
+                </div>
+                <div class="mt-2">
+                    <input id="submitAñadirMaterial" type="submit" class="btn añadir btn-lg mt-2" value="Enviar">
+                </div>
+        </div>
+    </div>
+
+    <!-- Reservar Material -->
+
+    <div id="ventanaEmergenteLangile" class="ventana-oculta">
+        <div class="contenido-ventana">
+            <!-- <div>
+                <button type="button" class="btn-close" aria-label="Close" id="cerrarVentanaLangile"></button>
+            </div> -->
+            <div class="input-group-horarios">
+                <button type="button" id="cerrarVentanaReservarMaterial" class="btn x" @click="ocultarVentana()">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+            <div class="accordion mt-3" style="max-width: 370px; min-width: 370px;" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-controls="collapseOne">
+                      Accordion Item #1
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <p>Texto de la descripciónasdsadsjkdjkasdkhasdsañidhb</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+            <div class="d-flex align-items-center mt-4">
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>Grupo</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                  <select class="form-select" aria-label="Default select example">
+                    <option selected>Alumno</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+            </div>
+    
+            <div class="mt-4 d-flex">
+              <button id="reservarMaterial" type="button" class="btn añadir btn-lg" @click="">Reservar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenido de la pagina -->
+
     <div class="containerPage">
         <div class="input-group-estadisticas">
             <div>
@@ -31,7 +123,9 @@
                     <button class="btn lupa" type="button">
                         <i class="bi bi-search"></i>
                     </button>
-                    <button type="button" class="btn añadir btn-lg">Añadir material</button>
+                    <button type="button" id="mostrarVentanaMaterial" class="btn añadir btn-lg">Añadir material</button>
+                    <button type="button" id="mostrarVentanaReservarMaterial" class="btn añadir btn-lg">Reservar Material</button>
+                    <!-- Habra q quitar este boton despues, solo es por ver como queda -->
                 </div>
             </div>
 
@@ -61,3 +155,4 @@
 </body>
 </html>
 <script src="../JS/header.js"></script>
+<script src="../JS/material.js"></script>

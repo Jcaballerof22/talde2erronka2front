@@ -10,6 +10,96 @@
     </head>
     <body>
         <div class="contenido" id="orrialdea"></div>
+        <div id="fondoOscuroLangile" class="fondo-oculto"></div>
+
+        <!-- Ticket -->
+
+        <div id="ventanaEmergenteTicket" class="ventana-oculta">
+            <div class="contenido-ventana">
+                <!-- <button type="button" class="btn-close" aria-label="Close" id="cerrarVentanaTicket"></button> -->
+                <div class="input-group-horarios">
+                    <button type="button" id="cerrarVentanaTicket" class="btn x" @click="ocultarVentana()">
+                        <i class="bi bi-x"></i>
+                    </button>
+                </div>
+                <div>
+                    <label for="mensaje" id="nombreLabelTicket">Nombre:</label>
+                </div>
+                <div>    
+                    <textarea id="nombreTextoLangile" name="mensaje" class="mt-2" rows="1" cols="50" placeholder="Nombre del cliente" readonly></textarea>
+                </div>
+                <div>
+                    <label for="mensaje" id="tratamientosLabelTicket">Tratamientos</label>
+                </div>
+                <div>
+                    <textarea id="tratamientosTextoTicket" name="mensaje" class="mt-2" rows="6" cols="50" placeholder="No hay tratamientos" readonly></textarea>
+                </div>
+                <div id="precioAPagarT" class="mt-4">
+                    <label for="mensaje" class="ml-4" id="precioLabelTicket">Precio a Pagar: </label>
+                    <label for="precio" id="precioAPagar">$$$$$</label>
+                </div>
+                <div class="mt-3 d-flex">
+                    <input id="generarFichaTicket" type="submit" class="btn añadir btn-lg mt-5" value="Generar Ficha">
+                    <input id="finalizarTicket" type="submit" class="btn añadir btn-lg mt-5" value="Finalizar">
+                </div>
+            </div>
+        </div>
+
+        <!-- TicketMirar -->
+
+        <div id="ventanaEmergenteLangile" class="ventana-oculta">
+            <div class="contenido-ventana">
+                <!-- <button type="button" class="btn-close mb-4" aria-label="Close" id="cerrarVentanaTicketMirar"></button> -->
+                <div class="input-group-horarios">
+                <div class="row justify-content-start">
+                    <div class="col-4">
+                        </div>
+                        <div class="mt-3">
+                            <label id="nombreLabelTicketMirar">Nombre</label>
+                        </div>
+                        <div>    
+                            <textarea id="nombreTextoTicketMirar" name="mensaje" class="mt-3" rows="1" cols="50" placeholder="Nombre del cliente" readonly></textarea>
+                        </div>
+                
+                        <div class="container">
+                            <div id="fechaTicketMirar" class="row justify-content-center mt-4">
+                            <div>
+                                <div class="card">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Fecha</h5>
+                                    <p class="card-text display-4">
+                                        17/01 2024
+                                    </p>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <button type="button" id="cerrarVentanaTicketMirar" class="btn x" @click="ocultarVentana()">
+                            <i class="bi bi-x"></i>
+                        </button>
+                        <div>    
+                            <label id="tratamientosLabelTicketMirar">Tratamientos</label>
+                        </div>
+                        <div>
+                            <textarea id="apellidoTextoLangile" name="mensaje" class="mt-2" rows="6" cols="50" placeholder="No hay tratamientos" readonly></textarea>
+                        </div>
+                        <div>
+                            <label class="ml-4" id="precioLabelTicketMirar">Precio a Pagar: </label>
+                            <label for="precio" id="precioAPagar">$$$$$</label>
+                        </div>
+                        <div class="mt-3 d-flex">
+                            <button id="finalizarTicketMirar" type="button" class="btn añadir btn-lg" @click="">Finalizar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contenido de la pagina -->
+
         <div id="app">
         <div class="containerPage">
             <div class="input-group">
@@ -19,6 +109,8 @@
                   <button class="btn lupa" type="button" @click="buscar">
                     <i class="bi bi-search"></i>
                   </button>
+                  <button type="button" id="ticket" class="btn añadir btn-lg">Ticket</button>
+                  <button type="button" id="ticketMirar" class="btn añadir btn-lg">MirarTicket</button>
                 </div>
                 
             </div>

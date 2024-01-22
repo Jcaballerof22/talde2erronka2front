@@ -307,7 +307,7 @@ body{
 
 /* POPUP Langile */
 
-.ventana-oculta {
+/* .ventana-oculta {
   display: none;
   position: fixed;
   top: 50%;
@@ -321,14 +321,9 @@ body{
   padding-right: 2vh;
   background-color: rgb(255, 255, 255);
   z-index: 999;
-  display: flex; /* Hacemos la ventana emergente flexible */
-  flex-direction: column; /* Alinear elementos verticalmente */
-}
-
-.contenido-ventana {
-
-  /* display: flex; */
-}
+  display: flex;
+  flex-direction: column;
+} */
 
 #cerrarVentanaLangile{
   position: absolute;
@@ -386,7 +381,7 @@ body{
   transform: translate(-50%, -50%);
   border: 2px solid black;
   padding-top: 4vh;
-  padding-bottom: 6vh;
+  padding-bottom: 2vh;
   padding-left: 7vh;
   padding-right: 6vh;
   background-color: white;
@@ -399,27 +394,17 @@ body{
 
 #cerrarVentanaGrupos{
   position: absolute;
-  margin-top: -1vh;
-  margin-left: 19vh;
+  margin-top: 4%;
+  margin-right: 0%;
 }
 
 #submitGrupo{
-  margin-left: 35vh;
+  margin-right: -75%;
 }
 
 #nombreLabelGrupos{
-  margin-left: -25vh;
+  margin-left: -65%;
   font-size: 2.5em;
-
-}
-
-#codigoLabelGrupos{
-  margin-left: -27vh;
-  font-size: 2.5em;
-}
-
-#codigoTextoGrupos{
-   margin-left: -35vh;
 }
 
 .fondo-oculto {
@@ -435,75 +420,105 @@ body{
 
 .mostrar-fondo {display: block;}
 
+/* POPUP Añadir Material */
+
+#cerrarVentanaAñadirMaterial{
+  /* position: absolute; */
+  margin-top: -2%;
+  margin-right: 0%;
+}
+
+#idLabelMaterial{
+  font-size: 2.5em;
+  margin-left: -90%;
+}
+
+#modeloLabelMaterial{
+  font-size: 2.5em;
+  margin-left: -68%;
+}
+
+#marcaLabelMaterial{
+  font-size: 2.5em;
+  margin-left: -73%;
+}
+
+#descripcionLabelMaterial{
+  font-size: 2.5em;
+  margin-left: -50%;
+}
+
+#submitAñadirMaterial{
+  margin-left: 79%;
+}
+
 /* POPUP ReservarMaterial */
+
+#mostrarVentanaReservarMaterial{
+  margin-right: 0%;
+  margin-left: 0%;
+}
+
+#cerrarVentanaReservarMaterial{
+  margin-right: 0%;
+}
 
 #reservarMaterial{
   margin-left: 40vh;
+  margin-right: 20%;
 }
 
+/* POPUP Ticket */
+
+#cerrarVentanaTicket{
+  margin-right: 0%;
+}
+
+#nombreLabelTicket{
+  font-size: 2.5em;
+  margin-left: -65%;
+}
+
+#tratamientosLabelTicket{
+  font-size: 2.5em;
+  margin-left: -46%;
+}
+
+#precioAPagarT{
+  background-color: #F8B957;
+  margin-left: 10%;
+  margin-right: 10%;
+  
+}
+
+#precioLabelTicket{
+  font-size: 1.9em;
+}
+
+#generarFichaTicket{
+  margin-left: 30%;
+}
 
 /* POPUP TicketMirar */
 
-#nombreLabelTicketMirar{
-  margin-left: -30vh;
-  font-size: 2.5em;
+#cerrarVentanaTicketMirar{
+  margin-right: 0%;
+  margin-left: 100%;
+  margin-top: -10%;
 }
 
-#tratamientosLabelTicketMirar{
-  font-size: 2.5em;
-  margin-left: -21vh;
-  margin-top: -1vh;
-}
-
-#precioLabelTicketMirar{
-  font-size: 2.5em;
-  margin-left: -2vh;
-}
-
-#precioAPagar{
-    font-size: 1.5em;
-    margin-left: 5vh;
-}
-
-#generarFichaTicketMirar{
-  border-color: black;
-  margin-left: 15vh;
-}
-
-#finalizarTicketMirar{
-  border-color: black;
-  margin-left: 5vh;
-}
-
-#fechaTicketMirar{
-  margin-left: 1vh;
-  margin-right: 1vh;
+#datosClienteT{
+  width: 950%;
 }
 
 #datosCliente{
+  font-size: 1.5em;
+}
+
+#nombreLabelTicketMirar{
   font-size: 2.5em;
+  margin-left: -67%;
 }
 
-#cerrarVentanaTicketMirar{
-  margin-top: -36vh;
-  margin-left: 50vh;
-}
 
-@media (max-width: 768px) {
-  #generarFichaTicketMirar {
-      font-size: 12px; 
-  }
-  #finalizarTicketMirar {
-    font-size: 12px;
-  }
-  #tratamientosLabelTicketMirar{
-    margin-left: -20vh;
-  }
-  #cerrarVentanaTicketMirar{
-    margin-right: 6vh;
-  }
-  #datosCliente{
-    font-size: 2.4em;
-  }
-}
 
