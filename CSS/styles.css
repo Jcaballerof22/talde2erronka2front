@@ -407,6 +407,21 @@ body{
   z-index: 999;
 }
 
+.ventana-ocultaTicketMirar{
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid black;
+  padding-top: 4vh;
+  padding-bottom: 2vh;
+  padding-left: 7vh;
+  padding-right: 21vh;
+  background-color: white;
+  z-index: 999;
+}
+
 .contenido-ventana {
   text-align: center;
 }
@@ -526,17 +541,31 @@ body{
   margin-top: -10%;
 }
 
-#datosClienteT{
-  width: 950%;
-}
-
-#datosCliente{
-  font-size: 1.5em;
+#nombreTextoTicketMirar{
+  margin-left: -25%;
 }
 
 #nombreLabelTicketMirar{
   font-size: 2.5em;
-  margin-left: -67%;
+  margin-left: -75%;
+  margin-top: -30%;
+}
+
+#fechaTicketMirarC{
+  margin-right: 20%;
+}
+
+#finalizarTicketMirar{
+  margin-left: 120%;
+}
+
+#tratamientosLabelTicketMirar{
+  font-size: 2.5em;
+}
+
+#precioLabelTicketMirar{
+  font-size: 1.9em;
+  margin-left: 8%;
 }
 
 
