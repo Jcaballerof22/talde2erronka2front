@@ -14,21 +14,32 @@
         <div id="app">
         <div id="ventanaEmergenteLangile" class="ventana-oculta">
             <div class="contenido-ventana">
-                <button type="button" class="btn-close" aria-label="Close" id="cerrarVentanaLangile"></button>
+                <!-- <button type="button" class="btn-close" aria-label="Close" id="cerrarVentanaLangile"></button> -->
+                <div class="input-group-horarios">
+                    <button type="button" id="cerrarVentanaLangile" class="btn x" @click="ocultarVentana()">
+                        <i class="bi bi-x"></i>
+                    </button>
+                </div>
+                <div class="mt-5">
+                    <label for="mensaje" id="nombreLabelLangile">Nombre</label>
+                </div>
+                <div class="mt-4">
+                    <textarea id="nombreTextoLangile" name="mensaje" rows="1" cols="50" placeholder="Ingresa el nombre aquí" v-model="izena" @keyup="teclado" ></textarea>
+                </div>
+                <div class="mt-4">
+                    <label for="mensaje" id="apellidoLabelLangile">Apellido</label>
+                </div>
+                <div class="mt-4">
+                    <textarea id="apellidoTextoLangile" name="mensaje" rows="1" cols="50" placeholder="Ingresa el apellido aquí" v-model="abizenak" @keyup="teclado" ></textarea>
+                </div>
+                <div class="mt-1 d-flex p-2" id="gruposLangilea">
+                    <label for="mensaje" id="gruposLabelLangile">Grupos</label>
                 
-                    <label for="mensaje" id="nombreLabelLangile">Nombre:</label><br><br>
-                    <textarea id="nombreTextoLangile" name="mensaje" rows="1" cols="50" placeholder="Ingresa tu mensaje aquí" v-model="izena" @keyup="teclado" ></textarea>
-                    <br><br>
-                    <label for="mensaje" id="apellidoLabelLangile">Apellido:</label><br><br>
-                    <textarea id="apellidoTextoLangile" name="mensaje" rows="1" cols="50" placeholder="" v-model="abizenak" @keyup="teclado" ></textarea>
-                    <br><br>
-                    <label for="mensaje" id="gruposLabelLangile">Grupos:&nbsp</label>
-                    <select class="form-select" aria-label="Default select example" v-model="kodea">
+                    <select class="form-select mt-4" id="selectorLangilea" aria-label="Default select example" v-model="kodea">
                         <option   v-for="(dato,index) in datosTalde" :key="index" :value="dato.kodea">{{ dato.izena }}</option>
                     </select>
-                    <br><br>
-                    <input id="submitLangile" type="submit" class="btn btn-warning" @click="txertatuEdoAldatu" value="Enviar">
-                
+                </div>
+                <input id="submitLangile" type="submit" class="btn añadir btn-lg mt-4" @click="txertatuEdoAldatu" value="Enviar">
             </div>
         </div>
         <div class="containerPage">

@@ -296,37 +296,55 @@ body{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  border-radius: 10px;
   border: 2px solid black;
   padding-top: 8vh;
   padding-bottom: 6vh;
   padding-left: 10vh;
-  padding-right: 6vh;
-  background-color: white;
+  padding-right: 2vh;
+  background-color: rgb(255, 255, 255);
   z-index: 999;
+  display: flex; /* Hacemos la ventana emergente flexible */
+  flex-direction: column; /* Alinear elementos verticalmente */
 }
 
 .contenido-ventana {
-  text-align: center;
+
+  /* display: flex; */
 }
 
 #cerrarVentanaLangile{
-  /* position: absolute; */
-  margin-top: -36vh;
-  margin-left: 45vh;
+  position: absolute;
+  margin-right: 0%;
+  margin-top: 10%;
 }
 
 #submitLangile{
-  margin-left: 35vh;
+  margin-left: 80%;
 }
 
 #gruposLabelLangile{
-  margin-left: -15vh;
   font-size: 2.5em;
+  margin-left: -68%;
+  margin-top: 5%;
 }
 
 #apellidoLabelLangile{
-  margin-left: -25vh;
   font-size: 2.5em;
+  margin-left: -65%;
+}
+
+#nombreLabelLangile{
+  font-size: 2.5em;
+  margin-left: -65%;
+}
+
+#gruposLangilea{
+  margin-left: 38%;
+}
+
+#selectorLangilea{
+  margin-left: 15%;
 }
 
 .fondo-oculto {
@@ -340,10 +358,6 @@ body{
   z-index: 998; 
 }
 
-#nombreLabelLangile{
-  margin-left: -25vh;
-  font-size: 2.5em;
-}
 
 /* POPUP-Grupos */
 
