@@ -138,6 +138,25 @@ padding-right: 10vw;
   padding-left: 10vw;
   padding-right: 5vw;
 }
+#but-cesta-productos{
+  background-color: #E99857; 
+  border-radius: 10px;
+}
+#but-cesta-productos:hover{
+  background-color: #e07f2f;
+  border-color: black;
+  color:black;
+}
+#but-cesta-productos:active {
+  background-color: #F4E3C8;
+}
+
+/* pop-up productos */
+.thead-prod-head{
+  background-color: #e07f2f;
+
+}
+
 
 /* Tablas */
 
