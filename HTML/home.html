@@ -120,7 +120,7 @@
                     
 
                     <div class="row align-items-start">
-                        <div class="col-md-8">
+                        <div class="col-md-7">
                     <table id="tabla" class="table table-hover table-striped">
                         <thead>
                             <tr>
@@ -130,46 +130,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Juan</td>
-                                <td>1</td>
-                                <td>4</td>
-                            </tr>
-                            <tr>
-                                <td>Paco</td>
-                                <td>4</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>Manolo</td>
-                                <td>3</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>Urzelega</td>
-                                <td>1</td>
-                                <td>4</td>
-                            </tr>
-                            <tr>
-                                <td>Urzelega</td>
-                                <td>1</td>
-                                <td>4</td>
+                            <tr v-for="(data, index) in datosRoles" :key="index" :id="data.id_langilea">
+                                <td>{{data.izena}} {{data.abizenak}}</td>
+                                <td>{{data.suma_g}}</td>
+                                <td>{{data.suma_m}}</td>
                             </tr>
                         </tbody>
                     </table>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <h2 style="background-color: #E99857;">Asignar Roles</h2>
                         <hr>
                         <div class="row">
                             <div class="col">
                                 <h3>Mostrador</h3>
                                 <div class="form-floating">
-                                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                                      <option selected>Open this select menu</option>
-                                      <option value="1">One</option>
-                                      <option value="2">Two</option>
-                                      <option value="3">Three</option>
+                                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example" v-model="mostrador">
+                                      <option v-for="(data, index) in datosRoles" :key="index" :value="data.izena">{{data.izena}} {{data.abizenak}}</option>
                                     </select>
                                     <label for="floatingSelect">Works with selects</label>
                                   </div>
@@ -177,11 +154,8 @@
                             <div class="col">
                                 <h3>Limpieza</h3>
                                 <div class="form-floating">
-                                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                                      <option selected>Open this select menu</option>
-                                      <option value="1">One</option>
-                                      <option value="2">Two</option>
-                                      <option value="3">Three</option>
+                                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example" v-model="limpieza">
+                                      <option v-for="(data, index) in datosRoles" :key="index" :value="data.izena">{{data.izena}} {{data.abizenak}}</option>
                                     </select>
                                     <label for="floatingSelect">Works with selects</label>
                                   </div>
@@ -192,13 +166,40 @@
                     </div>
                 </div>
                     <div class="input-group-horarios">
-                        <button type="button" id="aceptarHorarios" class="btn añadir btn-lg" @click="aceptarCambios()">Aceptar</button>
+                        <button type="button" id="aceptarHorarios" class="btn añadir btn-lg" @click="ocultarRoles()">Aceptar</button>
                         <button type="button" id="cancelarHorarios" class="btn cancelar btn-lg" @click="ocultarRoles()">Cancelar</button>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="container">
+            <div id="horario2" class="horario2">
+                <input type="date" id="fecha" name="fecha" v-model="data">
+                <div class="table-responsive-xl">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th v-for="(dato,index) in taula[0]" scope="col" class="text-center">{{index+1}}</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(dato, index) in orduak">
+                                <th v-if="index % 4 === 0" rowspan="4" scope="col">{{dato}}</th>                                
+                                <td @click="susto(taula[index][index2].id)" style="background-color: #E26B6B; border: 2px  solid black" v-for="(dato2, index2) in taula[index].reverse()" :rowspan="taula[index][index2].timeDif" scope="col" v-if="Object.keys(taula[index][index2]).length > 2">{{taula[index][index2].izena}}<br>{{taula[index][index2].orduak}}<br>{{taula[index][index2].deskribapena}}</td>
+                                <td scope="col" v-else-if="taula[index][index2].visible"></td>
+
+                            </tr>
+            
+                        </tbody>
+                    </table>
+                  </div>
+            </div>
+        </div>
         <script src="../JS/home.js"></script>
     </body>
 </html>
+<script src="../JS/horario2.js"></script>
+
 <script src="../JS/header.js"></script>

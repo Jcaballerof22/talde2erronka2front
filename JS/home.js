@@ -83,48 +83,51 @@ var upHorario = new Vue({
         jueves: "",
         viernes: "",
         grupoHoy: "",
+        limpieza: "",
+        mostrador: "",
         datos: [],
         grupo: [],
         fecha: [{},{},{},{},{}],
         dias: [],
+        datosRoles: [],
     },
     methods: {
         
         /////////////////////////////////////// EDITAR HORARIOS ////////////////////////////////////////////
         nombresGrupo(){
-            console.log('La instancia Vue se ha montado en el DOM.');
+            // console.log('La instancia Vue se ha montado en el DOM.');
             fetch('../../talde2erronka2back/Erronka2/public/api/grupos', { method: 'GET'})
             .then(response => response.json())
             .then(data => {
-                console.log(data); 
+                // console.log(data); 
                 for (let i = 0; i < data.length; i++) {
                     this.datos.push({"izena" : data[i].izena, "kodea" : data[i].kodea});
                 }
             });
         },
         grupoSeleccionado(){
-            fetch('../../talde2erronka2back/Erronka2/public/api/horarios', { method: 'GET'})
+            return fetch('../../talde2erronka2back/Erronka2/public/api/horarios', { method: 'GET'})
             .then(response => response.json())
             .then(data => {
-                console.log(data); 
-                console.log(data.length);
+                // console.log(data); 
+                // console.log(data.length);
                 for (let i = 0; i < data.length; i++) {
-                    console.log("DATA:");
-                    console.log(data[i].EZABATZE_DATA);
+                    // console.log("DATA:");
+                    // console.log(data[i].EZABATZE_DATA);
                     if(data[i].EZABATZE_DATA !== null){
-                        console.log("Ezabatze data NO es null");
+                        // console.log("Ezabatze data NO es null");
                         this.grupo.push({"IZENA" : "", "HASIERA_DATA" : null, "AMAIERA_DATA" : null});
                         this.fecha.push({"HASIERA_DATA" : null, "AMAIERA_DATA" : null, "NUEVO" : true});
                         // this.dias[i]=("");
-                        console.log("Vacío: "+i+""+data[i].IZENA);
+                        // console.log("Vacío: "+i+""+data[i].IZENA);
                     }else{
-                        console.log("Ezabatze data SI es null");
+                        // console.log("Ezabatze data SI es null");
                         this.grupo.push({"IZENA" : data[i].IZENA, "HASIERA_DATA" : data[i].HASIERA_DATA, "AMAIERA_DATA" : data[i].AMAIERA_DATA});
-                        console.log("No vacio: "+i+""+data[i].IZENA);
+                        // console.log("No vacio: "+i+""+data[i].IZENA);
                         this.fecha[data[i].EGUNA-1]=({"HASIERA_DATA" : data[i].HASIERA_DATA, "AMAIERA_DATA" : data[i].AMAIERA_DATA, "NUEVO" : false});
                         this.dias[data[i].EGUNA-1]=data[i].IZENA;
                     }
-                    console.log("DIAS: "+this.dias);
+                    // console.log("DIAS: "+this.dias);
                     // console.log("Array fecha: "+this.fecha[i].HASIERA_DATA+this.fecha[i].NUEVO);
                 }
                 for (let i = 0; i < this.fecha.length; i++) {
@@ -277,8 +280,29 @@ var upHorario = new Vue({
             //         break;
             // }
         },
-        seleccionarGrupoHoy(){
-            
+        ///////////////////////////////////////////////// ROLES ///////////////////////////////////////////////////
+        tablaRoles(){
+            let hoy = new Date();
+            console.log(hoy);
+            console.log(this.grupoHoy);
+            fetch(`../../talde2erronka2back/Erronka2/public/api/roles/${this.grupoHoy}`, {method: 'GET'})
+            .then(response => response.json())
+            .then(data => {
+                console.log("LOS DATOS: ");
+                console.log(data); 
+                console.log(data.length);
+                for (let i = 0; i < data.length; i++){
+                    this.datosRoles.push({"izena" : data[i].izena, "abizenak" : data[i].abizenak, "id_langilea" : data[i].id_langilea, "suma_m" : data[i].suma_m, "suma_g" : data[i].suma_g});
+                    // if(data[i].data = hoy && data[i].ezabatze_data == null){
+                    //     if(data[i].mota == "M"){
+                    //         this.mostrador = data[i].izena + " " + data[i].abizenak;
+                    //     }else{
+                    //         this.limpieza = data[i].izena + " " + data[i].abizenak;
+                    //     }
+                    // }
+                }
+            });
+
         },
         /////////////////////////////////////// MOSTRAR-OCULTAR POPUPS ////////////////////////////////////////////
         ocultarVentana() {
@@ -326,8 +350,10 @@ var upHorario = new Vue({
     watch:{},
     mounted: function() {
         this.nombresGrupo();
-        this.grupoSeleccionado();
-        this.seleccionarGrupoHoy();
+        this.grupoSeleccionado().then(() => {
+            this.tablaRoles();
+        });
+        
         // //
         //         fetch('../../talde2erronka2back/Erronka2/public/api/horarios', { method: 'GET' })
         //             .then(response => response.json())
