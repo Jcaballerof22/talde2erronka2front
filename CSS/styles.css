@@ -519,8 +519,8 @@ body{
 }
 
 #tratamientosLabelTicket{
-  font-size: 2.5em;
-  margin-left: -46%;
+  font-size: 2em;
+  margin-left: -56%;
 }
 
 #precioAPagarT{
@@ -596,4 +596,44 @@ body{
 
 #inicioLabelCitasPost{
   font-size: 2.5em;
+}
+
+#finalLabelCitasPost{
+  font-size: 2.5em;
+  margin-left: 10%;
+}
+
+#relojInicio{
+  margin-left: 10%;
+}
+
+#relojFinal{
+  margin-left: 2%;
+}
+
+#entreReloj{
+  margin-left: 2%;
+  margin-top: 4%;
+  font-size: 2em;
+}
+
+#telefonoLabelCitasPost{
+  font-size: 2.5em;
+  margin-left: -65%;
+}
+
+#precioLabelCitasPost{
+  font-size: 1.9em;
+}
+
+#precioAPagarCitasPost{
+  font-size: 1.6em;
+}
+
+#generarFichaCitasPost{
+  margin-left: 10%;
+}
+
+#finalizarCitasPost{
+  margin-left: 13%;
 }

@@ -239,4 +239,3 @@ function ocultarVentana() {
     document.getElementById('ventanaEmergenteCitasPost').style.display = 'none';
 }
 
-$('.clockpicker').clockpicker();
