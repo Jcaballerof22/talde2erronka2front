@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="../CSS/styles.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+                    <div class="contenido" id="orrialdea"></div>
+            <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+            <div id="horario2" class="horario2">
+                <input type="date" id="fecha" name="fecha" v-model="data">
+                <div class="table-responsive-xl">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th v-for="(dato,index) in taula[0]" scope="col">{{index+1}}</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(dato, index) in orduak">
+                                <th v-if="index % 4 === 0" rowspan="4" scope="col">{{dato}}</th>                                
+                                <td @click="susto(taula[index][index2].id)" style="background-color: #E26B6B; border: 2px  solid black" v-for="(dato2, index2) in taula[index].reverse()" :rowspan="taula[index][index2].timeDif" scope="col" v-if="Object.keys(taula[index][index2]).length > 2">{{taula[index][index2].izena}}<br>{{taula[index][index2].orduak}}<br>{{taula[index][index2].deskribapena}}</td>
+                                <td scope="col" v-else-if="taula[index][index2].visible"></td>
+
+                                <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+                                <!-- <td :rowspan="taula[index].b.num" scope="col" v-if="Object.keys(taula[index].b).length > 0">{{taula[index].b}}</td>
+                                <td :rowspan="taula[index].b.num" scope="col" v-else-if="taula[index].b"></td>
+                                <td :rowspan="taula[index].c.num" scope="col" v-else-if="Object.keys(taula[index].c).length > 0">{{taula[index].c}}</td>
+                                <td :rowspan="taula[index].c.num" scope="col" v-else-if="taula[index].c"></td>
+                                <td :rowspan="taula[index].d.num" scope="col" v-else-if="Object.keys(taula[index].d).length > 0">{{taula[index].d}}</td>
+                                <td :rowspan="taula[index].d.num" scope="col" v-else-if="taula[index].d"></td>
+                                <td :rowspan="taula[index].e.num" scope="col" v-else-if="Object.keys(taula[index].e).length > 0">{{taula[index].e}}</td>
+                                <td :rowspan="taula[index].e.num" scope="col" v-else-if="taula[index].e"></td> -->
+                                
+                                <!-- <td :rowspan="taula[index].b" scope="col" v-if="taula[index].b != 0">{{taula[index].b}} </td>
+                                <td :rowspan="taula[index].c" scope="col" v-if="taula[index].c != 0">{{taula[index].c}}</td>
+                                <td :rowspan="taula[index].d" scope="col" v-if="taula[index].d != 0">{{taula[index].d}}</td>
+                                <td :rowspan="taula[index].e" scope="col" v-if="taula[index].e != 0">{{taula[index].e}}</td> -->
+                            </tr>
+            
+                        </tbody>
+                    </table>
+                  </div>
+            </div>
+            <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+    </body>
+</html>
+<script src="../JS/horario2.js"></script>
