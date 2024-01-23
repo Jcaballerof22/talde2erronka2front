@@ -82,12 +82,15 @@ var upHorario = new Vue({
         miercoles: "",
         jueves: "",
         viernes: "",
+        grupoHoy: "",
         datos: [],
         grupo: [],
         fecha: [{},{},{},{},{}],
         dias: [],
     },
     methods: {
+        
+        /////////////////////////////////////// EDITAR HORARIOS ////////////////////////////////////////////
         nombresGrupo(){
             console.log('La instancia Vue se ha montado en el DOM.');
             fetch('../../talde2erronka2back/Erronka2/public/api/grupos', { method: 'GET'})
@@ -131,23 +134,12 @@ var upHorario = new Vue({
                         this.fecha[i] = {"HASIERA_DATA" : null, "AMAIERA_DATA" : null, "NUEVO" : true};
                     }
                 }
+
+                let hoy = new Date().getDay();
+                this.grupoHoy = this.dias[(hoy-1)];
+                console.log("HOOOY:::::"+(hoy-1));
+                console.log("HOOOY:::::"+this.dias);
             });
-        },
-        ocultarVentana() {
-            document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
-            document.getElementById('tablaHorarios').style.display = 'none';
-        },
-        mostrarVentana(){
-            document.getElementById('tablaHorarios').style.display = 'block';
-            document.getElementById('fondoOscuro').classList.add('mostrar-fondo');
-        },
-        ocultarRoles() {
-            document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
-            document.getElementById('tablaRoles').style.display = 'none';
-        },
-        mostrarRoles(){
-            document.getElementById('tablaRoles').style.display = 'block';
-            document.getElementById('fondoOscuro').classList.add('mostrar-fondo');
         },
         updateDia(eguna, izena, fechaInicio, fechaFin) {
             console.log("froga2: ");
@@ -284,6 +276,26 @@ var upHorario = new Vue({
             //     default:
             //         break;
             // }
+        },
+        seleccionarGrupoHoy(){
+            
+        },
+        /////////////////////////////////////// MOSTRAR-OCULTAR POPUPS ////////////////////////////////////////////
+        ocultarVentana() {
+            document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
+            document.getElementById('tablaHorarios').style.display = 'none';
+        },
+        mostrarVentana(){
+            document.getElementById('tablaHorarios').style.display = 'block';
+            document.getElementById('fondoOscuro').classList.add('mostrar-fondo');
+        },
+        ocultarRoles() {
+            document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
+            document.getElementById('tablaRoles').style.display = 'none';
+        },
+        mostrarRoles(){
+            document.getElementById('tablaRoles').style.display = 'block';
+            document.getElementById('fondoOscuro').classList.add('mostrar-fondo');
         }
         
         // updateDia(eguna, izena) {
@@ -315,6 +327,7 @@ var upHorario = new Vue({
     mounted: function() {
         this.nombresGrupo();
         this.grupoSeleccionado();
+        this.seleccionarGrupoHoy();
         // //
         //         fetch('../../talde2erronka2back/Erronka2/public/api/horarios', { method: 'GET' })
         //             .then(response => response.json())
