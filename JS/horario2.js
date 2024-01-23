@@ -146,7 +146,6 @@ var horario2 = new Vue({
     },
     mounted: function() {
         this.data = this.lortuData();
-        this.datuakLortu();
       }
 });
     // [{"datos": "penelope", "num":3}, {"visible": true}, {"visible": true}, {"visible": true}, {"visible": true}],
