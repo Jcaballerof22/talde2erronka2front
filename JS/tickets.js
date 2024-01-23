@@ -193,7 +193,7 @@ function ocultarVentana() {
     document.getElementById('ventanaEmergenteTicket').style.display = 'none';
 }
 
-// Segundo POPUP
+// Segundo POPUP  TODAVIA POR ARREGLAR
 
 document.getElementById('ticketMirar').addEventListener('click', function() {
     document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
@@ -215,3 +215,28 @@ function ocultarVentanaMirar() {
     document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
     document.getElementById('ventanaEmergenteLangile').style.display = 'none';
 }
+
+// CitasPost
+
+document.getElementById('citasPost').addEventListener('click', function() {
+    document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
+    document.getElementById('ventanaEmergenteCitasPost').style.display = 'block';
+});
+
+document.getElementById('cerrarVentanaCitasPost').addEventListener('click', function() {
+    document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
+    document.getElementById('ventanaEmergenteCitasPost').style.display = 'none';
+});
+
+document.getElementById('fondoOscuroLangile').addEventListener('click', function(event) {
+    if (event.target === this) {
+        ocultarVentana();
+    }
+});
+
+function ocultarVentana() {
+    document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
+    document.getElementById('ventanaEmergenteCitasPost').style.display = 'none';
+}
+
+$('.clockpicker').clockpicker();

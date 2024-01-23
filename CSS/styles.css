@@ -568,5 +568,27 @@ body{
   margin-left: 8%;
 }
 
+/* POPUP CitasPost */
 
 
+#nombreLabelCitasPost{
+  font-size: 2.5em;
+}
+
+#delCentro{
+  font-size: 1.3em;
+  margin-left: 30%;
+}
+
+#switch{
+  margin-left: 6%;
+}
+
+#cerrarVentanaCitasPost{
+  margin-left: 0%;
+  margin-right: 0%;
+}
+
+#inicioLabelCitasPost{
+  font-size: 2.5em;
+}
