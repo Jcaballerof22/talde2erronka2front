@@ -156,7 +156,12 @@ padding-right: 10vw;
   background-color: #e07f2f;
 
 }
-
+#prod{
+  background-color: #F4E3C8;
+}
+.taula-pop-produk td{
+  vertical-align: middle;
+}
 
 /* Tablas */
 
