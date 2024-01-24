@@ -146,7 +146,7 @@
                                 <h3>Mostrador</h3>
                                 <div class="form-floating">
                                     <select class="form-select" id="floatingSelect" aria-label="Floating label select example" v-model="mostrador">
-                                      <option v-for="(data, index) in datosRoles" :key="index" :value="data.izena">{{data.izena}} {{data.abizenak}}</option>
+                                      <option v-for="(data, index) in datosRoles" :key="index" :value="data.id_langilea">{{data.izena}} {{data.abizenak}}</option>
                                     </select>
                                     <label for="floatingSelect">Works with selects</label>
                                   </div>
@@ -155,7 +155,7 @@
                                 <h3>Limpieza</h3>
                                 <div class="form-floating">
                                     <select class="form-select" id="floatingSelect" aria-label="Floating label select example" v-model="limpieza">
-                                      <option v-for="(data, index) in datosRoles" :key="index" :value="data.izena">{{data.izena}} {{data.abizenak}}</option>
+                                      <option v-for="(data, index) in datosRoles" :key="index" :value="data.id_langilea">{{data.izena}} {{data.abizenak}}</option>
                                     </select>
                                     <label for="floatingSelect">Works with selects</label>
                                   </div>

@@ -85,6 +85,8 @@ var upHorario = new Vue({
         grupoHoy: "",
         limpieza: "",
         mostrador: "",
+        borrarL: "",
+        borrarM: "",
         datos: [],
         grupo: [],
         fecha: [{},{},{},{},{}],
@@ -99,7 +101,7 @@ var upHorario = new Vue({
             fetch('../../talde2erronka2back/Erronka2/public/api/grupos', { method: 'GET'})
             .then(response => response.json())
             .then(data => {
-                // console.log(data); 
+                // console.log(data);
                 for (let i = 0; i < data.length; i++) {
                     this.datos.push({"izena" : data[i].izena, "kodea" : data[i].kodea});
                 }
@@ -302,6 +304,42 @@ var upHorario = new Vue({
                     // }
                 }
             });
+
+            fetch(`../../talde2erronka2back/Erronka2/public/api/roles/pertsonak/${this.grupoHoy}`, {method: 'GET'})
+            .then(response => response.json())
+            .then(data => {
+                console.log("LOS DATOS: ");
+                console.log(data); 
+                console.log(data.length);
+                for (let i = 0; i < data.length; i++){
+                    if(data[i].data = hoy && data[i].ezabatze_data == null){
+                        if(data[i].mota == "M"){
+                            this.mostrador = data[i].id_langilea;
+                            this.borrarM = data[i].id_langilea;
+                        }else{
+                            this.limpieza = data[i].id_langilea;
+                            this.borrarL = data[i].id_langilea;
+                        }
+                    }
+                }
+            });
+
+        },
+        aceptarRoles(){
+            // Solo si borrarL y limpieza / borrarM y mostrador son diferentes
+            if(this.borrarL == this.limpieza){
+                console.log("Limpieza igual");
+            }else{
+                this.deleteRoles(this.borrarL);
+                this.insertRoles(this.limpieza);
+            }
+
+            if(this.borrarM == this.mostrador){
+                console.log("Limpieza igual");
+            }else{
+                this.deleteRoles(this.borrarM);
+                this.insertRoles(this.mostrador);
+            }
 
         },
         /////////////////////////////////////// MOSTRAR-OCULTAR POPUPS ////////////////////////////////////////////
