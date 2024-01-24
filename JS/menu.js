@@ -1,3 +1,5 @@
+var titulo = 'kaixo';
+
 function openMenu() {
     var menuContainer = document.querySelector('.menu-container');
     var menuTexts = menuContainer.querySelectorAll('.menu-text');

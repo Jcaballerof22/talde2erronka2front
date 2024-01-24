@@ -83,7 +83,7 @@
                         <thead class="thead-prod-head">
                             <tr>
                             <th scope="col" class="border-0">
-                                <div class="p-2 px-3 text-uppercase">Product</div>
+                                <div class="p-2 px-3 text-uppercase">Productos</div>
                             </th>
                             <th scope="col" class="border-0">
                                 <div class="py-2 text-uppercase">Marca</div>
@@ -148,7 +148,11 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <select class="form-select" aria-label="Default select example">
+                        <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
+                    </select>
+                    <button id="pop-prod" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Aceptar</button>
+                    <button id="pop-prod" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>

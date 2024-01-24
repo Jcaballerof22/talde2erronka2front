@@ -128,8 +128,8 @@ body, html {
 }
 .containerPage-productos{
   margin-top: -4vw;
-padding-left: 10vw;
-padding-right: 10vw;
+  padding-left: 10vw;
+  padding-right: 10vw;
 }
 
 /* Cesta productos */
@@ -161,6 +161,15 @@ padding-right: 10vw;
 }
 .taula-pop-produk td{
   vertical-align: middle;
+  text-align: center;
+}
+.thead-prod-head th{
+  vertical-align: middle;
+  text-align: center;
+}
+#pop-prod{
+  background-color: #e07f2f;
+  color: black;
 }
 
 /* Tablas */
