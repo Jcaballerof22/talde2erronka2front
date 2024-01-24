@@ -31,6 +31,7 @@ var horario2 = new Vue({
         orduak: [],
         taula: [],
         libre: [],
+        titulua: 'HOME',
     
     },
     methods: {
@@ -133,6 +134,7 @@ var horario2 = new Vue({
                         }
                     }
                 }
+                this.tituluAldatu()
             }); 
         },
 
@@ -255,6 +257,22 @@ var horario2 = new Vue({
                     }
                 }
             }
+        },
+
+        tituluAldatu(){
+            var scriptAnterior = document.getElementById("scriptDinamico");
+            if (scriptAnterior) {
+                scriptAnterior.remove();
+            }
+            // Crea un nuevo script y asigna su src según la opción seleccionada
+            var nuevoScript = document.createElement("script");
+            nuevoScript.id = "scriptDinamico";
+            nuevoScript.onload = function() {
+                console.log("Script cargado exitosamente");
+            };
+            nuevoScript.innerHTML = "var menu = new Vue({el: '#menu',data: {titulo: '"+this.titulua+"'},});"; // Asigna el nombre del script según la opción
+            // Agrega el nuevo script al cuerpo del documento
+            document.body.appendChild(nuevoScript);
         },
 
     },

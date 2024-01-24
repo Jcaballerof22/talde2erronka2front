@@ -10,6 +10,7 @@ var app = new Vue({
         aldatu: '',
         sailkatu: "all",
         taula: [],
+        titulua: 'ALUMNOS',
     },
     methods: {
         addDatuak(){
@@ -124,6 +125,22 @@ var app = new Vue({
             if(event.key == "Enter"){
                 this.txertatuEdoAldatu();
             }
+        },
+
+        tituluAldatu(){
+            var scriptAnterior = document.getElementById("scriptDinamico");
+            if (scriptAnterior) {
+                scriptAnterior.remove();
+            }
+            // Crea un nuevo script y asigna su src según la opción seleccionada
+            var nuevoScript = document.createElement("script");
+            nuevoScript.id = "scriptDinamico";
+            nuevoScript.onload = function() {
+                console.log("Script cargado exitosamente");
+            };
+            nuevoScript.innerHTML = "var menu = new Vue({el: '#menu',data: {titulo: '"+this.titulua+"'},});"; // Asigna el nombre del script según la opción
+            // Agrega el nuevo script al cuerpo del documento
+            document.body.appendChild(nuevoScript);
         }
 
     },
@@ -152,7 +169,8 @@ var app = new Vue({
                     }
                 }
             }
-        }
+        },
+
     },
     mounted: function() {
         this.nombresGrupo()
@@ -165,6 +183,7 @@ var app = new Vue({
                 // Obtén la referencia de la tabla por su id
                 this.datos.push({"izena" : data[i].izena, "abizenak" : data[i].abizenak, "kodea" : data[i].kodea, "id" : data[i].id});
             }
+            this.tituluAldatu();
         });
         this.buscar();
       }
@@ -190,3 +209,4 @@ function ocultarVentana() {
     document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
     document.getElementById('ventanaEmergenteLangile').style.display = 'none';
 }
+

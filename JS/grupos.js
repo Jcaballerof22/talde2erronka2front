@@ -7,6 +7,7 @@ var app = new Vue({
         aldatu: '',
         datos: [],
         taula: [],
+        titulua: 'GRUPOS',
     },
     methods: {
         addDatuak(){
@@ -105,7 +106,23 @@ var app = new Vue({
             if(event.key == "Enter"){
                 this.txertatuEdoAldatu();
             }
-        }
+        },
+
+        tituluAldatu(){
+            var scriptAnterior = document.getElementById("scriptDinamico");
+            if (scriptAnterior) {
+                scriptAnterior.remove();
+            }
+            // Crea un nuevo script y asigna su src según la opción seleccionada
+            var nuevoScript = document.createElement("script");
+            nuevoScript.id = "scriptDinamico";
+            nuevoScript.onload = function() {
+                console.log("Script cargado exitosamente");
+            };
+            nuevoScript.innerHTML = "var menu = new Vue({el: '#menu',data: {titulo: '"+this.titulua+"'},});"; // Asigna el nombre del script según la opción
+            // Agrega el nuevo script al cuerpo del documento
+            document.body.appendChild(nuevoScript);
+        },
     },
     watch:{
         bilatu: function(){
@@ -134,6 +151,7 @@ var app = new Vue({
                 // Obtén la referencia de la tabla por su id
                 this.datos.push({"izena" : data[i].izena, "langileKop" : data[i].langileak, "kodea" : data[i].kodea});
             }
+            this.tituluAldatu();
         });
         this.buscar();
       }
