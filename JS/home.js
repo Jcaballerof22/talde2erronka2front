@@ -341,7 +341,7 @@ var upHorario = new Vue({
                 this.deleteRoles(this.borrarM);
                 this.insertRoles(this.mostrador, "M");
             }
-
+            this.ocultarRoles();
         },
         deleteRoles(id_langilea){
             var js = JSON.stringify({"id_langilea": id_langilea});

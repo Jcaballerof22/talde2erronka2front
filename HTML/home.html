@@ -26,6 +26,8 @@
 
             <div id="fondoOscuro" class="fondo-ocultoHorarios" @click="ocultarVentana(), ocultarRoles()"></div>
 
+            <!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx HORARIOS xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+
             <div class="tablaHorarios" id="tablaHorarios">
 
                 <div class="contenidoTabla">
@@ -104,6 +106,8 @@
                 </div>
             </div>
 
+            <!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ROLES xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+
             <div class="tablaRoles" id="tablaRoles">
                 <div class="contenidoTabla">
                     <div class="row">
@@ -121,57 +125,137 @@
 
                     <div class="row align-items-start">
                         <div class="col-md-7">
-                    <table id="tabla" class="table table-hover table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Alumno</th>
-                                <th scope="col">Limpieza</th>
-                                <th scope="col">Mostrador</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(data, index) in datosRoles" :key="index" :id="data.id_langilea">
-                                <td>{{data.izena}} {{data.abizenak}}</td>
-                                <td>{{data.suma_g}}</td>
-                                <td>{{data.suma_m}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    </div>
-                    <div class="col-md-5">
-                        <h2 style="background-color: #E99857;">Asignar Roles</h2>
-                        <hr>
-                        <div class="row">
-                            <div class="col">
-                                <h3>Mostrador</h3>
-                                <div class="form-floating">
-                                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example" v-model="mostrador">
-                                      <option v-for="(data, index) in datosRoles" :key="index" :value="data.id_langilea">{{data.izena}} {{data.abizenak}}</option>
-                                    </select>
-                                    <label for="floatingSelect">Works with selects</label>
-                                  </div>
-                            </div>
-                            <div class="col">
-                                <h3>Limpieza</h3>
-                                <div class="form-floating">
-                                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example" v-model="limpieza">
-                                      <option v-for="(data, index) in datosRoles" :key="index" :value="data.id_langilea">{{data.izena}} {{data.abizenak}}</option>
-                                    </select>
-                                    <label for="floatingSelect">Works with selects</label>
-                                  </div>
+                            <table id="tabla" class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Alumno</th>
+                                        <th scope="col">Limpieza</th>
+                                        <th scope="col">Mostrador</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(data, index) in datosRoles" :key="index" :id="data.id_langilea">
+                                        <td>{{data.izena}} {{data.abizenak}}</td>
+                                        <td>{{data.suma_g}}</td>
+                                        <td>{{data.suma_m}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-5">
+                            <h2 style="background-color: #E99857;">Asignar Roles</h2>
+                            <hr>
+                            <div class="row">
+                                <div class="col">
+                                    <h3>Mostrador</h3>
+                                    <div class="form-floating">
+                                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example" v-model="mostrador">
+                                        <option v-for="(data, index) in datosRoles" :key="index" :value="data.id_langilea">{{data.izena}} {{data.abizenak}}</option>
+                                        </select>
+                                        <label for="floatingSelect">Works with selects</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <h3>Limpieza</h3>
+                                    <div class="form-floating">
+                                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example" v-model="limpieza">
+                                        <option v-for="(data, index) in datosRoles" :key="index" :value="data.id_langilea">{{data.izena}} {{data.abizenak}}</option>
+                                        </select>
+                                        <label for="floatingSelect">Works with selects</label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        
-                        
                     </div>
-                </div>
                     <div class="input-group-horarios">
-                        <button type="button" id="aceptarHorarios" class="btn añadir btn-lg" @click="ocultarRoles()">Aceptar</button>
+                        <button type="button" id="aceptarHorarios" class="btn añadir btn-lg" @click="aceptarRoles()">Aceptar</button>
                         <button type="button" id="cancelarHorarios" class="btn cancelar btn-lg" @click="ocultarRoles()">Cancelar</button>
                     </div>
                 </div>
             </div>
+
+            <!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx CITAS xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+
+            <div class="tablaCitas" id="tablaCitas">
+                <div class="contenidoTabla">
+                    <div class="row mt-3">
+                        <div class="col">
+                            <h2>Nueva Cita</h2>
+                        </div>
+                        
+                        <div class="col input-group-horarios">
+                            <button type="button" id="cerrarHorarios" class="btn x" @click="ocultarRoles()">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3><label for="name">Nombre:</label></h3>
+                            <input type="text" id="name" name="name" required size="50" />
+                        </div>
+                        <div class="col">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h3>¿Del centro?</h3>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                        <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
+                                    </div>    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row align-items-center">
+                        <div class="col d-flex">
+                            <h3 class="me-3">Hora - Inicio</h3>
+                            <input type="time" id="appt" name="appt" min="09:00" max="18:00" required />
+                        </div>
+                        <div class="col d-flex">
+                            <h3 class="me-3">Hora - Fin</h3>
+                            <input type="time" id="appt" name="appt" min="09:00" max="18:00" required />
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3><label for="name">Teléfono:</label></h3>
+                            <input type="tel" id="name" name="name" required size="50" />
+                        </div>
+                        <div class="col">
+                            <h3><label for="name">Alumno:</label></h3>
+                            <select class="form-select" aria-label="Default select example">
+                                <option>A</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3><label for="name">Observaciones:</label></h3>
+                            <input type="text" id="name" name="name" required size="100" />
+                        </div>
+                    </div>
+
+                    <div class="input-group-horarios">
+                        <button type="button" id="aceptarHorarios" class="btn añadir btn-lg" @click="">Aceptar</button>
+                        <button type="button" id="cancelarHorarios" class="btn cancelar btn-lg" @click="">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
         <div class="container">
             <div id="horario2" class="horario2">
                 <input type="date" id="fecha" name="fecha" v-model="data">
