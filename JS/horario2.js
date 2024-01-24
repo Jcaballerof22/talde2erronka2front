@@ -9,7 +9,7 @@ var horario2 = new Vue({
         data : '',
         hasiera_ordua : '',
         amaiera_ordua : '',
-        langileDisp: 3,
+        langileDisp: 9,
         lapsoDTiempo: 4, // 2->cada 15 mins, 4->cada 30 mins
         intervaloHoras:[9,14,16,20], //0-1 para la mañana, 2-3 para la tarde
         // hasiera_ordua_erreala : '',
