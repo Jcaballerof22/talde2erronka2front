@@ -103,32 +103,23 @@
 
     <div class="containerPage">
         <div class="input-group-estadisticas">
-            <div>
+            <div class="col">
                 <button type="button" class="btn añadir btn-lg">Planchas</button>
                 <button type="button" class="btn añadir btn-lg">Secador</button>
             </div>
-            
-            <div class="input-group">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle me-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Marca
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">GHD</a></li>
-                      <li><a class="dropdown-item" href="#">Belle</a></li>
-                    </ul>
-                </div>
-                <input type="text" class="form-control" placeholder="Buscar por nombre">
-                <div class="input-group-append">
-                    <button class="btn lupa" type="button">
-                        <i class="bi bi-search"></i>
-                    </button>
-                    <button type="button" id="mostrarVentanaMaterial" class="btn añadir btn-lg">Añadir material</button>
-                    <button type="button" id="mostrarVentanaReservarMaterial" class="btn añadir btn-lg">Reservar Material</button>
-                    <!-- Habra q quitar este boton despues, solo es por ver como queda -->
+            <div class="col">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Buscar por nombre">
+                    <div class="input-group-append">
+                        <button class="btn lupa" type="button">
+                            <i class="bi bi-search"></i>
+                        </button>
+                        <button type="button" id="mostrarVentanaMaterial" class="btn añadir btn-lg">Añadir material</button>
+                        <button type="button" id="mostrarVentanaReservarMaterial" class="btn añadir btn-lg">Reservar Material</button>
+                        <!-- Habra q quitar este boton despues, solo es por ver como queda -->
+                    </div>
                 </div>
             </div>
-
             
             <table id="tabla" class="table table-hover table-striped">
                 <thead>
