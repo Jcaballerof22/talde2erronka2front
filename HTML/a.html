@@ -9,14 +9,44 @@
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     </head>
     <body>
-                    <div class="contenido" id="orrialdea"></div>
+            <div class="contenido" id="orrialdea"></div>
             <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
             <div id="horario2" class="horario2">
                 <input type="date" id="fecha" name="fecha" v-model="data">
+                <input type="text" id="bilatu" name="bilatu" v-model="bilatu">
                 <div class="table-responsive-xl">
-                    <table class="table">
+                    <table class="table" v-if="bilatu != ''">
+                        <thead>
+                            <th scope="col">id</th>
+                            <th scope="col">data</th>
+                            <th scope="col">hasiera_ordua</th>
+                            <th scope="col">amaiera_ordua</th>
+                            <th scope="col">izena</th>
+                            <th scope="col">telefonoa</th>
+                            <th scope="col">deskribapena</th>
+                            <th scope="col">etxekoa</th>
+                            <th scope="col"></th>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(dato,index) in taula">
+                                <td scope="col">{{dato.id}}</td>
+                                <td scope="col">{{dato.data}}</td>
+                                <td scope="col">{{dato.hasiera_ordua}}</td>
+                                <td scope="col">{{dato.amaiera_ordua}}</td>
+                                <td scope="col">{{dato.izena}}</td>
+                                <td scope="col">{{dato.telefonoa}}</td>
+                                <td scope="col">{{dato.deskribapena}}</td>
+                                <td scope="col">{{dato.etxekoa}}</td>
+                                <td>
+                                    <i class="bi bi-trash-fill"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table" v-else>
                         <thead>
                             <tr>
+                                <th scope="col" colspan="2" style="background-color: #F4E3C8;"></th>
                                 <th scope="col"></th>
                                 <th v-for="(dato,index) in taula[0]" scope="col" class="text-center">{{index+1}}</th>
 
@@ -24,7 +54,9 @@
                         </thead>
                         <tbody>
                             <tr v-for="(dato, index) in orduak">
-                                <th v-if="index % 4 === 0" rowspan="4" scope="col">{{dato}}</th>                                
+                                <th v-if="index % lapsoDTiempo === 0" :rowspan="lapsoDTiempo" scope="col" style="background-color: pink; border: 2px  solid #F4E3C8" class="text-center"> 1</th>
+                                <th scope="col" style="background-color: #F4E3C8; border: 2px  solid #F4E3C8"></th>
+                                <th v-if="index % lapsoDTiempo === 0" :rowspan="lapsoDTiempo" scope="col">{{dato}}</th> <!-- cambiar 4 por 2 para que sea cada 30 mins -->                            
                                 <td @click="susto(taula[index][index2].id)" style="background-color: #E26B6B; border: 2px  solid black" v-for="(dato2, index2) in taula[index].reverse()" :rowspan="taula[index][index2].timeDif" scope="col" v-if="Object.keys(taula[index][index2]).length > 2">{{taula[index][index2].izena}}<br>{{taula[index][index2].orduak}}<br>{{taula[index][index2].deskribapena}}</td>
                                 <td scope="col" v-else-if="taula[index][index2].visible"></td>
 
