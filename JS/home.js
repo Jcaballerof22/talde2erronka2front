@@ -331,15 +331,54 @@ var upHorario = new Vue({
                 console.log("Limpieza igual");
             }else{
                 this.deleteRoles(this.borrarL);
-                this.insertRoles(this.limpieza);
+                this.insertRoles(this.limpieza, "G");
             }
 
             if(this.borrarM == this.mostrador){
                 console.log("Limpieza igual");
             }else{
                 this.deleteRoles(this.borrarM);
-                this.insertRoles(this.mostrador);
+                this.insertRoles(this.mostrador, "M");
             }
+
+        },
+        deleteRoles(id_langilea){
+            var js = JSON.stringify({"id_langilea": id_langilea});
+            console.log("ezabatuRoles: "+js);
+            fetch('../../talde2erronka2back/Erronka2/public/api/roles/ezabatu', {method: 'PUT', body: js})
+                    .then(function (response) {
+                            return response.text();
+                    })
+                    .then(data=>{
+                        console.log(data);
+                    })
+                    .catch(error => {
+                        console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+                    });
+
+        },
+        insertRoles(id_langilea, mota){
+            var datos = {id_langilea, mota};
+            var js = JSON.stringify(datos); 
+            console.log("inserRoles: "+js);
+
+            fetch('../../talde2erronka2back/Erronka2/public/api/roles/txertatu', {
+                method: 'POST',
+                body: js
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la solicitud');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Respuesta del servidor:', data);
+                this.ocultarVentana();
+            })
+            .catch(error => {
+                console.error('Error al actualizar los datos en el servidor:', error.message);
+            });
 
         },
         /////////////////////////////////////// MOSTRAR-OCULTAR POPUPS ////////////////////////////////////////////
