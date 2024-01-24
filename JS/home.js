@@ -92,6 +92,7 @@ var upHorario = new Vue({
         fecha: [{},{},{},{},{}],
         dias: [],
         datosRoles: [],
+        titulua: 'HOME',
     },
     methods: {
         
@@ -397,6 +398,22 @@ var upHorario = new Vue({
         mostrarRoles(){
             document.getElementById('tablaRoles').style.display = 'block';
             document.getElementById('fondoOscuro').classList.add('mostrar-fondo');
+        },
+
+        tituluAldatu(){
+            var scriptAnterior = document.getElementById("scriptDinamico");
+            if (scriptAnterior) {
+                scriptAnterior.remove();
+            }
+            // Crea un nuevo script y asigna su src según la opción seleccionada
+            var nuevoScript = document.createElement("script");
+            nuevoScript.id = "scriptDinamico";
+            nuevoScript.onload = function() {
+                console.log("Script cargado exitosamente");
+            };
+            nuevoScript.innerHTML = "var menu = new Vue({el: '#menu',data: {titulo: '"+this.titulua+"'},});"; // Asigna el nombre del script según la opción
+            // Agrega el nuevo script al cuerpo del documento
+            document.body.appendChild(nuevoScript);
         }
         
         // updateDia(eguna, izena) {
@@ -429,6 +446,7 @@ var upHorario = new Vue({
         this.nombresGrupo();
         this.grupoSeleccionado().then(() => {
             this.tablaRoles();
+            this.tituluAldatu();
         });
         
         // //
