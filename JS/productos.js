@@ -16,6 +16,15 @@ var app = new Vue({
             }
             console.log(this.datosProduk);
         });
+        },
+
+        ocultarVentana() {
+            document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
+            document.getElementById('ventanaEmergente').style.display = 'none';
+        },
+        abrirPopup(id){
+            document.getElementById('fondoOscuro').classList.add('mostrar-fondo');
+            document.getElementById('ventanaEmergente').style.display = 'block';
         }
     },
     mounted: function() {
