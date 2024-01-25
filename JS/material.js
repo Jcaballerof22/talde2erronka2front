@@ -4,9 +4,9 @@ var pinga = new Vue({
         // bilatu: '',
         izena: "",
         etiketa: "",
-        // aldatu: '',
+        aldatu: '',
         datos: [],
-        // taula: [],
+        taula: [],
         titulua: 'MATERIAL',
     },
     methods: {
@@ -23,7 +23,7 @@ var pinga = new Vue({
                     })
                     .then(data=>{
                         console.log(data);
-                        this.datos.push({"izena" : this.izena, "langileKop" : "0", "kodea" : data});
+                        this.datos.push({"etiketa" : this.etiketa, "izena" : this.izena, "kodea" : data});
                         
                     })
                     .catch(error => {
@@ -31,24 +31,25 @@ var pinga = new Vue({
                     });
                 }
         },
-        abrirPopup(kodea, izena){
+        abrirPopup(etiketa, izena, id){
             
-            this.aldatu = kodea;
+
+            this.aldatu = id;
+            this.etiketa = etiketa;
             this.izena = izena;
-            this.kodea = kodea;
-            document.getElementById('fondoOscuroGrupos').classList.add('mostrar-fondo');
-            document.getElementById('ventanaEmergenteGrupos').style.display = 'block';
+            document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
+            document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'block';
         },
 
-        // txertatuEdoAldatu(){
-        //     if(this.aldatu != ''){
-        //         this.aldatuDatuak();
-        //     }else{
-        //         this.addDatuak();
-        //     }
-        //     document.getElementById('fondoOscuroGrupos').classList.remove('mostrar-fondo');
-        //     document.getElementById('ventanaEmergenteGrupos').style.display = 'none';
-        // },
+        txertatuEdoAldatu(){
+            if(this.aldatu != ''){
+                //  
+            }else{
+                this.addDatuak();
+            }
+            document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
+            document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'none';
+        },
 
         // aldatuDatuak(){
         //     var js = JSON.stringify({"kodea": this.kodea, "izena": this.izena}); 
@@ -85,27 +86,26 @@ var pinga = new Vue({
         //     }
         // },
 
-        // ezabatu(kodea){
-        //     var js = JSON.stringify({"kodea": kodea}); 
-        //     console.log("froga: "+js);
-        //     fetch('../../talde2erronka2back/Erronka2/public/api/grupos/ezabatu', {method: 'PUT', body: js})
-        //             .then(function (response) {
-        //                     return response.text();
-        //             })
-        //             .then(data=>{
-        //                 console.log(data);
-        //                 this.taula = this.taula.filter(aux => aux.kodea !== kodea);
-        //             })
-        //             .catch(error => {
-        //                 console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
-        //             });
-        // },
+        ezabatu(id){
+            var js = JSON.stringify({"id": id}); 
+            console.log("frogaBorrar: "+js);
+            fetch('../../talde2erronka2back/Erronka2/public/api/materiala/ezabatu', {method: 'PUT', body: js})
+                    .then(function (response) {
+                            return response.text();
+                    })
+                    .then(data=>{
+                        console.log(data);
+                    })
+                    .catch(error => {
+                        console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+                    });
+        },
 
-        // teclado(event){
-        //     if(event.key == "Enter"){
-        //         this.txertatuEdoAldatu();
-        //     }
-        // },
+        teclado(event){
+            if(event.key == "Enter"){
+                this.txertatuEdoAldatu();
+            }
+        },
 
         tituluAldatu(){
             var scriptAnterior = document.getElementById("scriptDinamico");
@@ -146,7 +146,7 @@ var pinga = new Vue({
             console.log(data); 
             for (let i = 0; i < data.length; i++) {
                 // Obtén la referencia de la tabla por su id
-                this.datos.push({"etiketa" : data[i].etiketa, "izena" : data[i].izena});
+                this.datos.push({"etiketa" : data[i].etiketa, "izena" : data[i].izena, "id" : data[i].id});
             }
             this.tituluAldatu();
         });
@@ -154,10 +154,10 @@ var pinga = new Vue({
       }
 });
 
-document.getElementById('mostrarVentanaMaterial').addEventListener('click', function() {
-    document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
-    document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'block';
-});
+// document.getElementById('mostrarVentanaMaterial').addEventListener('click', function() {
+//     document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
+//     document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'block';
+// });
 
 document.getElementById('cerrarVentanaAñadirMaterial').addEventListener('click', function() {
     document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
