@@ -10,35 +10,35 @@ var pinga = new Vue({
         titulua: 'MATERIAL',
     },
     methods: {
-        // addDatuak(){
-        //     //
-        //         if(this.izena==""){
-        //             alert("Datu falta dira")
-        //         }else{
-        //             var js = JSON.stringify({"izena": this.izena}); 
-        //             console.log("froga: "+js);
-        //             fetch('../../talde2erronka2back/Erronka2/public/api/grupos/txertatu', {method: 'POST', body: js, mode: 'no-cors'})
-        //             .then(function (response) {
-        //                     return response.text();
-        //             })
-        //             .then(data=>{
-        //                 console.log(data);
-        //                 this.datos.push({"izena" : this.izena, "langileKop" : "0", "kodea" : data});
+        addDatuak(){
+            //
+                if(this.izena=="" && this.etiketa==""){
+                    alert("Datu falta dira")
+                }else{
+                    var js = JSON.stringify({"izena": this.izena, "etiketa": this.etiketa}); 
+                    console.log("froga: "+js);
+                    fetch('../../talde2erronka2back/Erronka2/public/api/materiala/txertatu', {method: 'POST', body: js, mode: 'no-cors'})
+                    .then(function (response) {
+                            return response.text();
+                    })
+                    .then(data=>{
+                        console.log(data);
+                        this.datos.push({"izena" : this.izena, "langileKop" : "0", "kodea" : data});
                         
-        //             })
-        //             .catch(error => {
-        //                 console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
-        //             });
-        //         }
-        // },
-        // abrirPopup(kodea, izena){
-        //     //lodelPopup
-        //     this.aldatu = kodea;
-        //     this.izena = izena;
-        //     this.kodea = kodea;
-        //     document.getElementById('fondoOscuroGrupos').classList.add('mostrar-fondo');
-        //     document.getElementById('ventanaEmergenteGrupos').style.display = 'block';
-        // },
+                    })
+                    .catch(error => {
+                        console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+                    });
+                }
+        },
+        abrirPopup(kodea, izena){
+            
+            this.aldatu = kodea;
+            this.izena = izena;
+            this.kodea = kodea;
+            document.getElementById('fondoOscuroGrupos').classList.add('mostrar-fondo');
+            document.getElementById('ventanaEmergenteGrupos').style.display = 'block';
+        },
 
         // txertatuEdoAldatu(){
         //     if(this.aldatu != ''){
@@ -107,21 +107,19 @@ var pinga = new Vue({
         //     }
         // },
 
-        // tituluAldatu(){
-        //     var scriptAnterior = document.getElementById("scriptDinamico");
-        //     if (scriptAnterior) {
-        //         scriptAnterior.remove();
-        //     }
-        //     // Crea un nuevo script y asigna su src según la opción seleccionada
-        //     var nuevoScript = document.createElement("script");
-        //     nuevoScript.id = "scriptDinamico";
-        //     nuevoScript.onload = function() {
-        //         console.log("Script cargado exitosamente");
-        //     };
-        //     nuevoScript.innerHTML = "var menu = new Vue({el: '#menu',data: {titulo: '"+this.titulua+"'},});"; // Asigna el nombre del script según la opción
-        //     // Agrega el nuevo script al cuerpo del documento
-        //     document.body.appendChild(nuevoScript);
-        // },
+        tituluAldatu(){
+            var scriptAnterior = document.getElementById("scriptDinamico");
+            if (scriptAnterior) {
+                scriptAnterior.remove();
+            }
+            var nuevoScript = document.createElement("script");
+            nuevoScript.id = "scriptDinamico";
+            nuevoScript.onload = function() {
+                console.log("Script cargado exitosamente");
+            };
+            nuevoScript.innerHTML = "var menu = new Vue({el: '#menu',data: {titulo: '"+this.titulua+"'},});";
+            document.body.appendChild(nuevoScript);
+        },
     },
     // watch:{
     //     bilatu: function(){
