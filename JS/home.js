@@ -490,7 +490,7 @@ var upHorario = new Vue({
         //                     }
 
         //                     var select = document.createElement("select");
-        //                     select.className = "form-select combobox";
+        //                     select.className = "form-select";
         //                     select.setAttribute("aria-label", "Default select example");
         //                     select.id = "grupoSelect_" + i;
 
@@ -561,7 +561,7 @@ var upHorario = new Vue({
 //                 }
 
 //                 var select = document.createElement("select");
-//                 select.className = "form-select combobox";
+//                 select.className = "form-select";
 //                 select.setAttribute("aria-label", "Default select example");
 //                 select.id = "grupoSelect_" + i;
 
