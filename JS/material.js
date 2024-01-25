@@ -121,43 +121,19 @@ var pinga = new Vue({
             document.body.appendChild(nuevoScript);
         },
     },
-    // watch:{
-    //     bilatu: function(){
-    //         if (this.bilatu == ''){
-    //             this.taula = this.datos;
-    //         }else{
-    //             this.taula = [];
-    //             for (let i = 0; i < this.datos.length; i++){
-    //                 if(this.datos[i].izena.startsWith(this.bilatu)){
-    //                     console.log(this.datos[i].izena + " " + this.datos[i].langileKop+ " " + this.datos[i].kodea)
-    //                     this.taula.push({"izena" : this.datos[i].izena, "langileKop" : this.datos[i].langileKop,  "kodea" : this.datos[i].kodea});
-    //                 }
-    //             }
-    //         }
-    //     }
-    // },
     mounted: function() {
-        // Código que se ejecuta cuando la instancia Vue se ha montado en el DOM
         console.log('La instancia Vue se ha montado en el DOM.');
-        // Puedes realizar operaciones adicionales aquí
         fetch('../../talde2erronka2back/Erronka2/public/api/materiala', { method: 'GET', mode: 'no-cors'})
         .then(response => response.json())
         .then(data => {
             console.log(data); 
             for (let i = 0; i < data.length; i++) {
-                // Obtén la referencia de la tabla por su id
                 this.datos.push({"etiketa" : data[i].etiketa, "izena" : data[i].izena, "id" : data[i].id});
             }
             this.tituluAldatu();
         });
-        // this.buscar();
       }
 });
-
-// document.getElementById('mostrarVentanaMaterial').addEventListener('click', function() {
-//     document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
-//     document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'block';
-// });
 
 document.getElementById('cerrarVentanaAñadirMaterial').addEventListener('click', function() {
     document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
