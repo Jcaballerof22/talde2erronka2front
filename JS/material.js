@@ -1,5 +1,5 @@
-var app = new Vue({
-    el: '#app',
+var pinga = new Vue({
+    el: '#pinga',
     data: {
         // bilatu: '',
         izena: "",
