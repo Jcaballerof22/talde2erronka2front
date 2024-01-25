@@ -297,12 +297,12 @@ body{
   /* margin: 15px; */
 }
 
-.form-control{
+.buscar{
     max-width: 200px;
     height: 45px;
 }
 
-.form-select{
+.combobox{
     width: 150px;
 }
 

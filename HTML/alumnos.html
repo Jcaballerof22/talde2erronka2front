@@ -35,7 +35,7 @@
                 <div class="mt-1 d-flex p-2" id="gruposLangilea">
                     <label for="mensaje" id="gruposLabelLangile">Grupos</label>
                 
-                    <select class="form-select mt-4" id="selectorLangilea" aria-label="Default select example" v-model="kodea">
+                    <select class="form-select combobox mt-4" id="selectorLangilea" aria-label="Default select example" v-model="kodea">
                         <option   v-for="(dato,index) in datosTalde" :key="index" :value="dato.kodea">{{ dato.izena }}</option>
                     </select>
                 </div>
@@ -44,10 +44,10 @@
         </div>
         <div class="containerPage">
             <div class="input-group">
-                <select class="form-select" aria-label="Default select example" style="max-width: 10vw; margin-right: 3vw;" v-model="sailkatu">
+                <select class="form-select combobox" aria-label="Default select example" style="max-width: 10vw; margin-right: 3vw;" v-model="sailkatu">
                     <option   v-for="(dato,index) in datosTalde" :key="index" :value="dato.kodea">{{ dato.izena }}</option>
                 </select>
-                <input type="text" class="form-control" placeholder="Buscar por nombre" v-model="bilatu">
+                <input type="text" class="form-control buscar" placeholder="Buscar por nombre" v-model="bilatu">
                 <div class="input-group-append">
                   <button class="btn lupa" type="button" @click="buscar">
                     <i class="bi bi-search"></i>

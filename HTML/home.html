@@ -13,7 +13,7 @@
 
         <div class="containerPage" id="upHorario">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Buscar por nombre">
+                <input type="text" class="form-control buscar" placeholder="Buscar por nombre">
                 <div class="input-group-append">
                     <button class="btn lupa" type="button">
                         <i class="bi bi-search"></i>
@@ -50,7 +50,7 @@
                     <tr>
                         <td>Lunes</td>
                         <td>
-                            <select class="form-select" aria-label="Default select example" v-model="dias[0]">
+                            <select class="form-select combobox" aria-label="Default select example" v-model="dias[0]">
                                 <!-- <option :value="grupo[0].IZENA" selected>{{ grupo[0].IZENA }}</option> -->
                                 <!-- <option selected>a</option> -->
                                 <!-- <option   v-for="(grupos,index) in grupo" :key="index" :value="grupos.IZENA" >{{ grupos.IZENA }}</option> -->
@@ -63,7 +63,7 @@
                     </tr>
                     <tr>
                         <td>Martes</td>
-                        <td><select class="form-select" aria-label="Default select example" v-model="dias[1]">
+                        <td><select class="form-select combobox" aria-label="Default select example" v-model="dias[1]">
                             <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                         </select></td>
                         <td><input type="date" id="birthday" name="birthday" v-model="fecha[1].HASIERA_DATA"></td>
@@ -72,7 +72,7 @@
                     </tr>
                     <tr>
                         <td>Miércoles</td>
-                        <td><select class="form-select" aria-label="Default select example" v-model="dias[2]">
+                        <td><select class="form-select combobox" aria-label="Default select example" v-model="dias[2]">
                             <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                         </select></td>
                         <td><input type="date" id="birthday" name="birthday" v-model="fecha[2].HASIERA_DATA"></td>
@@ -81,7 +81,7 @@
                     </tr>
                     <tr>
                         <td>Jueves</td>
-                        <td><select class="form-select" aria-label="Default select example" v-model="dias[3]">
+                        <td><select class="form-select combobox" aria-label="Default select example" v-model="dias[3]">
                             <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                         </select></td>
                         <td><input type="date" id="birthday" name="birthday" v-model="fecha[3].HASIERA_DATA"></td>
@@ -90,7 +90,7 @@
                     </tr>
                     <tr>
                         <td>Viernes</td>
-                        <td><select class="form-select" aria-label="Default select example" v-model="dias[4]">
+                        <td><select class="form-select combobox" aria-label="Default select example" v-model="dias[4]">
                             <option   v-for="(dato,index) in datos" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                         </select></td>
                         <td><input type="date" id="birthday" name="birthday" v-model="fecha[4].HASIERA_DATA"></td>
@@ -149,7 +149,7 @@
                                 <div class="col">
                                     <h3>Mostrador</h3>
                                     <div class="form-floating">
-                                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example" v-model="mostrador">
+                                        <select class="form-select combobox" id="floatingSelect" aria-label="Floating label select example" v-model="mostrador">
                                         <option v-for="(data, index) in datosRoles" :key="index" :value="data.id_langilea">{{data.izena}} {{data.abizenak}}</option>
                                         </select>
                                         <label for="floatingSelect">Works with selects</label>
@@ -158,7 +158,7 @@
                                 <div class="col">
                                     <h3>Limpieza</h3>
                                     <div class="form-floating">
-                                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example" v-model="limpieza">
+                                        <select class="form-select combobox" id="floatingSelect" aria-label="Floating label select example" v-model="limpieza">
                                         <option v-for="(data, index) in datosRoles" :key="index" :value="data.id_langilea">{{data.izena}} {{data.abizenak}}</option>
                                         </select>
                                         <label for="floatingSelect">Works with selects</label>
@@ -232,7 +232,7 @@
                         </div>
                         <div class="col">
                             <h3><label for="name">Alumno:</label></h3>
-                            <select class="form-select" aria-label="Default select example">
+                            <select class="form-select combobox" aria-label="Default select example">
                                 <option>A</option>
                             </select>
                         </div>

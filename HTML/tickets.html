@@ -342,13 +342,13 @@
                 <hr>
 
                 <div class="d-flex align-items-center mt-3">
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select combobox" aria-label="Default select example">
                         <option selected>Grupo</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
                       </select>
-                      <select class="form-select" aria-label="Default select example">
+                      <select class="form-select combobox" aria-label="Default select example">
                         <option selected>Alumno</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
@@ -367,7 +367,7 @@
 
                 <div clas="d-flex align-items-center mt-3">
                     <label for="mensaje" id="tratamientosLabelTicket">Tratamientos</label>
-                    <select class="form-select mt-2" aria-label="Default select example">
+                    <select class="form-select combobox mt-2" aria-label="Default select example">
                         <option selected>Alumno</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
@@ -394,7 +394,7 @@
         <div class="containerPage">
             <div class="input-group">
 
-                <input type="text" class="form-control" placeholder="Buscar por nombre" v-model="bilatu">
+                <input type="text" class="form-control buscar" placeholder="Buscar por nombre" v-model="bilatu">
                 <div class="input-group-append">
                   <button class="btn lupa" type="button" @click="buscar">
                     <i class="bi bi-search"></i>

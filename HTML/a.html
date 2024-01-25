@@ -12,6 +12,86 @@
             <div class="contenido" id="orrialdea"></div>
             <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
             <div id="horario2" class="horario2">
+                <!--  -->
+                <div id="popup" style="background-color: #F4E3C8; width: 50vw;">
+                    <form class="row g-3 p-5">
+                        <!-- Primera Fila -->
+                        <div class="col-md-12">
+                            <div class="row g-3">
+                                <div class="col">
+                                    <label class="form-label rounded bg-white p-2 mb-1">Nombre: </label>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check-reverse form-switch d-flex justify-content-center">
+                                        <label class="form-check-label rounded bg-white p-2 mx-2 mb-1 text-center">Del Centro</label>
+                                        <input class="form-check-input" style="margin-top: 1.4vh; background-color: #E99857; border-color: #E99857;" type="checkbox" checked>
+                                    </div>                        
+                                </div>
+                              </div>
+                          <input type="text" v-model="izena" class="form-control">
+                        </div>
+                        <!-- Segunda Fila -->
+                        <div class="col-md-12">
+                            <div class="input-group" style="margin: 0;">
+                                <span class="input-group-text">Hora-Inicio</span>
+                                <input type="time" class="form-control">
+                                <span class="input-group-text">Hora-Fin</span>
+                                <input type="time" class="form-control">
+                            </div>
+                        </div>
+                        <!-- Tercera Fila -->
+                        <div class="col-12">
+                          <label for="inputAddress" class="form-label rounded bg-white p-2 mb-1">Telefonoa:</label>
+                          <input type="text" class="form-control">
+                        </div>
+                        <!-- Cuarta Fila -->
+                        <div class="col-md-4">
+                            <!-- <label class="form-label rounded bg-white p-2 mb-1">Grupo</label> -->
+                            <select class="form-select">
+                              <option selected disabled value="">Grupo</option>
+                              <option>...</option>
+                            </select>
+                        </div>
+                        <div class="col-md-8">
+                            <!-- <label class="form-label rounded bg-white p-2 mb-1">Alumno</label> -->
+                            <select class="form-select">
+                              <option selected disabled value="">Alumno</option>
+                              <option>...</option>
+                            </select>
+                        </div>
+                        <!-- Quinta Fila -->
+                        <div class="col-md-12">
+                            <div class="row g-3" style="display: inline-flex;">
+                                <div class="col">
+                                    <label class="form-label rounded bg-white p-2 mb-1">Tratamiento: </label>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select" style="min-width: 15vw;">
+                                        <option selected disabled value="">Tratamientos</option>
+                                        <option>...</option>
+                                    </select>      
+                                </div>
+                                <div class="col">
+                                    <button class="btn" style="background-color: #E99857;" type="button">+</button>
+                                    <button class="btn" style="background-color: #E99857;" type="button">-</button>
+                                </div>
+                              </div>
+                          <textarea class="form-control"></textarea>
+                        </div>
+                        <!-- Sexta Fila -->
+                        <div class="col-12">
+                            <label for="inputAddress" class="form-label rounded bg-white p-2 mb-1">Observaciones:</label>
+                            <textarea class="form-control"></textarea>
+                          </div>
+                        <!-- Fin -->
+                        <div class="col-12">
+                            <button class="btn" style="background-color: #E99857;">Guardar</button>
+                            <button class="btn" style="background-color: #E99857;">Generar tiket</button>
+                        </div>
+                      </form>
+                </div>
+                <!--  -->
+                <br>
                 <input type="date" id="fecha" name="fecha" v-model="data">
                 <input type="text" id="bilatu" name="bilatu" v-model="bilatu">
                 <div class="table-responsive-xl">
@@ -56,29 +136,12 @@
                                 <th v-if="index % lapsoDTiempo === 0" :rowspan="lapsoDTiempo" scope="col">{{dato}}</th> <!-- cambiar 4 por 2 para que sea cada 30 mins -->                            
                                 <td @click="susto(taula[index][index2].id)" style="background-color: #E26B6B; border: 2px  solid black" v-for="(dato2, index2) in taula[index].reverse()" :rowspan="taula[index][index2].timeDif" scope="col" v-if="Object.keys(taula[index][index2]).length > 2">{{taula[index][index2].izena}}<br>{{taula[index][index2].orduak}}<br>{{taula[index][index2].deskribapena}}</td>
                                 <td scope="col" v-else-if="taula[index][index2].visible"></td>
-
-                                <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
-
-                                <!-- <td :rowspan="taula[index].b.num" scope="col" v-if="Object.keys(taula[index].b).length > 0">{{taula[index].b}}</td>
-                                <td :rowspan="taula[index].b.num" scope="col" v-else-if="taula[index].b"></td>
-                                <td :rowspan="taula[index].c.num" scope="col" v-else-if="Object.keys(taula[index].c).length > 0">{{taula[index].c}}</td>
-                                <td :rowspan="taula[index].c.num" scope="col" v-else-if="taula[index].c"></td>
-                                <td :rowspan="taula[index].d.num" scope="col" v-else-if="Object.keys(taula[index].d).length > 0">{{taula[index].d}}</td>
-                                <td :rowspan="taula[index].d.num" scope="col" v-else-if="taula[index].d"></td>
-                                <td :rowspan="taula[index].e.num" scope="col" v-else-if="Object.keys(taula[index].e).length > 0">{{taula[index].e}}</td>
-                                <td :rowspan="taula[index].e.num" scope="col" v-else-if="taula[index].e"></td> -->
-                                
-                                <!-- <td :rowspan="taula[index].b" scope="col" v-if="taula[index].b != 0">{{taula[index].b}} </td>
-                                <td :rowspan="taula[index].c" scope="col" v-if="taula[index].c != 0">{{taula[index].c}}</td>
-                                <td :rowspan="taula[index].d" scope="col" v-if="taula[index].d != 0">{{taula[index].d}}</td>
-                                <td :rowspan="taula[index].e" scope="col" v-if="taula[index].e != 0">{{taula[index].e}}</td> -->
                             </tr>
-            
                         </tbody>
                     </table>
-                  </div>
+                </div>
             </div>
-            <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+            <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->            
     </body>
 </html>
 <script src="../JS/horario2.js"></script>
