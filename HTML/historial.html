@@ -6,61 +6,64 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../CSS/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-    <div class="contenido" id="orrialdea"></div>
-    <div class="containerPage">
-        <div class="input-group-estadisticas">
-            <div class="col">
-                <button type="button" class="btn añadir btn-lg">Roles</button>
-                <button type="button" class="btn añadir btn-lg">Productos</button>
-                <button type="button" class="btn añadir btn-lg">Material</button>
-            </div>
-            <div class="col">
-                <div class="input-group">
-                    <div class="me-4">
-                        <h4>De 
-                        <input type="date" id="birthday" name="birthday">
-                        a 
-                        <input type="date" id="birthday" name="birthday">
-                        </h4>
-                    </div>
-                    <input type="text" class="form-control buscar" placeholder="Buscar por nombre">
-                    <div class="input-group-append">
-                        <button class="btn lupa" type="button">
-                            <i class="bi bi-search"></i>
-                        </button>
+    <div id="app">
+        <div class="contenido" id="orrialdea"></div>
+        <div class="containerPage">
+            <div class="input-group-estadisticas">
+                <div class="col">
+                    <button type="button" class="btn añadir btn-lg">Roles</button>
+                    <button type="button" class="btn añadir btn-lg">Productos</button>
+                    <button type="button" class="btn añadir btn-lg">Material</button>
+                </div>
+                <div class="col">
+                    <div class="input-group">
+                        <div class="me-4">
+                            <h4>De 
+                            <input type="date" id="birthday" name="birthday">
+                            a 
+                            <input type="date" id="birthday" name="birthday">
+                            </h4>
+                        </div>
+                        <input type="text" class="form-control buscar" placeholder="Buscar por nombre">
+                        <div class="input-group-append">
+                            <button class="btn lupa" type="button">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            
-            <table id="tabla" class="table table-hover table-striped">
-                <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Marca</th>
-                    <th scope="col">Modelo</th>
-                    <th scope="col">Alumno</th>
-                    <th scope="col">Inicio</th>
-                    <th scope="col">Fin</th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(dato, index) in taula" :key="index" :id="dato.kodea">
-                        <td>dfgfdtgretertretertewt</td>
-                        <td>fgfdgdf</td>
-                        <td>dfgdfsdgdf</td>
-                        <td>dfgdfgdjhkf</td>
-                        <td>dfgdfgdf</td>
-                        <td>dfgdf</td>
-                        <td>
-                            <i class="bi bi-trash-fill" @click="ezabatu(dato.kodea)"></i>
-                        </td>
+                
+                <table id="tabla" class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Alumno</th>
+                        <th scope="col">Inicio</th>
+                        <th scope="col">Fin</th>
+                        <th scope="col"></th>
                     </tr>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(dato, index) in taula" :key="index" :id="dato.kodea">
+                            <td>dfgfdtgretertretertewt</td>
+                            <td>fgfdgdf</td>
+                            <td>dfgdfsdgdf</td>
+                            <td>dfgdfgdjhkf</td>
+                            <td>dfgdfgdf</td>
+                            <td>dfgdf</td>
+                            <td>
+                                <i class="bi bi-trash-fill" @click="ezabatu(dato.kodea)"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </body>

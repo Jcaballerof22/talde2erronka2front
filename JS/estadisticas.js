@@ -9,6 +9,10 @@ var app = new Vue({
         alumnosM: [],
         productosNombre: [],
         productosNumero: [],
+        materialNombre: [],
+        materialNumero: [],
+        fechaInicio: "",
+        fechaFin: "",
     },
     methods: {
         graficoRoles(){
@@ -61,20 +65,11 @@ var app = new Vue({
         graficoMaterial(){
             this.titulo2 = "MATERIAL";
             const data = {
-                labels: this.alumnos,
+                labels: this.materialNombre,
                 datasets: [
                     {
-                        label: 'Secador',
-                        data: [3, 7, 5, 10, 1, 6, 2],
-                        borderColor: 'orange',
-                        backgroundColor: 'rgba(233, 152, 87, 0.5)',
-                        borderWidth: 2,
-                        borderRadius: Number.MAX_VALUE,
-                        borderSkipped: false,
-                    },
-                    {
-                        label: 'Plancha',
-                        data: [3, 5, 2, 5, 7, 9, 10],
+                        label: 'Cantidad',
+                        data: this.materialNumero,
                         borderColor: 'green',
                         backgroundColor: 'rgba(205, 223, 160, 0.5)',
                         borderWidth: 2,
@@ -170,6 +165,16 @@ var app = new Vue({
                     this.productosNumero.push(data[i].total_kopurua);
                 }
             });
+        },
+        sacarMaterial(){
+            fetch(`../../talde2erronka2back/Erronka2/public/api/materiala/erabili`, {method: 'GET'})
+            .then(response => response.json())
+            .then(data => {
+                for (let i = 0; i < data.length; i++){
+                    this.materialNombre.push(data[i].izena + " " + data[i].etiketa);
+                    this.materialNumero.push(data[i].count_id);
+                }
+            });
         }
     },
     mounted: function(){
@@ -179,6 +184,7 @@ var app = new Vue({
             });
         });
         this.sacarProductos();
+        this.sacarMaterial();
     }
 })
 
