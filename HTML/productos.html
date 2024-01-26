@@ -26,7 +26,7 @@
                     <div class="input-group">
                         <div class="dropdown">
                             <select class="form-select" aria-label="Default select example" style="max-width: 10vw; margin-right: 3vw;" v-model="sailkatu">
-                                <option   v-for="(dato,index) in datosProduk" :key="index" :value="dato.kodea">{{ dato.kategoria }}</option>
+                                <option   v-for="(dato,index) in datosKategoria" :key="index" :value="dato.kodea">{{ dato.izena }}</option>
                             </select>
                         </div>
                         <input type="text" class="form-control buscar ms-2" placeholder="Buscar por nombre">
@@ -168,15 +168,17 @@
                 </div>
                 <div>
                     <h3 scope="row">Nombre</h3>
-                    <input type="text" :value="datosEditatu.izena">
-                    <h3 scope="row">Marca</h3>
-                    <input type="text" :value="datosEditatu.marka">
-                    <h3 scope="row">Categoría</h3>
-                    <input type="text">
-                    <h3 scope="row">Descripción</h3>
-                    <input type="text">
-                    <h3 scope="row">Stock</h3>
-                    <input type="number">
+                    <input type="text" v-model="izena">
+                    <h3 scope="row" class="mt-3">Marca</h3>
+                    <input type="text" v-model="marka">
+                    <h3 scope="row" class="mt-3">Categoría</h3>
+                    <select class="form-select" aria-label="Default select example" style="max-width: 15vw; margin-right: 3vw;" v-model="kategoria">
+                        <option   v-for="(dato,index) in datosKategoria" :key="index" :value="dato.kodea">{{ dato.izena }}</option>
+                    </select>
+                    <h3 scope="row" class="mt-3">Descripción</h3>
+                    <input type="text" v-model="deskribapena">
+                    <h3 scope="row" class="mt-3">Stock</h3>
+                    <input type="number" v-model="stock">
                 </div>
                 <div class="input-group-horarios">
                     <button type="button" id="aceptarHorarios" class="btn añadir btn-lg">Aceptar</button>

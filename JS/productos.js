@@ -1,8 +1,15 @@
 var app = new Vue({
     el: '#app',
     data: {
-        datosProduk : [],
+        datosKategoria: [],
+        datosProduk: [],
         datosEditatu: [],
+        id:'',
+        izena:'',
+        marka:'',
+        kategoria:'',
+        deskribapena:'',
+        stock:'',
         titulua: 'PRODUCTOS'
     },
 
@@ -11,13 +18,24 @@ var app = new Vue({
         fetch('../../talde2erronka2back/Erronka2/public/api/productos', { method: 'GET'})
         .then(response => response.json())
         .then(data => {
-            console.log(data)
             for(let i = 0; i < data.length; i++) {
                 this.datosProduk.push({"id" : data[i].id, "izena" : data[i].izena, "marka" : data[i].marka, "kategoria" : data[i].kategoria, "deskribapena" : data[i].deskribapena, "stock" : data[i].stock, "stock_alerta" : data[i].stock_alerta});
             }
-            console.log(this.datosProduk);
+            // console.log(this.datosProduk);
             this.tituluAldatu();
         });
+        },
+
+        kategoriakGet(){
+            fetch('../../talde2erronka2back/Erronka2/public/api/kategoria', { method: 'GET'})
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                for(let i = 0; i < data.length; i++) {
+                    this.datosKategoria.push({"izena" : data[i].izena});
+                }
+                console.log(this.datosKategoria);
+            });
         },
 
         ocultarVentana() {
@@ -28,10 +46,21 @@ var app = new Vue({
             if(id != ''){
                 for(let i = 0; i < this.datosProduk.length; i++){
                     if(this.datosProduk[i].id == id){
-                        this.datosEditatu.push({"id" : this.datosProduk[i].id, "izena" : this.datosProduk[i].izena, "marka" : this.datosProduk[i].marka, "kategoria" : this.datosProduk[i].kategoria, "deskribapena" : this.datosProduk[i].deskribapena, "stock" : this.datosProduk[i].stock, "stock_alerta" : this.datosProduk[i].stock_alerta});
+                        this.izena = this.datosProduk[i].izena;
+                        this.marka = this.datosProduk[i].marka;
+                        this.kategoria = this.datosProduk[i].kategoria;
+                        this.deskribapena = this.datosProduk[i].deskribapena;
+                        this.stock = this.datosProduk[i].stock;
                     }
                 }
+            }else{
+                this.izena = '';
+                this.marka = '';
+                this.kategoria = '';
+                this.deskribapena = '';
+                this.stock = '';
             }
+            
             document.getElementById('fondoOscuro').classList.add('mostrar-fondo');
             document.getElementById('tablaEditarP').style.display = 'block';
         },
@@ -54,6 +83,6 @@ var app = new Vue({
     },
     mounted: function() {
         this.produktuakGet();
-        
+        this.kategoriakGet();
     }
 });
