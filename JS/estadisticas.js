@@ -1,19 +1,24 @@
 var app = new Vue({
     el: '#app',
     data: {
-        alumnos: ['Paco', 'Mikel', 'Ander', 'Izaskun', 'Asier', 'Sergio', 'Erik'],
+        grupoHoy: "",
         titulo2: "",
         myChart: null,
+        alumnosNombre: [],
+        alumnosL: [],
+        alumnosM: [],
+        productosNombre: [],
+        productosNumero: [],
     },
     methods: {
         graficoRoles(){
             this.titulo2 = "ROLES";
             const data = {
-                labels: this.alumnos,
+                labels: this.alumnosNombre,
                 datasets: [
                     {
                         label: 'Limpieza',
-                        data: [3, 7, 5, 10, 1, 6, 2],
+                        data: this.alumnosL,
                         borderColor: 'orange',
                         backgroundColor: 'rgba(233, 152, 87, 0.5)',
                         borderWidth: 2,
@@ -22,7 +27,7 @@ var app = new Vue({
                     },
                     {
                         label: 'Recepción',
-                        data: [3, 5, 2, 5, 7, 9, 10],
+                        data: this.alumnosM,
                         borderColor: 'green',
                         backgroundColor: 'rgba(205, 223, 160, 0.5)',
                         borderWidth: 2,
@@ -103,22 +108,13 @@ var app = new Vue({
         graficoProductos(){
             this.titulo2 = "PRODUCTOS";
             const data = {
-                labels: this.alumnos,
+                labels: this.productosNombre,
                 datasets: [
                     {
-                        label: 'Limpieza',
-                        data: [0, 7, 5, 1, 3, 3, 4],
+                        label: 'Cantidad',
+                        data: this.productosNumero,
                         borderColor: 'orange',
                         backgroundColor: 'rgba(233, 152, 87, 0.5)',
-                        borderWidth: 2,
-                        borderRadius: Number.MAX_VALUE,
-                        borderSkipped: false,
-                    },
-                    {
-                        label: 'Recepción',
-                        data: [2, 5, 8, 1, 2, 9, 1],
-                        borderColor: 'green',
-                        backgroundColor: 'rgba(205, 223, 160, 0.5)',
                         borderWidth: 2,
                         borderRadius: 5,
                         borderSkipped: false,
@@ -147,9 +143,42 @@ var app = new Vue({
 
             this.myChart = new Chart(ctx, config);               
         },
+        sacarGrupo(){
+            return fetch('../../talde2erronka2back/Erronka2/public/api/horarios/taldea', { method: 'GET'})
+            .then(response => response.json())
+            .then(data => {
+                    this.grupoHoy=data[0].izena;
+            });
+        },
+        sacarAlumnos(){
+            return fetch(`../../talde2erronka2back/Erronka2/public/api/roles/${this.grupoHoy}`, {method: 'GET'})
+            .then(response => response.json())
+            .then(data => {
+                for (let i = 0; i < data.length; i++){
+                    this.alumnosNombre.push(data[i].izena + " " + data[i].abizenak);
+                    this.alumnosL.push(data[i].suma_m);
+                    this.alumnosM.push(data[i].suma_g);
+                }
+            });
+        },
+        sacarProductos(){
+            fetch(`../../talde2erronka2back/Erronka2/public/api/productos/mugimendua`, {method: 'GET'})
+            .then(response => response.json())
+            .then(data => {
+                for (let i = 0; i < data.length; i++){
+                    this.productosNombre.push(data[i].izena);
+                    this.productosNumero.push(data[i].total_kopurua);
+                }
+            });
+        }
     },
     mounted: function(){
-        this.graficoRoles();
+        this.sacarGrupo().then(() => {
+            this.sacarAlumnos().then(() => {
+                this.graficoRoles();
+            });
+        });
+        this.sacarProductos();
     }
 })
 
