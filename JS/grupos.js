@@ -10,28 +10,35 @@ var app = new Vue({
         titulua: 'GRUPOS',
     },
     methods: {
-        addDatuak(){
-            //
-                if(this.izena==""){
-                    alert("Datu falta dira")
-                }else{
-                    var js = JSON.stringify({"izena": this.izena}); 
-                    console.log("froga: "+js);
-                    fetch('../../talde2erronka2back/Erronka2/public/api/grupos/txertatu', {method: 'POST', body: js, mode: 'no-cors'})
-                    .then(function (response) {
-                            return response.text();
-                    })
-                    .then(data=>{
-                        console.log(data);
-                        this.datos.push({"izena" : this.izena, "langileKop" : "0", "kodea" : data});
-                        
-                    })
-                    .catch(error => {
-                        console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+        async addDatuak() {
+            if (this.izena === "") {
+                alert("Falta el dato");
+            } else {
+                try {
+                    const js = JSON.stringify({"izena": this.izena}); 
+                    console.log("froga: " + js);
+
+                    const response = await fetch('../../talde2erronka2back/Erronka2/public/api/grupos/txertatu', {
+                        method: 'POST',
+                        body: js,
+                        mode: 'no-cors'
                     });
-            //
+
+                    const data = await response.text();
+                    console.log(data);
+
+                    this.datos.push({
+                        "izena": this.izena,
+                        "langileKop": "0",
+                        "kodea": data
+                    });
+                } catch (error) {
+                    console.error("Error al añadir el dato:", error);
+                    console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
                 }
+            }
         },
+
         abrirPopup(kodea, izena){
             //lodelPopup
             this.aldatu = kodea;
@@ -51,25 +58,29 @@ var app = new Vue({
             document.getElementById('ventanaEmergenteGrupos').style.display = 'none';
         },
 
-        aldatuDatuak(){
-            var js = JSON.stringify({"kodea": this.kodea, "izena": this.izena}); 
-            console.log("froga: "+js);
-            fetch('../../talde2erronka2back/Erronka2/public/api/grupos/editatu', {method: 'PUT', body: js})
-                    .then(function (response) {
-                            return response.text();
-                    })
-                    .then(data=>{
-                        console.log(data);
-                        for (let i = 0; i < this.datos.length; i++) {
-                            if (this.datos[i].kodea == this.aldatu){
-                                this.datos[i].kodea = this.kodea;
-                                this.datos[i].izena = this.izena;
-                            }
-                        }
-                    })
-                    .catch(error => {
-                        console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
-                    });
+        async aldatuDatuak() {
+            const js = JSON.stringify({"kodea": this.kodea, "izena": this.izena}); 
+            console.log("froga: " + js);
+            
+            try {
+                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/grupos/editatu', {
+                    method: 'PUT',
+                    body: js
+                });
+
+                const data = await response.text();
+                console.log(data);
+
+                for (let i = 0; i < this.datos.length; i++) {
+                    if (this.datos[i].kodea === this.aldatu) {
+                        this.datos[i].kodea = this.kodea;
+                        this.datos[i].izena = this.izena;
+                    }
+                }
+            } catch (error) {
+                console.error("Error al editar el dato:", error);
+                console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
+            }
         },
         
         buscar(){
@@ -86,20 +97,24 @@ var app = new Vue({
             }
         },
 
-        ezabatu(kodea){
-            var js = JSON.stringify({"kodea": kodea}); 
-            console.log("froga: "+js);
-            fetch('../../talde2erronka2back/Erronka2/public/api/grupos/ezabatu', {method: 'PUT', body: js})
-                    .then(function (response) {
-                            return response.text();
-                    })
-                    .then(data=>{
-                        console.log(data);
-                        this.taula = this.taula.filter(aux => aux.kodea !== kodea);
-                    })
-                    .catch(error => {
-                        console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
-                    });
+        async ezabatu(kodea) {
+            const js = JSON.stringify({"kodea": kodea}); 
+            console.log("froga: " + js);
+            
+            try {
+                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/grupos/ezabatu', {
+                    method: 'PUT',
+                    body: js
+                });
+
+                const data = await response.text();
+                console.log(data);
+
+                this.taula = this.taula.filter(aux => aux.kodea !== kodea);
+            } catch (error) {
+                console.error("Error al eliminar el registro:", error);
+                console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
+            }
         },
 
         teclado(event){
@@ -123,6 +138,29 @@ var app = new Vue({
             // Agrega el nuevo script al cuerpo del documento
             document.body.appendChild(nuevoScript);
         },
+
+        lortuDatuak() {
+            fetch('../../talde2erronka2back/Erronka2/public/api/grupos', { 
+                method: 'GET',
+                mode: 'no-cors'
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data); 
+                // Itera sobre los datos recibidos y añádelos al arreglo "datos"
+                for (let i = 0; i < data.length; i++) {
+                    this.datos.push({
+                        "izena": data[i].izena,
+                        "langileKop": data[i].langileak,
+                        "kodea": data[i].kodea
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener los datos de los grupos:', error);
+            });
+        }
+
     },
     watch:{
         bilatu: function(){
@@ -140,19 +178,8 @@ var app = new Vue({
         }
     },
     mounted: function() {
-        // Código que se ejecuta cuando la instancia Vue se ha montado en el DOM
-        console.log('La instancia Vue se ha montado en el DOM.');
-        // Puedes realizar operaciones adicionales aquí
-        fetch('../../talde2erronka2back/Erronka2/public/api/grupos', { method: 'GET', mode: 'no-cors'})
-        .then(response => response.json())
-        .then(data => {
-            console.log(data); 
-            for (let i = 0; i < data.length; i++) {
-                // Obtén la referencia de la tabla por su id
-                this.datos.push({"izena" : data[i].izena, "langileKop" : data[i].langileak, "kodea" : data[i].kodea});
-            }
-            this.tituluAldatu();
-        });
+        this.lortuDatuak()
+        this.tituluAldatu();
         this.buscar();
       }
 });
