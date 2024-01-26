@@ -95,6 +95,7 @@ var pinga = new Vue({
                     })
                     .then(data=>{
                         console.log(data);
+                        this.datos = this.datos.filter(aux => aux.id !== id);
                     })
                     .catch(error => {
                         console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);

@@ -24,25 +24,25 @@
                                 <div class="col">
                                     <div class="form-check-reverse form-switch d-flex justify-content-center">
                                         <label class="form-check-label rounded bg-white p-2 mx-2 mb-1 text-center">Del Centro</label>
-                                        <input class="form-check-input" style="margin-top: 1.4vh; background-color: #E99857; border-color: #E99857;" type="checkbox" checked>
+                                        <input class="form-check-input" style="margin-top: 1.4vh; background-color: #E99857; border-color: #E99857;" type="checkbox" v-model="etxekoa">
                                     </div>                        
                                 </div>
                               </div>
-                          <input type="text" v-model="izena" class="form-control">
+                          <input type="text" class="form-control" v-model="izena" >
                         </div>
                         <!-- Segunda Fila -->
                         <div class="col-md-12">
                             <div class="input-group" style="margin: 0;">
                                 <span class="input-group-text">Hora-Inicio</span>
-                                <input type="time" class="form-control">
+                                <input type="time" class="form-control" v-model="hasiera_ordua">
                                 <span class="input-group-text">Hora-Fin</span>
-                                <input type="time" class="form-control">
+                                <input type="time" class="form-control" v-model="amaiera_ordua">
                             </div>
                         </div>
                         <!-- Tercera Fila -->
                         <div class="col-12">
                           <label for="inputAddress" class="form-label rounded bg-white p-2 mb-1">Telefonoa:</label>
-                          <input type="text" class="form-control">
+                          <input type="text" class="form-control" v-model="telefonoa">
                         </div>
                         <!-- Cuarta Fila -->
                         <div class="col-md-4">
@@ -68,7 +68,7 @@
                                 <div class="col">
                                     <select class="form-select" style="min-width: 15vw;">
                                         <option selected disabled value="">Tratamientos</option>
-                                        <option>...</option>
+                                        <option v-for="tratamendu in tratamenduak" :key="tratamendu.id">{{tratamendu.izena}}</option>
                                     </select>      
                                 </div>
                                 <div class="col">
@@ -76,12 +76,12 @@
                                     <button class="btn" style="background-color: #E99857;" type="button">-</button>
                                 </div>
                               </div>
-                          <textarea class="form-control"></textarea>
+                          <textarea class="form-control" disabled style="background-color: white;">{{tratamenduakCita}}</textarea>
                         </div>
                         <!-- Sexta Fila -->
                         <div class="col-12">
                             <label for="inputAddress" class="form-label rounded bg-white p-2 mb-1">Observaciones:</label>
-                            <textarea class="form-control"></textarea>
+                            <textarea class="form-control" v-model="deskribapena"></textarea>
                           </div>
                         <!-- Fin -->
                         <div class="col-12">
@@ -134,7 +134,7 @@
                         <tbody>
                             <tr v-for="(dato, index) in orduak">
                                 <th v-if="index % lapsoDTiempo === 0" :rowspan="lapsoDTiempo" scope="col">{{dato}}</th> <!-- cambiar 4 por 2 para que sea cada 30 mins -->                            
-                                <td @click="susto(taula[index][index2].id)" style="background-color: #E26B6B; border: 2px  solid black" v-for="(dato2, index2) in taula[index].reverse()" :rowspan="taula[index][index2].timeDif" scope="col" v-if="Object.keys(taula[index][index2]).length > 2">{{taula[index][index2].izena}}<br>{{taula[index][index2].orduak}}<br>{{taula[index][index2].deskribapena}}</td>
+                                <td @click="popupCita(taula[index][index2].id)" style="background-color: #E26B6B; border: 2px  solid black" v-for="(dato2, index2) in taula[index]" :rowspan="taula[index][index2].timeDif" scope="col" v-if="Object.keys(taula[index][index2]).length > 2">{{taula[index][index2].izena}}<br>{{taula[index][index2].orduak}}<br>{{taula[index][index2].deskribapena}}</td>
                                 <td scope="col" v-else-if="taula[index][index2].visible"></td>
                             </tr>
                         </tbody>

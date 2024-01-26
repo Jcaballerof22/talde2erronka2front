@@ -5,6 +5,7 @@ var horario2 = new Vue({
         // eserlekua : '',
         bilatu: '',
         bilatusinbol: '',
+        data : '',
         datos: [],
         langileDisp: 9,
         lapsoDTiempo: 4, // 2->cada 15 mins, 4->cada 30 mins
@@ -14,10 +15,9 @@ var horario2 = new Vue({
         izena : 'a',
         telefonoa : 'b',
         deskribapena : 'c',
-        data : 'd',
-        hasiera_ordua : 'e',
-        amaiera_ordua : 'f',
-        // etxekoa : '',
+        hasiera_ordua : '12:30',
+        amaiera_ordua : '14:30',
+        etxekoa : false,
         // prezio_totala : '',
         // id_langilea : '',
         cosos: [
@@ -31,6 +31,8 @@ var horario2 = new Vue({
         orduak: [],
         taula: [],
         libre: [],
+        tratamenduak: [],
+        tratamenduakCita: "",
     
     },
     methods: {
@@ -66,7 +68,7 @@ var horario2 = new Vue({
                 //Bucar sitio
                 var sitio = null;
                 // console.log("elSitioQToca: "+sitio)
-                for (let j = 0; j < this.taula[0].length; j++) {
+                for (let j = 0; j < this.langileDisp; j++) {
                     for (let k = 0; k < this.taula.length; k++) {
                         if ((orduH[0]+":"+orduH[1])==this.orduak[k] && this.taula[k][j].disponible) {
                             horas2:for (let i = 0; i < js.timeDif; i++) {
@@ -94,10 +96,27 @@ var horario2 = new Vue({
                     }
                 }
             }
+            //Haye que mirar esto, que no lo entiendo :D
+            this.taula = this.taula.map(subarray => subarray.slice().reverse());
+
         },
 
-        susto(id){
-            alert("Boo! "+id)
+        popupCita(id){
+            for (let i = 0; i < this.datos.length; i++) {
+                if (this.datos[i].id==id) {
+                    this.izena = this.datos[i].izena;
+                    this.telefonoa = this.datos[i].telefonoa;
+                    this.deskribapena = this.datos[i].deskribapena;
+                    this.hasiera_ordua = this.datos[i].hasiera_ordua;
+                    this.amaiera_ordua = this.datos[i].amaiera_ordua;
+                    if (this.datos[i].etxekoa == 'E') {
+                        this.etxekoa = true;  
+                    }else{
+                        this.etxekoa = false; 
+                    }
+                }
+                
+            }
         },
 
         taulaSortu(){
@@ -257,6 +276,27 @@ var horario2 = new Vue({
             }
         },
 
+        tratamenduakLortu(){
+            fetch('../../talde2erronka2back/Erronka2/public/api/hitzordua/tratamenduak', { method: 'GET', mode: 'no-cors'})
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                for (let i = 0; i < data.length; i++) {
+                    console.log(data[i]);
+                    // Obtén la referencia de la tabla por su id
+                    this.tratamenduak.push(data[i]);
+                }
+            }); 
+        },
+
+        tratamenduaGehitu(){
+
+        },
+
+        tratamenduaKendu(){
+            
+        }
+
     },
     
     watch:{
@@ -280,6 +320,7 @@ var horario2 = new Vue({
     mounted: function() {
         this.lortuOrduakG();
         this.lortuOrduakA();
+        this.tratamenduakLortu();
         this.data = this.lortuData();
       }
 });
