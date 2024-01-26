@@ -79,6 +79,25 @@ var app = new Vue({
             nuevoScript.innerHTML = "var menu = new Vue({el: '#menu',data: {titulo: '"+this.titulua+"'},});"; // Asigna el nombre del script según la opción
             // Agrega el nuevo script al cuerpo del documento
             document.body.appendChild(nuevoScript);
+        },
+
+        async ezabatu(id) {
+            const js = JSON.stringify({"id": id}); 
+            console.log("froga: " + js);
+            
+            try {
+                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/productos/ezabatu', {
+                    method: 'PUT',
+                    body: js
+                });
+
+                const data = await response.text();
+                console.log(data);
+
+            } catch (error) {
+                console.error("Error al eliminar el registro:", error);
+                console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
+            }
         }
     },
     mounted: function() {
