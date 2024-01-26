@@ -33,7 +33,7 @@ var pinga = new Vue({
         },
         abrirPopup(etiketa, izena, id){
             
-
+            this.id = id;
             this.aldatu = id;
             this.etiketa = etiketa;
             this.izena = izena;
@@ -43,7 +43,7 @@ var pinga = new Vue({
 
         txertatuEdoAldatu(){
             if(this.aldatu != ''){
-                //  
+                this.aldatuDatuak();
             }else{
                 this.addDatuak();
             }
@@ -51,40 +51,26 @@ var pinga = new Vue({
             document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'none';
         },
 
-        // aldatuDatuak(){
-        //     var js = JSON.stringify({"kodea": this.kodea, "izena": this.izena}); 
-        //     console.log("froga: "+js);
-        //     fetch('../../talde2erronka2back/Erronka2/public/api/grupos/editatu', {method: 'PUT', body: js})
-        //             .then(function (response) {
-        //                     return response.text();
-        //             })
-        //             .then(data=>{
-        //                 console.log(data);
-        //                 for (let i = 0; i < this.datos.length; i++) {
-        //                     if (this.datos[i].kodea == this.aldatu){
-        //                         this.datos[i].kodea = this.kodea;
-        //                         this.datos[i].izena = this.izena;
-        //                     }
-        //                 }
-        //             })
-        //             .catch(error => {
-        //                 console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
-        //             });
-        // },
-        
-        // buscar(){
-        //     if (this.bilatu == ''){
-        //         this.taula = this.datos;
-        //     }else{
-        //         this.taula = [];
-        //         for (let i = 0; i < this.datos.length; i++){
-        //             if(this.datos[i].izena.startsWith(this.bilatu)){
-        //                 console.log(this.datos[i].izena + " " + this.datos[i].langileKop+ " " + this.datos[i].kodea)
-        //                 this.taula.push({"izena" : this.datos[i].izena, "langileKop" : this.datos[i].langileKop,  "kodea" : this.datos[i].kodea});
-        //             }
-        //         }
-        //     }
-        // },
+        aldatuDatuak(){
+            var js = JSON.stringify({"etiketa": this.etiketa, "izena": this.izena, "id" : this.id}); 
+            console.log("froga: "+js);
+            fetch('../../talde2erronka2back/Erronka2/public/api/materiala/editatu', {method: 'PUT', body: js})
+                    .then(function (response) {
+                            return response.text();
+                    })
+                    .then(data=>{
+                        console.log(data);
+                        for (let i = 0; i < this.datos.length; i++) {
+                            if (this.datos[i].id == this.aldatu){
+                                this.datos[i].etiketa = this.etiketa;
+                                this.datos[i].izena = this.izena;
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+                    });
+        },
 
         ezabatu(id){
             var js = JSON.stringify({"id": id}); 

@@ -28,7 +28,7 @@
                         <label for="mensaje" id="etiquetaLabelMaterial">Etiqueta</label>
                     </div>
                     <div class="mt-2">
-                        <textarea id="modeloTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" v-model="etiketa" placeholder="Ingresa el Modelo aquí"></textarea>
+                        <textarea id="modeloTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" v-model="etiketa" placeholder="Ingresa el Modelo aquí" maxlength="10"></textarea>
                     </div>
                     <div class="mt-2">
                         <label for="mensaje" id="nombreLabelMaterial">Nombre</label>
@@ -97,12 +97,16 @@
                     <th scope="col">Etiqueta</th>
                     <th scope="col">Nombre</th>
                     <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(dato, index) in datos" :key="index" :id="dato.id">
-                        <td>{{ dato.etiketa }}</td>
-                        <td>{{ dato.izena }}</td>
+                        <td @click="abrirPopup(dato.etiketa , dato.izena , dato.id)">{{ dato.etiketa }}</td>
+                        <td @click="abrirPopup(dato.etiketa , dato.izena , dato.id)" maxlength="100">{{ dato.izena }}</td>
+                        <td>
+                            <i style="color: green;" class="bi bi-square-fill success"></i>
+                        </td>
                         <td>
                             <i class="bi bi-trash-fill" @click="ezabatu(dato.id)"></i>
                         </td>
