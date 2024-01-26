@@ -276,17 +276,30 @@ var horario2 = new Vue({
             }
         },
 
-        tratamenduakLortu(){
-            fetch('../../talde2erronka2back/Erronka2/public/api/hitzordua/tratamenduak', { method: 'GET', mode: 'no-cors'})
-            .then(response => response.json())
-            .then(data => {
+        async tratamenduakLortu() {
+            try {
+                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/tratamenduak', {
+                    method: 'GET',
+                    mode: 'no-cors'
+                });
+                
+                const data = await response.json();
+                
                 console.log(data);
-                for (let i = 0; i < data.length; i++) {
-                    console.log(data[i]);
-                    // Obtén la referencia de la tabla por su id
-                    this.tratamenduak.push(data[i]);
-                }
-            }); 
+                
+                // Si `data` es un arreglo, puedes usar `forEach` para iterar sobre él.
+                data.forEach(tratamiento => {
+                    console.log(tratamiento);
+                    // Asumiendo que `this.tratamenduak` está definido fuera de esta función
+                    this.tratamenduak.push(tratamiento);
+                });
+            } catch (error) {
+                console.error('Error al obtener los tratamientos:', error);
+            }
+        },
+
+        citaTratamenduaLortu(){
+
         },
 
         tratamenduaGehitu(){
@@ -294,7 +307,7 @@ var horario2 = new Vue({
         },
 
         tratamenduaKendu(){
-            
+
         }
 
     },

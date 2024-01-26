@@ -13,39 +13,61 @@ var app = new Vue({
         titulua: 'ALUMNOS',
     },
     methods: {
-        addDatuak(){
-            //
-                if(this.abizenak=="" || this.izena==""){
-                    alert("Datu falta dira")
-                }else{
-                    var js = JSON.stringify({"kodea": this.kodea, "izena": this.izena, "abizenak": this.abizenak }); 
-                    console.log("froga: "+js);
-                    fetch('../../talde2erronka2back/Erronka2/public/api/alumnos/txertatu', {method: 'POST', body: js, mode: 'no-cors'})
-                    .then(function (response) {
-                            return response.text();
-                    })
-                    .then(data=>{
-                        console.log(data);
-                        this.datos.push({"izena" : this.izena, "abizenak" : this.abizenak, "kodea" : this.kodea, "id" : data});
-                    })
-                    .catch(error => {
-                        console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+        async addDatuak() {
+            if (this.abizenak === "" || this.izena === "") {
+                alert("Faltan datos");
+            } else {
+                try {
+                    const js = JSON.stringify({
+                        "kodea": this.kodea,
+                        "izena": this.izena,
+                        "abizenak": this.abizenak
                     });
-            //
+                    console.log("froga: " + js);
+
+                    const response = await fetch('../../talde2erronka2back/Erronka2/public/api/alumnos/txertatu', {
+                        method: 'POST',
+                        body: js,
+                        mode: 'no-cors'
+                    });
+
+                    const data = await response.text();
+                    console.log(data);
+
+                    this.datos.push({
+                        "izena": this.izena,
+                        "abizenak": this.abizenak,
+                        "kodea": this.kodea,
+                        "id": data
+                    });
+                } catch (error) {
+                    console.error("Error al añadir datos:", error);
+                    console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
                 }
-                
+            }
         },
-        nombresGrupo(){
-            this.datosTalde.push({"izena" : "All", "kodea" : "all"});
-            fetch('../../talde2erronka2back/Erronka2/public/api/grupos', { method: 'GET'})
-            .then(response => response.json())
-            .then(data => {
-                console.log(data); 
-                for (let i = 0; i < data.length; i++) {
-                    // Obtén la referencia de la tabla por su id
-                    this.datosTalde.push({"izena" : data[i].izena, "kodea" : data[i].kodea});
-                }
-            });
+
+        async nombresGrupo() {
+            this.datosTalde.push({"izena": "All", "kodea": "all"});
+            
+            try {
+                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/grupos', {
+                    method: 'GET'
+                });
+
+                const data = await response.json();
+                
+                console.log(data);
+                
+                data.forEach(grupo => {
+                    this.datosTalde.push({
+                        "izena": grupo.izena,
+                        "kodea": grupo.kodea
+                    });
+                });
+            } catch (error) {
+                console.error('Error al obtener los nombres de grupo:', error);
+            }
         },
 
         abrirPopup(kodea, izena, abizenak, id){
@@ -70,26 +92,35 @@ var app = new Vue({
             document.getElementById('ventanaEmergenteLangile').style.display = 'none';
         },
 
-        aldatuDatuak(){
-            var js = JSON.stringify({"kodea": this.kodea, "izena": this.izena, "id": this.id, "abizenak": this.abizenak}); 
-            console.log("froga: "+js);
-            fetch('../../talde2erronka2back/Erronka2/public/api/alumnos/editatu', {method: 'PUT', body: js})
-                    .then(function (response) {
-                            return response.text();
-                    })
-                    .then(data=>{
-                        console.log(data);
-                        for (let i = 0; i < this.datos.length; i++) {
-                            if (this.datos[i].id == this.aldatu){
-                                this.datos[i].izena = this.izena;
-                                this.datos[i].abizenak = this.abizenak;
-                                this.datos[i].kodea = this.kodea;
-                            }
-                        }
-                    })
-                    .catch(error => {
-                        console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
-                    });
+        async aldatuDatuak() {
+            const js = JSON.stringify({
+                "kodea": this.kodea,
+                "izena": this.izena,
+                "id": this.id,
+                "abizenak": this.abizenak
+            }); 
+            console.log("froga: " + js);
+            
+            try {
+                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/alumnos/editatu', {
+                    method: 'PUT',
+                    body: js
+                });
+
+                const data = await response.text();
+                console.log(data);
+
+                for (let i = 0; i < this.datos.length; i++) {
+                    if (this.datos[i].id == this.aldatu) {
+                        this.datos[i].izena = this.izena;
+                        this.datos[i].abizenak = this.abizenak;
+                        this.datos[i].kodea = this.kodea;
+                    }
+                }
+            } catch (error) {
+                console.error("Error al editar el dato:", error);
+                console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
+            }
         },
 
         buscar(){
@@ -105,20 +136,24 @@ var app = new Vue({
             }
         },
 
-        ezabatu(id){
-            var js = JSON.stringify({"id": id}); 
-            console.log("froga: "+js);
-            fetch('../../talde2erronka2back/Erronka2/public/api/alumnos/ezabatu', {method: 'PUT', body: js})
-                    .then(function (response) {
-                            return response.text();
-                    })
-                    .then(data=>{
-                        console.log(data);
-                        this.taula = this.taula.filter(aux => aux.id !== id);
-                    })
-                    .catch(error => {
-                        console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
-                    });
+        async ezabatu(id) {
+            const js = JSON.stringify({"id": id}); 
+            console.log("froga: " + js);
+            
+            try {
+                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/alumnos/ezabatu', {
+                    method: 'PUT',
+                    body: js
+                });
+
+                const data = await response.text();
+                console.log(data);
+
+                this.taula = this.taula.filter(aux => aux.id !== id);
+            } catch (error) {
+                console.error("Error al eliminar el registro:", error);
+                console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
+            }
         },
 
         teclado(event){
@@ -141,7 +176,37 @@ var app = new Vue({
             nuevoScript.innerHTML = "var menu = new Vue({el: '#menu',data: {titulo: '"+this.titulua+"'},});"; // Asigna el nombre del script según la opción
             // Agrega el nuevo script al cuerpo del documento
             document.body.appendChild(nuevoScript);
-        }
+        },
+
+        async datuakLortu() {
+            try {
+                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/alumnos', {
+                    method: 'GET',
+                    mode: 'no-cors'
+                });
+
+                const data = await response.json();
+
+                console.log(data);
+
+                // Añadir los datos de los alumnos al arreglo datos
+                data.forEach(alumno => {
+                    this.datos.push({
+                        "izena": alumno.izena,
+                        "abizenak": alumno.abizenak,
+                        "kodea": alumno.kodea,
+                        "id": alumno.id
+                    });
+                });
+
+                // Llamar a un método adicional después de obtener los datos
+                this.tituluAldatu();
+            } catch (error) {
+                console.error('Error al obtener los alumnos:', error);
+            }
+        },
+
+        
 
     },
     watch:{
@@ -174,17 +239,8 @@ var app = new Vue({
     },
     mounted: function() {
         this.nombresGrupo()
-        fetch('../../talde2erronka2back/Erronka2/public/api/alumnos', { method: 'GET', mode: 'no-cors'})
-        .then(response => response.json())
-        .then(data => {
-            console.log(data); 
-            for (let i = 0; i < data.length; i++) {
-                console.log(data);
-                // Obtén la referencia de la tabla por su id
-                this.datos.push({"izena" : data[i].izena, "abizenak" : data[i].abizenak, "kodea" : data[i].kodea, "id" : data[i].id});
-            }
-            this.tituluAldatu();
-        });
+        this.datuakLortu()
+        this.tituluAldatu();
         this.buscar();
       }
 });
