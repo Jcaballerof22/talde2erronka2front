@@ -7,6 +7,7 @@ var pinga = new Vue({
         aldatu: '',
         datos: [],
         datosMaterialR: [],
+        datosColorMaterialR: [],
         taula: [],
         titulua: 'MATERIAL',
     },
@@ -157,6 +158,27 @@ var pinga = new Vue({
               }
             } catch (error) {
               console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+              // Maneja el error según tus necesidades
+            }
+          },
+
+          async reservar(id){
+            try {
+              var js = JSON.stringify({"id": id});
+          
+              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materialaF', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: js
+            });
+
+              const datosColorMaterialR = await response.text();
+              console.log(datosColorMaterialR);
+            
+            } catch (error) {
+              console.log(error);
               // Maneja el error según tus necesidades
             }
           },

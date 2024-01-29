@@ -1,44 +1,52 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../CSS/styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 </head>
+
 <body>
 
-        <div class="contenido" id="orrialdea"></div>
-        <div id="fondoOscuroLangile" class="fondo-oculto"></div>
+    <div class="contenido" id="orrialdea"></div>
+    <div id="fondoOscuroLangile" class="fondo-oculto"></div>
 
-        <!-- POPUP para añadir material -->
-        <div id="pinga">
+    <!-- POPUP para añadir material -->
+    <div id="pinga">
 
         <div id="ventanaEmergenteAñadirMaterial" class="ventana-oculta">
             <div class="contenido-ventana">
-                    <div class="input-group-horarios">
-                        <button type="button" id="cerrarVentanaAñadirMaterial" class="btn x" @click="ocultarVentana()">
-                            <i class="bi bi-x"></i>
-                        </button>
-                    </div>
-                    <div class="mt-2">
-                        <label for="mensaje" id="etiquetaLabelMaterial">Etiqueta</label>
-                    </div>
-                    <div class="mt-2">
-                        <textarea id="modeloTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" v-model="etiketa" placeholder="Ingresa el Modelo aquí" maxlength="10"></textarea>
-                    </div>
-                    <div class="mt-2">
-                        <label for="mensaje" id="nombreLabelMaterial">Nombre</label>
-                    </div>
-                    <div class="mt-2" >
-                        <textarea id="marcaTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" v-model="izena" placeholder="Ingresa la Marca aquí"></textarea>
-                    </div>
-                    <div class="mt-2">
-                        <input id="submitAñadirMaterial" type="submit" class="btn añadir btn-lg mt-3" @click="txertatuEdoAldatu" value="Enviar">
-                    </div>
+                <div class="input-group-horarios">
+                    <button type="button" id="cerrarVentanaAñadirMaterial" class="btn x" @click="ocultarVentana()">
+                        <i class="bi bi-x"></i>
+                    </button>
+                </div>
+                <div class="mt-2">
+                    <label for="mensaje" id="etiquetaLabelMaterial">Etiqueta</label>
+                </div>
+                <div class="mt-2">
+                    <textarea id="modeloTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" v-model="etiketa"
+                        placeholder="Ingresa el Modelo aquí" maxlength="10"></textarea>
+                </div>
+                <div class="mt-2">
+                    <label for="mensaje" id="nombreLabelMaterial">Nombre</label>
+                </div>
+                <div class="mt-2">
+                    <textarea id="marcaTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" v-model="izena"
+                        placeholder="Ingresa la Marca aquí"></textarea>
+                </div>
+                <div class="mt-2">
+                    <input id="submitAñadirMaterial" type="submit" class="btn añadir btn-lg mt-3"
+                        @click="txertatuEdoAldatu" value="Enviar">
+                </div>
             </div>
         </div>
 
@@ -51,7 +59,7 @@
                         <i class="bi bi-x"></i>
                     </button>
                 </div>
-        
+
                 <div class="d-flex align-items-center mt-4">
                     <select class="form-select" aria-label="Default select example">
                         <option selected>Grupo</option>
@@ -72,51 +80,54 @@
 
         <!-- Contenido de la pagina -->
 
-    <div class="containerPage">
-        <div class="input-group-estadisticas">
-            <div class="col">
-                <button type="button" class="btn añadir btn-lg">Planchas</button>
-                <button type="button" class="btn añadir btn-lg">Secador</button>
-            </div>
-            <div class="col">
-                <div class="input-group">
-                    <input type="text" class="form-control buscar" placeholder="Buscar por nombre">
-                    <div class="input-group-append">
-                        <button class="btn lupa" type="button">
-                            <i class="bi bi-search"></i>
-                        </button>
-                        <button type="button" id="mostrarVentanaMaterial" class="btn añadir btn-lg" @click="abrirPopup('' , '' , '')">Añadir material</button>
-                        <button type="button" id="mostrarVentanaReservarMaterial" class="btn añadir btn-lg">Reservar Material</button>
-                        <!-- Habra q quitar este boton despues, solo es por ver como queda -->
+        <div class="containerPage">
+            <div class="input-group-estadisticas">
+                <div class="col">
+                    <button type="button" class="btn añadir btn-lg">Planchas</button>
+                    <button type="button" class="btn añadir btn-lg">Secador</button>
+                </div>
+                <div class="col">
+                    <div class="input-group">
+                        <input type="text" class="form-control buscar" placeholder="Buscar por nombre">
+                        <div class="input-group-append">
+                            <button class="btn lupa" type="button">
+                                <i class="bi bi-search"></i>
+                            </button>
+                            <button type="button" id="mostrarVentanaMaterial" class="btn añadir btn-lg"
+                                @click="abrirPopup('' , '' , '')">Añadir material</button>
+                            <button type="button" id="mostrarVentanaReservarMaterial" class="btn añadir btn-lg">Reservar
+                                Material</button>
+                            <!-- Habra q quitar este boton despues, solo es por ver como queda -->
+                        </div>
                     </div>
                 </div>
-            </div>
-            <table id="tabla" class="table table-hover table-striped">
-                <thead>
-                <tr>
-                    <th scope="col">Etiqueta</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(dato, index) in datos" :key="index" :id="dato.id">
-                        <td @click="abrirPopup(dato.etiketa , dato.izena , dato.id)">{{ dato.etiketa }}</td>
-                        <td @click="abrirPopup(dato.etiketa , dato.izena , dato.id)" maxlength="100">{{ dato.izena }}</td>
-                        <!-- <td>
-                            <i v-if = "color == 'red'" class="bi bi-square-fill"  style="color: #E26B6B;"></i>
-                            <i v-else class="bi bi-square-fill"  style="color: #CDDFA0;"></i>
-                        </td> -->
-                        <td>
-                            <i class="bi bi-trash-fill" @click="ezabatu(dato.id)"></i>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                <table id="tabla" class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Etiqueta</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(dato, index) in datos" :key="index" :id="dato.id">
+                            <td @click="abrirPopup(dato.etiketa , dato.izena , dato.id)">{{ dato.etiketa }}</td>
+                            <td @click="abrirPopup(dato.etiketa , dato.izena , dato.id)" maxlength="100">{{ dato.izena }}</td>
+                            <td>
+                                <i v-if="color == 'red'" class="bi bi-square-fill" style="color: #E26B6B;"></i>
+                                <i v-else class="bi bi-square-fill" style="color: #CDDFA0;"></i>
+                            </td>
+                            <td>
+                                <i class="bi bi-trash-fill" @click="ezabatu(dato.id)"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-        </div>
-    </body>
-    </html>
+            </div>
+</body>
+
+</html>
 <script src="../JS/header.js"></script>
 <script src="../JS/material.js"></script>
