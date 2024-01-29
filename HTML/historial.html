@@ -14,9 +14,9 @@
         <div class="containerPage">
             <div class="input-group-estadisticas">
                 <div class="col">
-                    <button type="button" class="btn añadir btn-lg">Roles</button>
-                    <button type="button" class="btn añadir btn-lg">Productos</button>
-                    <button type="button" class="btn añadir btn-lg">Material</button>
+                    <button type="button" class="btn añadir btn-lg" @click="mostrarTablas('tablaRoles')">Roles</button>
+                    <button type="button" class="btn añadir btn-lg" @click="mostrarTablas('tablaProductos')">Productos</button>
+                    <button type="button" class="btn añadir btn-lg" @click="mostrarTablas('tablaMaterial')">Material</button>
                 </div>
                 <div class="col">
                     <div class="input-group">
@@ -36,36 +36,73 @@
                     </div>
                 </div>
 
+<!-- //////////////////////////////////////////////////////////// TABLA ROLES //////////////////////////////////////////////////////////// -->
                 
-                <table id="tabla" class="table table-hover table-striped">
+                <table id="tablaRoles" class="table table-hover table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Marca</th>
-                        <th scope="col">Modelo</th>
-                        <th scope="col">Alumno</th>
-                        <th scope="col">Inicio</th>
-                        <th scope="col">Fin</th>
-                        <th scope="col"></th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Rol</th>
+                        <th scope="col">Fecha</th>
                     </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(dato, index) in taula" :key="index" :id="dato.kodea">
-                            <td>dfgfdtgretertretertewt</td>
-                            <td>fgfdgdf</td>
-                            <td>dfgdfsdgdf</td>
-                            <td>dfgdfgdjhkf</td>
-                            <td>dfgdfgdf</td>
-                            <td>dfgdf</td>
-                            <td>
-                                <i class="bi bi-trash-fill" @click="ezabatu(dato.kodea)"></i>
-                            </td>
+                        <tr v-for="(dato, index) in historialRoles" :key="index">
+                            <td>{{ dato.izena }}</td>
+                            <td v-if="dato.mota=='G'">Limpieza</td>
+                            <td v-else>Mostrador</td>
+                            <td>{{dato.data}}</td>
                         </tr>
                     </tbody>
                 </table>
+
+<!-- //////////////////////////////////////////////////////////// TABLA PRODUCTOS //////////////////////////////////////////////////////////// -->
+
+                <table id="tablaProductos" class="table table-hover table-striped" style="display: none;">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Fecha</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(dato, index) in historialProductos" :key="index">
+                            <td>{{ dato.izena }}</td>
+                            <td>{{ dato.produktua }} - {{dato.marka}}</td>
+                            <td>{{dato.kopurua}}</td>
+                            <td>{{dato.data}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+<!-- //////////////////////////////////////////////////////////// TABLA MATERIAL //////////////////////////////////////////////////////////// -->
+
+                <table id="tablaMaterial" class="table table-hover table-striped" style="display: none;">
+                    <thead>
+                    <tr>
+                        <th scope="col">Material</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Fecha Inicio</th>
+                        <th scope="col">Fecha Fin</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(dato, index) in historialMaterial" :key="index">
+                            <td>{{ dato.material }}</td>
+                            <td>{{ dato.izena }}</td>
+                            <td>{{dato.hasiera_data}}</td>
+                            <td>{{dato.amaiera_data}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
             </div>
         </div>
     </div>
 </body>
 </html>
 <script src="../JS/header.js"></script>
+<script src="../JS/historial.js"></script>
+
