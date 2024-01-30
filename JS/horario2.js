@@ -12,11 +12,12 @@ var horario2 = new Vue({
         intervaloHoras:[9,14,16,20], //0-1 para la mañana, 2-3 para la tarde
         // hasiera_ordua_erreala : '',
         // amaiera_ordua_erreala : '',
-        izena : 'a',
-        telefonoa : 'b',
-        deskribapena : 'c',
-        hasiera_ordua : '12:30',
-        amaiera_ordua : '14:30',
+        idCita: '',
+        izena : '',
+        telefonoa : '',
+        deskribapena : '',
+        hasiera_ordua : '',
+        amaiera_ordua : '',
         etxekoa : false,
         // prezio_totala : '',
         // id_langilea : '',
@@ -31,8 +32,11 @@ var horario2 = new Vue({
         orduak: [],
         taula: [],
         libre: [],
+        tratamendu: "",
+        extra:0,
         tratamenduak: [],
-        tratamenduakCita: "",
+        tratamenduakCita: [],
+        tratamenduakCitaText: "",
     
     },
     methods: {
@@ -102,6 +106,8 @@ var horario2 = new Vue({
         },
 
         popupCita(id){
+            this.idCita = id;
+            this.citaTratamenduaLortu();
             for (let i = 0; i < this.datos.length; i++) {
                 if (this.datos[i].id==id) {
                     this.izena = this.datos[i].izena;
@@ -117,6 +123,8 @@ var horario2 = new Vue({
                 }
                 
             }
+            document.getElementById('fondoOscuro').classList.add('mostrar-fondo');
+            document.getElementById('ventanaEmergenteLangile').style.display = 'block';
         },
 
         taulaSortu(){
@@ -298,16 +306,112 @@ var horario2 = new Vue({
             }
         },
 
-        citaTratamenduaLortu(){
+        async citaTratamenduaLortu(){
+            this.tratamenduakCitaText = "";
+            try {
+                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/tratamenduak/'+this.idCita, {
+                    method: 'GET',
+                    mode: 'no-cors'
+                });
+                
+                const data = await response.json();
+                
+                console.log(data);
+                
+                this.tratamenduakCita = data;
+                
+                for (let i = 0; i < data.length; i++) {
+                    this.tratamenduakCitaText += data[i].tratamenduIzena + " " + data[i].prezioa + " -- ";
+                }
 
+            } catch (error) {
+                console.error('Error al obtener los tratamientos:', error);
+            }
+        },
+        // Queda x Hacer
+        async tratamenduaGehitu(){
+            var prezioa = 0;
+            if (this.extra == 0) {
+                for (let i = 0; i < this.tratamenduak.length; i++) {
+                    if (this.tratamenduak[i].id == this.tratamendu) {
+                        if(this.etxekoa){
+                            prezioa = this.tratamenduak[i].etxeko_prezioa;
+                        }else{
+                            prezioa = this.tratamenduak[i].kanpoko_prezioa;
+                        } 
+                    }
+                }
+            }else{
+                prezioa = this.extra;
+            }
+            var datos = {"id_hitzordua" : this.idCita, "id_tratamendua" : this.tratamendu, "prezioa" : prezioa};
+            var js = JSON.stringify(datos); 
+            console.log("insert: "+js);
+
+            try {
+                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/tratamenduak/add', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: js
+                });
+                
+                const data = await response.json();
+                
+                console.log(data);
+                this.citaTratamenduaLortu();
+            } catch (error) {
+                console.error('Error al obtener los tratamientos:', error);
+            }
         },
 
-        tratamenduaGehitu(){
-
+        async tratamenduaKendu(){
+            var datos = "";
+            for (let i = 0; i < this.tratamenduakCita.length; i++) {
+                if (this.tratamenduakCita[i].id_tratamendua == this.tratamendu) {
+                    datos = {"id":this.tratamenduakCita[i].id};
+                    break;
+                }
+            }
+            
+            var js = JSON.stringify(datos); 
+            console.log("del: "+js);
+            try {
+                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/tratamenduak/remove', {
+                    method: 'PUT',
+                    body: js
+                });
+                const data = await response.json();
+                console.log(data);
+                this.citaTratamenduaLortu();
+            } catch (error) {
+                console.error('Error al obtener los tratamientos:', error);
+            }
         },
 
-        tratamenduaKendu(){
+        async hitzorduaKendu(){
+            const js = JSON.stringify({"id": this.idCita}); 
+            console.log("froga: " + js);
+            
+            try {
+                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/hitzordua/ezabatu', {
+                    method: 'PUT',
+                    body: js
+                });
 
+                const data = await response.text();
+                console.log(data);
+
+                this.taula = this.taula.filter(aux => aux.id !== id);
+            } catch (error) {
+                console.error("Error al eliminar el registro:", error);
+                console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
+            }
+            this.quitarFondoNegro();
+        },
+
+        quitarFondoNegro(){
+            document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
+            document.getElementById('ventanaEmergenteLangile').style.display = 'none';
         }
 
     },
@@ -327,7 +431,11 @@ var horario2 = new Vue({
                 this.datuakLortu();
             }
             
-        }
+        },
+
+        tratamendu: function(){
+            this.extra = 0;
+        },
 
     },
     mounted: function() {
