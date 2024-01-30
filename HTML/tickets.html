@@ -409,16 +409,18 @@
             <table id="tabla" class="table table-hover table-striped">
                 <thead>
                 <tr>
-                    <th scope="col">Nombre</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Tratamiento</th>
+                    <th scope="col">Precio</th>
                     <th scope="col">Fecha</th>
-                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(dato, index) in taula" :key="index" :id="dato.id">
-                        <td>
-                            <i class="bi bi-trash-fill" @click="ezabatu(dato.id)"></i>
-                        </td>
+                    <tr v-for="(dato, index) in datosTickets" :key="index" :id="dato.id">
+                        <td>{{datosTickets.bezero_izena}}</td>
+                        <td>{{datosTickets.tratamendu_izena}}</td>
+                        <td>{{datosTickets.prezioa}}</td>
+                        <td>{{datosTickets.data}}</td>
                     </tr>
                 </tbody>
             </table>
