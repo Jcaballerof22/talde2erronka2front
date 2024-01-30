@@ -5,6 +5,7 @@ var app = new Vue({
         datosProduk: [],
         datosEditatu: [],
         taula: [],
+        bilatu:'',
         kategoriak:'all',
         id:'',
         izena:'',
@@ -100,18 +101,18 @@ var app = new Vue({
         }
     },
     watch:{
-        // bilatu: function(){
-        //     if (this.bilatu == ''){
-        //         this.taula = this.datos;
-        //     }else{
-        //         this.taula = [];
-        //         for (let i = 0; i < this.datos.length; i++){
-        //             if(this.datos[i].izena.startsWith(this.bilatu)){
-        //                 this.taula.push({"izena" : this.datos[i].izena, "abizenak" : this.datos[i].abizenak, "kodea" : this.datos[i].kodea, "id" : this.datos[i].id});
-        //             }
-        //         }
-        //     }
-        // },
+        bilatu: function(){
+            if (this.bilatu == ''){
+                this.taula = this.datosProduk;
+            }else{
+                this.taula = [];
+                for (let i = 0; i < this.datosProduk.length; i++){
+                    if(this.datosProduk[i].izena.startsWith(this.bilatu)){
+                        this.taula.push(this.datosProduk[i]);
+                    }
+                }
+            }
+        },
 
         kategoriak: function(){
             if (this.kategoriak == 'all'){
