@@ -260,10 +260,130 @@
         </div>
 
         <div class="container">
+            <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
             <div id="horario2" class="horario2">
+                <!--  -->
+                <div @click="quitarFondoNegro" id="fondoOscuro" class="fondo-oculto"></div>
+                <div id="ventanaEmergenteLangile" class="ventana-oculta" style="background-color: #F4E3C8; width: 50vw;">
+                    <div class="input-group-horarios">
+                        <button type="button" id="cerrarVentanaLangile" class="btn x" @click="quitarFondoNegro">
+                            <i class="bi bi-x"></i>
+                        </button>
+                    </div>
+                    <form class="row g-3 p-5">
+                        <!-- Primera Fila -->
+                        <div class="col-md-12">
+                            <div class="row g-3">
+                                <div class="col">
+                                    <label class="form-label rounded bg-white p-2 mb-1">Nombre: </label>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check-reverse form-switch d-flex justify-content-center">
+                                        <label class="form-check-label rounded bg-white p-2 mx-2 mb-1 text-center">Del Centro</label>
+                                        <input class="form-check-input" style="margin-top: 1.4vh; background-color: #E99857; border-color: #E99857;" type="checkbox" v-model="etxekoa" :disabled="idCita != ''">
+                                    </div>                        
+                                </div>
+                              </div>
+                          <input type="text" class="form-control" v-model="izena" :disabled="idCita != ''" style="background-color: white;">
+                        </div>
+                        <!-- Segunda Fila -->
+                        <div class="col-md-12">
+                            <div class="input-group" style="margin: 0;">
+                                <span class="input-group-text">Hora-Inicio</span>
+                                <input type="time" class="form-control" v-model="hasiera_ordua">
+                                <span class="input-group-text">Hora-Fin</span>
+                                <input type="time" class="form-control" v-model="amaiera_ordua">
+                            </div>
+                        </div>
+                        <!-- Tercera Fila -->
+                        <div class="col-12">
+                          <label for="inputAddress" class="form-label rounded bg-white p-2 mb-1">Telefonoa:</label>
+                          <input type="text" class="form-control" v-model="telefonoa" :disabled="idCita != ''" style="background-color: white;">
+                        </div>
+                        <!-- Cuarta Fila -->
+                        <div class="col-md-4">
+                            <!-- <label class="form-label rounded bg-white p-2 mb-1">Grupo</label> -->
+                            <select class="form-select">
+                              <option selected disabled value="">Grupo</option>
+                              <option>...</option>
+                            </select>
+                        </div>
+                        <div class="col-md-8">
+                            <!-- <label class="form-label rounded bg-white p-2 mb-1">Alumno</label> -->
+                            <select class="form-select">
+                              <option selected disabled value="">Alumno</option>
+                              <option>...</option>
+                            </select>
+                        </div>
+                        <!-- Quinta Fila -->
+                        <div class="col-md-12">
+                            <div class="row g-3" style="display: inline-flex;">
+                                <div class="col">
+                                    <label class="form-label rounded bg-white p-2 mb-1">Tratamiento: </label>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select" style="min-width: 15vw;" v-model="tratamendu">
+                                        <option selected disabled value="">Tratamientos</option>
+                                        <option v-for="tratamendus in tratamenduak" :value="tratamendus.id" :key="tratamendus.izena">{{tratamendus.izena}}</option>
+                                    </select>      
+                                </div>
+                                <div class="col"  v-if="tratamendu == '0'" >
+                                    <input class="form-control" type="number" v-model="extra"></div>
+                                <div class="col">
+                                    <button class="btn" style="background-color: #E99857;" type="button" @click="tratamenduaGehitu">+</button>
+                                    <button class="btn" style="background-color: #E99857;" type="button" @click="tratamenduaKendu">-</button>
+                                </div>
+                              </div>
+                          <textarea class="form-control" disabled style="background-color: white;">{{tratamenduakCitaText}}</textarea>
+                        </div>
+                        <!-- Sexta Fila -->
+                        <div class="col-12">
+                            <label for="inputAddress" class="form-label rounded bg-white p-2 mb-1">Observaciones:</label>
+                            <textarea class="form-control" v-model="deskribapena" :disabled="idCita != ''" style="background-color: white;"></textarea>
+                          </div>
+                        <!-- Fin -->
+                        <div class="col-12">
+                            <button v-if="idCita != ''"class="btn" style="background-color: #E99857;" @click="hitzorduaKendu">Eliminar</button>
+                            <button v-else class="btn" style="background-color: #E99857;">Crear</button>
+                            <button class="btn" style="background-color: #E99857;">Generar tiket</button>
+                        </div>
+                      </form>
+                </div>
+                <!--  -->
+                <br>
                 <input type="date" id="fecha" name="fecha" v-model="data">
+                <input type="text" id="bilatu" name="bilatu" v-model="bilatu">
+                
                 <div class="table-responsive-xl">
-                    <table class="table">
+                    <table class="table" v-if="bilatu != ''">
+                        <thead>
+                            <th scope="col">id</th>
+                            <th scope="col">data</th>
+                            <th scope="col">hasiera_ordua</th>
+                            <th scope="col">amaiera_ordua</th>
+                            <th scope="col">izena</th>
+                            <th scope="col">telefonoa</th>
+                            <th scope="col">deskribapena</th>
+                            <th scope="col">etxekoa</th>
+                            <th scope="col"></th>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(dato,index) in taula">
+                                <td scope="col">{{dato.id}}</td>
+                                <td scope="col">{{dato.data}}</td>
+                                <td scope="col">{{dato.hasiera_ordua}}</td>
+                                <td scope="col">{{dato.amaiera_ordua}}</td>
+                                <td scope="col">{{dato.izena}}</td>
+                                <td scope="col">{{dato.telefonoa}}</td>
+                                <td scope="col">{{dato.deskribapena}}</td>
+                                <td scope="col">{{dato.etxekoa}}</td>
+                                <td>
+                                    <i class="bi bi-trash-fill"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table" v-else>
                         <thead>
                             <tr>
                                 <th scope="col"></th>
@@ -273,16 +393,15 @@
                         </thead>
                         <tbody>
                             <tr v-for="(dato, index) in orduak">
-                                <th v-if="index % 4 === 0" rowspan="4" scope="col">{{dato}}</th>                                
-                                <td @click="susto(taula[index][index2].id)" style="background-color: #E26B6B; border: 2px  solid black" v-for="(dato2, index2) in taula[index].reverse()" :rowspan="taula[index][index2].timeDif" scope="col" v-if="Object.keys(taula[index][index2]).length > 2">{{taula[index][index2].izena}}<br>{{taula[index][index2].orduak}}<br>{{taula[index][index2].deskribapena}}</td>
+                                <th v-if="index % lapsoDTiempo === 0" :rowspan="lapsoDTiempo" scope="col">{{dato}}</th> <!-- cambiar 4 por 2 para que sea cada 30 mins -->                            
+                                <td @click="popupCita(taula[index][index2].id)" style="background-color: #E26B6B; border: 2px  solid black" v-for="(dato2, index2) in taula[index]" :rowspan="taula[index][index2].timeDif" scope="col" v-if="Object.keys(taula[index][index2]).length > 2">{{taula[index][index2].izena}}<br>{{taula[index][index2].orduak}}<br>{{taula[index][index2].deskribapena}}</td>
                                 <td scope="col" v-else-if="taula[index][index2].visible"></td>
-
                             </tr>
-            
                         </tbody>
                     </table>
-                  </div>
+                </div>
             </div>
+            <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->            
         </div>
         <script src="../JS/home.js"></script>
     </body>
