@@ -13,7 +13,13 @@
             <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
             <div id="horario2" class="horario2">
                 <!--  -->
-                <div id="popup" style="background-color: #F4E3C8; width: 50vw;">
+                <div @click="quitarFondoNegro" id="fondoOscuro2" class="fondo-oculto"></div>
+                <div id="ventanaEmergenteLangile" class="ventana-oculta" style="background-color: #F4E3C8; width: 50vw;">
+                    <div class="input-group-horarios">
+                        <button type="button" id="cerrarVentanaLangile" class="btn x" @click="quitarFondoNegro">
+                            <i class="bi bi-x"></i>
+                        </button>
+                    </div>
                     <form class="row g-3 p-5">
                         <!-- Primera Fila -->
                         <div class="col-md-12">
@@ -24,11 +30,11 @@
                                 <div class="col">
                                     <div class="form-check-reverse form-switch d-flex justify-content-center">
                                         <label class="form-check-label rounded bg-white p-2 mx-2 mb-1 text-center">Del Centro</label>
-                                        <input class="form-check-input" style="margin-top: 1.4vh; background-color: #E99857; border-color: #E99857;" type="checkbox" v-model="etxekoa">
+                                        <input class="form-check-input" style="margin-top: 1.4vh; background-color: #E99857; border-color: #E99857;" type="checkbox" v-model="etxekoa" :disabled="idCita != ''">
                                     </div>                        
                                 </div>
                               </div>
-                          <input type="text" class="form-control" v-model="izena" >
+                          <input type="text" class="form-control" v-model="izena" :disabled="idCita != ''" style="background-color: white;">
                         </div>
                         <!-- Segunda Fila -->
                         <div class="col-md-12">
@@ -42,7 +48,7 @@
                         <!-- Tercera Fila -->
                         <div class="col-12">
                           <label for="inputAddress" class="form-label rounded bg-white p-2 mb-1">Telefonoa:</label>
-                          <input type="text" class="form-control" v-model="telefonoa">
+                          <input type="text" class="form-control" v-model="telefonoa" :disabled="idCita != ''" style="background-color: white;">
                         </div>
                         <!-- Cuarta Fila -->
                         <div class="col-md-4">
@@ -66,26 +72,29 @@
                                     <label class="form-label rounded bg-white p-2 mb-1">Tratamiento: </label>
                                 </div>
                                 <div class="col">
-                                    <select class="form-select" style="min-width: 15vw;">
+                                    <select class="form-select" style="min-width: 15vw;" v-model="tratamendu">
                                         <option selected disabled value="">Tratamientos</option>
-                                        <option v-for="tratamendu in tratamenduak" :key="tratamendu.id">{{tratamendu.izena}}</option>
+                                        <option v-for="tratamendus in tratamenduak" :value="tratamendus.id" :key="tratamendus.izena">{{tratamendus.izena}}</option>
                                     </select>      
                                 </div>
+                                <div class="col"  v-if="tratamendu == '0'" >
+                                    <input class="form-control" type="number" v-model="extra"></div>
                                 <div class="col">
-                                    <button class="btn" style="background-color: #E99857;" type="button">+</button>
-                                    <button class="btn" style="background-color: #E99857;" type="button">-</button>
+                                    <button class="btn" style="background-color: #E99857;" type="button" @click="tratamenduaGehitu">+</button>
+                                    <button class="btn" style="background-color: #E99857;" type="button" @click="tratamenduaKendu">-</button>
                                 </div>
                               </div>
-                          <textarea class="form-control" disabled style="background-color: white;">{{tratamenduakCita}}</textarea>
+                          <textarea class="form-control" disabled style="background-color: white;">{{tratamenduakCitaText}}</textarea>
                         </div>
                         <!-- Sexta Fila -->
                         <div class="col-12">
                             <label for="inputAddress" class="form-label rounded bg-white p-2 mb-1">Observaciones:</label>
-                            <textarea class="form-control" v-model="deskribapena"></textarea>
+                            <textarea class="form-control" v-model="deskribapena" :disabled="idCita != ''" style="background-color: white;"></textarea>
                           </div>
                         <!-- Fin -->
                         <div class="col-12">
-                            <button class="btn" style="background-color: #E99857;">Guardar</button>
+                            <button v-if="idCita != ''"class="btn" style="background-color: #E99857;" @click="hitzorduaKendu">Eliminar</button>
+                            <button v-else class="btn" style="background-color: #E99857;">Crear</button>
                             <button class="btn" style="background-color: #E99857;">Generar tiket</button>
                         </div>
                       </form>

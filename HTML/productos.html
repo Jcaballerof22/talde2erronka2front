@@ -25,11 +25,12 @@
                 <div class="col">
                     <div class="input-group">
                         <div class="dropdown">
-                            <select class="form-select" aria-label="Default select example" style="max-width: 15vw; margin-right: 3vw;" v-model="reyrty">
-                                <option   v-for="(dato,index) in datosKategoria" :key="index" :value="dato.izedsftrena">{{ dato.izena }}</option>
+                            <select class="form-select" aria-label="Default select example" style="max-width: 15vw; margin-right: 3vw;" v-model="kategoriak">
+                                <option value="all">All</option>
+                                <option   v-for="(dato,index) in datosKategoria" :key="index" :value="dato.id">{{ dato.izena }}</option>
                             </select>
                         </div>
-                        <input type="text" class="form-control buscar ms-2" placeholder="Buscar por nombre">
+                        <input type="text" class="form-control buscar ms-2" placeholder="Buscar por nombre" v-model="bilatu">
                         <div class="input-group-append">
                             <button class="btn lupa" type="button">
                                 <i class="bi bi-search"></i>
@@ -51,7 +52,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(dato, index) in datosProduk" :key="index" :id="dato.id">
+                        <tr v-for="(dato, index) in taula" :key="index" :id="dato.id">
                             <td @click="abrirPopup(dato.id)">{{ dato.izena }}</td>
                             <td @click="abrirPopup(dato.id)">{{ dato.marka }}</td>
                             <td @click="abrirPopup(dato.id)">{{ dato.kategoria }}</td>
@@ -146,7 +147,7 @@
                     <div class="modal-footer">
                         <div class="col">
                             <select class="form-select" aria-label="Default select example">
-                                <option   v-for="(dato,index) in datosProduk" :key="index" :value="dato.izena">{{ dato.izena }}</option>
+                                <option   v-for="(dato,index) in datosProduk" :key="index" :value="dato.izena">{{  }}</option>
                             </select>
                         </div>
                         <div class="col">
@@ -176,7 +177,10 @@
                         <option   v-for="(dato,index) in datosKategoria" :key="index" :value="dato.izena">{{ dato.izena }}</option>
                     </select>
                     <h3 scope="row" class="mt-3">Descripción</h3>
-                    <input type="text" v-model="deskribapena">
+                    <div class="form-floating">
+                        <textarea class="form-control" type="text" v-model="deskribapena" id="floatingTextarea"></textarea>
+                        <label for="floatingTextarea"></label>
+                    </div>
                     <h3 scope="row" class="mt-3">Stock</h3>
                     <input type="number" v-model="stock">
                 </div>
