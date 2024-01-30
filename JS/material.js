@@ -9,6 +9,7 @@ var pinga = new Vue({
         datosMaterialR: [],
         datosColorMaterialR: [],
         taula: [],
+        resultadosCompletos: [],
         titulua: 'MATERIAL',
     },
     methods: {
@@ -33,85 +34,108 @@ var pinga = new Vue({
                     });
                 }
         },
-        async fetchData(){
-            try {
+        // async llamarPrimeraFuncion() {
+        //   try {
+        //     // Lógica para la primera llamada al backend
+        //     const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materiala');
+        //     const data = await response.json();
+    
+        //     this.resultadosCompletos = data;
+    
+        //     // Llamar la segunda función para cada objeto devuelto por la primera llamada
+        //     for (const obj of this.resultadosCompletos) {
+        //       await this.llamarSegundaFuncion(obj.id);
+        //     }
+        //   } catch (error) {
+        //     console.error('Error en la primera llamada', error);
+        //   }
+        // },
+        // async llamarSegundaFuncion(id) {
+        //   try {
+        //     // Lógica para la segunda llamada al backend con el "id" proporcionado
+        //     const response = await fetch(`../../talde2erronka2back/Erronka2/public/api/materialaR/${id}`);
+        //     const data = await response.json();
+    
+        //     // Unir el resultado al array existente
+        //     this.resultadosCompletos = this.resultadosCompletos.concat(data);
+        //   } catch (error) {
+        //     console.error(`Error en la segunda llamada para id ${id}`, error);
+        //   }
+        // },
+        async fetchData() {
+          try {
               console.log('La instancia Vue se ha montado en el DOM.');
-          
+      
               const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materiala', {
-                method: 'GET',
-                mode: 'no-cors'
+                  method: 'GET',
+                  mode: 'no-cors'
               });
-          
+      
               const data = await response.json();
-          
+      
               console.log(data);
-          
+      
               for (let i = 0; i < data.length; i++) {
-                this.datos.push({
-                  "etiketa": data[i].etiketa,
-                  "izena": data[i].izena,
-                  "id": data[i].id
-                });
+                  console.log("Entraaaa ");
+                  const datosColorMaterialR = await this.segundaLlamada(data[i].id);
+      
+                  this.datos.push({
+                      "etiketa": data[i].etiketa,
+                      "izena": data[i].izena,
+                      "id": data[i].id,
+                      "id_langilea": datosColorMaterialR[0].id_langilea,
+                      "amaiera_data": datosColorMaterialR[0].amaiera_data
+                  });
               }
-          
+      
               this.tituluAldatu();
-            } catch (error) {
+          } catch (error) {
               console.error('Error al obtener los datos:', error);
               // Aquí puedes manejar el error según tus necesidades
-            }
-          },
-          async fetchMaterialR() {
+          }
+      },
+      
+          async segundaLlamada(id){
             try {
-              console.log('La instancia Vue se ha montado en el DOM.');
           
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materialaR', {
+              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materialaF/'+id, {
                 method: 'GET',
                 mode: 'no-cors'
-              });
-          
-              const data = await response.json();
-          
-              console.log(data);
-          
-              for (let i = 0; i < data.length; i++) {
-                this.datosMaterialR.push({
-                  "id": data[i].id,
-                  "id_langilea": data[i].id_langilea,
-                  "id_materiala": data[i].id_materiala,
-                  "hasiera_data": data[i].hasiera_data,
-                  "amaiera_data": data[i].amaiera_data
-                });
-              }
+            });
+
+              const datosColorMaterialR = await response.json();
+              console.log(datosColorMaterialR);
+              return datosColorMaterialR;
+            
             } catch (error) {
-              console.error('Error al obtener los datos:', error);
-              // Aquí puedes manejar el error según tus necesidades
+              console.log(error);
+              // Maneja el error según tus necesidades
             }
-            this.filtroMaterial();
           },
 
           
-        filtroMaterial(){
-            var color = "";
-            console.log("entra");
-            // this.datosMaterialR.forEach(element => {
-            //     console.log(" "+element);
-            //     if (element.amaiera_data == null) {
-            //         color = 'red';
-            //     }else{
-            //         color = 'green';
-            //     }
-            //     this.colores.push(color);
-            // });
-            console.log(this.datosMaterialR.length)
-            for (let i = 0; i < this.datosMaterialR.length; i++) {
-                console.log("yhujrtfg "+this.datosMaterialR[i]);
-                if (this.datosMaterialR[i].amaiera_data == null) {
-                    color = 'red';
-                }else{
-                    color = 'green';
-                }
-            };
-        },
+        // filtroMaterial(){
+        //     var color = "";
+        //     console.log("entra");
+        //     // this.datosMaterialR.forEach(element => {
+        //     //     console.log(" "+element);
+        //     //     if (element.amaiera_data == null) {
+        //     //         color = 'red';
+        //     //     }else{
+        //     //         color = 'green';
+        //     //     }
+        //     //     this.colores.push(color);
+        //     // });
+        //     console.log(this.datosMaterialR.length)
+        //     for (let i = 0; i < this.datosMaterialR.length; i++) {
+        //         console.log("yhujrtfg "+this.datosMaterialR[i]);
+        //         if (this.datosMaterialR[i].amaiera_data == null) {
+        //             color = 'red';
+        //         }else{
+        //             color = 'green';
+        //         }
+        //     };
+        // },
         
         abrirPopup(etiketa, izena, id){
             
@@ -162,27 +186,6 @@ var pinga = new Vue({
             }
           },
 
-          async reservar(id){
-            try {
-              var js = JSON.stringify({"id": id});
-          
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materialaF', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: js
-            });
-
-              const datosColorMaterialR = await response.text();
-              console.log(datosColorMaterialR);
-            
-            } catch (error) {
-              console.log(error);
-              // Maneja el error según tus necesidades
-            }
-          },
-
           async ezabatu(id) {
             try {
               var js = JSON.stringify({"id": id}); 
@@ -224,8 +227,10 @@ var pinga = new Vue({
         },
     },
     mounted: function() {
+        
         this.fetchData();
-        this.fetchMaterialR();
+        // this.fetchMaterialR();
+        // this.llamarPrimeraFuncion();
       },
 });
 

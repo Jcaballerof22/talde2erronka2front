@@ -115,14 +115,14 @@
                             <td @click="abrirPopup(dato.etiketa , dato.izena , dato.id)">{{ dato.etiketa }}</td>
                             <td @click="abrirPopup(dato.etiketa , dato.izena , dato.id)" maxlength="100">{{ dato.izena }}</td>
                             <td>
-                                <i v-if="color == 'red'" class="bi bi-square-fill" style="color: #E26B6B;"></i>
+                                <i v-if="dato.amaiera_data == null" class="bi bi-square-fill" style="color: #E26B6B;"></i>
                                 <i v-else class="bi bi-square-fill" style="color: #CDDFA0;"></i>
                             </td>
                             <td>
                                 <i class="bi bi-trash-fill" @click="ezabatu(dato.id)"></i>
                             </td>
                         </tr>
-                    </tbody>
+                    </tbody>    
                 </table>
 
             </div>
