@@ -6,6 +6,8 @@ var pinga = new Vue({
         etiketa: "",
         aldatu: '',
         datos: [],
+        datosMaterialR: [],
+        datosColorMaterialR: [],
         taula: [],
         titulua: 'MATERIAL',
     },
@@ -31,9 +33,89 @@ var pinga = new Vue({
                     });
                 }
         },
+        async fetchData(){
+            try {
+              console.log('La instancia Vue se ha montado en el DOM.');
+          
+              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materiala', {
+                method: 'GET',
+                mode: 'no-cors'
+              });
+          
+              const data = await response.json();
+          
+              console.log(data);
+          
+              for (let i = 0; i < data.length; i++) {
+                this.datos.push({
+                  "etiketa": data[i].etiketa,
+                  "izena": data[i].izena,
+                  "id": data[i].id
+                });
+              }
+          
+              this.tituluAldatu();
+            } catch (error) {
+              console.error('Error al obtener los datos:', error);
+              // Aquí puedes manejar el error según tus necesidades
+            }
+          },
+          async fetchMaterialR() {
+            try {
+              console.log('La instancia Vue se ha montado en el DOM.');
+          
+              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materialaR', {
+                method: 'GET',
+                mode: 'no-cors'
+              });
+          
+              const data = await response.json();
+          
+              console.log(data);
+          
+              for (let i = 0; i < data.length; i++) {
+                this.datosMaterialR.push({
+                  "id": data[i].id,
+                  "id_langilea": data[i].id_langilea,
+                  "id_materiala": data[i].id_materiala,
+                  "hasiera_data": data[i].hasiera_data,
+                  "amaiera_data": data[i].amaiera_data
+                });
+              }
+            } catch (error) {
+              console.error('Error al obtener los datos:', error);
+              // Aquí puedes manejar el error según tus necesidades
+            }
+            this.filtroMaterial();
+          },
+
+          
+        filtroMaterial(){
+            var color = "";
+            console.log("entra");
+            // this.datosMaterialR.forEach(element => {
+            //     console.log(" "+element);
+            //     if (element.amaiera_data == null) {
+            //         color = 'red';
+            //     }else{
+            //         color = 'green';
+            //     }
+            //     this.colores.push(color);
+            // });
+            console.log(this.datosMaterialR.length)
+            for (let i = 0; i < this.datosMaterialR.length; i++) {
+                console.log("yhujrtfg "+this.datosMaterialR[i]);
+                if (this.datosMaterialR[i].amaiera_data == null) {
+                    color = 'red';
+                }else{
+                    color = 'green';
+                }
+            };
+        },
+        
         abrirPopup(etiketa, izena, id){
             
-
+            this.id = id;
             this.aldatu = id;
             this.etiketa = etiketa;
             this.izena = izena;
@@ -43,7 +125,7 @@ var pinga = new Vue({
 
         txertatuEdoAldatu(){
             if(this.aldatu != ''){
-                //  
+                this.aldatuDatuak();
             }else{
                 this.addDatuak();
             }
@@ -51,56 +133,75 @@ var pinga = new Vue({
             document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'none';
         },
 
-        // aldatuDatuak(){
-        //     var js = JSON.stringify({"kodea": this.kodea, "izena": this.izena}); 
-        //     console.log("froga: "+js);
-        //     fetch('../../talde2erronka2back/Erronka2/public/api/grupos/editatu', {method: 'PUT', body: js})
-        //             .then(function (response) {
-        //                     return response.text();
-        //             })
-        //             .then(data=>{
-        //                 console.log(data);
-        //                 for (let i = 0; i < this.datos.length; i++) {
-        //                     if (this.datos[i].kodea == this.aldatu){
-        //                         this.datos[i].kodea = this.kodea;
-        //                         this.datos[i].izena = this.izena;
-        //                     }
-        //                 }
-        //             })
-        //             .catch(error => {
-        //                 console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
-        //             });
-        // },
-        
-        // buscar(){
-        //     if (this.bilatu == ''){
-        //         this.taula = this.datos;
-        //     }else{
-        //         this.taula = [];
-        //         for (let i = 0; i < this.datos.length; i++){
-        //             if(this.datos[i].izena.startsWith(this.bilatu)){
-        //                 console.log(this.datos[i].izena + " " + this.datos[i].langileKop+ " " + this.datos[i].kodea)
-        //                 this.taula.push({"izena" : this.datos[i].izena, "langileKop" : this.datos[i].langileKop,  "kodea" : this.datos[i].kodea});
-        //             }
-        //         }
-        //     }
-        // },
+        async aldatuDatuak() {
+            try {
+              var js = JSON.stringify({
+                "etiketa": this.etiketa,
+                "izena": this.izena,
+                "id": this.id
+              });
+              console.log("froga: " + js);
+          
+              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materiala/editatu', {
+                method: 'PUT',
+                body: js
+              });
+          
+              const data = await response.text();
+              console.log(data);
+          
+              for (let i = 0; i < this.datos.length; i++) {
+                if (this.datos[i].id == this.aldatu) {
+                  this.datos[i].etiketa = this.etiketa;
+                  this.datos[i].izena = this.izena;
+                }
+              }
+            } catch (error) {
+              console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+              // Maneja el error según tus necesidades
+            }
+          },
 
-        ezabatu(id){
-            var js = JSON.stringify({"id": id}); 
-            console.log("frogaBorrar: "+js);
-            fetch('../../talde2erronka2back/Erronka2/public/api/materiala/ezabatu', {method: 'PUT', body: js})
-                    .then(function (response) {
-                            return response.text();
-                    })
-                    .then(data=>{
-                        console.log(data);
-                        this.datos = this.datos.filter(aux => aux.id !== id);
-                    })
-                    .catch(error => {
-                        console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
-                    });
-        },
+          async reservar(id){
+            try {
+              var js = JSON.stringify({"id": id});
+          
+              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materialaF', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: js
+            });
+
+              const datosColorMaterialR = await response.text();
+              console.log(datosColorMaterialR);
+            
+            } catch (error) {
+              console.log(error);
+              // Maneja el error según tus necesidades
+            }
+          },
+
+          async ezabatu(id) {
+            try {
+              var js = JSON.stringify({"id": id}); 
+              console.log("frogaBorrar: " + js);
+          
+              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materiala/ezabatu', {
+                method: 'PUT',
+                body: js
+              });
+          
+              const data = await response.text();
+              console.log(data);
+          
+              this.datos = this.datos.filter(aux => aux.id !== id);
+            } catch (error) {
+              console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+              // Maneja el error según tus necesidades
+            }
+          },
 
         teclado(event){
             if(event.key == "Enter"){
@@ -123,17 +224,9 @@ var pinga = new Vue({
         },
     },
     mounted: function() {
-        console.log('La instancia Vue se ha montado en el DOM.');
-        fetch('../../talde2erronka2back/Erronka2/public/api/materiala', { method: 'GET', mode: 'no-cors'})
-        .then(response => response.json())
-        .then(data => {
-            console.log(data); 
-            for (let i = 0; i < data.length; i++) {
-                this.datos.push({"etiketa" : data[i].etiketa, "izena" : data[i].izena, "id" : data[i].id});
-            }
-            this.tituluAldatu();
-        });
-      }
+        this.fetchData();
+        this.fetchMaterialR();
+      },
 });
 
 document.getElementById('cerrarVentanaAñadirMaterial').addEventListener('click', function() {
