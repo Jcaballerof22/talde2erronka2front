@@ -4,6 +4,8 @@ var app = new Vue({
         datosKategoria: [],
         datosProduk: [],
         datosEditatu: [],
+        taula: [],
+        kategoriak:'all',
         id:'',
         izena:'',
         marka:'',
@@ -18,11 +20,10 @@ var app = new Vue({
         fetch('../../talde2erronka2back/Erronka2/public/api/productos', { method: 'GET'})
         .then(response => response.json())
         .then(data => {
-            for(let i = 0; i < data.length; i++) {
-                this.datosProduk.push({"id" : data[i].id, "izena" : data[i].izena, "marka" : data[i].marka, "kategoria" : data[i].kategoria, "deskribapena" : data[i].deskribapena, "stock" : data[i].stock, "stock_alerta" : data[i].stock_alerta});
-            }
+            this.datosProduk = data;
             // console.log(this.datosProduk);
             this.tituluAldatu();
+            this.taula = this.datosProduk;
         });
         },
 
@@ -31,9 +32,7 @@ var app = new Vue({
             .then(response => response.json())
             .then(data => {
                 console.log(data)
-                for(let i = 0; i < data.length; i++) {
-                    this.datosKategoria.push({"izena" : data[i].izena});
-                }
+                this.datosKategoria = data;
                 console.log(this.datosKategoria);
             });
         },
@@ -99,6 +98,33 @@ var app = new Vue({
                 console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
             }
         }
+    },
+    watch:{
+        // bilatu: function(){
+        //     if (this.bilatu == ''){
+        //         this.taula = this.datos;
+        //     }else{
+        //         this.taula = [];
+        //         for (let i = 0; i < this.datos.length; i++){
+        //             if(this.datos[i].izena.startsWith(this.bilatu)){
+        //                 this.taula.push({"izena" : this.datos[i].izena, "abizenak" : this.datos[i].abizenak, "kodea" : this.datos[i].kodea, "id" : this.datos[i].id});
+        //             }
+        //         }
+        //     }
+        // },
+
+        kategoriak: function(){
+            if (this.kategoriak == 'all'){
+                this.taula = this.datosProduk;
+            }else{
+                this.taula = [];
+                for (let i = 0; i < this.datosProduk.length; i++){
+                    if(this.datosProduk[i].id_kategoria == this.kategoriak){
+                        this.taula.push(this.datosProduk[i]);
+                    }
+                }
+            }
+        },
     },
     mounted: function() {
         this.produktuakGet();
