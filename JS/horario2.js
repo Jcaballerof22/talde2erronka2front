@@ -123,7 +123,7 @@ var horario2 = new Vue({
                 }
                 
             }
-            document.getElementById('fondoOscuro').classList.add('mostrar-fondo');
+            document.getElementById('fondoOscuro2').classList.add('mostrar-fondo');
             document.getElementById('ventanaEmergenteLangile').style.display = 'block';
         },
 
@@ -410,7 +410,7 @@ var horario2 = new Vue({
         },
 
         quitarFondoNegro(){
-            document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
+            document.getElementById('fondoOscuro2').classList.remove('mostrar-fondo');
             document.getElementById('ventanaEmergenteLangile').style.display = 'none';
         }
 
