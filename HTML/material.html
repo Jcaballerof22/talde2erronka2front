@@ -34,14 +34,14 @@
                 </div>
                 <div class="mt-2">
                     <textarea id="modeloTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" v-model="etiketa"
-                        placeholder="Ingresa el Modelo aquí" maxlength="10"></textarea>
+                        placeholder="Ingresa la etiqueta aquí" maxlength="10"></textarea>
                 </div>
                 <div class="mt-2">
                     <label for="mensaje" id="nombreLabelMaterial">Nombre</label>
                 </div>
                 <div class="mt-2">
                     <textarea id="marcaTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" v-model="izena"
-                        placeholder="Ingresa la Marca aquí"></textarea>
+                        placeholder="Ingresa el Nombre aquí"></textarea>
                 </div>
                 <div class="mt-2">
                     <input id="submitAñadirMaterial" type="submit" class="btn añadir btn-lg mt-3"
@@ -114,7 +114,7 @@
                         <tr v-for="(dato, index) in datos" :key="index" :id="dato.id">
                             <td @click="abrirPopup(dato.etiketa , dato.izena , dato.id)">{{ dato.etiketa }}</td>
                             <td @click="abrirPopup(dato.etiketa , dato.izena , dato.id)" maxlength="100">{{ dato.izena }}</td>
-                            <td>
+                            <td @click="abrirReservar(dato.id)">
                                 <i v-if="dato.amaiera_data == null" class="bi bi-square-fill" style="color: #E26B6B;"></i>
                                 <i v-else class="bi bi-square-fill" style="color: #CDDFA0;"></i>
                             </td>

@@ -34,34 +34,6 @@ var pinga = new Vue({
                     });
                 }
         },
-        // async llamarPrimeraFuncion() {
-        //   try {
-        //     // Lógica para la primera llamada al backend
-        //     const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materiala');
-        //     const data = await response.json();
-    
-        //     this.resultadosCompletos = data;
-    
-        //     // Llamar la segunda función para cada objeto devuelto por la primera llamada
-        //     for (const obj of this.resultadosCompletos) {
-        //       await this.llamarSegundaFuncion(obj.id);
-        //     }
-        //   } catch (error) {
-        //     console.error('Error en la primera llamada', error);
-        //   }
-        // },
-        // async llamarSegundaFuncion(id) {
-        //   try {
-        //     // Lógica para la segunda llamada al backend con el "id" proporcionado
-        //     const response = await fetch(`../../talde2erronka2back/Erronka2/public/api/materialaR/${id}`);
-        //     const data = await response.json();
-    
-        //     // Unir el resultado al array existente
-        //     this.resultadosCompletos = this.resultadosCompletos.concat(data);
-        //   } catch (error) {
-        //     console.error(`Error en la segunda llamada para id ${id}`, error);
-        //   }
-        // },
         async fetchData() {
           try {
               console.log('La instancia Vue se ha montado en el DOM.');
@@ -112,30 +84,6 @@ var pinga = new Vue({
               // Maneja el error según tus necesidades
             }
           },
-
-          
-        // filtroMaterial(){
-        //     var color = "";
-        //     console.log("entra");
-        //     // this.datosMaterialR.forEach(element => {
-        //     //     console.log(" "+element);
-        //     //     if (element.amaiera_data == null) {
-        //     //         color = 'red';
-        //     //     }else{
-        //     //         color = 'green';
-        //     //     }
-        //     //     this.colores.push(color);
-        //     // });
-        //     console.log(this.datosMaterialR.length)
-        //     for (let i = 0; i < this.datosMaterialR.length; i++) {
-        //         console.log("yhujrtfg "+this.datosMaterialR[i]);
-        //         if (this.datosMaterialR[i].amaiera_data == null) {
-        //             color = 'red';
-        //         }else{
-        //             color = 'green';
-        //         }
-        //     };
-        // },
         
         abrirPopup(etiketa, izena, id){
             
@@ -147,14 +95,20 @@ var pinga = new Vue({
             document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'block';
         },
 
+        abrirReservar(id){
+            document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
+            document.getElementById('mostrarVentanaReservarMaterial').style.display = 'block';
+        },
+
         txertatuEdoAldatu(){
             if(this.aldatu != ''){
                 this.aldatuDatuak();
             }else{
                 this.addDatuak();
             }
+            this.fetchData();
             document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
-            document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'none';
+            document.getElementById('ventanaEmergenteLangile').style.display = 'none';
         },
 
         async aldatuDatuak() {
@@ -227,10 +181,8 @@ var pinga = new Vue({
         },
     },
     mounted: function() {
-        
+        // this.tituluAldatu();
         this.fetchData();
-        // this.fetchMaterialR();
-        // this.llamarPrimeraFuncion();
       },
 });
 
