@@ -139,13 +139,13 @@ var app = new Vue({
             document.body.appendChild(nuevoScript);
         },
 
-        lortuDatuak() {
-            fetch('../../talde2erronka2back/Erronka2/public/api/grupos', { 
-                method: 'GET',
-                mode: 'no-cors'
-            })
-            .then(response => response.json())
-            .then(data => {
+        async lortuDatuak() {
+            try {
+                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/grupos', { 
+                    method: 'GET',
+                    mode: 'no-cors'
+                });
+                const data = await response.json();
                 console.log(data); 
                 // Itera sobre los datos recibidos y añádelos al arreglo "datos"
                 for (let i = 0; i < data.length; i++) {
@@ -155,11 +155,12 @@ var app = new Vue({
                         "kodea": data[i].kodea
                     });
                 }
-            })
-            .catch(error => {
+                this.tituluAldatu();
+            } catch (error) {
                 console.error('Error al obtener los datos de los grupos:', error);
-            });
+            }
         }
+        
 
     },
     watch:{
