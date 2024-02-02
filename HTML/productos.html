@@ -67,7 +67,7 @@
             </div>
         </div>
         
-        <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
+        <!-- <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -94,7 +94,7 @@
                                 </tr>
                             </thead>
                             <tbody class="taula-pop-produk">
-                                <tr v-for="(dato, index) in taula" :key="index" :id="dato.kodea">
+                                <tr v-for="(dato, index) in fhgffggdsgds" :key="index" :id="dato.kodea">
                                     <th scope="row" id="prod">
                                         <div class="p-2">
                                             <div class="ml-3 d-inline-block align-middle">
@@ -157,7 +157,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <div id="fondoOscuro" class="fondo-oculto" @click="ocultarVentana()"></div>
         <div class="tablaHorarios" id="tablaEditarP">
@@ -174,7 +174,7 @@
                     <input type="text" v-model="marka">
                     <h3 scope="row" class="mt-3">Categoría</h3>
                     <select class="form-select" aria-label="Default select example" style="max-width: 15vw; margin-right: 3vw;" v-model="kategoria">
-                        <option   v-for="(dato,index) in datosKategoria" :key="index" :value="dato.izena">{{ dato.izena }}</option>
+                        <option   v-for="(dato,index) in datosKategoria" :key="index" :value="dato.id">{{ dato.izena }}</option>
                     </select>
                     <h3 scope="row" class="mt-3">Descripción</h3>
                     <div class="form-floating">
@@ -183,9 +183,11 @@
                     </div>
                     <h3 scope="row" class="mt-3">Stock</h3>
                     <input type="number" v-model="stock">
+                    <h3 scope="row" class="mt-3">Alerta de stock</h3>
+                    <input type="number" v-model="stock_alerta">
                 </div>
                 <div class="input-group-horarios">
-                    <button type="button" id="aceptarHorarios" class="btn añadir btn-lg">Aceptar</button>
+                    <button type="button" id="aceptarHorarios" class="btn añadir btn-lg" @click="txertatuEdoAldatu">Aceptar</button>
                     <button type="button" id="cancelarHorarios" class="btn cancelar btn-lg" @click="ocultarVentana()">Cancelar</button>
                 </div>
             </div>
