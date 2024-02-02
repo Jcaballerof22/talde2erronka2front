@@ -755,6 +755,22 @@ var home = new Vue({
               console.error('Error al obtener los tratamientos:', error);
           }
       },
+      /////////////////////////////////////// HAYQUEACER ///////////////////////////////////////
+      async createCita(){
+        console.log("froga: " + js);
+          try {
+            const response = await fetch('../../talde2erronka2back/Erronka2/public/api/hitzordua/horduaAmaiera', {
+              method: 'PUT',
+              body: js
+            });
+            const data = await response.text();
+            console.log(data);
+            this.taula = this.taula.filter(aux => aux.id !== id);
+            } catch (error) {
+              console.error("Error al eliminar el registro:", error);
+              console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
+          }
+      },
 
       async aldatuOrduaAmaiera(){
           const js = JSON.stringify({"id": this.idCita, "ordua": this.amaiera_ordua}); 
@@ -773,7 +789,7 @@ var home = new Vue({
           }
       },
 
-      async hasiera_ordua(){
+      async aldatuOrduaHasiera(){
         const js = JSON.stringify({"id": this.idCita, "ordua": this.hasiera_ordua}); 
         console.log("froga: " + js);
         
@@ -812,6 +828,14 @@ var home = new Vue({
 
       tratamendu: function(){
           this.extra = 0;
+      },
+
+      hasiera_ordua: function(){
+        this.aldatuOrduaHasiera();
+      },
+
+      amaiera_ordua: function(){
+        this.aldatuOrduaAmaiera();
       },
 
     },

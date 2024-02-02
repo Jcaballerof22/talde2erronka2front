@@ -355,7 +355,7 @@
                     <input type="text" id="bilatu" name="bilatu" v-model="bilatu">
                     
                     <div class="table-responsive-xl">
-                        <table class="table" v-if="bilatu != ''">
+                        <table class="table table-hover table-striped" v-if="bilatu != ''">
                             <thead>
                                 <th scope="col">id</th>
                                 <th scope="col">data</th>
@@ -368,7 +368,7 @@
                                 <th scope="col"></th>
                             </thead>
                             <tbody>
-                                <tr v-for="(dato,index) in taula">
+                                <tr v-for="(dato,index) in taula" @click="popupCita(dato.id)">
                                     <td scope="col">{{dato.id}}</td>
                                     <td scope="col">{{dato.data}}</td>
                                     <td scope="col">{{dato.hasiera_ordua}}</td>
