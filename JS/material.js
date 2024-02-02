@@ -5,8 +5,13 @@ var pinga = new Vue({
         izena: "",
         etiketa: "",
         aldatu: '',
+        kodea: "",
+        idlangile: "",
+        idMaterial: "",
         datos: [],
         datosMaterialR: [],
+        datosTalde : [],
+        datosAlumnos : [],
         datosColorMaterialR: [],
         taula: [],
         resultadosCompletos: [],
@@ -26,7 +31,7 @@ var pinga = new Vue({
                     })
                     .then(data=>{
                         console.log(data);
-                        this.datos.push({"etiketa" : this.etiketa, "izena" : this.izena, "kodea" : data});
+                        this.datos.push({"etiketa" : this.etiketa, "izena" : this.izena, "kodea" : data, "amaiera_data" : ""});
                         
                     })
                     .catch(error => {
@@ -84,6 +89,55 @@ var pinga = new Vue({
               // Maneja el error según tus necesidades
             }
           },
+
+          async nombresGrupo() {
+            
+            try {
+                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materiala/grupos', {
+                    method: 'GET'
+                });
+
+                const data = await response.json();
+                
+                console.log(data);
+                
+                data.forEach(grupo => {
+                    this.datosTalde.push({
+                        "izena": grupo.izena,
+                        "kodea": grupo.kodea
+                    });
+                });
+            } catch (error) {
+                console.error('Error al obtener los nombres de grupo:', error);
+            }
+        },
+
+        async nombresAlumnos(){
+
+            try {
+          
+              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materiala/alumnos/'+this.kodea, {
+                method: 'GET',
+                mode: 'no-cors'
+            });
+
+              const data = await response.json();
+              console.log(data);
+              
+              this.datosAlumnos.splice(0, this.datosAlumnos.length);
+
+              data.forEach(alumno => {
+                this.datosAlumnos.push({
+                    "izena": alumno.izena,
+                    "abizenak": alumno.abizenak,
+                    "id": alumno.id
+                });
+            });
+            } catch (error) {
+              console.log(error);
+              // Maneja el error según tus necesidades
+            }
+        },
         
         abrirPopup(etiketa, izena, id){
             
@@ -96,8 +150,9 @@ var pinga = new Vue({
         },
 
         abrirReservar(id){
+            this.idMaterial = id;
             document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
-            document.getElementById('mostrarVentanaReservarMaterial').style.display = 'block';
+            document.getElementById('ventanaEmergenteReservarMaterial').style.display = 'block';
         },
 
         txertatuEdoAldatu(){
@@ -106,9 +161,10 @@ var pinga = new Vue({
             }else{
                 this.addDatuak();
             }
-            this.fetchData();
             document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
-            document.getElementById('ventanaEmergenteLangile').style.display = 'none';
+            document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'none';
+            this.datos.splice(0, this.datos.length);
+            this.fetchData();
         },
 
         async aldatuDatuak() {
@@ -160,6 +216,33 @@ var pinga = new Vue({
             }
           },
 
+          async reservarMaterial(){
+            try {
+                var js = JSON.stringify({
+                  "id_materiala": this.idMaterial,
+                  "id_langilea": this.idlangile
+                });
+                console.log("froga: " + js);
+            
+                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materiala/reservar', {
+                  method: 'POST',
+                  body: js
+                });
+            
+                const data = await response.text();
+                console.log(data);
+            
+                document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
+                document.getElementById('ventanaEmergenteReservarMaterial').style.display = 'none';
+                this.datos.splice(0, this.datos.length);
+                this.fetchData();
+
+              } catch (error) {
+                console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+                // Maneja el error según tus necesidades
+              }
+          },
+
         teclado(event){
             if(event.key == "Enter"){
                 this.txertatuEdoAldatu();
@@ -182,6 +265,7 @@ var pinga = new Vue({
     },
     mounted: function() {
         // this.tituluAldatu();
+        this.nombresGrupo();
         this.fetchData();
       },
 });
@@ -206,12 +290,12 @@ function ocultarVentanaAñadir() {
 
 document.getElementById('mostrarVentanaReservarMaterial').addEventListener('click', function() {
     document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
-    document.getElementById('ventanaEmergenteLangile').style.display = 'block';
+    document.getElementById('ventanaEmergenteReservarMaterial').style.display = 'block';
 });
 
 document.getElementById('cerrarVentanaReservarMaterial').addEventListener('click', function() {
     document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
-    document.getElementById('ventanaEmergenteLangile').style.display = 'none';
+    document.getElementById('ventanaEmergenteReservarMaterial').style.display = 'none';
 });
 
 document.getElementById('fondoOscuroLangile').addEventListener('click', function(event) {
@@ -222,5 +306,5 @@ document.getElementById('fondoOscuroLangile').addEventListener('click', function
 
 function ocultarVentana() {
     document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
-    document.getElementById('ventanaEmergenteLangile').style.display = 'none';
+    document.getElementById('ventanaEmergenteReservarMaterial').style.display = 'none';
 }
