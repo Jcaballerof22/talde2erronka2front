@@ -19,9 +19,9 @@
             <div class="containerPage">
                 <div class="input-group">
 
-                    <input type="text" class="form-control buscar" placeholder="Buscar por nombre" v-model="bilatu">
+                    <input type="text" class="form-control buscar" placeholder="Buscar por nombre">
                     <div class="input-group-append">
-                    <button class="btn lupa" type="button" @click="buscar">
+                    <button class="btn lupa" type="button">
                         <i class="bi bi-search"></i>
                     </button>
                     </div>
@@ -40,10 +40,10 @@
                     </thead>
                     <tbody>
                         <tr v-for="(dato, index) in taula" :key="index" :id="dato.id">
-                            <td @click="abrirPopup(index)">{{dato.bezero_izena}}</td>
-                            <td @click="abrirPopup(index)">{{dato.tratamendu_izena}}</td>
-                            <td @click="abrirPopup(index)">{{dato.prezioa}}</td>
-                            <td @click="abrirPopup(index)">{{dato.data}}</td>
+                            <td @click="abrirPopup(index, dato.id)">{{dato.bezero_izena}}</td>
+                            <td @click="abrirPopup(index, dato.id)">{{dato.tratamendu_izena}}</td>
+                            <td @click="abrirPopup(index, dato.id)">{{dato.prezioa}}</td>
+                            <td @click="abrirPopup(index, dato.id)">{{dato.data}}</td>
                             <td>
                                 <i class="bi bi-trash-fill" @click="ezabatu(dato.id, index)"></i>
                             </td>
@@ -60,34 +60,31 @@
                             <i class="bi bi-x"></i>
                         </button>
                     </div>
-                    <div class="mt-5">
-                        <label for="mensaje" id="nombreLabelLangile">Cliente</label>
+                    <div class="mt-5 text-start">
+                        <label for="mensaje"><h2>Cliente</h2></label>
                     </div>
                     <div class="row d-flex mt-4">
                         <div class="col">
-                            <textarea type="text" id="nombreTextoLangile" name="mensaje" rows="1" cols="25" placeholder="Ingresa el nombre aquí" v-model="izena"></textarea>
+                            <input type="text" class="form-control" v-model="izena" style="background-color: white;" disabled>
                         </div>
-                        <div class="col">
-                            <textarea id="nombreTextoLangile" name="mensaje" rows="1" cols="25" placeholder="Ingresa el apellido aquí" v-model="abizena"></textarea>
-                        </div>
+                    </div>
+                    <div class="mt-5 text-start">
+                        <label for="mensaje"><h2>Tratamiento</h2></label>
                     </div>
                     <div class="mt-4">
-                        <label for="mensaje" id="apellidoLabelLangile">Teléfono</label>
+                        <select class="form-select" style="min-width: 15vw;" v-model="tratamendu">
+                            <option selected disabled value="">Tratamientos</option>
+                            <option v-for="tratamendus in tratamenduak" :value="tratamendus.id" :key="tratamendus.izena">{{tratamendus.izena}}</option>
+                        </select>
+                    </div>
+                    <div class="mt-5 text-start">
+                        <label for="mensaje"><h2>Precio</h2></label>
                     </div>
                     <div class="mt-4">
-                        <textarea id="apellidoTextoLangile" name="mensaje" rows="1" cols="50" placeholder="Ingresa el apellido aquí" v-model="telefonoa"></textarea>
+                        <input type="text" class="form-control" v-model="prezioa" style="background-color: white;">
                     </div>
-                    <div class="col-md-12">
-                        <div class="row g-3">
-                            <div class="col">
-                                <div class="form-check-reverse form-switch d-flex justify-content-left">
-                                    <label class="form-check-label rounded bg-white p-2 mx-2 mb-1 text-center">Piel sensible</label>
-                                    <input class="form-check-input" style="margin-top: 1.4vh;" type="checkbox" v-model="azal_sentikorra">
-                                </div>                        
-                            </div>
-                        </div>
-                    </div>
-                    <input id="submitLangile" type="submit" class="btn añadir btn-lg mt-4" @click="txertatuEdoAldatu" value="Aceptar">
+                    
+                    <input id="submitLangile" type="submit" class="btn añadir btn-lg mt-4" value="Aceptar">
                 </div>
             </div>
         </div>

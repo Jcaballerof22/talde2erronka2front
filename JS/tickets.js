@@ -2,7 +2,11 @@ var app = new Vue({
     el: '#app',
     data: {
         datosTickets: [],
-        taula: []
+        taula: [],
+        id: '',
+        izena: '',
+        tratamendu_izena: '',
+        prezioa: ''
     },
     methods: {
         async mostrarTickets() {
@@ -39,12 +43,12 @@ var app = new Vue({
         async ezabatu(kodea, index) {
             const js = JSON.stringify({"id": kodea}); 
             console.log("froga: " + js);
+            console.log(index);
   
             this.taula.splice(index, 1);
             for (let i = 0; i < this.taula.length; i++) {
-                console.log(this.taula[i]);;    
+                console.log(this.taula[i].bezero_izena);
             }
-            
             
             try {
                 const response = await fetch('../../talde2erronka2back/Erronka2/public/api/tickets/ezabatu', {
@@ -60,33 +64,37 @@ var app = new Vue({
                 console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
             }
         },
-        abrirPopup(kodea, izena, abizenak, id){
-            //lodelPopup
-            this.aldatu = id;
-            this.izena = izena;
-            this.abizenak = abizenak;
-            this.kodea = kodea;
-            this.id = id
+        abrirPopup(index, id){
+            if(index !== ''){
+                this.id = id;
+                this.izena = this.datosTickets[index].bezero_izena;
+                this.tratamendu_izena = this.datosTickets[index].tratamendu_izena;
+                this.prezioa = this.datosTickets[index].prezioa;
+            }
              
             document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
             document.getElementById('ventanaEmergenteTickets').style.display = 'block';
         },
         cerrarPopup(){
+            this.id = '';
+            this.izena = '',
+            this.tratamendu_izena = '',
+            this.prezioa = '';
             document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
             document.getElementById('ventanaEmergenteTickets').style.display = 'none';
           },
-        buscar(){
-            if (this.bilatu == ''){
-                this.taula = this.datos;
-            }else{
-                this.taula = [];
-                for (let i = 0; i < this.datos.length; i++){
-                    if(this.datos[i].izena.startsWith(this.bilatu)){
-                        this.taula.push({"izena" : this.datos[i].izena, "abizenak" : this.datos[i].abizenak, "kodea" : this.datos[i].kodea, "id" : this.datos[i].id});
-                    }
-                }
-            }
-        },
+        // buscar(){
+        //     if (this.bilatu == ''){
+        //         this.taula = this.datos;
+        //     }else{
+        //         this.taula = [];
+        //         for (let i = 0; i < this.datos.length; i++){
+        //             if(this.datos[i].izena.startsWith(this.bilatu)){
+        //                 this.taula.push({"izena" : this.datos[i].izena, "abizenak" : this.datos[i].abizenak, "kodea" : this.datos[i].kodea, "id" : this.datos[i].id});
+        //             }
+        //         }
+        //     }
+        // },
         
     },
     watch:{
