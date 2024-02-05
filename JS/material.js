@@ -150,21 +150,37 @@ var pinga = new Vue({
         },
 
         abrirReservar(id){
-            this.idMaterial = id;
-            document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
-            document.getElementById('ventanaEmergenteReservarMaterial').style.display = 'block';
+          this.idMaterial = id;
+          document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
+          document.getElementById('ventanaEmergenteReservarMaterial').style.display = 'block';
+        },
+
+        abrirDevolverMaterial(id){
+          this.idMaterial = id;
+          document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
+          document.getElementById('ventanaEmergenteDevolverMaterial').style.display = 'block';
+        },
+
+        cerrarVentanaX(){
+          document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
+          document.getElementById('ventanaEmergenteReservarMaterial').style.display = 'none';
+        },
+
+        cerrarDevolver(){
+          document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
+          document.getElementById('ventanaEmergenteDevolverMaterial').style.display = 'none';
         },
 
         txertatuEdoAldatu(){
-            if(this.aldatu != ''){
-                this.aldatuDatuak();
-            }else{
-                this.addDatuak();
-            }
-            document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
-            document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'none';
-            this.datos.splice(0, this.datos.length);
-            this.fetchData();
+          if(this.aldatu != ''){
+            this.aldatuDatuak();
+          }else{
+            this.addDatuak();
+          }
+          document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
+          document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'none';
+          this.datos.splice(0, this.datos.length);
+          this.fetchData();
         },
 
         async aldatuDatuak() {
@@ -231,9 +247,9 @@ var pinga = new Vue({
             
                 const data = await response.text();
                 console.log(data);
-            
-                document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
-                document.getElementById('ventanaEmergenteReservarMaterial').style.display = 'none';
+                this.cerrarVentanaX();
+                // document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
+                // document.getElementById('ventanaEmergenteReservarMaterial').style.display = 'none';
                 this.datos.splice(0, this.datos.length);
                 this.fetchData();
 
@@ -241,6 +257,27 @@ var pinga = new Vue({
                 console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
                 // Maneja el error según tus necesidades
               }
+          },
+
+          async devolverMaterial(){
+            try {
+              var js = JSON.stringify({"id_materiala": this.idMaterial});
+          
+              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materiala/devolver', {
+                method: 'PUT',
+                body: js
+              });
+          
+              const data = await response.text();
+              console.log(data);
+
+              this.cerrarDevolver();
+              this.datos.splice(0, this.datos.length);
+              this.fetchData();
+            } catch (error) {
+              console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+              // Maneja el error según tus necesidades
+            }
           },
 
         teclado(event){
@@ -300,11 +337,11 @@ document.getElementById('cerrarVentanaReservarMaterial').addEventListener('click
 
 document.getElementById('fondoOscuroLangile').addEventListener('click', function(event) {
     if (event.target === this) {
-        ocultarVentana();
+      ocultarVentanaX();
     }
 });
 
-function ocultarVentana() {
+function ocultarVentanaX() {
     document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
     document.getElementById('ventanaEmergenteReservarMaterial').style.display = 'none';
 }
