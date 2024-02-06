@@ -3,12 +3,16 @@ var app = new Vue({
     data: {
         datosTickets: [],
         taula: [],
+        tratamenduak: [],
         id: '',
         izena: '',
         tratamendu_izena: '',
-        prezioa: ''
+        prezioa: '',
+        id_tratamendua: '',
+        data: ''
     },
     methods: {
+        // Ticketen datuak lortzeko metodoa
         async mostrarTickets() {
             try {
               const response = await fetch(`../../talde2erronka2back/Erronka2/public/api/tickets`, { method: 'GET' });
@@ -40,6 +44,7 @@ var app = new Vue({
               console.error('Error al obtener datos del servidor:', error);
             }
         },
+        // Ticketak ezabatzeko metodoa
         async ezabatu(kodea, index) {
             const js = JSON.stringify({"id": kodea}); 
             console.log("froga: " + js);
@@ -64,17 +69,73 @@ var app = new Vue({
                 console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
             }
         },
+        // Ticketak editatzeko metodoa
+        async aldatuDatuak() {
+            for (let i = 0; i < this.tratamenduak.length; i++) {
+                if(this.tratamendu_izena == this.tratamenduak[i].izena){
+                    this.id_tratamendua = this.tratamenduak[i].id;
+                }
+            }
+
+            const js = JSON.stringify({"id": this.id, "prezioa": this.prezioa, "id_tratamendua": this.id_tratamendua});
+            console.log("froga: " + js);
+  
+            for (let i = 0; i < this.taula.length; i++) {
+              if(this.taula[i].id == this.id){
+                this.taula[i].data = this.data;
+                this.taula[i].prezioa = this.prezioa;
+                this.taula[i].tratamendu_izena = this.tratamendu_izena;
+              }
+            }
+            
+            try {
+                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/tickets/editatu', {
+                    method: 'PUT',
+                    body: js
+                });
+  
+                const data = await response.text();
+                console.log(data);
+  
+            } catch (error) {
+                console.error("Error al editar el dato:", error);
+                console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
+            }
+            this.cerrarPopup();
+        },
+        // Tratamenduen datuak lortzeko metodoa
+        async tratamenduakLortu() {
+            try {
+                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/tratamenduak', {
+                    method: 'GET',
+                    mode: 'no-cors'
+                });
+                
+                const data = await response.json();
+                
+                // Si `data` es un arreglo, puedes usar `forEach` para iterar sobre él.
+                data.forEach(tratamiento => {
+                    // Asumiendo que `this.tratamenduak` está definido fuera de esta función
+                    this.tratamenduak.push(tratamiento);
+                });
+            } catch (error) {
+                console.error('Error al obtener los tratamientos:', error);
+            }
+        },
+        // POPUPa irekitzeko metodoa
         abrirPopup(index, id){
             if(index !== ''){
                 this.id = id;
-                this.izena = this.datosTickets[index].bezero_izena;
-                this.tratamendu_izena = this.datosTickets[index].tratamendu_izena;
-                this.prezioa = this.datosTickets[index].prezioa;
+                this.izena = this.taula[index].bezero_izena;
+                this.tratamendu_izena = this.taula[index].tratamendu_izena;
+                this.prezioa = this.taula[index].prezioa;
+                this.data = this.taula[index].data;
             }
              
             document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
             document.getElementById('ventanaEmergenteTickets').style.display = 'block';
         },
+        // POPUPa ixteko metodoa
         cerrarPopup(){
             this.id = '';
             this.izena = '',
@@ -126,6 +187,7 @@ var app = new Vue({
     },
     mounted: function() {
         this.mostrarTickets();
+        this.tratamenduakLortu();
     }
 });
 

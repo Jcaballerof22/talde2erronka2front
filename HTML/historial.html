@@ -12,12 +12,14 @@
     <div id="app">
         <div class="contenido" id="orrialdea"></div>
         <div class="containerPage">
+            <!-- Kategoriaren arabera sailkatzeko botoiak -->
             <div class="input-group-estadisticas">
                 <div class="col">
                     <button type="button" class="btn añadir btn-lg" @click="mostrarTablas('tablaRoles')">Roles</button>
                     <button type="button" class="btn añadir btn-lg" @click="mostrarTablas('tablaProductos')">Productos</button>
                     <button type="button" class="btn añadir btn-lg" @click="mostrarTablas('tablaMaterial')">Material</button>
                 </div>
+                <!-- Dataren eta izenaren arabera sailkatzeko atala -->
                 <div class="col">
                     <div class="input-group">
                         <div class="me-4">
@@ -36,7 +38,7 @@
                     </div>
                 </div>
 
-<!-- //////////////////////////////////////////////////////////// TABLA ROLES //////////////////////////////////////////////////////////// -->
+<!-- //////////////////////////////////////////////////////////// Rolen taula //////////////////////////////////////////////////////////// -->
                 
                 <table id="tablaRoles" class="table table-hover table-striped">
                     <thead>
@@ -56,7 +58,7 @@
                     </tbody>
                 </table>
 
-<!-- //////////////////////////////////////////////////////////// TABLA PRODUCTOS //////////////////////////////////////////////////////////// -->
+<!-- //////////////////////////////////////////////////////////// Produktuen taula //////////////////////////////////////////////////////////// -->
 
                 <table id="tablaProductos" class="table table-hover table-striped" style="display: none;">
                     <thead>
@@ -77,7 +79,7 @@
                     </tbody>
                 </table>
                 
-<!-- //////////////////////////////////////////////////////////// TABLA MATERIAL //////////////////////////////////////////////////////////// -->
+<!-- //////////////////////////////////////////////////////////// Materialaren taula //////////////////////////////////////////////////////////// -->
 
                 <table id="tablaMaterial" class="table table-hover table-striped" style="display: none;">
                     <thead>
