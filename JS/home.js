@@ -24,8 +24,9 @@ var home = new Vue({
         bilatusinbol: '',
         data : '',
         // gure datuak
-        datos: [],
+        datos2: [],
         taula: [],
+        hoy:'',
         langileDisp: 9,
         // Popup-aren Datuak
         idCita: '',
@@ -34,6 +35,9 @@ var home = new Vue({
         deskribapena : '',
         hasiera_ordua : '',
         amaiera_ordua : '',
+        grupoCita: '',
+        alumnoCita: '',
+        dataCita: '',
         extra:0,
         etxekoa : false,
         // Horduak
@@ -375,13 +379,13 @@ var home = new Vue({
       // Pff, gure datuak taulan ondo kokatzeko
       ordenan(){
           timeDiff=0;
-          for(let i = 0; i < this.datos.length; i++) {
-              orduH = this.datos[i].hasiera_ordua.split(":");
-              orduA = this.datos[i].amaiera_ordua.split(":");
+          for(let i = 0; i < this.datos2.length; i++) {
+              orduH = this.datos2[i].hasiera_ordua.split(":");
+              orduA = this.datos2[i].amaiera_ordua.split(":");
               orduDif = (parseInt(orduA[0]) - parseInt(orduH[0]))*4;
               minDif = this.minCalc(orduA[1]) - this.minCalc(orduH[1]);
               timeDif = minDif + orduDif;
-              var js = {"izena": this.datos[i].izena, "deskribapena" : this.datos[i].deskribapena, "orduak" : this.datos[i].hasiera_ordua+"-"+this.datos[i].amaiera_ordua, "timeDif": timeDif, "visible" : true, "disponible": false, "id" : this.datos[i].id};
+              var js = {"izena": this.datos2[i].izena, "deskribapena" : this.datos2[i].deskribapena, "orduak" : this.datos2[i].hasiera_ordua+"-"+this.datos2[i].amaiera_ordua, "timeDif": timeDif, "visible" : true, "disponible": false, "id" : this.datos2[i].id};
               
               //Bucar sitio
               var sitio = null;
@@ -421,16 +425,19 @@ var home = new Vue({
       // popup-a zabaltzeko eta datuak esleitzeko
       popupCita(id){
           this.idCita = id;
+          this.dataCita = this.data;
           if (id != '') {
             this.citaTratamenduaLortu();
-            for (let i = 0; i < this.datos.length; i++) {
-              if (this.datos[i].id==id) {
-                  this.izena = this.datos[i].izena;
-                  this.telefonoa = this.datos[i].telefonoa;
-                  this.deskribapena = this.datos[i].deskribapena;
-                  this.hasiera_ordua = this.datos[i].hasiera_ordua;
-                  this.amaiera_ordua = this.datos[i].amaiera_ordua;
-                  if (this.datos[i].etxekoa == 'E') {
+            for (let i = 0; i < this.datos2.length; i++) {
+              if (this.datos2[i].id==id) {
+                  this.izena = this.datos2[i].izena;
+                  this.telefonoa = this.datos2[i].telefonoa;
+                  this.deskribapena = this.datos2[i].deskribapena;
+                  this.hasiera_ordua = this.datos2[i].hasiera_ordua;
+                  this.amaiera_ordua = this.datos2[i].amaiera_ordua;
+                  this.grupoCita = this.datos2[i].izena_taldea;
+                  this.alumnoCita = this.datos2[i].izena_langilea;
+                  if (this.datos2[i].etxekoa == 'E') {
                       this.etxekoa = true;  
                   }else{
                       this.etxekoa = false; 
@@ -439,12 +446,15 @@ var home = new Vue({
               
             }
           }else{
+            this.etxekoa = false; 
             this.izena = ''
             this.telefonoa = ''
             this.deskribapena = ''
             this.hasiera_ordua = ''
             this.amaiera_ordua = ''
             this.tratamenduakCitaText = ''
+            this.alumnoCita = ''
+            this.grupoCita = ''
           }
           document.getElementById('fondoOscuro2').classList.add('mostrar-fondo');
           document.getElementById('ventanaEmergenteLangile').style.display = 'block';
@@ -463,7 +473,7 @@ var home = new Vue({
 
       // Hitzorduak lortu // this.data -> nahi ditugun hitzorduen data // this.bilatusinbol -> if('+'){sartutako data eta berriagoak}else{bakarrik gure datakoak}
       datuakLortu(){
-          this.datos = [];
+          this.datos2 = [];
           this.taula = [];
           fetch('../../talde2erronka2back/Erronka2/public/api/hitzordua/' + this.data + this.bilatusinbol, { method: 'GET', mode: 'no-cors'})
           .then(response => response.json())
@@ -472,16 +482,16 @@ var home = new Vue({
               for (let i = 0; i < data.length; i++) {
                   console.log(data[i]);
                   // Obtén la referencia de la tabla por su id
-                  this.datos.push(data[i]);
+                  this.datos2.push(data[i]);
               }
               if (this.bilatusinbol != '+'){
                   this.taulaSortu();
                   this.ordenan(); 
               }else{
                   this.taula = [];
-                  for (let i = 0; i < this.datos.length; i++){
-                      if(this.datos[i].izena.startsWith(this.bilatu)){
-                          this.taula.push({"id" : this.datos[i].id, "data" : this.datos[i].data, "hasiera_ordua" : this.datos[i].hasiera_ordua, "amaiera_ordua" : this.datos[i].amaiera_ordua, "izena" : this.datos[i].izena, "telefonoa" : this.datos[i].telefonoa, "deskribapena" : this.datos[i].deskribapena, "etxekoa" : this.datos[i].etxekoa});
+                  for (let i = 0; i < this.datos2.length; i++){
+                      if(this.datos2[i].izena.startsWith(this.bilatu)){
+                          this.taula.push({"id" : this.datos2[i].id, "data" : this.datos2[i].data, "hasiera_ordua" : this.datos2[i].hasiera_ordua, "amaiera_ordua" : this.datos2[i].amaiera_ordua, "izena" : this.datos2[i].izena, "telefonoa" : this.datos2[i].telefonoa, "deskribapena" : this.datos2[i].deskribapena, "etxekoa" : this.datos2[i].etxekoa});
                       }
                   }
               }
@@ -756,20 +766,37 @@ var home = new Vue({
           }
       },
       /////////////////////////////////////// HAYQUEACER ///////////////////////////////////////
-      async createCita(){
-        console.log("froga: " + js);
-          try {
-            const response = await fetch('../../talde2erronka2back/Erronka2/public/api/hitzordua/horduaAmaiera', {
-              method: 'PUT',
-              body: js
-            });
-            const data = await response.text();
-            console.log(data);
-            this.taula = this.taula.filter(aux => aux.id !== id);
-            } catch (error) {
-              console.error("Error al eliminar el registro:", error);
-              console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
-          }
+      createCita(){
+        datos = '/' + this.dataCita + '/' + this.hasiera_ordua + '/' + this.amaiera_ordua; 
+        console.log("losdatos: "+datos);
+        alert("insert: ")
+        try {
+          fetch('http://localhost/Cosos/Erronka/talde2erronka2back/Erronka2/public/api/hitzordua/horduDisp'+datos)
+          .then(response => response.json())
+          .then(data => {
+            if (data.length < this.langileDisp){
+              // Fetch 2
+              const js = JSON.stringify({"izena": this.izena, "telefonoa": this.telefonoa, "deskribapena": this.deskribapena, "hasiera_ordua": this.hasiera_ordua, "amaiera_ordua": this.amaiera_ordua, "langilea": '1', "etxekoa": this.etxekoa, "data": this.dataCita}); 
+              console.log("insert: "+js);
+              alert("insert: ")
+              fetch('http://localhost/Cosos/Erronka/talde2erronka2back/Erronka2/public/api/hitzordua/txertatu', {
+                method: 'POST',
+                body: js
+              })
+              .then(response => response.json())
+              .then(data => {
+                // alert("adasd"+data)
+                // if (data.length > this.langileDisp){
+                  
+                // }
+              });
+            }
+            else alert("Se superó el limite de citas para las horas seleccionadas");
+          });
+        } catch (error) {
+          console.log(error);
+        }
+        alert("insert: ")
       },
 
       async aldatuOrduaAmaiera(){
@@ -812,6 +839,7 @@ var home = new Vue({
     },
     watch:{
       data:function(){
+        this.dataCita = this.data;
         this.datuakLortu();
       },
 
@@ -849,6 +877,7 @@ var home = new Vue({
         this.lortuOrduakA();
         this.tratamenduakLortu();
         this.data = this.lortuData();
-        
+        this.hoy =  this.data;
+         
       }
 });
