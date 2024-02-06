@@ -12,6 +12,7 @@ var app = new Vue({
         funtzio: "",
     },
     methods: {
+        // Fitxen datuak lortzeko metodoa
         async sacarFichas() {
             try {
               const response = await fetch('../../talde2erronka2back/Erronka2/public/api/fichas', { method: 'GET' });
@@ -30,6 +31,7 @@ var app = new Vue({
               console.error('Error al obtener datos del servidor:', error);
             }
         },
+        // Fitxa berria sortzeko edo fitxa bat editatu behar den jakiteko metodoa
         txertatuEdoAldatu(){
           if(this.funtzio == 'aldatu'){
             this.aldatuDatuak();
@@ -37,6 +39,7 @@ var app = new Vue({
             this.txertatuFichak(); 
           }
         },
+        // Fitxa berri bat sortzeko metodoa
         async txertatuFichak() {
           if (this.izena === "") {
               alert("Falta el dato");
@@ -83,6 +86,7 @@ var app = new Vue({
               }
           }
         },
+        // Fitxa bat editatzeko metodoa
         async aldatuDatuak() {
           const js = JSON.stringify({"id": this.id, "izena": this.izena, "abizena": this.abizena, "telefonoa": this.telefonoa, "azal_sentikorra": this.azal_sentikorra}); 
           console.log("froga: " + js);
@@ -117,6 +121,7 @@ var app = new Vue({
           }
           this.cerrarPopup();
         },
+        // Fitxa bat ezabatzeko metodoa
         async ezabatu(kodea, index) {
           const js = JSON.stringify({"id": kodea}); 
           console.log("froga: " + js);
@@ -137,6 +142,7 @@ var app = new Vue({
               console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
           }
         },
+        // POPUPa irekitzeko metodoa
         abrirPopup(kodea, id, funtzio){
             // this.id = id;
             // this.izena = izena;
@@ -160,6 +166,7 @@ var app = new Vue({
             document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
             document.getElementById('ventanaEmergenteFichas').style.display = 'block';
         },
+        // POPUPa ixteko metodoa
         cerrarPopup(){
           this.izena = '';
           this.abizena = '';

@@ -9,8 +9,8 @@ var app = new Vue({
         titulua: 'HISTORIAL'
     },
     methods: {
+        // Rolen datuak lortzeko metodoa (zein ikasle egon den rol bakoitzean eta zenbat aldiz)
         async tablaRoles() {
-            console.log("AAAAAAA");
           
             try {
               const response = await fetch(`../../talde2erronka2back/Erronka2/public/api/roles/historial`, { method: 'GET' });
@@ -34,6 +34,7 @@ var app = new Vue({
               console.error('Error al obtener datos del servidor:', error);
             }
         },
+        // Produktuen mugimenduen datuak lortzeko metodoa
         async tablaProductos() {
             try {
               const response = await fetch(`../../talde2erronka2back/Erronka2/public/api/productos/mugimenduguztiak`, { method: 'GET' });
@@ -57,6 +58,7 @@ var app = new Vue({
               console.error('Error al obtener datos del servidor:', error);
             }
         },
+        // Materialaren mugimenduen datuak lortzeko metodoa
         async tablaMaterial() {
             try {
               const response = await fetch(`../../talde2erronka2back/Erronka2/public/api/materiala/mugimenduak`, { method: 'GET' });
@@ -80,6 +82,7 @@ var app = new Vue({
               console.error('Error al obtener datos del servidor:', error);
             }
         },
+        // Sakatzen den botoiaren arabera taula desberdinak bistaratzeko metodoa
         mostrarTablas(tabla){
             this.botonTabla = tabla;
             for (let i = 0; i < this.tablas.length; i++) {
@@ -91,6 +94,7 @@ var app = new Vue({
                 
             }
         },
+        // Titulua aldatzeko metodoa
         tituluAldatu(){
             var scriptAnterior = document.getElementById("scriptDinamico");
             if (scriptAnterior) {

@@ -11,12 +11,14 @@
     <div id="app">
         <div class="contenido" id="orrialdea"></div>
         <div class="containerPage">
+            <!-- Kategoria desberdinen arabera sailkatzeko botoiak -->
             <div class="input-group-estadisticas">
                 <div class="col">
                     <button type="button" class="btn añadir btn-lg" @click="graficoRoles">Roles</button>
                     <button type="button" class="btn añadir btn-lg" @click="graficoProductos">Productos</button>
                     <button type="button" class="btn añadir btn-lg" @click="graficoMaterial">Material</button>
                 </div>
+                <!-- Dataren eta izenaren arabera bilatzeko filtroak -->
                 <div class="col">
                     <div class="input-group">
                         <div class="me-4">
@@ -37,6 +39,7 @@
         </div>
         <h2 class="text-center mb-3">{{titulo2}}</h2>
 
+        <!-- Grafikoa hemen sartuko da -->
         <div class="d-flex align-items-center justify-content-center">
             <canvas id="grafikoa" style="max-width: 600px; max-height: 500px;"></canvas>
         </div>
