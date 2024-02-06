@@ -341,6 +341,17 @@ document.getElementById('fondoOscuroLangile').addEventListener('click', function
     }
 });
 
+document.getElementById('fondoOscuroLangile').addEventListener('click', function(event) {
+  if (event.target === this) {
+    cerrarDevolverJ();
+  }
+});
+
+function cerrarDevolverJ() {
+  document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
+  document.getElementById('ventanaEmergenteDevolverMaterial').style.display = 'none';
+}
+
 function ocultarVentanaX() {
     document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
     document.getElementById('ventanaEmergenteReservarMaterial').style.display = 'none';
