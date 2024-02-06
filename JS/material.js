@@ -15,6 +15,7 @@ var pinga = new Vue({
         datosColorMaterialR: [],
         taula: [],
         resultadosCompletos: [],
+        colorSeleccionado: null,
         titulua: 'MATERIAL',
     },
     methods: {
@@ -183,6 +184,12 @@ var pinga = new Vue({
           this.fetchData();
         },
 
+        ordenarPorColor(color) {
+          // Actualizar el color seleccionado
+          this.colorSeleccionado = color;
+        },
+        
+
         async aldatuDatuak() {
             try {
               var js = JSON.stringify({
@@ -305,6 +312,18 @@ var pinga = new Vue({
         this.nombresGrupo();
         this.fetchData();
       },
+    computed: {
+      datosFiltrados() {
+        // Filtrar datos según el color seleccionado
+        if (this.colorSeleccionado === 'rojo') {
+          return this.datos.filter(dato => dato.amaiera_data === null);
+        } else if (this.colorSeleccionado === 'verde') {
+          return this.datos.filter(dato => dato.amaiera_data !== null);
+        } else {
+          return this.datos;
+        }
+      }
+    }
 });
 
 document.getElementById('cerrarVentanaAñadirMaterial').addEventListener('click', function() {

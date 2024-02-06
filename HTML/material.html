@@ -116,23 +116,26 @@
                         <tr>
                             <th scope="col">Etiqueta</th>
                             <th scope="col">Nombre</th>
-                            <th scope="col"></th>
+                            <th scope="col" style="display: flex; justify-content: center;">
+                                <button @click="ordenarPorColor('rojo')" style="border-radius: 10%; background-color: #E26B6B;">Ocupado</button>
+                                <button @click="ordenarPorColor('verde')" style="border-radius: 10%; background-color: #CDDFA0;">Disponible</button>
+                            </th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(dato, index) in datos" :key="index" :id="dato.id">
-                            <td @click="abrirPopup(dato.etiketa , dato.izena , dato.id)">{{ dato.etiketa }}</td>
-                            <td @click="abrirPopup(dato.etiketa , dato.izena , dato.id)" maxlength="100">{{ dato.izena }}</td>
-                            <td>
-                                <i v-if="dato.amaiera_data == null" class="bi bi-square-fill" style="color: #E26B6B;"  @click="abrirDevolverMaterial(dato.id)"></i>
-                                <i v-else class="bi bi-square-fill" style="color: #CDDFA0;" @click="abrirReservar(dato.id)"></i>
-                            </td>
-                            <td>
-                                <i class="bi bi-trash-fill" @click="ezabatu(dato.id)"></i>
-                            </td>
+                        <tr v-for="(dato, index) in datosFiltrados" :key="index" :id="dato.id">
+                          <td @click="abrirPopup(dato.etiketa, dato.izena, dato.id)">{{ dato.etiketa }}</td>
+                          <td @click="abrirPopup(dato.etiketa, dato.izena, dato.id)" maxlength="100">{{ dato.izena }}</td>
+                          <td style="display: flex; justify-content: center;">
+                            <i v-if="dato.amaiera_data == null" class="bi bi-square-fill" style="color: #E26B6B;" @click="abrirDevolverMaterial(dato.id)"></i>
+                            <i v-else class="bi bi-square-fill" style="color: #CDDFA0;" @click="abrirReservar(dato.id)"></i>
+                          </td>
+                          <td>
+                            <i class="bi bi-trash-fill" @click="ezabatu(dato.id)"></i>
+                          </td>
                         </tr>
-                    </tbody>    
+                      </tbody>  
                 </table>
 
             </div>
