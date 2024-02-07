@@ -16,6 +16,7 @@ var app = new Vue({
         titulua: 'ESTADISTICAS'
     },
     methods: {
+        // Rolen grafikoa sortzeko metodoa
         graficoRoles(){
             this.titulo2 = "ROLES";
             const data = {
@@ -63,6 +64,7 @@ var app = new Vue({
 
             this.myChart = new Chart(ctx, config);              
         },
+        // Materialen grafikoa sortzeko metodoa
         graficoMaterial(){
             this.titulo2 = "MATERIAL";
             const data = {
@@ -101,6 +103,7 @@ var app = new Vue({
 
             this.myChart = new Chart(ctx, config);               
         },
+        // Produktuen grafikoa sortzeko metodoa
         graficoProductos(){
             this.titulo2 = "PRODUCTOS";
             const data = {
@@ -139,6 +142,7 @@ var app = new Vue({
 
             this.myChart = new Chart(ctx, config);               
         },
+        // Gaur dagoen taldea lortzeko metodoa
         async sacarGrupo() {
             try {
               const response = await fetch('../../talde2erronka2back/Erronka2/public/api/horarios/taldea', { method: 'GET' });
@@ -154,6 +158,7 @@ var app = new Vue({
               console.error('Error al obtener datos del servidor:', error);
             }
         },
+        // Talde baten ikasleak lortzeko metodoa
         async sacarAlumnos() {
             try {
               const response = await fetch(`../../talde2erronka2back/Erronka2/public/api/roles/${this.grupoHoy}`, { method: 'GET' });
@@ -173,6 +178,7 @@ var app = new Vue({
               console.error('Error al obtener datos del servidor:', error);
             }
         },          
+        // Erabili diren produktuen datuak lortzeko metodoa
         async sacarProductos() {
             try {
               const response = await fetch(`../../talde2erronka2back/Erronka2/public/api/productos/mugimendua`, { method: 'GET' });
@@ -193,6 +199,7 @@ var app = new Vue({
               console.error('Error al obtener datos del servidor:', error);
             }
         },          
+        // Erabili den materialaren datuak lortzeko metodoa
         async sacarMaterial() {
             try {
               const response = await fetch(`../../talde2erronka2back/Erronka2/public/api/materiala/erabili`, { method: 'GET' });
@@ -211,6 +218,7 @@ var app = new Vue({
               console.error('Error al obtener datos del servidor:', error);
             }
         },          
+        // Titulua aldatzeko metodoa
         tituluAldatu(){
             var scriptAnterior = document.getElementById("scriptDinamico");
             if (scriptAnterior) {

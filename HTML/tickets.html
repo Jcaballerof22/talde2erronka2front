@@ -12,11 +12,12 @@
     <body>
         <div class="contenido" id="orrialdea"></div>
 
-        <!-- Contenido de la pagina -->
+        <!-- Orriaren edukia -->
 
         <div id="app">
             <div id="fondoOscuroLangile" class="fondo-oculto" @click="cerrarPopup"></div>
             <div class="containerPage">
+                <!-- Izenaren arabera bilatzeko atala -->
                 <div class="input-group">
 
                     <input type="text" class="form-control buscar" placeholder="Buscar por nombre">
@@ -28,6 +29,7 @@
 
                 </div>
 
+                <!-- Taula -->
                 <table id="tabla" class="table table-hover table-striped">
                     <thead>
                     <tr>
@@ -52,9 +54,9 @@
                 </table>
             </div>
 
-            <div id="ventanaEmergenteTickets" class="ventana-oculta">
+            <!-- Editatzeko POPUP -->
+            <div id="ventanaEmergenteTickets" class="ventana-oculta" style="width: 450px">
                 <div class="contenido-ventana">
-                    <!-- <button type="button" class="btn-close" aria-label="Close" id="cerrarVentanaLangile"></button> -->
                     <div class="input-group-horarios">
                         <button type="button" id="cerrarVentanaLangile" class="btn x" @click="cerrarPopup()">
                             <i class="bi bi-x"></i>
@@ -72,9 +74,9 @@
                         <label for="mensaje"><h2>Tratamiento</h2></label>
                     </div>
                     <div class="mt-4">
-                        <select class="form-select" style="min-width: 15vw;" v-model="tratamendu">
+                        <select class="form-select" style="min-width: 15vw;" v-model="tratamendu_izena">
                             <option selected disabled value="">Tratamientos</option>
-                            <option v-for="tratamendus in tratamenduak" :value="tratamendus.id" :key="tratamendus.izena">{{tratamendus.izena}}</option>
+                            <option v-for="tratamendus in tratamenduak" :value="tratamendus.izena" :key="tratamendus.izena">{{tratamendus.izena}}</option>
                         </select>
                     </div>
                     <div class="mt-5 text-start">
@@ -84,7 +86,7 @@
                         <input type="text" class="form-control" v-model="prezioa" style="background-color: white;">
                     </div>
                     
-                    <input id="submitLangile" type="submit" class="btn añadir btn-lg mt-4" value="Aceptar">
+                    <input id="submitLangile" type="submit" class="btn añadir btn-lg mt-4" value="Aceptar" @click="aldatuDatuak">
                 </div>
             </div>
         </div>

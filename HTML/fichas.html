@@ -17,6 +17,7 @@
                 <div class="col">
                 </div>
                 <div class="col">
+                    <!-- Izenaren arabera bilatzeko eta fitxa berria gehitzeko botoia -->
                     <div class="input-group">
                         <input type="text" class="form-control buscar" placeholder="Buscar por nombre">
                         <div class="input-group-append">
@@ -28,6 +29,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Fitxen taula -->
                 <table id="tabla" class="table table-hover table-striped">
                     <thead>
                     <tr>
@@ -51,10 +53,9 @@
                     </tbody>
                 </table>
             
-
+            <!-- Fitxa berriak gehitzeko POPUP -->
             <div id="ventanaEmergenteFichas" class="ventana-oculta">
                 <div class="contenido-ventana">
-                    <!-- <button type="button" class="btn-close" aria-label="Close" id="cerrarVentanaLangile"></button> -->
                     <div class="input-group-horarios">
                         <button type="button" id="cerrarVentanaLangile" class="btn x" @click="cerrarPopup()">
                             <i class="bi bi-x"></i>

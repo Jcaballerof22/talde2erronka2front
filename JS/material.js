@@ -1,10 +1,11 @@
-var pinga = new Vue({
-    el: '#pinga',
+var app = new Vue({
+    el: '#app',
     data: {
         // bilatu: '',
         izena: "",
         etiketa: "",
         aldatu: '',
+        bilatu: '',
         kodea: "",
         idlangile: "",
         idMaterial: "",
@@ -15,6 +16,7 @@ var pinga = new Vue({
         datosColorMaterialR: [],
         taula: [],
         resultadosCompletos: [],
+        colorSeleccionado: null,
         titulua: 'MATERIAL',
     },
     methods: {
@@ -183,6 +185,12 @@ var pinga = new Vue({
           this.fetchData();
         },
 
+        ordenarPorColor(color) {
+          // Actualizar el color seleccionado
+          this.colorSeleccionado = color;
+        },
+        
+
         async aldatuDatuak() {
             try {
               var js = JSON.stringify({
@@ -280,6 +288,20 @@ var pinga = new Vue({
             }
           },
 
+          buscar(){
+            if (this.bilatu == ''){
+                this.taula = this.datosFiltrados;
+                // this.taula = this.datos;
+            }else{
+                this.taula = [];
+                for (let i = 0; i < this.datosFiltrados.length; i++){
+                    if(this.datosFiltrados[i].izena.startsWith(this.bilatu)){
+                        this.taula.push({"etiketa" : this.datosFiltrados[i].etiketa, "izena" : this.datosFiltrados[i].izena, "id" : this.datosFiltrados[i].id, "id_langilea" : this.datosFiltrados[i].id_langilea, "amaiera_data" : this.datosFiltrados[i].amaiera_data });
+                    }
+                }
+            }
+        },
+
         teclado(event){
             if(event.key == "Enter"){
                 this.txertatuEdoAldatu();
@@ -304,7 +326,34 @@ var pinga = new Vue({
         // this.tituluAldatu();
         this.nombresGrupo();
         this.fetchData();
+        this.buscar();
       },
+    computed: {
+      datosFiltrados() {
+        // Filtrar datos según el color seleccionado
+        if (this.colorSeleccionado === 'rojo') {
+          return this.datos.filter(dato => dato.amaiera_data === null);
+        } else if (this.colorSeleccionado === 'verde') {
+          return this.datos.filter(dato => dato.amaiera_data !== null);
+        } else {
+          return this.datos;
+        }
+      }
+    },
+    watch:{
+      bilatu: function(){
+          if (this.bilatu == ''){
+              this.taula = this.datos;
+          }else{
+              this.taula = [];
+              for (let i = 0; i < this.datos.length; i++){
+                  if(this.datos[i].izena.startsWith(this.bilatu)){
+                      this.taula.push({"izena" : this.datos[i].izena, "abizenak" : this.datos[i].abizenak, "kodea" : this.datos[i].kodea, "id" : this.datos[i].id});
+                  }
+              }
+          }
+      },
+    }
 });
 
 document.getElementById('cerrarVentanaAñadirMaterial').addEventListener('click', function() {
