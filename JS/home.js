@@ -26,6 +26,7 @@ var home = new Vue({
         // gure datuak
         datos2: [],
         taula: [],
+        alumnos: [],
         hoy:'',
         langileDisp: 0,
         // Popup-aren Datuak
@@ -37,6 +38,7 @@ var home = new Vue({
         amaiera_ordua : '',
         grupoCita: '',
         alumnoCita: '',
+        alumnoCitaid: '0',
         dataCita: '',
         extra:0,
         etxekoa : false,
@@ -438,6 +440,7 @@ var home = new Vue({
                   this.amaiera_ordua = this.datos2[i].amaiera_ordua;
                   this.grupoCita = this.datos2[i].izena_taldea;
                   this.alumnoCita = this.datos2[i].izena_langilea;
+                  this.alumnoCitaid = this.datos2[i].id_langilea
                   if (this.datos2[i].etxekoa == 'E') {
                       this.etxekoa = true;  
                   }else{
@@ -454,7 +457,8 @@ var home = new Vue({
             this.hasiera_ordua = ''
             this.amaiera_ordua = ''
             this.tratamenduakCitaText = ''
-            this.alumnoCita = ''
+            this.alumnoCitaid = '13'
+            this.alumnoCita = '';
             this.grupoCita = ''
           }
           document.getElementById('fondoOscuro2').classList.add('mostrar-fondo');
@@ -730,7 +734,8 @@ var home = new Vue({
                   mode: 'no-cors'
               });
               const data = await response.json();
-              console.log(data);                
+              console.log(data);
+              this.alumnos = data;      
               this.langileDisp = data.length ;
           } catch (error) {
               console.error('Error al obtener los tratamientos:', error);
@@ -746,7 +751,7 @@ var home = new Vue({
           .then(data => {
             if (data.length < this.langileDisp){
               // Fetch 2
-              const js = JSON.stringify({"izena": this.izena, "telefonoa": this.telefonoa, "deskribapena": this.deskribapena, "hasiera_ordua": this.hasiera_ordua, "amaiera_ordua": this.amaiera_ordua, "langilea": '1', "etxekoa": this.etxekoa, "data": this.dataCita}); 
+              const js = JSON.stringify({"izena": this.izena, "telefonoa": this.telefonoa, "deskribapena": this.deskribapena, "hasiera_ordua": this.hasiera_ordua, "amaiera_ordua": this.amaiera_ordua, "langilea": this.alumnoCitaid, "etxekoa": this.etxekoa, "data": this.dataCita}); 
               console.log("insert: "+js);
               fetch('../../talde2erronka2back/Erronka2/public/api/hitzordua/txertatu', {
                 method: 'POST',
