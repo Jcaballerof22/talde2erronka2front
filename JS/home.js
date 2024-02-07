@@ -27,7 +27,7 @@ var home = new Vue({
         datos2: [],
         taula: [],
         hoy:'',
-        langileDisp: 9,
+        langileDisp: 0,
         // Popup-aren Datuak
         idCita: '',
         izena : '',
@@ -41,7 +41,7 @@ var home = new Vue({
         extra:0,
         etxekoa : false,
         // Horduak
-        intervaloHoras:[9,14,16,20], //0-1 para la mañana, 2-3 para la tarde
+        intervaloHoras:[9,15,16,20], //0-1 para la mañana, 2-3 para la tarde
         orduakG: [],
         orduakA: [],
         orduak: [],
@@ -722,45 +722,14 @@ var home = new Vue({
 
       // Langile kopurua lortzeko
       async langileKopLortu(){
-          // SELECT COUNT(langilea.izena) FROM langilea WHERE langilea.kodea = 3 AND ISNULL(langilea.ezabatze_data);
-          //SELECT ordutegia.kodea
-          // FROM ordutegia
-          // WHERE ordutegia.eguna = 1 
-          // AND '2024-01-18' BETWEEN ordutegia.hasiera_data AND ordutegia.amaiera_data;
-          // 
-          //SELECT COUNT(langilea.izena)
-          // FROM langilea
-          // WHERE langilea.kodea = 3
-          // AND ISNULL(langilea.ezabatze_data)
-          // AND EXISTS (
-          //     SELECT ordutegia.kodea
-          //     FROM ordutegia
-          //     WHERE ordutegia.eguna = 1 
-          //     AND '2024-01-18' BETWEEN ordutegia.hasiera_data AND ordutegia.amaiera_data
-          // );
-          // 
-          // PUEDE QUE ESTO NO XURRULE :D
-          //use App\Models\Langilea;
-          // use App\Models\Ordutegia;
-
-          // $count = Langilea::where('kodea', 3)
-          //     ->whereNull('ezabatze_data')
-          //     ->whereHas('ordutegia', function ($query) {
-          //         $query->where('eguna', 1)
-          //             ->whereDate('hasiera_data', '<=', '2024-01-18')
-          //             ->whereDate('amaiera_data', '>=', '2024-01-18');
-          //     })
-          //     ->count();
-
-
           try {
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/tratamenduak/'+this.idCita, {
+              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/alumnos/'+this.data, {
                   method: 'GET',
                   mode: 'no-cors'
               });
               const data = await response.json();
               console.log(data);                
-              this.langileDisp = data.kop;
+              this.langileDisp = data.length ;
           } catch (error) {
               console.error('Error al obtener los tratamientos:', error);
           }
@@ -769,7 +738,6 @@ var home = new Vue({
       createCita(){
         datos = '/' + this.dataCita + '/' + this.hasiera_ordua + '/' + this.amaiera_ordua; 
         console.log("losdatos: "+datos);
-        alert("insert: ")
         try {
           fetch('http://localhost/Cosos/Erronka/talde2erronka2back/Erronka2/public/api/hitzordua/horduDisp'+datos)
           .then(response => response.json())
@@ -778,7 +746,6 @@ var home = new Vue({
               // Fetch 2
               const js = JSON.stringify({"izena": this.izena, "telefonoa": this.telefonoa, "deskribapena": this.deskribapena, "hasiera_ordua": this.hasiera_ordua, "amaiera_ordua": this.amaiera_ordua, "langilea": '1', "etxekoa": this.etxekoa, "data": this.dataCita}); 
               console.log("insert: "+js);
-              alert("insert: ")
               fetch('http://localhost/Cosos/Erronka/talde2erronka2back/Erronka2/public/api/hitzordua/txertatu', {
                 method: 'POST',
                 body: js
@@ -796,7 +763,7 @@ var home = new Vue({
         } catch (error) {
           console.log(error);
         }
-        alert("insert: ")
+        // alert("si todo fué bien, es posible que se haya insertado :D");
       },
 
       async aldatuOrduaAmaiera(){
@@ -841,6 +808,7 @@ var home = new Vue({
       data:function(){
         this.dataCita = this.data;
         this.datuakLortu();
+        this.langileKopLortu();
       },
 
       bilatu:function(){

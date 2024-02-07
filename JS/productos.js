@@ -14,7 +14,10 @@ var app = new Vue({
         deskribapena:'',
         stock:'',
         stock_alerta:'',
-        titulua: 'PRODUCTOS'
+        titulua: 'PRODUCTOS',
+        sazkia: [],
+        langileak: [],
+        langilea:'',
     },
 
     methods:{
@@ -201,7 +204,71 @@ var app = new Vue({
                 console.error("Error al editar el dato:", error);
                 console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
             }
+        },
+
+        addKarrito(prod){
+            aux = false;
+            if (this.sazkia.length>0) {
+                this.sazkia.forEach(element => {
+                    if (element.id == prod.id) {
+                        element.kantitatea++;
+                        aux = true;
+                        return;
+                    }
+                });
+            } 
+            if(!aux) {
+                this.sazkia.push({'stock':prod.stock, 'id': prod.id, 'kantitatea': 1, 'marka': prod.marka, 'izena': prod.izena, 'kategoria': prod.kategoria, 'id_kategoria': prod.id_kategoria});
+            }
         },   
+        async langileakLortu(){
+            hoy = this.lortuData();
+            try {
+                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/alumnos/' + hoy, {
+                    method: 'GET',
+                });
+
+                const data = await response.json();
+                this.langileak = data;
+
+            } catch (error) {
+                console.error("Error al eliminar el registro:", error);
+                console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
+            }
+            
+        },
+
+        lortuData(){
+            var gaur = new Date();
+            var urtea = gaur.getFullYear();
+            var hilabetea = gaur.getMonth() + 1;
+            var eguna = gaur.getDate();
+            // Dar formato :D
+            return urtea+'-'+hilabetea+'-'+eguna;
+        },
+
+        erosketak(){
+            this.sazkia.forEach(element => {
+                if (0 > (element.stock - element.kantitatea)) {
+                    alert('No hay stock suficiente del producto');
+                }else{
+                    this.erosi(element.id, this.langilea, element.kantitatea);
+                    window.location.reload();
+                }
+            });
+        },
+
+        //TOCAHACER
+        async erosi(id_produktua, id_langilea, kopurua){
+            js = JSON.stringify({'id_produktua':id_produktua,'id_langilea':id_langilea,'kopurua':kopurua})
+            console.log('Kompra'+js);
+            const response = await fetch('../../talde2erronka2back/Erronka2/public/api/productos/erosi', {
+                method: 'POST',
+                body: js
+            });
+            const data = await response.text();
+        },
+
     },
     watch:{
         bilatu: function(){
@@ -230,7 +297,9 @@ var app = new Vue({
             }
         },
     },
+
     mounted: function() {
+        this.langileakLortu();
         this.produktuakGet();
         this.kategoriakGet();
     }

@@ -49,16 +49,20 @@
                         <th scope="col">Descripción</th>
                         <th scope="col">Stock</th>
                         <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
                         <tr v-for="(dato, index) in taula" :key="index" :id="dato.id">
-                            <td @click="abrirPopup(dato.id)">{{ dato.izena }}</td>
-                            <td @click="abrirPopup(dato.id)">{{ dato.marka }}</td>
-                            <td @click="abrirPopup(dato.id)">{{ dato.kategoria }}</td>
-                            <td @click="abrirPopup(dato.id)">{{ dato.deskribapena }}</td>
-                            <td @click="abrirPopup(dato.id)">{{ dato.stock }}</td>
-                            <td>
+                            <td :style="{'background-color': dato.stock <= dato.stock_alerta ? 'rgb(226, 107, 107)' : ''}" @click="abrirPopup(dato.id)">{{ dato.izena }}</td>
+                            <td :style="{'background-color': dato.stock <= dato.stock_alerta ? 'rgb(226, 107, 107)' : ''}" @click="abrirPopup(dato.id)">{{ dato.marka }}</td>
+                            <td :style="{'background-color': dato.stock <= dato.stock_alerta ? 'rgb(226, 107, 107)' : ''}" @click="abrirPopup(dato.id)">{{ dato.kategoria }}</td>
+                            <td :style="{'background-color': dato.stock <= dato.stock_alerta ? 'rgb(226, 107, 107)' : ''}" @click="abrirPopup(dato.id)">{{ dato.deskribapena }}</td>
+                            <td :style="{'background-color': dato.stock <= dato.stock_alerta ? 'rgb(226, 107, 107)' : ''}" @click="abrirPopup(dato.id)">{{ dato.stock }}</i></td>
+                            <td :style="{'background-color': dato.stock <= dato.stock_alerta ? 'rgb(226, 107, 107)' : ''}" @click="addKarrito(dato)">
+                                <i class="bi bi-cart mx-3"></i>
+                            </td>
+                            <td :style="{'background-color': dato.stock <= dato.stock_alerta ? 'rgb(226, 107, 107)' : ''}">
                                 <i class="bi bi-trash-fill" @click="ezabatu(dato.id)"></i>
                             </td>
                         </tr>
@@ -67,7 +71,7 @@
             </div>
         </div>
         
-        <!-- <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
+        <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -89,55 +93,26 @@
                                     <div class="py-2 text-uppercase">Cantidad</div>
                                 </th>
                                 <th scope="col" class="border-0">
+                                    <div class="py-2 text-uppercase">Precio</div>
+                                </th>
+                                <th scope="col" class="border-0">
                                     <div class="py-2 text-uppercase"></div>
                                 </th>
                                 </tr>
                             </thead>
                             <tbody class="taula-pop-produk">
-                                <tr v-for="(dato, index) in fhgffggdsgds" :key="index" :id="dato.kodea">
+                                <tr v-for="(dato, index) in sazkia" :key="index" :id="dato.kodea">
                                     <th scope="row" id="prod">
                                         <div class="p-2">
                                             <div class="ml-3 d-inline-block align-middle">
-                                                <h5 class="mb-0"><a href="#" class="text-dark d-inline-block">Lumix camera lense</a></h5><span class="text-muted font-weight-normal font-italic">Category: Electronics</span>
+                                                <h5 class="mb-0"><a href="#" class="text-dark d-inline-block">{{dato.izena}}</a></h5><span class="text-muted font-weight-normal font-italic">{{dato.kategoria}}</span>
                                             </div>
                                         </div>
                                     </th>
-                                    <td>dfgdfgfdgdf</td>
-                                    <td>w4rwyjyuu</td>
+                                    <td>{{dato.marka}}</td>
+                                    <td><input type="number" class="form-control text-center" v-model="dato.kantitatea"></td>
                                     <td>
                                         <i class="bi bi-trash-fill" @click="ezabatu(dato.id)"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                <th scope="row" id="prod">
-                                    <div class="p-2">
-                                    <div class="ml-3 d-inline-block align-middle">
-                                        <h5 class="mb-0"><a href="#" class="text-dark d-inline-block">Lumix camera lense</a></h5><span class="text-muted font-weight-normal font-italic">Category: Electronics</span>
-                                    </div>
-                                    </div>
-                                </th>
-                                <td><strong>$79.00</strong></td>
-                                <td><strong>3</strong></td>
-                                <td>
-                                    <i class="bi bi-trash-fill" @click="ezabatu(dato.id)"></i>
-                                </td>
-                                </td>
-                                </tr>
-                                <tr>
-                                <th scope="row" id="prod">
-                                    <div class="p-2">
-                                    <div class="ml-3 d-inline-block align-middle">
-                                        <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block">Gray Nike running shoe</a></h5><span class="text-muted font-weight-normal font-italic">Category: Fashion</span>
-                                    </div>
-                                    </div>
-                                </th>
-                                    <td><strong>$79.00</strong></td>
-                                        <td>
-                                            3
-                                        </td>
-                                    <td>
-                                        <i class="bi bi-trash-fill" @click="ezabatu(dato.id)"></i>
-                                    </td>
                                     </td>
                                 </tr>
                             </tbody>
@@ -146,18 +121,18 @@
                     </div>
                     <div class="modal-footer">
                         <div class="col">
-                            <select class="form-select" aria-label="Default select example">
-                                <option   v-for="(dato,index) in datosProduk" :key="index" :value="dato.izena">{{  }}</option>
+                            <select class="form-select" aria-label="Default select example" v-model="langilea">
+                                <option   v-for="(dato,index) in langileak" :key="index" :value="dato.id">{{ dato.izena }}</option>
                             </select>
                         </div>
                         <div class="col">
-                            <button id="pop-prod" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Aceptar</button>
+                            <button id="pop-prod" type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="erosketak">Aceptar</button>
                             <button id="pop-prod" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
 
         <div id="fondoOscuro" class="fondo-oculto" @click="ocultarVentana()"></div>
         <div class="tablaHorarios" id="tablaEditarP">
