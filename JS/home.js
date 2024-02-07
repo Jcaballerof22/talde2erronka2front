@@ -741,14 +741,14 @@ var home = new Vue({
         datos = '/' + this.dataCita + '/' + this.hasiera_ordua + '/' + this.amaiera_ordua; 
         console.log("losdatos: "+datos);
         try {
-          fetch('http://localhost/Cosos/Erronka/talde2erronka2back/Erronka2/public/api/hitzordua/horduDisp'+datos)
+          fetch('../../talde2erronka2back/Erronka2/public/api/hitzordua/horduDisp'+datos)
           .then(response => response.json())
           .then(data => {
             if (data.length < this.langileDisp){
               // Fetch 2
               const js = JSON.stringify({"izena": this.izena, "telefonoa": this.telefonoa, "deskribapena": this.deskribapena, "hasiera_ordua": this.hasiera_ordua, "amaiera_ordua": this.amaiera_ordua, "langilea": '1', "etxekoa": this.etxekoa, "data": this.dataCita}); 
               console.log("insert: "+js);
-              fetch('http://localhost/Cosos/Erronka/talde2erronka2back/Erronka2/public/api/hitzordua/txertatu', {
+              fetch('../../talde2erronka2back/Erronka2/public/api/hitzordua/txertatu', {
                 method: 'POST',
                 body: js
               })
