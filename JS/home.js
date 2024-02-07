@@ -50,6 +50,7 @@ var home = new Vue({
         tratamenduak: [],
         tratamenduakCita: [],
         tratamenduakCitaText: "",
+        totalPrezioa: 0,
     },
     methods: {
         
@@ -718,6 +719,7 @@ var home = new Vue({
       quitarFondoNegro(){
           document.getElementById('fondoOscuro2').classList.remove('mostrar-fondo');
           document.getElementById('ventanaEmergenteLangile').style.display = 'none';
+          document.getElementById('ventanaEmergenteTiket').style.display = 'none';
       },
 
       // Langile kopurua lortzeko
@@ -802,6 +804,25 @@ var home = new Vue({
             console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
         }
       },
+
+      popupTicket(){
+        document.getElementById('ventanaEmergenteLangile').style.display = 'none';
+        document.getElementById('fondoOscuro2').classList.add('mostrar-fondo');
+        document.getElementById('ventanaEmergenteTiket').style.display = 'block';
+      },
+
+      // fichaSortu(){
+      //   sensible = confirm('Tiene el cuero cabelludo sensible¿')
+      //   alert('ficha sortuta '+ sensible);
+      //   izenabizen = this.izena.split(' ');
+      //   abizena = '';
+      //   for (let i = 1; i < izenabizen.length; i++) {
+      //     abizena = izenabizen[i] + ' ';
+          
+      //   }
+      //   js = JSON.stringify({'izena': izenabizen[0],	'abizena': abizena,	'telefonoa': this.telefonoa,	'azal_sentikorra': sensible})
+      //   console.log('Ficha'+js)
+      // },
         
     },
     watch:{
@@ -832,6 +853,13 @@ var home = new Vue({
 
       amaiera_ordua: function(){
         this.aldatuOrduaAmaiera();
+      },
+
+      tratamenduakCita: function(){
+        this.totalPrezioa = 0;
+        this.tratamenduakCita.forEach(element => {
+          this.totalPrezioa = + this.totalPrezioa + +element.prezioa;
+        });
       },
 
     },

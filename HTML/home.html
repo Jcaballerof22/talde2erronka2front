@@ -350,7 +350,7 @@
                             <div class="col-12">
                                 <button v-if="idCita != ''"class="btn" type="button" style="background-color: #E99857;" @click="hitzorduaKendu">Eliminar</button>
                                 <button v-else class="btn" type="button" style="background-color: #E99857;" @click="createCita" >Crear</button>
-                                <button class="btn" type="button" style="background-color: #E99857;">Generar tiket</button>
+                                <button v-if="idCita != ''" class="btn" type="button" style="background-color: #E99857;" @click="popupTicket">Generar tiket</button>
                             </div>
                         </form>
                     </div>
@@ -404,7 +404,51 @@
                         </table>
                     </div>
                 </div>
-                <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->            
+                <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->           
+                 <!-- Ticket -->
+                 <div id="ventanaEmergenteTiket" class="ventana-oculta" style="background-color: #F4E3C8; width: 50vw; border-radius: 25px;">
+                    <div class="input-group-horarios">
+                        <button type="button" id="cerrarVentanaLangile" class="btn x" @click="quitarFondoNegro">
+                            <i class="bi bi-x"></i>
+                        </button>
+                    </div>
+                    <form class="row g-3 p-5">
+                        <!-- Primera Fila -->
+                        <div class="col-md-12">
+                            <div class="row g-3">
+                                <div class="col">
+                                    <label class="form-label rounded bg-white p-2 mb-1">Nombre: </label>
+                                    <input type="text" class="form-control" v-model="izena" disabled style="background-color: white;">
+                                </div>
+                                <div class="col">
+                                    <label for="inputAddress" class="form-label rounded bg-white p-2 mb-1">Telefono:</label>   
+                                    <input type="text" class="form-control" v-model="telefonoa" disabled style="background-color: white;">                 
+                                </div>
+                            </div>
+                        
+                        </div>
+                        <!-- Quinta Fila -->
+                        <div class="col-md-12">
+                            <div class="row g-3" style="display: inline-flex;">
+                                <div class="col">
+                                    <label class="form-label rounded bg-white p-2 mb-1">Tratamientos: </label>
+                                </div>
+                            </div>
+                            <ul class="list-group">
+                                <li v-for="(dato, index) in tratamenduakCita" :key="index" class="list-group-item d-flex justify-content-between align-items-center">
+                                  {{dato.tratamenduIzena}}
+                                  <span class="badge bg-primary rounded-pill">{{dato.prezioa}}</span>
+                                </li>
+                              </ul>
+                        </div>
+                        <div class="col-md-12 d-flex justify-content-end">
+                            <label class="form-label rounded bg-white p-2 mb-1 mx-2">Precio: </label>
+                            <label class="form-label rounded p-2 mb-1" style="background-color: #e9995798;">{{totalPrezioa}}€</label>
+                        </div>
+                        <button v-if="idCita != ''"class="btn mx-2" type="button" style="background-color: #E99857;" @click="quitarFondoNegro">Aceptar</button>
+                    </form>
+                </div>
+                <!--  -->
             </div>
         </div>
         <script src="../JS/home.js"></script>
