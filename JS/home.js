@@ -59,7 +59,7 @@ var home = new Vue({
         /////////////////////////////////////// EDITAR HORARIOS ////////////////////////////////////////////
         async nombresGrupo() {
             try {
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/grupos', { method: 'GET' });
+              const response = await fetch(window.ruta + 'grupos', { method: 'GET' });
           
               if (!response.ok) {
                 throw new Error(`Error en la solicitud: ${response.statusText}`);
@@ -76,7 +76,7 @@ var home = new Vue({
         },
         async grupoSeleccionado() {
             try {
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/horarios', { method: 'GET' });
+              const response = await fetch(window.ruta + 'horarios', { method: 'GET' });
           
               if (!response.ok) {
                 throw new Error(`Error en la solicitud: ${response.statusText}`);
@@ -116,7 +116,7 @@ var home = new Vue({
               var js = JSON.stringify(datos);
               console.log("froga: " + js);
           
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/horarios/editatu', {
+              const response = await fetch(window.ruta + 'horarios/editatu', {
                 method: 'PUT',
                 body: js
               });
@@ -179,7 +179,7 @@ var home = new Vue({
               var js = JSON.stringify(datos);
               console.log("froga: " + js);
           
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/horarios/txertatu', {
+              const response = await fetch(window.ruta + 'horarios/txertatu', {
                 method: 'POST',
                 body: js
               });
@@ -200,7 +200,7 @@ var home = new Vue({
               var js = JSON.stringify({ "eguna": eguna });
               console.log("ezabatu: " + js);
           
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/horarios/ezabatu', { method: 'PUT', body: js });
+              const response = await fetch(window.ruta + 'horarios/ezabatu', { method: 'PUT', body: js });
           
               if (!response.ok) {
                 throw new Error('Error en la solicitud');
@@ -286,7 +286,7 @@ var home = new Vue({
               var js = JSON.stringify({ "id_langilea": id_langilea });
               console.log("ezabatuRoles: " + js);
           
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/roles/ezabatu', {
+              const response = await fetch(window.ruta + 'roles/ezabatu', {
                 method: 'PUT',
                 body: js
               });
@@ -307,7 +307,7 @@ var home = new Vue({
               var js = JSON.stringify(datos); 
               console.log("inserRoles: " + js);
           
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/roles/txertatu', {
+              const response = await fetch(window.ruta + 'roles/txertatu', {
                 method: 'POST',
                 body: js
               });
@@ -480,7 +480,7 @@ var home = new Vue({
       datuakLortu(){
           this.datos2 = [];
           this.taula = [];
-          fetch('../../talde2erronka2back/Erronka2/public/api/hitzordua/' + this.data + this.bilatusinbol, { method: 'GET', mode: 'no-cors'})
+          fetch(window.ruta + 'hitzordua/' + this.data + this.bilatusinbol, { method: 'GET', mode: 'no-cors'})
           .then(response => response.json())
           .then(data => {
               console.log(data);
@@ -592,7 +592,7 @@ var home = new Vue({
       // Tratamendu lista lortu
       async tratamenduakLortu() {
           try {
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/tratamenduak', {
+              const response = await fetch(window.ruta + 'tratamenduak', {
                   method: 'GET',
                   mode: 'no-cors'
               });
@@ -616,7 +616,7 @@ var home = new Vue({
       async citaTratamenduaLortu(){
           this.tratamenduakCitaText = "";
           try {
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/tratamenduak/'+this.idCita, {
+              const response = await fetch(window.ruta + 'tratamenduak/'+this.idCita, {
                   method: 'GET',
                   mode: 'no-cors'
               });
@@ -657,7 +657,7 @@ var home = new Vue({
           console.log("insert: "+js);
 
           try {
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/tratamenduak/add', {
+              const response = await fetch(window.ruta + 'tratamenduak/add', {
                   method: 'POST',
                   mode: 'no-cors',
                   body: js
@@ -685,7 +685,7 @@ var home = new Vue({
           var js = JSON.stringify(datos); 
           console.log("del: "+js);
           try {
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/tratamenduak/remove', {
+              const response = await fetch(window.ruta + 'tratamenduak/remove', {
                   method: 'PUT',
                   body: js
               });
@@ -703,7 +703,7 @@ var home = new Vue({
           console.log("froga: " + js);
           
           try {
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/hitzordua/ezabatu', {
+              const response = await fetch(window.ruta + 'hitzordua/ezabatu', {
                   method: 'PUT',
                   body: js
               });
@@ -730,7 +730,7 @@ var home = new Vue({
       // Langile kopurua lortzeko
       async langileKopLortu(){
           try {
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/alumnos/'+this.data, {
+              const response = await fetch(window.ruta + 'alumnos/'+this.data, {
                   method: 'GET',
                   mode: 'no-cors'
               });
@@ -747,14 +747,14 @@ var home = new Vue({
         datos = '/' + this.dataCita + '/' + this.hasiera_ordua + '/' + this.amaiera_ordua; 
         console.log("losdatos: "+datos);
         try {
-          fetch('../../talde2erronka2back/Erronka2/public/api/hitzordua/horduDisp'+datos)
+          fetch(window.ruta + 'hitzordua/horduDisp'+datos)
           .then(response => response.json())
           .then(data => {
             if (data.length < this.langileDisp){
               // Fetch 2
               const js = JSON.stringify({"izena": this.izena, "telefonoa": this.telefonoa, "deskribapena": this.deskribapena, "hasiera_ordua": this.hasiera_ordua, "amaiera_ordua": this.amaiera_ordua, "langilea": this.alumnoCitaid, "etxekoa": this.etxekoa, "data": this.dataCita}); 
               console.log("insert: "+js);
-              fetch('../../talde2erronka2back/Erronka2/public/api/hitzordua/txertatu', {
+              fetch(window.ruta + 'hitzordua/txertatu', {
                 method: 'POST',
                 body: js
               })
@@ -777,7 +777,7 @@ var home = new Vue({
           const js = JSON.stringify({"id": this.idCita, "ordua": this.amaiera_ordua}); 
           console.log("froga: " + js);
           try {
-            const response = await fetch('../../talde2erronka2back/Erronka2/public/api/hitzordua/horduaAmaiera', {
+            const response = await fetch(window.ruta + 'hitzordua/horduaAmaiera', {
               method: 'PUT',
               body: js
             });
@@ -795,7 +795,7 @@ var home = new Vue({
         console.log("froga: " + js);
         
         try {
-            const response = await fetch('../../talde2erronka2back/Erronka2/public/api/hitzordua/horduaHasiera', {
+            const response = await fetch(window.ruta + 'hitzordua/horduaHasiera', {
                 method: 'PUT',
                 body: js
             });

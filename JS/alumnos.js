@@ -25,7 +25,7 @@ var app = new Vue({
                     });
                     console.log("froga: " + js);
 
-                    const response = await fetch('../../talde2erronka2back/Erronka2/public/api/alumnos/txertatu', {
+                    const response = await fetch(window.ruta + 'alumnos/txertatu', {
                         method: 'POST',
                         body: js,
                         mode: 'no-cors'
@@ -51,7 +51,7 @@ var app = new Vue({
             this.datosTalde.push({"izena": "All", "kodea": "all"});
             
             try {
-                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/grupos', {
+                const response = await fetch(window.ruta + 'grupos', {
                     method: 'GET'
                 });
 
@@ -101,7 +101,7 @@ var app = new Vue({
             console.log("froga: " + js);
             
             try {
-                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/alumnos/editatu', {
+                const response = await fetch(window.ruta + 'alumnos/editatu', {
                     method: 'PUT',
                     body: js
                 });
@@ -140,7 +140,7 @@ var app = new Vue({
             console.log("froga: " + js);
             
             try {
-                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/alumnos/ezabatu', {
+                const response = await fetch(window.ruta + 'alumnos/ezabatu', {
                     method: 'PUT',
                     body: js
                 });
@@ -177,7 +177,7 @@ var app = new Vue({
 
         async datuakLortu() {
             try {
-                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/alumnos', {
+                const response = await fetch(window.ruta + 'alumnos', {
                     method: 'GET',
                     mode: 'no-cors'
                 });

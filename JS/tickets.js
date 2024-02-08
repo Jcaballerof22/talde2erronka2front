@@ -56,7 +56,7 @@ var app = new Vue({
             }
             
             try {
-                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/tickets/ezabatu', {
+                const response = await fetch(window.ruta + 'tickets/ezabatu', {
                     method: 'PUT',
                     body: js
                 });
@@ -89,7 +89,7 @@ var app = new Vue({
             }
             
             try {
-                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/tickets/editatu', {
+                const response = await fetch(window.ruta + 'tickets/editatu', {
                     method: 'PUT',
                     body: js
                 });
@@ -106,7 +106,7 @@ var app = new Vue({
         // Tratamenduen datuak lortzeko metodoa
         async tratamenduakLortu() {
             try {
-                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/tratamenduak', {
+                const response = await fetch(window.ruta + 'tratamenduak', {
                     method: 'GET',
                     mode: 'no-cors'
                 });

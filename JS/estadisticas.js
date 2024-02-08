@@ -145,7 +145,7 @@ var app = new Vue({
         // Gaur dagoen taldea lortzeko metodoa
         async sacarGrupo() {
             try {
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/horarios/taldea', { method: 'GET' });
+              const response = await fetch(window.ruta + 'horarios/taldea', { method: 'GET' });
           
               if (!response.ok) {
                 throw new Error(`Error en la solicitud: ${response.statusText}`);

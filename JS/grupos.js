@@ -18,7 +18,7 @@ var app = new Vue({
                     const js = JSON.stringify({"izena": this.izena}); 
                     console.log("froga: " + js);
 
-                    const response = await fetch('../../talde2erronka2back/Erronka2/public/api/grupos/txertatu', {
+                    const response = await fetch(window.ruta + 'grupos/txertatu', {
                         method: 'POST',
                         body: js,
                         mode: 'no-cors'
@@ -62,7 +62,7 @@ var app = new Vue({
             console.log("froga: " + js);
             
             try {
-                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/grupos/editatu', {
+                const response = await fetch(window.ruta + 'grupos/editatu', {
                     method: 'PUT',
                     body: js
                 });
@@ -101,7 +101,7 @@ var app = new Vue({
             console.log("froga: " + js);
             
             try {
-                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/grupos/ezabatu', {
+                const response = await fetch(window.ruta + 'grupos/ezabatu', {
                     method: 'PUT',
                     body: js
                 });
@@ -138,7 +138,7 @@ var app = new Vue({
 
         async lortuDatuak() {
             try {
-                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/grupos', { 
+                const response = await fetch(window.ruta + 'grupos', { 
                     method: 'GET',
                     mode: 'no-cors'
                 });

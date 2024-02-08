@@ -23,7 +23,7 @@ var app = new Vue({
     methods:{
         async produktuakGet() {
             try {
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/productos', { method: 'GET' });
+              const response = await fetch(window.ruta + 'productos', { method: 'GET' });
               if (!response.ok) {
                 throw new Error('Network response was not ok');
               }
@@ -39,7 +39,7 @@ var app = new Vue({
         
         async kategoriakGet() {
             try {
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/kategoria', { method: 'GET' });
+              const response = await fetch(window.ruta + 'kategoria', { method: 'GET' });
               if (!response.ok) {
                 throw new Error('Network response was not ok');
               }
@@ -104,7 +104,7 @@ var app = new Vue({
             console.log("froga: " + js);
             
             try {
-                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/productos/ezabatu', {
+                const response = await fetch(window.ruta + 'productos/ezabatu', {
                     method: 'PUT',
                     body: js
                 });
@@ -132,7 +132,7 @@ var app = new Vue({
                         "stock_alerta": this.stock_alerta
                     });
 
-                    const response = await fetch('../../talde2erronka2back/Erronka2/public/api/productos/txertatu', {
+                    const response = await fetch(window.ruta + 'productos/txertatu', {
                         method: 'POST',
                         body: js,
                         mode: 'no-cors'
@@ -181,7 +181,7 @@ var app = new Vue({
             console.log("froga: " + js);
             
             try {
-                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/productos/editatu', {
+                const response = await fetch(window.ruta + 'productos/editatu', {
                     method: 'PUT',
                     body: js
                 });
@@ -222,7 +222,7 @@ var app = new Vue({
         async langileakLortu(){
             hoy = this.lortuData();
             try {
-                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/alumnos/' + hoy, {
+                const response = await fetch(window.ruta + 'alumnos/' + hoy, {
                     method: 'GET',
                 });
 
@@ -258,7 +258,7 @@ var app = new Vue({
         async erosi(id_produktua, id_langilea, kopurua){
             js = JSON.stringify({'id_produktua':id_produktua,'id_langilea':id_langilea,'kopurua':kopurua})
             console.log('Kompra'+js);
-            const response = await fetch('../../talde2erronka2back/Erronka2/public/api/productos/erosi', {
+            const response = await fetch(window.ruta + 'productos/erosi', {
                 method: 'POST',
                 body: js
             });

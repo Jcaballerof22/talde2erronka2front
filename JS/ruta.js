@@ -1,0 +1,1 @@
+window.ruta = '../../talde2erronka2back/Erronka2/public/api/';

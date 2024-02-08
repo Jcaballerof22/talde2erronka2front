@@ -15,7 +15,7 @@ var app = new Vue({
         // Fitxen datuak lortzeko metodoa
         async sacarFichas() {
             try {
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/fichas', { method: 'GET' });
+              const response = await fetch(window.ruta + 'fichas', { method: 'GET' });
           
               if (!response.ok) {
                 throw new Error(`Error en la solicitud: ${response.statusText}`);
@@ -48,7 +48,7 @@ var app = new Vue({
                   const js = JSON.stringify({"izena": this.izena, "abizena": this.abizena, "telefonoa": this.telefonoa, "azal_sentikorra": this.azal_sentikorra}); 
                   console.log("froga: " + js);
 
-                  const response = await fetch('../../talde2erronka2back/Erronka2/public/api/fichas/txertatu', {
+                  const response = await fetch(window.ruta + 'fichas/txertatu', {
                       method: 'POST',
                       body: js,
                       mode: 'no-cors'
@@ -107,7 +107,7 @@ var app = new Vue({
           }
           
           try {
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/fichas/editatu', {
+              const response = await fetch(window.ruta + 'fichas/editatu', {
                   method: 'PUT',
                   body: js
               });
@@ -129,7 +129,7 @@ var app = new Vue({
           this.taula.splice(index, 1);
           
           try {
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/fichas/ezabatu', {
+              const response = await fetch(window.ruta + 'fichas/ezabatu', {
                   method: 'PUT',
                   body: js
               });

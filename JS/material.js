@@ -26,7 +26,7 @@ var app = new Vue({
                 }else{
                     var js = JSON.stringify({"izena": this.izena, "etiketa": this.etiketa}); 
                     console.log("froga: "+js);
-                    fetch('../../talde2erronka2back/Erronka2/public/api/materiala/txertatu', {method: 'POST', body: js, mode: 'no-cors'})
+                    fetch(window.ruta + 'materiala/txertatu', {method: 'POST', body: js, mode: 'no-cors'})
                     .then(function (response) {
                             return response.text();
                     })
@@ -44,7 +44,7 @@ var app = new Vue({
           try {
               console.log('La instancia Vue se ha montado en el DOM.');
       
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materiala', {
+              const response = await fetch(window.ruta + 'materiala', {
                   method: 'GET',
                   mode: 'no-cors'
               });
@@ -75,7 +75,7 @@ var app = new Vue({
           async segundaLlamada(id){
             try {
           
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materialaF/'+id, {
+              const response = await fetch(window.ruta + 'materialaF/'+id, {
                 method: 'GET',
                 mode: 'no-cors'
             });
@@ -92,7 +92,7 @@ var app = new Vue({
           async nombresGrupo() {
             
             try {
-                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materiala/grupos', {
+                const response = await fetch(window.ruta + 'materiala/grupos', {
                     method: 'GET'
                 });
 
@@ -115,7 +115,7 @@ var app = new Vue({
 
             try {
           
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materiala/alumnos/'+this.kodea, {
+              const response = await fetch(window.ruta + 'materiala/alumnos/'+this.kodea, {
                 method: 'GET',
                 mode: 'no-cors'
             });
@@ -195,7 +195,7 @@ var app = new Vue({
               });
               console.log("froga: " + js);
           
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materiala/editatu', {
+              const response = await fetch(window.ruta + 'materiala/editatu', {
                 method: 'PUT',
                 body: js
               });
@@ -219,7 +219,7 @@ var app = new Vue({
               var js = JSON.stringify({"id": id}); 
               console.log("frogaBorrar: " + js);
           
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materiala/ezabatu', {
+              const response = await fetch(window.ruta + 'materiala/ezabatu', {
                 method: 'PUT',
                 body: js
               });
@@ -241,7 +241,7 @@ var app = new Vue({
                 });
                 console.log("froga: " + js);
             
-                const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materiala/reservar', {
+                const response = await fetch(window.ruta + 'materiala/reservar', {
                   method: 'POST',
                   body: js
                 });
@@ -263,7 +263,7 @@ var app = new Vue({
             try {
               var js = JSON.stringify({"id_materiala": this.idMaterial});
           
-              const response = await fetch('../../talde2erronka2back/Erronka2/public/api/materiala/devolver', {
+              const response = await fetch(window.ruta + 'materiala/devolver', {
                 method: 'PUT',
                 body: js
               });
