@@ -71,7 +71,6 @@ var app = new Vue({
         },
 
         abrirPopup(kodea, izena, abizenak, id){
-            //lodelPopup
             this.aldatu = id;
             this.izena = izena;
             this.abizenak = abizenak;
@@ -167,14 +166,12 @@ var app = new Vue({
             if (scriptAnterior) {
                 scriptAnterior.remove();
             }
-            // Crea un nuevo script y asigna su src según la opción seleccionada
             var nuevoScript = document.createElement("script");
             nuevoScript.id = "scriptDinamico";
             nuevoScript.onload = function() {
                 console.log("Script cargado exitosamente");
             };
             nuevoScript.innerHTML = "var menu = new Vue({el: '#menu',data: {titulo: '"+this.titulua+"'},});"; // Asigna el nombre del script según la opción
-            // Agrega el nuevo script al cuerpo del documento
             document.body.appendChild(nuevoScript);
         },
 
@@ -189,7 +186,6 @@ var app = new Vue({
 
                 console.log(data);
 
-                // Añadir los datos de los alumnos al arreglo datos
                 data.forEach(alumno => {
                     this.datos.push({
                         "izena": alumno.izena,
@@ -199,7 +195,6 @@ var app = new Vue({
                     });
                 });
 
-                // Llamar a un método adicional después de obtener los datos
                 this.tituluAldatu();
             } catch (error) {
                 console.error('Error al obtener los alumnos:', error);

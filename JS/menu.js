@@ -4,9 +4,8 @@ function openMenu() {
     var menuContainer = document.querySelector('.menu-container');
     var menuTexts = menuContainer.querySelectorAll('.menu-text');
   
-    menuContainer.style.width = '250px'; // Ancho del menú desplegado
+    menuContainer.style.width = '250px'; 
   
-    // Mostrar todos los textos
     menuTexts.forEach(function (text) {
       text.style.display = 'inline';
     });
@@ -16,9 +15,8 @@ function openMenu() {
     var menuContainer = document.querySelector('.menu-container');
     var menuTexts = menuContainer.querySelectorAll('.menu-text');
   
-    menuContainer.style.width = '100px'; // Ancho inicial del menú
+    menuContainer.style.width = '100px'; 
   
-    // Ocultar todos los textos
     menuTexts.forEach(function (text) {
       text.style.display = 'none';
     });

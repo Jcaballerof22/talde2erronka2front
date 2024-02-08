@@ -265,7 +265,6 @@ var home = new Vue({
             }
         },
         aceptarRoles(){
-            // Solo si borrarL y limpieza / borrarM y mostrador son diferentes
             if(this.borrarL == this.limpieza){
                 console.log("Limpieza igual");
             }else{
@@ -347,14 +346,12 @@ var home = new Vue({
             if (scriptAnterior) {
                 scriptAnterior.remove();
             }
-            // Crea un nuevo script y asigna su src según la opción seleccionada
             var nuevoScript = document.createElement("script");
             nuevoScript.id = "scriptDinamico";
             nuevoScript.onload = function() {
                 console.log("Script cargado exitosamente");
             };
             nuevoScript.innerHTML = "var menu = new Vue({el: '#menu',data: {titulo: '"+this.titulua+"'},});"; // Asigna el nombre del script según la opción
-            // Agrega el nuevo script al cuerpo del documento
             document.body.appendChild(nuevoScript);
         },
 
@@ -379,7 +376,6 @@ var home = new Vue({
           return counter;
       },
 
-      // Pff, gure datuak taulan ondo kokatzeko
       ordenan(){
           timeDiff=0;
           for(let i = 0; i < this.datos2.length; i++) {
@@ -486,7 +482,6 @@ var home = new Vue({
               console.log(data);
               for (let i = 0; i < data.length; i++) {
                   console.log(data[i]);
-                  // Obtén la referencia de la tabla por su id
                   this.datos2.push(data[i]);
               }
               if (this.bilatusinbol != '+'){
@@ -521,11 +516,10 @@ var home = new Vue({
           } else {
               this.orduak = this.orduakA;
           }
-          // Dar formato :D
           return urtea+'-'+hilabetea+'-'+eguna;
       },
 
-      // Goizeko horduak eskuratzeko
+      // Goizeko orduak eskuratzeko
       lortuOrduakG(){
           orduakaux = [this.intervaloHoras[0],this.intervaloHoras[1]]
           orduDif = (orduakaux[1] - orduakaux[0])+1;
@@ -557,7 +551,7 @@ var home = new Vue({
           }
       },
 
-      // Arratsaldeko horduak eskuratzeko
+      // Arratsaldeko orduak eskuratzeko
       lortuOrduakA(){
           orduakaux =  [this.intervaloHoras[2],this.intervaloHoras[3]]
           orduDif = (orduakaux[1] - orduakaux[0])+1;
@@ -601,10 +595,8 @@ var home = new Vue({
               
               console.log(data);
               
-              // Si `data` es un arreglo, puedes usar `forEach` para iterar sobre él.
               data.forEach(tratamiento => {
                   console.log(tratamiento);
-                  // Asumiendo que `this.tratamenduak` está definido fuera de esta función
                   this.tratamenduak.push(tratamiento);
               });
           } catch (error) {
@@ -742,7 +734,7 @@ var home = new Vue({
               console.error('Error al obtener los tratamientos:', error);
           }
       },
-      /////////////////////////////////////// HAYQUEACER ///////////////////////////////////////
+      ///////////////////////////////////////  ///////////////////////////////////////
       createCita(){
         datos = '/' + this.dataCita + '/' + this.hasiera_ordua + '/' + this.amaiera_ordua; 
         console.log("losdatos: "+datos);
@@ -768,7 +760,6 @@ var home = new Vue({
         } catch (error) {
           console.log(error);
         }
-        // alert("si todo fué bien, es posible que se haya insertado :D");
         
         this.quitarFondoNegro()
       },

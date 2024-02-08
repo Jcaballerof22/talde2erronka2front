@@ -21,7 +21,6 @@ var app = new Vue({
     },
     methods: {
         addDatuak(){
-            //
                 if(this.izena=="" && this.etiketa==""){
                     alert("Datu falta dira")
                 }else{
@@ -70,7 +69,6 @@ var app = new Vue({
               this.tituluAldatu();
           } catch (error) {
               console.error('Error al obtener los datos:', error);
-              // Aquí puedes manejar el error según tus necesidades
           }
       },
       
@@ -88,7 +86,6 @@ var app = new Vue({
             
             } catch (error) {
               console.log(error);
-              // Maneja el error según tus necesidades
             }
           },
 
@@ -137,7 +134,6 @@ var app = new Vue({
             });
             } catch (error) {
               console.log(error);
-              // Maneja el error según tus necesidades
             }
         },
         
@@ -186,7 +182,6 @@ var app = new Vue({
         },
 
         ordenarPorColor(color) {
-          // Actualizar el color seleccionado
           this.colorSeleccionado = color;
         },
         
@@ -216,7 +211,6 @@ var app = new Vue({
               }
             } catch (error) {
               console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
-              // Maneja el error según tus necesidades
             }
           },
 
@@ -236,7 +230,6 @@ var app = new Vue({
               this.datos = this.datos.filter(aux => aux.id !== id);
             } catch (error) {
               console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
-              // Maneja el error según tus necesidades
             }
           },
 
@@ -263,7 +256,6 @@ var app = new Vue({
 
               } catch (error) {
                 console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
-                // Maneja el error según tus necesidades
               }
           },
 
@@ -284,7 +276,6 @@ var app = new Vue({
               this.fetchData();
             } catch (error) {
               console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
-              // Maneja el error según tus necesidades
             }
           },
 
@@ -330,7 +321,6 @@ var app = new Vue({
       },
     computed: {
       datosFiltrados() {
-        // Filtrar datos según el color seleccionado
         if (this.colorSeleccionado === 'rojo') {
           return this.datos.filter(dato => dato.amaiera_data === null);
         } else if (this.colorSeleccionado === 'verde') {
@@ -372,7 +362,7 @@ function ocultarVentanaAñadir() {
     document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'none';
 }
 
-// Para el segundo POPUP
+// Bigarren POPUP
 
 document.getElementById('mostrarVentanaReservarMaterial').addEventListener('click', function() {
     document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
