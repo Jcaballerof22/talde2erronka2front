@@ -390,7 +390,7 @@ var home = new Vue({
               timeDif = minDif + orduDif;
               var js = {"izena": this.datos2[i].izena, "deskribapena" : this.datos2[i].deskribapena, "orduak" : this.datos2[i].hasiera_ordua+"-"+this.datos2[i].amaiera_ordua, "timeDif": timeDif, "visible" : true, "disponible": false, "id" : this.datos2[i].id};
               
-              //Bucar sitio
+              //Lekua bilatu
               var sitio = null;
               for (let j = 0; j < this.langileDisp; j++) {
                   for (let k = 0; k < this.taula.length; k++) {
@@ -407,7 +407,7 @@ var home = new Vue({
                   }
               }
 
-              //Colocar en su sitio
+              //Lekuan Kokatu
               for (let i = 0; i < this.taula.length; i++) {
                   if ((orduH[0]+":"+orduH[1])==this.orduak[i]) {
                       for (let l = 0; l < js.timeDif; l++) {
@@ -771,6 +771,7 @@ var home = new Vue({
           console.log(error);
         }
         // alert("si todo fué bien, es posible que se haya insertado :D");
+        this.quitarFondoNegro()
       },
 
       async aldatuOrduaAmaiera(){
