@@ -75,7 +75,7 @@ var app = new Vue({
             this.izena = izena;
             this.abizenak = abizenak;
             this.kodea = kodea;
-            this.id = id
+            this.id = id;
              
             document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
             document.getElementById('ventanaEmergenteLangile').style.display = 'block';
@@ -171,7 +171,7 @@ var app = new Vue({
             nuevoScript.onload = function() {
                 console.log("Script cargado exitosamente");
             };
-            nuevoScript.innerHTML = "var menu = new Vue({el: '#menu',data: {titulo: '"+this.titulua+"'},});"; // Asigna el nombre del script según la opción
+            nuevoScript.innerHTML = "var menu = new Vue({el: '#menu',data: {titulo: '"+this.titulua+"'},});"; 
             document.body.appendChild(nuevoScript);
         },
 
