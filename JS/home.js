@@ -711,7 +711,7 @@ var home = new Vue({
               const data = await response.text();
               console.log(data);
 
-              this.taula = this.taula.filter(aux => aux.id !== id);
+              this.taula = this.taula.filter(aux => aux.id !== this.idCita);
           } catch (error) {
               console.error("Error al eliminar el registro:", error);
               console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
