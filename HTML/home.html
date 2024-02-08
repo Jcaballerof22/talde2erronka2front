@@ -178,90 +178,10 @@
                     </div>
                 </div>
 
-                <!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx CITAS xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
-
-                <!-- <div class="tablaCitas" id="tablaCitas">
-                    <div class="contenidoTabla">
-                        <div class="row mt-3">
-                            <div class="col">
-                                <h2>Nueva Cita</h2>
-                            </div>
-                            
-                            <div class="col input-group-horarios">
-                                <button type="button" id="cerrarHorarios" class="btn x" @click="ocultarRoles()">
-                                    <i class="bi bi-x"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <h3><label for="name">Nombre:</label></h3>
-                                <input type="text" id="name" name="name" required size="50" />
-                            </div>
-                            <div class="col">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <h3>¿Del centro?</h3>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                                            <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
-                                        </div>    
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr>
-
-                        <div class="row align-items-center">
-                            <div class="col d-flex">
-                                <h3 class="me-3">Hora - Inicio</h3>
-                                <input type="time" id="appt" name="appt" min="09:00" max="18:00" required />
-                            </div>
-                            <div class="col d-flex">
-                                <h3 class="me-3">Hora - Fin</h3>
-                                <input type="time" id="appt" name="appt" min="09:00" max="18:00" required />
-                            </div>
-                        </div>
-
-                        <hr>
-
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <h3><label for="name">Teléfono:</label></h3>
-                                <input type="tel" id="name" name="name" required size="50" />
-                            </div>
-                            <div class="col">
-                                <h3><label for="name">Alumno:</label></h3>
-                                <select class="form-select combobox" aria-label="Default select example">
-                                    <option>A</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <hr>
-
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <h3><label for="name">Observaciones:</label></h3>
-                                <input type="text" id="name" name="name" required size="100" />
-                            </div>
-                        </div>
-
-                        <div class="input-group-horarios">
-                            <button type="button" id="aceptarHorarios" class="btn añadir btn-lg" @click="">Aceptar</button>
-                            <button type="button" id="cancelarHorarios" class="btn cancelar btn-lg" @click="">Cancelar</button>
-                        </div>
-                    </div>
-                </div> -->
-
             </div>
 
             <div class="container">
-                <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+                <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx Horarios xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
                 <div id="horario2" class="horario2">
                     <!--  -->
                     <div @click="quitarFondoNegro" id="fondoOscuro2" class="fondo-oculto"></div>
@@ -355,7 +275,7 @@
                             </div>
                         </form>
                     </div>
-                    <!--  -->
+                    <!-- taula testuarekin -->
                     <br>
                     <input type="date" id="fecha" name="fecha" v-model="data">                    
                     <div class="table-responsive-xl">
@@ -387,6 +307,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <!--        taula ordutegia    -->
                         <table class="table" v-else>
                             <thead>
                                 <tr>
