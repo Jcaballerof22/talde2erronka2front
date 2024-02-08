@@ -848,6 +848,10 @@ var home = new Vue({
           
       },
 
+      langileDisp:function(){
+        this.taulaSortu()
+      },
+
       tratamendu: function(){
           this.extra = 0;
       },
