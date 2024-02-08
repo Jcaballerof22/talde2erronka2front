@@ -28,7 +28,7 @@ var home = new Vue({
         taula: [],
         alumnos: [],
         hoy:'',
-        langileDisp: 0,
+        langileDisp: 5,
         // Popup-aren Datuak
         idCita: '',
         izena : '',
