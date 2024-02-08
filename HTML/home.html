@@ -315,7 +315,7 @@
                             <div v-if="data <= hoy" class="col-md-8">
                                 <!-- <label v-if="data == hoy" class="form-label rounded bg-white p-2 mb-1">Alumno</label> -->
                                 <select v-if="dataCita == hoy" class="form-select" v-model="alumnoCitaid">
-                                <option selected disabled value="0">Alumno</option>
+                                <option selected disabled value="13">Alumno</option>
                                 <option v-for="(datos, index) in alumnos" :key="index" :value="datos.id">{{datos.izena}}</option>
                                 </select>
                                 <label v-else class="form-label rounded bg-white p-2 mb-1">Alumno: {{alumnoCita}}</label>
