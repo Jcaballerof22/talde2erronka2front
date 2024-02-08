@@ -59,15 +59,15 @@ var app = new Vue({
 
                   var fecha = new Date();
 
-                  // Obtener los componentes de la fecha (año, mes, día, hora, minuto, segundo)
+                  // Data lortu (urtea, hilabetea, eguna, ordua, minutua, segundua)
                   var año = fecha.getFullYear();
-                  var mes = ('0' + (fecha.getMonth() + 1)).slice(-2); // Se agrega 1 porque los meses se indexan desde 0
+                  var mes = ('0' + (fecha.getMonth() + 1)).slice(-2);
                   var dia = ('0' + fecha.getDate()).slice(-2);
                   var hora = ('0' + fecha.getHours()).slice(-2);
                   var minuto = ('0' + fecha.getMinutes()).slice(-2);
                   var segundo = ('0' + fecha.getSeconds()).slice(-2);
 
-                  // Formatear la fecha en formato 'yyyy-mm-dd hh:mm:ss'
+                  // Data 'yyyy-mm-dd hh:mm:ss' formatuan
                   var fechaFormateada = año + '-' + mes + '-' + dia + ' ' + hora + ':' + minuto + ':' + segundo;
 
                   var azala = 'E';
@@ -144,11 +144,6 @@ var app = new Vue({
         },
         // POPUPa irekitzeko metodoa
         abrirPopup(kodea, id, funtzio){
-            // this.id = id;
-            // this.izena = izena;
-            // this.abizena = abizena;
-            // this.telefonoa = telefonoa;
-            // this.azal_sentikorra = azal_sentikorra,
             this.funtzio = funtzio;
 
             if(kodea != ''){
