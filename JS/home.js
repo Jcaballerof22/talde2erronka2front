@@ -869,6 +869,9 @@ var home = new Vue({
 
     },
     mounted: function() {
+        this.data = this.lortuData();
+        this.hoy =  this.data;
+        this.taulaSortu();
         this.nombresGrupo();
         this.grupoSeleccionado().then(() => {
             this.tablaRoles();
@@ -877,8 +880,6 @@ var home = new Vue({
         this.lortuOrduakG();
         this.lortuOrduakA();
         this.tratamenduakLortu();
-        this.data = this.lortuData();
-        this.hoy =  this.data;
          
       }
 });
