@@ -416,7 +416,6 @@ var home = new Vue({
                   }
               }
           }
-          //Hay que mirar esto, que no lo entiendo :D supuestamente da la vuelta a el array
           this.taula = this.taula.map(subarray => subarray.slice().reverse());
 
       },
