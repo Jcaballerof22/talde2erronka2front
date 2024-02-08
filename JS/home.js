@@ -232,7 +232,7 @@ var home = new Vue({
               console.log("Today is: " + hoy);
               console.log(this.grupoHoy);
           
-              const response1 = await fetch(`../../talde2erronka2back/Erronka2/public/api/roles/${this.grupoHoy}`, { method: 'GET' });
+              const response1 = await fetch(window.ruta + `roles/${this.grupoHoy}`, { method: 'GET' });
               if (!response1.ok) {
                 throw new Error('Error en la solicitud');
               }
@@ -244,7 +244,7 @@ var home = new Vue({
                 this.datosRoles.push({ "izena": data1[i].izena, "abizenak": data1[i].abizenak, "id_langilea": data1[i].id_langilea, "suma_m": data1[i].suma_m, "suma_g": data1[i].suma_g });
               }
           
-              const response2 = await fetch(`../../talde2erronka2back/Erronka2/public/api/roles/pertsonak/${this.grupoHoy}`, { method: 'GET' });
+              const response2 = await fetch(window.ruta + `roles/pertsonak/${this.grupoHoy}`, { method: 'GET' });
               if (!response2.ok) {
                 throw new Error('Error en la solicitud');
               }
