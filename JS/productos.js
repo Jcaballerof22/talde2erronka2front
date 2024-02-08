@@ -90,14 +90,12 @@ var app = new Vue({
             if (scriptAnterior) {
                 scriptAnterior.remove();
             }
-            // Crea un nuevo script y asigna su src según la opción seleccionada
             var nuevoScript = document.createElement("script");
             nuevoScript.id = "scriptDinamico";
             nuevoScript.onload = function() {
                 console.log("Script cargado exitosamente");
             };
             nuevoScript.innerHTML = "var menu = new Vue({el: '#menu',data: {titulo: '"+this.titulua+"'},});"; // Asigna el nombre del script según la opción
-            // Agrega el nuevo script al cuerpo del documento
             document.body.appendChild(nuevoScript);
         },
 
@@ -243,7 +241,6 @@ var app = new Vue({
             var urtea = gaur.getFullYear();
             var hilabetea = gaur.getMonth() + 1;
             var eguna = gaur.getDate();
-            // Dar formato :D
             return urtea+'-'+hilabetea+'-'+eguna;
         },
 
@@ -258,7 +255,6 @@ var app = new Vue({
             });
         },
 
-        //TOCAHACER
         async erosi(id_produktua, id_langilea, kopurua){
             js = JSON.stringify({'id_produktua':id_produktua,'id_langilea':id_langilea,'kopurua':kopurua})
             console.log('Kompra'+js);

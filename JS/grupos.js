@@ -40,7 +40,6 @@ var app = new Vue({
         },
 
         abrirPopup(kodea, izena){
-            //lodelPopup
             this.aldatu = kodea;
             this.izena = izena;
             this.kodea = kodea;
@@ -128,14 +127,12 @@ var app = new Vue({
             if (scriptAnterior) {
                 scriptAnterior.remove();
             }
-            // Crea un nuevo script y asigna su src según la opción seleccionada
             var nuevoScript = document.createElement("script");
             nuevoScript.id = "scriptDinamico";
             nuevoScript.onload = function() {
                 console.log("Script cargado exitosamente");
             };
-            nuevoScript.innerHTML = "var menu = new Vue({el: '#menu',data: {titulo: '"+this.titulua+"'},});"; // Asigna el nombre del script según la opción
-            // Agrega el nuevo script al cuerpo del documento
+            nuevoScript.innerHTML = "var menu = new Vue({el: '#menu',data: {titulo: '"+this.titulua+"'},});"; 
             document.body.appendChild(nuevoScript);
         },
 
@@ -147,7 +144,6 @@ var app = new Vue({
                 });
                 const data = await response.json();
                 console.log(data); 
-                // Itera sobre los datos recibidos y añádelos al arreglo "datos"
                 for (let i = 0; i < data.length; i++) {
                     this.datos.push({
                         "izena": data[i].izena,

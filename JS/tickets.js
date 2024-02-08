@@ -113,9 +113,7 @@ var app = new Vue({
                 
                 const data = await response.json();
                 
-                // Si `data` es un arreglo, puedes usar `forEach` para iterar sobre él.
                 data.forEach(tratamiento => {
-                    // Asumiendo que `this.tratamenduak` está definido fuera de esta función
                     this.tratamenduak.push(tratamiento);
                 });
             } catch (error) {

@@ -100,14 +100,12 @@ var app = new Vue({
             if (scriptAnterior) {
                 scriptAnterior.remove();
             }
-            // Crea un nuevo script y asigna su src según la opción seleccionada
             var nuevoScript = document.createElement("script");
             nuevoScript.id = "scriptDinamico";
             nuevoScript.onload = function() {
                 console.log("Script cargado exitosamente");
             };
-            nuevoScript.innerHTML = "var menu = new Vue({el: '#menu',data: {titulo: '"+this.titulua+"'},});"; // Asigna el nombre del script según la opción
-            // Agrega el nuevo script al cuerpo del documento
+            nuevoScript.innerHTML = "var menu = new Vue({el: '#menu',data: {titulo: '"+this.titulua+"'},});";
             document.body.appendChild(nuevoScript);
         }
     },
