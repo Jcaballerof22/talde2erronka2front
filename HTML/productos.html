@@ -13,6 +13,7 @@
 <body>
     <div id="app">
         <div class="contenido-productos" id="orrialdea"></div>
+        <!--     Botoiak/Filtroak/Sazkia     -->
         <div class="col d-flex justify-content-end me-4" id="cesta-productos">
             <button id="but-cesta-productos" data-bs-toggle="modal" data-bs-target="#miModal">
                 <i class="bi bi-basket" style="font-size: 30px;"></i>
@@ -40,7 +41,7 @@
                         </div>
                     </div>
                 </div>
-                
+                <!--    Taula datuekin    -->
                 <table id="tabla" class="table table-hover table-striped">
                     <thead>
                     <tr>
@@ -71,7 +72,7 @@
                 </table>
             </div>
         </div>
-        
+        <!--    Popup txertatu/editatu     -->
         <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -134,7 +135,7 @@
                 </div>
             </div>
         </div>
-
+        <!-- Popup Sazkia -->
         <div id="fondoOscuro" class="fondo-oculto" @click="ocultarVentana()"></div>
         <div class="tablaHorarios" id="tablaEditarP">
             <div class="contenidoTablaProd">
