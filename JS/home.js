@@ -712,6 +712,7 @@ var home = new Vue({
               console.log(data);
 
               this.taula = this.taula.filter(aux => aux.id !== this.idCita);
+              this.datuakLortu()
           } catch (error) {
               console.error("Error al eliminar el registro:", error);
               console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
@@ -759,10 +760,7 @@ var home = new Vue({
               })
               .then(response => response.json())
               .then(data => {
-                // alert("adasd"+data)
-                // if (data.length > this.langileDisp){
-                  
-                // }
+                this.datuakLortu()
               });
             }
             else alert("Se superó el limite de citas para las horas seleccionadas");
@@ -771,6 +769,7 @@ var home = new Vue({
           console.log(error);
         }
         // alert("si todo fué bien, es posible que se haya insertado :D");
+        
         this.quitarFondoNegro()
       },
 
