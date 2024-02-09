@@ -864,7 +864,7 @@ var home = new Vue({
         this.aldatuOrduaAmaiera();
       },
 
-      tratamenduakCita: function(){
+      tratamenduakCita: function(){ 
         this.totalPrezioa = 0;
         this.tratamenduakCita.forEach(element => {
           this.totalPrezioa = + this.totalPrezioa + +element.prezioa;
