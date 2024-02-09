@@ -5,6 +5,7 @@ var app = new Vue({
         taula: [],
         id: "",
         izena: "",
+        titulua: "FICHAS",
         abizena: "",
         telefonoa: "",
         azal_sentikorra: "",
@@ -170,12 +171,27 @@ var app = new Vue({
           document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
           document.getElementById('ventanaEmergenteFichas').style.display = 'none';
         },
+        tituluAldatu(){
+          var scriptAnterior = document.getElementById("scriptDinamico");
+          if (scriptAnterior) {
+              scriptAnterior.remove();
+          }
+          var nuevoScript = document.createElement("script");
+          nuevoScript.id = "scriptDinamico";
+          nuevoScript.onload = function() {
+              console.log("Script cargado exitosamente");
+          };
+          nuevoScript.innerHTML = "var menu = new Vue({el: '#menu',data: {titulo: '"+this.titulua+"'},});";
+          document.body.appendChild(nuevoScript);
+      },
     },
     
     watch:{
 
     },
     mounted: function() {
-        this.sacarFichas();
+        this.sacarFichas().then(() => {
+          this.tituluAldatu();
+      });
       }
 });
