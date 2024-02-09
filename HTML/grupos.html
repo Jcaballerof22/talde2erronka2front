@@ -13,11 +13,12 @@
         
         <div id="fondoOscuroGrupos" class="fondo-oculto"></div>
         <div id="app">
+            <!--   Menua linkatzeko           -->
             <div class="contenido" id="orrialdea"></div>
             <div id="ventanaEmergenteGrupos" class="ventana-oculta">
                 <div class="contenido-ventana">
                     <div>
-                    <!-- Contenido de la ventana -->
+                    <!-- Editatzeko/Txertatzeko popup-a -->
                     <!-- <button type="button" class="btn-close" aria-label="Close" id="cerrarVentanaGrupos"></button> -->
                     <div class="input-group-horarios">
                         <button type="button" id="cerrarVentanaGrupos" class="btn x" @click="ocultarVentana()">
@@ -37,7 +38,7 @@
             </div>
             <div class="containerPage">
                 
-
+                <!--     Botoiak/Bilatzailea    -->
                 <div class="input-group">
                     <input type="text" class="form-control buscar" placeholder="Buscar por nombre" v-model="bilatu">
                     <div class="input-group-append">
@@ -48,7 +49,7 @@
                     </div>
                     
                 </div>
-
+                <!--  Taula    -->
                 <table id="tabla" class="table table-hover table-striped">
                     <thead>
                     <tr>
