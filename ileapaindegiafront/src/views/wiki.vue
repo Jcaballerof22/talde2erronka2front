@@ -1,3 +1,3 @@
 <template>
-<a>Funtziona</a>
+    <a>Funtziona</a>
 </template>

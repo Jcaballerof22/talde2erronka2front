@@ -2,7 +2,7 @@
 <template>
   <div id="menu">
     <header>
-      <h1 id="titulo">TITULO D:</h1>
+      <h1 id="titulo">{{ titulua }}</h1>
       <div class="hroles">
         <p>Mostrador: Julio</p>
         <p>Limpieza: Mikel</p>
@@ -14,7 +14,7 @@
     <div class="menu-container" @mouseover="openMenu" @mouseout="closeMenu">
       <div class="menu">
         <ul class="menu-items">
-          <a href="home">
+          <a href="/">
             <li>
               <img src="../IMG/home.png" alt="Menu Icon" class="menu-icon">
               <span class="menu-text"><b>Home</b></span>
@@ -75,8 +75,17 @@
 </template>
 
 <script>
+
 export default {
+  computed: {
+    // Titulua aldatzeko
+    titulua() {
+      const route = this.$router.currentRoute.value;
+      return route.meta && route.meta.title ? route.meta.title : 'Pagina sin titulo';
+    }
+  },
   methods: {
+    // Menua funtzionatzeko
     openMenu() {
       var menuContainer = document.querySelector('.menu-container');
       var menuTexts = menuContainer.querySelectorAll('.menu-text');
@@ -102,4 +111,5 @@ export default {
     }
   }
 };
+
 </script>
