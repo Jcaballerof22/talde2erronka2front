@@ -9,7 +9,7 @@ import taldeak from './views/Taldeak.vue'
 import estatistikak from './views/Estatistikak.vue'
 import historiala from './views/Historiala.vue'
 import ticket from './views/Ticket.vue'
-
+import fitxa from './views/Fitxa.vue'
 
  
 const routes = [
@@ -83,6 +83,14 @@ const routes = [
         component: ticket,
         meta: {
             title: 'TICKET'
+        }
+    },
+    {
+        name: 'fitxa',
+        path: '/fichas',
+        component: fitxa,
+        meta: {
+            title: 'FITXA'
         }
     },
     

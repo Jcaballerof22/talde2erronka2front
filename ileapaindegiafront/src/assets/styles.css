@@ -8,12 +8,13 @@ header{
     height: 13vh;
     margin-bottom: 10vh;
     /* margin-left: -8vw; */
-    background-color: #E99857;
+    background-color: #56778C;
     font-size: 5vh;
     display: flex;
     justify-content: center;
     align-items: center;
     position: fixed;
+    color: white;
 }
 
 h1{
@@ -29,7 +30,8 @@ h1{
 
 .logout{
     width: 8vh;
-}
+    filter: invert();
+  }
 
 /* Menu */
 
@@ -45,7 +47,7 @@ body, html {
     left: 0;
     height: 100%;
     width: 100px; 
-    background-color: #CDDFA0;
+    background-color: #63A6A6;
     overflow-x: hidden;
     transition: 0.5s;
     margin-top: 13vh;
@@ -108,7 +110,7 @@ body, html {
   }
 
   li:hover{
-    background-color: #74961C;
+    background-color: #A7D9B8;
   }
 
 /* Contenido */

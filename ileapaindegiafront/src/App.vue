@@ -5,7 +5,6 @@
 <template>
   <Menu></Menu>
   <router-view></router-view>
-  a {{ title }}
 </template>
 
 <style scoped>

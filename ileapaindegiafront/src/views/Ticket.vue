@@ -1,4 +1,5 @@
 <template>
     <a>Funtziona</a>
-    <div></div>
+    <div class="containerPage">
+    </div>
 </template>
