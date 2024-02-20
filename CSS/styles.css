@@ -29,6 +29,7 @@ h1{
 
 .logout{
     width: 8vh;
+    margin-left: 20%;
 }
 
 /* Menu */
@@ -692,4 +693,28 @@ body{
 
 #finalizarCitasPost{
   margin-left: 13%;
+}
+
+.traducir{
+  margin-right: 3%;
+  margin-left: -2%;
+}
+
+#esp{
+  font-size: large;
+  margin-right: 20%;
+  border-radius: 15%;
+}
+
+#eus{
+  font-size: large;
+  border-radius: 15%;
+}
+
+#esp:hover {
+  background-color: #E26B6B;
+}
+
+#eus:hover {
+  background-color: #CDDFA0;
 }

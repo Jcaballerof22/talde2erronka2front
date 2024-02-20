@@ -18,7 +18,13 @@
                 <p>Mostrador: Julio</p>
                 <p>Limpieza: Mikel</p>
             </div>
-            <a :href="'login/HTML/login.html'"><img class="logout" src="../IMG/logout.png" alt="logout" onclick="window.location.href='login/HTML/login.html'"></a>
+            <div id="appa">
+                <a :href="'login/HTML/login.html'"><img class="logout" src="../IMG/logout.png" alt="logout" onclick="window.location.href='login/HTML/login.html'"></a>
+                <div class="traducir" style="display: flex;">
+                    <button id="esp" @click="traducir('esp')">ESP</button>
+                    <button id="eus" @click="traducir('eus')">EUS</button>
+                </div>
+            </div>
         </header>
         <div class="menu-container">
             <div class="menu" onmouseover="openMenu()" onmouseout="closeMenu()">
@@ -26,55 +32,56 @@
                 <a href="../HTML/home.html">
                     <li>
                         <img src="../IMG/home.png" alt="Menu Icon" class="menu-icon">
-                        <span class="menu-text"><b>Home</b></span>
+                        <span class="menu-text" id="Home"><b>Home</b></span>
                     </li>
                 </a>
                 <a href="../HTML/productos.html">
                     <li>
                         <img src="../IMG/productos.png" alt="Image 1" class="menu-icon">
-                        <span class="menu-text"><b>Productos</b></span>
+                        <span class="menu-text" id="Productos"><b>Productos</b></span>
                     </li>
                 </a>
                 <a href="../HTML/material.html">
                     <li>
                         <img src="../IMG/material.png" alt="Image 2" class="menu-icon">
-                        <span class="menu-text"><b>Material</b></span>
+                        <span class="menu-text" id="Material"><b>Material</b></span>
+                        <!-- <span class="menu-text" id="Material"><b>{{ traducciones.Material }}</b></span> -->
                     </li>
                 </a>
                 <a href="../HTML/alumnos.html">
                     <li>
                         <img src="../IMG/alumnos.png" alt="Image 3" class="menu-icon">
-                        <span class="menu-text"><b>Alumnos</b></span>
+                        <span class="menu-text" id="Alumnos"><b>Alumnos</b></span>
                     </li>
                 </a>
                 <a href="../HTML/grupos.html">
                     <li>
                         <img src="../IMG/grupos.png" alt="Image 3" class="menu-icon">
-                        <span class="menu-text"><b>Grupos</b></span>
+                        <span class="menu-text" id="Grupos"><b>Grupos</b></span>
                     </li>
                 </a>
                 <a href="../HTML/estadisticas.html">
                     <li>
                         <img src="../IMG/estadisticas.png" alt="Image 3" class="menu-icon">
-                        <span class="menu-text"><b>Estadísticas</b></span>
+                        <span class="menu-text" id="Estadísticas"><b>Estadísticas</b></span>
                     </li>
                 </a>
                 <a href="../HTML/historial.html">
                     <li>
                         <img src="../IMG/historial.png" alt="Image 3" class="menu-icon">
-                        <span class="menu-text"><b>Historial</b></span>
+                        <span class="menu-text" id="Historial"><b>Historial</b></span>
                     </li>
                 </a>
                 <a href="../HTML/tickets.html">
                     <li>
                         <img src="../IMG/tikets.png" alt="Image 3" class="menu-icon">
-                        <span class="menu-text"><b>Tickets</b></span>
+                        <span class="menu-text" id="Tickets"><b>Tickets</b></span>
                 </li>
                 </a>
                 <a href="../HTML/fichas.html">
                     <li>
                         <img src="../IMG/fichas.png" alt="Image 3" class="menu-icon">
-                        <span class="menu-text"><b>Fichas</b></span>
+                        <span class="menu-text" id="Fichas"><b>Fichas</b></span>
                     </li>
                 </a>
             </ul>
