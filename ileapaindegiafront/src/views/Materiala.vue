@@ -7,14 +7,77 @@ export default {
   },
   data() {
     return {
-      zutabeak: ["Diluc", "Jean", "Mona", "Keqing", "Zhongli"],
-      lerroak:  [["Pyro", "Claymore"],["Anemo", "Espada"],["Hydro", "Catalizador"],["Electro", "Espada"],["Geo", "Polearm"]]
+      izena: "",
+        etiketa: "",
+        aldatu: '',
+        bilatu: '',
+        kodea: "",
+        idlangile: "",
+        idMaterial: "",
+        datos: [],
+        datosMaterialR: [],
+        datosTalde : [],
+        datosAlumnos : [],
+        datosColorMaterialR: [],
+        taula: [],
+        resultadosCompletos: [],
+        colorSeleccionado: null,
     };
   },
   methods: {
     alerta(color){
         alert(color)
+    },
+    async fetchData(){
+      try {
+        console.log('La instancia Vue se ha montado en el DOM.');
+      
+        const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala', {
+            method: 'GET',
+            mode: 'cors'
+        });
+      
+        const data = await response.json();
+      
+        console.log(data);
+      
+        for (let i = 0; i < data.length; i++) {
+            console.log("Entraaaa ");
+            var datosColorMaterialR = this.segundaLlamada(data[i].id);
+      
+            this.datos.push({
+                "etiketa": data[i].etiketa,
+                "izena": data[i].izena,
+                "id": data[i].id,
+                "id_langilea": datosColorMaterialR[0].id_langilea,
+                "amaiera_data": datosColorMaterialR[0].amaiera_data
+            });
+        }
+      
+      } catch (error) {
+        console.error('Error al obtener los datos:', error);
+      }
     }
+    
+  },
+  async segundaLlamada(id){
+    try {
+          
+      const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materialaF/' + id, {
+        method: 'GET',
+        mode: 'cors'
+    });
+
+      const datosColorMaterialR = await response.json();
+      console.log(datosColorMaterialR);
+      return datosColorMaterialR;
+            
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  mounted: function() {
+    this.fetchData();
   }
   // Otro código de la vista
 }
@@ -40,7 +103,7 @@ export default {
                     </thead>
                     <tbody>
                         <!-- Datuak v-for batekin erakusten dira, hauetan klikatzerakoan editatu ahal izateko edo erreserbatzeko funtzionalitatea emanda -->
-                        <tr v-for="(dato, index) in datosFiltrados" :key="index" :id="dato.id">
+                        <tr v-for="(dato, index) in datos" :key="index" :id="dato.id">
                           <!-- <td @click="abrirPopup(dato.etiketa, dato.izena, dato.id)">{{ dato.etiketa }}</td>
                           <td @click="abrirPopup(dato.etiketa, dato.izena, dato.id)" maxlength="100">{{ dato.izena }}</td> -->
                           <td style="display: flex; justify-content: center; width: 100%;">
