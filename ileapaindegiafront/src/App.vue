@@ -1,9 +1,13 @@
 <script setup>
+  import {ref} from "vue";
   import Menu from './components/Menu.vue'
+  const translate = (hizkuntza) => {
+    sessionStorage.setItem("hizkuntza", hizkuntza);
+  }
 </script>
 
 <template>
-  <Menu></Menu>
+  <Menu  @translate = "translate"></Menu>
   <router-view></router-view>
 </template>
 

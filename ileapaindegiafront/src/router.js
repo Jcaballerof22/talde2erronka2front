@@ -93,7 +93,6 @@ const routes = [
             title: 'FITXA'
         }
     },
-    
 ]
 
 

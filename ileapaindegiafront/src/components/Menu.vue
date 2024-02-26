@@ -1,3 +1,28 @@
+<script setup>
+  const hizkuntza = getSessionValue()
+  var text = getText();
+  alert(text);
+  
+  const emit = defineEmits(['translate']);
+
+
+
+  //Funtzioak
+  function getSessionValue() {
+    var value = sessionStorage.getItem('hizkuntza');
+    return value !== null ? value : 'ESP'; // Si el valor es null, devuelve 'a'
+  } 
+
+  function getText() {
+    import('../json/'+hizkuntza+'/Menu.json').then((modulo) => {
+      alert(modulo['a']);
+      return modulo['a'];
+    }).catch((error) => {
+        console.error('Error al importar moduloA:', error);
+        return 'error'
+    });
+  }
+</script>
 
 <template>
   <div id="menu">
@@ -7,9 +32,17 @@
         <p>Mostrador: Julio</p>
         <p>Limpieza: Mikel</p>
       </div>
-      <a :href="'login/login'">
-        <img class="logout" src="../IMG/logout.png" alt="logout" @click="goToLogin()">
-      </a>
+      
+      <div class="">
+        <div class="text-center">
+          <a :href="'login/HTML/login.html'"><img class="logout" src="../IMG/logout.png" alt="logout" onclick="window.location.href='login/HTML/login.html'"></a>
+        </div>
+        <div class="" style="display: flex;">
+            <button class="btn text-center" @click="emit('translate','ESP')">ESP</button>
+            <button class="btn text-center" @click="emit('translate','EUS')">EUS</button>
+        </div>
+      </div>
+     
     </header>
     <div class="menu-container" @mouseover="openMenu" @mouseout="closeMenu">
       <div class="menu">
@@ -75,41 +108,39 @@
 </template>
 
 <script>
-
-export default {
-  computed: {
-    // Titulua aldatzeko
-    titulua() {
-      const route = this.$router.currentRoute.value;
-      return route.meta && route.meta.title ? route.meta.title : 'Pagina sin titulo';
-    }
-  },
-  methods: {
-    // Menua funtzionatzeko
-    openMenu() {
-      var menuContainer = document.querySelector('.menu-container');
-      var menuTexts = menuContainer.querySelectorAll('.menu-text');
-
-      menuContainer.style.width = '250px';
-
-      menuTexts.forEach(function (text) {
-        text.style.display = 'inline';
-      });
+  export default {
+    computed: {
+      // Titulua aldatzeko
+      titulua() {
+        const route = this.$router.currentRoute.value;
+        return route.meta && route.meta.title ? route.meta.title : 'Pagina sin titulo';
+      }
     },
-    closeMenu() {
-      var menuContainer = document.querySelector('.menu-container');
-      var menuTexts = menuContainer.querySelectorAll('.menu-text');
+    methods: {
+      // Menua funtzionatzeko
+      openMenu() {
+        var menuContainer = document.querySelector('.menu-container');
+        var menuTexts = menuContainer.querySelectorAll('.menu-text');
 
-      menuContainer.style.width = '100px';
+        menuContainer.style.width = '250px';
 
-      menuTexts.forEach(function (text) {
-        text.style.display = 'none';
-      });
-    },
-    goToLogin() {
-      window.location.href = 'login/login';
+        menuTexts.forEach(function (text) {
+          text.style.display = 'inline';
+        });
+      },
+      closeMenu() {
+        var menuContainer = document.querySelector('.menu-container');
+        var menuTexts = menuContainer.querySelectorAll('.menu-text');
+
+        menuContainer.style.width = '100px';
+
+        menuTexts.forEach(function (text) {
+          text.style.display = 'none';
+        });
+      },
+      goToLogin() {
+        window.location.href = 'login/login';
+      }
     }
-  }
-};
-
+  };
 </script>
