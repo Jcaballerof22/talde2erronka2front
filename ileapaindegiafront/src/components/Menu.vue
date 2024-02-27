@@ -1,15 +1,5 @@
 <script setup>
-  const hizkuntza = getSessionValue()
   const emit = defineEmits(['translate']);
-
-
-
-  //Funtzioak
-  function getSessionValue() {
-    var value = sessionStorage.getItem('hizkuntza');
-    return value !== null ? value : 'ESP'; // Si el valor es null, devuelve 'a'
-  } 
-
 </script>
 
 <template>

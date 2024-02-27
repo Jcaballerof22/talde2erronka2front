@@ -1,0 +1,14 @@
+{
+    "EUS": {
+        "Global" : {"Aceptar" : "Aceptar"},
+        "Home" : {"titulo": "Home"},
+        "Productos" : {"titulo": "Productos"},
+        "Material" : {"titulo": "Material"},
+        "Alumnos" : {"titulo": "Alumnos"},
+        "Grupos" : {"titulo": "Grupos"},
+        "Estadísticas" : {"titulo": "Estadísticas"},
+        "Historial" : {"titulo": "Historial"},
+        "Tickets" : {"titulo": "Tickets"},
+        "Fichas" : {"titulo": "Tickets"}
+    }
+}
