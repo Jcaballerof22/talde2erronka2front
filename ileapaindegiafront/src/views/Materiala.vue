@@ -51,7 +51,8 @@ export default {
                 "amaiera_data": data[i].amaiera_data
             });
         }
-      
+        
+        this.filtrado();
       } catch (error) {
         console.error('Error al obtener los datos:', error);
       }
@@ -67,6 +68,9 @@ export default {
       var repetido;
       var idsUsados = [];
 
+      console.log(this.datos);
+      console.log(this.datos.length);
+      console.log(JSON.parse(JSON.stringify(this.datos)));
       for (let i = 0; i < this.datos.length; i++) {
 
         repetido = false;
@@ -103,13 +107,13 @@ export default {
       }
 
       console.log(this.datosFiltrados);
+      console.log(JSON.parse(JSON.stringify(this.datosFiltrados)));
 
     }
     
   },
   mounted: function() {
     this.fetchData();
-    this.filtrado();
   }
   // Otro código de la vista
 }
