@@ -1,21 +1,17 @@
 <script setup>
   import {ref} from "vue";
-  import text from './assets/text.json';
   import Menu from './components/Menu.vue'
-  //Funtzioak
-  function getSessionValue() {
-    var value = sessionStorage.getItem('hizkuntza');
-    return value !== null ? value : 'ESP'; // Si el valor es null, devuelve 'a'
-  } 
 
+  //Funtzioak
   const translate = (hizkuntza) => {
     sessionStorage.setItem("hizkuntza", hizkuntza);
+    window.location.reload();
   }
 
 </script>
 
 <template>
-  <Menu  @translate = "translate"></Menu>
+  <Menu  @translate = "translate" @hizkuntzaLortu = "hizkuntzaLortu"></Menu>
   <router-view></router-view>
 </template>
 

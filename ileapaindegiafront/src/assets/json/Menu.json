@@ -1,0 +1,24 @@
+{
+    "ESP": {
+        "Home": "Home",
+        "Productos": "Productos",
+        "Material": "Material",
+        "Alumnos": "Alumnos",
+        "Grupos": "Grupos",
+        "Estadísticas": "Estadísticas",
+        "Historial": "Historial",
+        "Tickets": "Tickets",
+        "Fichas": "Fichas"
+    },
+    "EUS": {
+        "Home": "Hasiera",
+        "Productos": "Produktuak",
+        "Material": "Materiala",
+        "Alumnos": "Ikasleak",
+        "Grupos": "Taldeak",
+        "Estadísticas": "Estatistikak",
+        "Historial": "Historia",
+        "Tickets": "Txartelak",
+        "Fichas": "Fitxak"
+    }
+}

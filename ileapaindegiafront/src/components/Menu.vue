@@ -1,9 +1,13 @@
 <script setup>
+  import text from "../assets/json/Menu.json";
   import {ref} from "vue";
-      defineProps({
-          text:{}
-  });
   const emit = defineEmits(['translate']);
+  var hizkuntza =  hizkuntzaLortu();
+  function hizkuntzaLortu () {
+    var value = sessionStorage.getItem('hizkuntza');
+    return value !== null ? value : 'ESP';
+  } 
+  console.log(hizkuntza);
 </script>
 
 <template>
@@ -32,55 +36,55 @@
           <a href="/">
             <li>
               <img src="../IMG/home.png" alt="Menu Icon" class="menu-icon">
-              <span class="menu-text"><b>Home</b></span>
+              <span class="menu-text"><b>{{text[hizkuntza]["Home"]}}</b></span>
             </li>
           </a>
           <a href="productos">
               <li>
                 <img src="../IMG/productos.png" alt="Image 1" class="menu-icon">
-                <span class="menu-text"><b>Productos</b></span>
+                <span class="menu-text"><b>{{text[hizkuntza]["Productos"]}}</b></span>
               </li>
             </a>
             <a href="material">
               <li>
                 <img src="../IMG/material.png" alt="Image 2" class="menu-icon">
-                <span class="menu-text"><b>Material</b></span>
+                <span class="menu-text"><b>{{text[hizkuntza]["Material"]}}</b></span>
               </li>
             </a>
             <a href="alumnos">
               <li>
                 <img src="../IMG/alumnos.png" alt="Image 3" class="menu-icon">
-                <span class="menu-text"><b>Alumnos</b></span>
+                <span class="menu-text"><b>{{text[hizkuntza]["Alumnos"]}}</b></span>
               </li>
             </a>
             <a href="grupos">
               <li>
                 <img src="../IMG/grupos.png" alt="Image 3" class="menu-icon">
-                <span class="menu-text"><b>Grupos</b></span>
+                <span class="menu-text"><b>{{text[hizkuntza]["Grupos"]}}</b></span>
               </li>
             </a>
             <a href="estadisticas">
               <li>
                 <img src="../IMG/estadisticas.png" alt="Image 3" class="menu-icon">
-                <span class="menu-text"><b>Estadísticas</b></span>
+                <span class="menu-text"><b>{{text[hizkuntza]["Estadísticas"]}}</b></span>
               </li>
             </a>
             <a href="historial">
               <li>
                 <img src="../IMG/historial.png" alt="Image 3" class="menu-icon">
-                <span class="menu-text"><b>Historial</b></span>
+                <span class="menu-text"><b>{{text[hizkuntza]["Historial"]}}</b></span>
               </li>
             </a>
             <a href="tickets">
               <li>
                 <img src="../IMG/tikets.png" alt="Image 3" class="menu-icon">
-                <span class="menu-text"><b>Tickets</b></span>
+                <span class="menu-text"><b>{{text[hizkuntza]["Tickets"]}}</b></span>
               </li>
             </a>
             <a href="fichas">
               <li>
                 <img src="../IMG/fichas.png" alt="Image 3" class="menu-icon">
-                <span class="menu-text"><b>Fichas</b></span>
+                <span class="menu-text"><b>{{text[hizkuntza]["Fichas"]}}</b></span>
               </li>
             </a>
         </ul>

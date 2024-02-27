@@ -121,7 +121,8 @@ body, html {
 .containerPage{
   padding-top: 20vh;
   padding-left: 10vw;
-  padding-right: 10vw;
+  /* padding-right: 10vw; */
+  padding-right: 5vw;
 }
 
 /* Contenido productos */
