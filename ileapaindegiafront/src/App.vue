@@ -1,5 +1,6 @@
 <script setup>
-  import Menu from './components/Menu.vue'
+  import Menu from './components/Menu.vue';
+  import './assets/styles.css';
 </script>
 
 <template>
