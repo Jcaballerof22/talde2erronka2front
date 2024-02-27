@@ -1,8 +1,5 @@
 <script setup>
   const hizkuntza = getSessionValue()
-  var text = getText();
-  alert(text);
-  
   const emit = defineEmits(['translate']);
 
 
@@ -13,15 +10,6 @@
     return value !== null ? value : 'ESP'; // Si el valor es null, devuelve 'a'
   } 
 
-  function getText() {
-    import('../json/'+hizkuntza+'/Menu.json').then((modulo) => {
-      alert(modulo['a']);
-      return modulo['a'];
-    }).catch((error) => {
-        console.error('Error al importar moduloA:', error);
-        return 'error'
-    });
-  }
 </script>
 
 <template>
