@@ -18,7 +18,7 @@ export default {
         // Rolen datuak lortzeko metodoa (zein ikasle egon den rol bakoitzean eta zenbat aldiz)
         async tablaRoles() {
           try {
-            const response = await fetch(`http://localhost/talde2erronka2back/Erronka2/public/api/roles/historial`, { method: 'GET' });
+            const response = await fetch(window.ruta + `roles/historial`, { method: 'GET' });
         
             if (!response.ok) {
               throw new Error(`Error en la solicitud: ${response.statusText}`);
@@ -42,7 +42,7 @@ export default {
       // Produktuen mugimenduen datuak lortzeko metodoa
       async tablaProductos() {
           try {
-            const response = await fetch(`../../talde2erronka2back/Erronka2/public/api/productos/mugimenduguztiak`, { method: 'GET' });
+            const response = await fetch(window.ruta + `productos/mugimenduguztiak`, { method: 'GET' });
         
             if (!response.ok) {
               throw new Error(`Error en la solicitud: ${response.statusText}`);
@@ -66,7 +66,7 @@ export default {
       // Materialaren mugimenduen datuak lortzeko metodoa
       async tablaMaterial() {
           try {
-            const response = await fetch(`../../talde2erronka2back/Erronka2/public/api/materiala/mugimenduak`, { method: 'GET' });
+            const response = await fetch(window.ruta + `materiala/mugimenduak`, { method: 'GET' });
         
             if (!response.ok) {
               throw new Error(`Error en la solicitud: ${response.statusText}`);
