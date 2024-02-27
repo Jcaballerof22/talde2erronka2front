@@ -15,6 +15,7 @@ export default {
         idlangile: "",
         idMaterial: "",
         datos: [],
+        datosFiltrados: [],
         datosMaterialR: [],
         datosTalde : [],
         datosAlumnos : [],
@@ -30,9 +31,8 @@ export default {
     },
     async fetchData(){
       try {
-        console.log('La instancia Vue se ha montado en el DOM.');
       
-        const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala', {
+        const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materialaN', {
             method: 'GET',
             mode: 'cors'
         });
@@ -42,42 +42,74 @@ export default {
         console.log(data);
       
         for (let i = 0; i < data.length; i++) {
-            console.log("Entraaaa ");
-            var datosColorMaterialR = this.segundaLlamada(data[i].id);
-      
             this.datos.push({
                 "etiketa": data[i].etiketa,
                 "izena": data[i].izena,
                 "id": data[i].id,
-                "id_langilea": datosColorMaterialR[0].id_langilea,
-                "amaiera_data": datosColorMaterialR[0].amaiera_data
+                "id_langilea": data[i].id_langilea,
+                "id_materiala": data[i].id_materiala,
+                "amaiera_data": data[i].amaiera_data
             });
         }
       
       } catch (error) {
         console.error('Error al obtener los datos:', error);
       }
+    },
+
+    filtrado(){
+      var ida;
+      var id_langileaa;
+      var id_materialaa;
+      var amaiera_dataa;
+      var etiketaa;
+      var izenaa;
+      var repetido;
+      var idsUsados = [];
+
+      for (let i = 0; i < this.datos.length; i++) {
+
+        repetido = false;
+        ida = this.datos[i].id;
+        id_langileaa = this.datos[i].id_langilea;
+        id_materialaa = this.datos[i].id_materiala;
+        amaiera_dataa = this.datos[i].amaiera_data;
+        etiketaa = this.datos[i].etiketa;
+        izenaa = this.datos[i].izena;
+
+        for (let b = 0; b < idsUsados.length; b++) {
+          if (idsUsados[b] == this.datos[i].id_materiala) {
+            repetido = true;
+          } else {
+
+          }
+        }
+
+        if (repetido) {
+          
+        } else {
+          this.datosFiltrados.push({
+                "etiketa": etiketaa,
+                "izena": izenaa,
+                "id": ida,
+                "id_langilea": id_langileaa,
+                "id_materiala": id_materialaa,
+                "amaiera_data": amaiera_dataa
+          });
+        }
+
+        idsUsados.push(this.datos[i].id_materiala);
+
+      }
+
+      console.log(this.datosFiltrados);
+
     }
     
   },
-  async segundaLlamada(id){
-    try {
-          
-      const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materialaF/' + id, {
-        method: 'GET',
-        mode: 'cors'
-    });
-
-      const datosColorMaterialR = await response.json();
-      console.log(datosColorMaterialR);
-      return datosColorMaterialR;
-            
-    } catch (error) {
-      console.log(error);
-    }
-  },
   mounted: function() {
     this.fetchData();
+    this.filtrado();
   }
   // Otro código de la vista
 }
