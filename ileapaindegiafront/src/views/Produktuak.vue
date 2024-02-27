@@ -1,27 +1,31 @@
 <script>
+import { ref } from "vue";
+import taula from '../components/Taula.vue'
 export default {
-  data() {
-    return {
-        datosKategoria: [],
-        datosProduk: [],
-        datosEditatu: [],
-        taula: [],
-        bilatu:'',
-        kategoriak:'all',
-        id:'',
-        izena:'',
-        marka:'',
-        kategoria:'',
-        deskribapena:'',
-        stock:'',
-        stock_alerta:'',
-        titulua: 'PRODUCTOS',
-        sazkia: [],
-        langileak: [],
-        langilea:'',
-    };
-  },
-  methods:{
+    components: {
+        taula
+    },
+    data() {
+        return {
+            datosKategoria: [],
+            datosProduk: [],
+            datosEditatu: [],
+            taula: [],
+            bilatu:'',
+            kategoriak:'all',
+            id:'',
+            izena:'',
+            marka:'',
+            kategoria:'',
+            deskribapena:'',
+            stock:'',
+            stock_alerta:'',
+            sazkia: [],
+            langileak: [],
+            langilea:'',
+        };
+    },
+    methods:{
         async produktuakGet() {
             try {
               const response = await fetch(window.ruta + 'productos', { method: 'GET' });
@@ -31,74 +35,59 @@ export default {
         
               const data = await response.json();
               this.datosProduk = data;
-              this.tituluAldatu();
               this.taula = this.datosProduk;
             } catch (error) {
               console.error('Error fetching productos:', error);
             }
-          }
+          },
         
-    //     async kategoriakGet() {
-    //         try {
-    //           const response = await fetch(window.ruta + 'kategoria', { method: 'GET' });
-    //           if (!response.ok) {
-    //             throw new Error('Network response was not ok');
-    //           }
+        async kategoriakGet() {
+            try {
+              const response = await fetch(window.ruta + 'kategoria', { method: 'GET' });
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
         
-    //           const data = await response.json();
-    //           console.log(data);
-    //           this.datosKategoria = data;
-    //           console.log(this.datosKategoria);
-    //         } catch (error) {
-    //           console.error('Error fetching categorias:', error);
-    //         }
-    //     },
+              const data = await response.json();
+              console.log(data);
+              this.datosKategoria = data;
+              console.log(this.datosKategoria);
+            } catch (error) {
+              console.error('Error fetching categorias:', error);
+            }
+        },
 
-    //     ocultarVentana() {
-    //         document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
-    //         document.getElementById('tablaEditarP').style.display = 'none';
-    //     },
-    //     abrirPopup(id){
-    //         this.aldatu=id;
-    //         this.id=id;
-    //         if(id != ''){
-    //             for(let i = 0; i < this.datosProduk.length; i++){
-    //                 if(this.datosProduk[i].id == id){
-    //                     this.izena = this.datosProduk[i].izena;
-    //                     this.marka = this.datosProduk[i].marka;
-    //                     this.kategoria = this.datosProduk[i].id_kategoria;
-    //                     this.deskribapena = this.datosProduk[i].deskribapena;
-    //                     this.stock = this.datosProduk[i].stock;
-    //                     this.stock_alerta = this.datosProduk[i].stock_alerta;
+        ocultarVentana() {
+            document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
+            document.getElementById('tablaEditarP').style.display = 'none';
+        },
+        abrirPopup(id){
+            this.aldatu=id;
+            this.id=id;
+            if(id != ''){
+                for(let i = 0; i < this.datosProduk.length; i++){
+                    if(this.datosProduk[i].id == id){
+                        this.izena = this.datosProduk[i].izena;
+                        this.marka = this.datosProduk[i].marka;
+                        this.kategoria = this.datosProduk[i].id_kategoria;
+                        this.deskribapena = this.datosProduk[i].deskribapena;
+                        this.stock = this.datosProduk[i].stock;
+                        this.stock_alerta = this.datosProduk[i].stock_alerta;
                         
-    //                 }
-    //             }
-    //         }else{
-    //             this.izena = '';
-    //             this.marka = '';
-    //             this.kategoria = '';
-    //             this.deskribapena = '';
-    //             this.stock = '';
-    //             this.stock_alerta = '';
-    //         }
+                    }
+                }
+            }else{
+                this.izena = '';
+                this.marka = '';
+                this.kategoria = '';
+                this.deskribapena = '';
+                this.stock = '';
+                this.stock_alerta = '';
+            }
             
-    //         document.getElementById('fondoOscuro').classList.add('mostrar-fondo');
-    //         document.getElementById('tablaEditarP').style.display = 'block';
-    //     },
-
-    //     tituluAldatu(){
-    //         var scriptAnterior = document.getElementById("scriptDinamico");
-    //         if (scriptAnterior) {
-    //             scriptAnterior.remove();
-    //         }
-    //         var nuevoScript = document.createElement("script");
-    //         nuevoScript.id = "scriptDinamico";
-    //         nuevoScript.onload = function() {
-    //             console.log("Script cargado exitosamente");
-    //         };
-    //         nuevoScript.innerHTML = "var menu = new Vue({el: '#menu',data: {titulo: '"+this.titulua+"'},});"; // Asigna el nombre del script según la opción
-    //         document.body.appendChild(nuevoScript);
-    //     },
+            document.getElementById('fondoOscuro').classList.add('mostrar-fondo');
+            document.getElementById('tablaEditarP').style.display = 'block';
+        }
 
     //     async ezabatu(id) {
     //         const js = JSON.stringify({"id": id}); 
@@ -366,9 +355,9 @@ export default {
                     </tbody>
                 </table>
             </div>
-        </div>
-           Popup txertatu/editatu    
-        <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
+        </div> -->
+           <!-- Popup txertatu/editatu     -->
+        <!-- <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -429,8 +418,8 @@ export default {
                     </div>
                 </div>
             </div>
-        </div>
-        Popup Sazkia
+        </div> -->
+        <!-- Popup Saskia -->
         <div id="fondoOscuro" class="fondo-oculto" @click="ocultarVentana()"></div>
         <div class="tablaHorarios" id="tablaEditarP">
             <div class="contenidoTablaProd">
@@ -459,9 +448,9 @@ export default {
                     <input type="number" v-model="stock_alerta">
                 </div>
                 <div class="input-group-horarios">
-                    <button type="button" id="aceptarHorarios" class="btn añadir btn-lg" @click="txertatuEdoAldatu">Aceptar</button>
+                    <button type="button" id="aceptarHorarios" class="btn añadir btn-lg" @click="txertatuEdoAldatu()">Aceptar</button>
                     <button type="button" id="cancelarHorarios" class="btn cancelar btn-lg" @click="ocultarVentana()">Cancelar</button>
                 </div>
             </div>
-        </div> -->
+        </div>
 </template>
