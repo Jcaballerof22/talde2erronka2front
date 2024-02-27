@@ -1,4 +1,8 @@
 <script setup>
+  import {ref} from "vue";
+      defineProps({
+          text:{}
+  });
   const emit = defineEmits(['translate']);
 </script>
 
