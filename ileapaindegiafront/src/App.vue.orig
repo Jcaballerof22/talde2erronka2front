@@ -1,11 +1,14 @@
 <script setup>
+<<<<<<< HEAD
+  import Menu from './components/Menu.vue';
+  import './assets/styles.css';
+=======
   import {ref} from "vue";
   import Menu from './components/Menu.vue'
   const translate = (hizkuntza) => {
     sessionStorage.setItem("hizkuntza", hizkuntza);
   }
-  import Menu from './components/Menu.vue';
-  import './assets/styles.css';
+>>>>>>> 1b31a188ed07a9baf818eeaf861ed8e75e46f668
 </script>
 
 <template>
