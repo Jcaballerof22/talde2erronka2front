@@ -34,6 +34,7 @@ export default {
               });
             }
         
+            this.tituluAldatu();
           } catch (error) {
             console.error('Error al obtener datos del servidor:', error);
           }
@@ -98,7 +99,19 @@ export default {
           }
       },
       // Titulua aldatzeko metodoa
-     
+      tituluAldatu(){
+          var scriptAnterior = document.getElementById("scriptDinamico");
+          if (scriptAnterior) {
+              scriptAnterior.remove();
+          }
+          var nuevoScript = document.createElement("script");
+          nuevoScript.id = "scriptDinamico";
+          nuevoScript.onload = function() {
+              console.log("Script cargado exitosamente");
+          };
+          nuevoScript.innerHTML = "var menu = new Vue({el: '#menu',data: {titulo: '"+this.titulua+"'},});";
+          document.body.appendChild(nuevoScript);
+      }
     },
     mounted: function(){
       this.tablaRoles();
