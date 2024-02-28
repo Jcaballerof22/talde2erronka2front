@@ -45,6 +45,7 @@ export default {
             this.datos.push({
                 "etiketa": data[i].etiketa,
                 "izena": data[i].izena,
+                "ezabatze_data": data[i].ezabatze_data,
                 "id": data[i].id,
                 "id_langilea": data[i].id_langilea,
                 "id_materiala": data[i].id_materiala,
@@ -63,13 +64,12 @@ export default {
       var id_langileaa;
       var id_materialaa;
       var amaiera_dataa;
+      var ezabatze_dataa;
       var etiketaa;
       var izenaa;
       var repetido;
       var idsUsados = [];
 
-      console.log(this.datos);
-      console.log(this.datos.length);
       console.log(JSON.parse(JSON.stringify(this.datos)));
       for (let i = 0; i < this.datos.length; i++) {
 
@@ -80,6 +80,7 @@ export default {
         amaiera_dataa = this.datos[i].amaiera_data;
         etiketaa = this.datos[i].etiketa;
         izenaa = this.datos[i].izena;
+        ezabatze_dataa = this.datos[i].ezabatze_data;
 
         for (let b = 0; b < idsUsados.length; b++) {
           if (idsUsados[b] == this.datos[i].id_materiala) {
@@ -92,6 +93,9 @@ export default {
         if (repetido) {
           
         } else {
+          if (ezabatze_dataa != null) {
+            
+          } else {
           this.datosFiltrados.push({
                 "etiketa": etiketaa,
                 "izena": izenaa,
@@ -100,16 +104,34 @@ export default {
                 "id_materiala": id_materialaa,
                 "amaiera_data": amaiera_dataa
           });
+          }
         }
 
         idsUsados.push(this.datos[i].id_materiala);
 
       }
 
-      console.log(this.datosFiltrados);
       console.log(JSON.parse(JSON.stringify(this.datosFiltrados)));
 
-    }
+    },
+    async ezabatu(id) {
+      try {
+        var js = JSON.stringify({"id": id}); 
+        console.log("frogaBorrar: " + js);
+          
+        const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/ezabatu', {
+          method: 'PUT',
+          body: js
+        });
+          
+        const data = await response.text();
+        console.log(data);
+          
+        this.datos = this.datos.filter(aux => aux.id !== id);
+      } catch (error) {
+        console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+      }
+    },
     
   },
   mounted: function() {
@@ -139,9 +161,9 @@ export default {
                     </thead>
                     <tbody>
                         <!-- Datuak v-for batekin erakusten dira, hauetan klikatzerakoan editatu ahal izateko edo erreserbatzeko funtzionalitatea emanda -->
-                        <tr v-for="(dato, index) in datos" :key="index" :id="dato.id">
-                          <!-- <td @click="abrirPopup(dato.etiketa, dato.izena, dato.id)">{{ dato.etiketa }}</td>
-                          <td @click="abrirPopup(dato.etiketa, dato.izena, dato.id)" maxlength="100">{{ dato.izena }}</td> -->
+                        <tr v-for="(dato, index) in datosFiltrados" :key="index" :id="dato.id_materiala">
+                          <td>{{ dato.etiketa }}</td>
+                          <td maxlength="100">{{ dato.izena }}</td>
                           <td style="display: flex; justify-content: center; width: 100%;">
                             <!-- "dato.amaiera_data" kontuan izanda item-aren kolorea aldatzen, bakoitzari funtzionalitate desberdina emanda -->
                             <i v-if="dato.amaiera_data == null" class="bi bi-square-fill" style="color: #E26B6B;" @click="abrirDevolverMaterial(dato.id)"></i>
@@ -149,17 +171,8 @@ export default {
                           </td>
                           <td>
                             <!-- Materiala ezabatzeko funztioari deitzen dion item-a -->
-                            <i class="bi bi-trash-fill" @click="ezabatu(dato.id)"></i>
+                            <i class="bi bi-trash-fill" @click="ezabatu(dato.id_materiala)"></i>
                           </td>
-                        </tr>
-                        <tr>
-                            <td>aaaaaaa</td>
-                            <td>
-                                asasdad
-                            </td>
-                            <td>
-                                asuidhiasudfh
-                            </td>
                         </tr>
                       </tbody>  
                 </table>
