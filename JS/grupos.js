@@ -181,12 +181,6 @@ var app = new Vue({
       }
 });
 
-
-// document.getElementById('mostrarVentanaGrupos').addEventListener('click', function() {
-//     document.getElementById('fondoOscuroGrupos').classList.add('mostrar-fondo');
-//     document.getElementById('ventanaEmergenteGrupos').style.display = 'block';
-// });
-
 document.getElementById('cerrarVentanaGrupos').addEventListener('click', function() {
     ocultarVentana();
 });

@@ -1,10 +1,5 @@
 <script>
-import { ref } from "vue";
-import taula from '../components/Taula.vue';
 export default {
-    components: {
-        taula
-    },
     data() {
         return {
             datosKategoria: [],
