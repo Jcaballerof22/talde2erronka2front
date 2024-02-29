@@ -16,7 +16,7 @@ export default {
         idMaterial: "",
         datos: [],
         datosFiltrados: [],
-        datosMaterialR: [],
+        datosTodos: [],
         datosTalde : [],
         datosAlumnos : [],
         datosColorMaterialR: [],
@@ -30,6 +30,7 @@ export default {
         alert(color)
     },
     async fetchData(){
+      this.datosFiltrados = [];
       try {
       
         const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materialaN', {
@@ -40,7 +41,7 @@ export default {
         const data = await response.json();
       
         console.log(data);
-      
+        this.datos = [];
         for (let i = 0; i < data.length; i++) {
             this.datos.push({
                 "etiketa": data[i].etiketa,
@@ -112,10 +113,74 @@ export default {
       }
 
       console.log(JSON.parse(JSON.stringify(this.datosFiltrados)));
+      this.todosMaterial();
+    },
+
+    async todosMaterial(){
+      this.datosTodos = [];
+      console.log("Empieza el show");
+      try {
+      
+      const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala', {
+          method: 'GET',
+          mode: 'cors'
+      });
+    
+      const data = await response.json();
+    
+      console.log(data);
+    
+      for (let i = 0; i < data.length; i++) {
+          this.datosTodos.push({
+              "etiketa": data[i].etiketa,
+              "izena": data[i].izena,
+              "id": data[i].id
+          });
+      }
+      
+      } catch (error) {
+        console.error('Error al obtener los datos:', error);
+      }
+
+      this.todosFiltrado();
 
     },
+
+    todosFiltrado(){
+      var exist = 0;
+
+      for (let i = 0; i < this.datosTodos.length; i++) {
+        for (let a = 0; a < this.datosFiltrados.length; a++) {
+         
+          if (this.datosTodos[i].etiketa == this.datosFiltrados[a].etiketa) {
+            exist++;
+          } 
+
+        }
+
+        if (exist == 0) {
+          
+          this.datosFiltrados.push({
+                "etiketa": this.datosTodos[i].etiketa,
+                "izena": this.datosTodos[i].izena,
+                "id": "",
+                "id_langilea": "",
+                "id_materiala": this.datosTodos[i].id,
+                "amaiera_data": ""
+          });
+          exist = 0;
+        } else {
+          exist = 0;
+        }
+
+      }
+
+      console.log(this.datosFiltrados);
+    },
+
     async ezabatu(id) {
       try {
+
         var js = JSON.stringify({"id": id}); 
         console.log("frogaBorrar: " + js);
           
@@ -126,16 +191,21 @@ export default {
           
         const data = await response.text();
         console.log(data);
-          
+        console.log(this.datos);
+
         this.datos = this.datos.filter(aux => aux.id !== id);
+        console.log(this.datos);
       } catch (error) {
         console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
       }
+      
+      this.fetchData();
     },
     
   },
   mounted: function() {
     this.fetchData();
+    
   }
   // Otro código de la vista
 }
