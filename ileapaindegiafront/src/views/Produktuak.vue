@@ -1,10 +1,5 @@
 <script>
-import { ref } from "vue";
-import taula from '../components/Taula.vue'
 export default {
-    components: {
-        taula
-    },
     data() {
         return {
             datosKategoria: [],
@@ -87,210 +82,210 @@ export default {
             
             document.getElementById('fondoOscuro').classList.add('mostrar-fondo');
             document.getElementById('tablaEditarP').style.display = 'block';
-        }
+        },
 
-    //     async ezabatu(id) {
-    //         const js = JSON.stringify({"id": id}); 
-    //         console.log("froga: " + js);
+        async ezabatu(id) {
+            const js = JSON.stringify({"id": id}); 
+            console.log("froga: " + js);
             
-    //         try {
-    //             const response = await fetch(window.ruta + 'productos/ezabatu', {
-    //                 method: 'PUT',
-    //                 body: js
-    //             });
+            try {
+                const response = await fetch(window.ruta + 'productos/ezabatu', {
+                    method: 'PUT',
+                    body: js
+                });
 
-    //             const data = await response.text();
-    //             console.log(data);
+                const data = await response.text();
+                console.log(data);
 
-    //         } catch (error) {
-    //             console.error("Error al eliminar el registro:", error);
-    //             console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
-    //         }
-    //     },
+            } catch (error) {
+                console.error("Error al eliminar el registro:", error);
+                console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
+            }
+        },
 
-    //     async addDatuak() {
-    //         if (this.izena === "" || this.marka === "" || this.marka === "" || this.kategoria === "" || this.deskribapena === "" || this.stock === "" || this.stock_alerta === "") {
-    //             alert("Faltan datos");
-    //         } else {
-    //             try {
-    //                 const js = JSON.stringify({
-    //                     "izena": this.izena,
-    //                     "marka": this.marka,
-    //                     "kategoria": this.kategoria,
-    //                     "deskribapena": this.deskribapena,
-    //                     "stock": this.stock,
-    //                     "stock_alerta": this.stock_alerta
-    //                 });
+        async addDatuak() {
+            if (this.izena === "" || this.marka === "" || this.marka === "" || this.kategoria === "" || this.deskribapena === "" || this.stock === "" || this.stock_alerta === "") {
+                alert("Faltan datos");
+            } else {
+                try {
+                    const js = JSON.stringify({
+                        "izena": this.izena,
+                        "marka": this.marka,
+                        "kategoria": this.kategoria,
+                        "deskribapena": this.deskribapena,
+                        "stock": this.stock,
+                        "stock_alerta": this.stock_alerta
+                    });
 
-    //                 const response = await fetch(window.ruta + 'productos/txertatu', {
-    //                     method: 'POST',
-    //                     body: js,
-    //                     mode: 'no-cors'
-    //                 });
+                    const response = await fetch(window.ruta + 'productos/txertatu', {
+                        method: 'POST',
+                        body: js,
+                        mode: 'no-cors'
+                    });
 
-    //                 const data = await response.text();
+                    const data = await response.text();
 
-    //                 this.datosProduk.push({
-    //                     "izena": this.izena,
-    //                     "marka": this.marka,
-    //                     "kategoria": this.kategoria,
-    //                     "deskribapena": this.deskribapena,
-    //                     "stock": this.stock,
-    //                     "stock_alerta": this.stock_alerta,
-    //                     "id": data
-    //                 });
+                    this.datosProduk.push({
+                        "izena": this.izena,
+                        "marka": this.marka,
+                        "kategoria": this.kategoria,
+                        "deskribapena": this.deskribapena,
+                        "stock": this.stock,
+                        "stock_alerta": this.stock_alerta,
+                        "id": data
+                    });
 
-    //             } catch (error) {
-    //                 console.error("Error al añadir datos:", error);
-    //                 console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
-    //             }
-    //         }
-    //     },
+                } catch (error) {
+                    console.error("Error al añadir datos:", error);
+                    console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
+                }
+            }
+        },
 
-    //     txertatuEdoAldatu(){
-    //         if(this.aldatu != ''){
-    //             this.aldatuDatuak();
-    //         }else{
-    //             this.addDatuak();
-    //         }
-    //         document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
-    //         document.getElementById('tablaEditarP').style.display = 'none';
-    //     },
+        txertatuEdoAldatu(){
+            if(this.aldatu != ''){
+                this.aldatuDatuak();
+            }else{
+                this.addDatuak();
+            }
+            document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
+            document.getElementById('tablaEditarP').style.display = 'none';
+        },
 
-    //     async aldatuDatuak() {
+        async aldatuDatuak() {
 
-    //         const js = JSON.stringify({
-    //             "id": this.id,
-    //             "izena": this.izena,
-    //             "marka": this.marka,
-    //             "kategoria": this.kategoria,
-    //             "deskribapena": this.deskribapena,
-    //             "stock": this.stock,
-    //             "stock_alerta": this.stock_alerta
-    //         }); 
-    //         console.log("froga: " + js);
+            const js = JSON.stringify({
+                "id": this.id,
+                "izena": this.izena,
+                "marka": this.marka,
+                "kategoria": this.kategoria,
+                "deskribapena": this.deskribapena,
+                "stock": this.stock,
+                "stock_alerta": this.stock_alerta
+            }); 
+            console.log("froga: " + js);
             
-    //         try {
-    //             const response = await fetch(window.ruta + 'productos/editatu', {
-    //                 method: 'PUT',
-    //                 body: js
-    //             });
+            try {
+                const response = await fetch(window.ruta + 'productos/editatu', {
+                    method: 'PUT',
+                    body: js
+                });
 
-    //             const data = await response.text();
+                const data = await response.text();
 
-    //             for (let i = 0; i < this.datosProduk.length; i++) {
-    //                 if (this.datosProduk[i].id == this.aldatu) {
-    //                     this.datosProduk[i].izena = this.izena;
-    //                     this.datosProduk[i].marka = this.marka;
-    //                     this.datosProduk[i].kategoria = this.kategoria;
-    //                     this.datosProduk[i].deskribapena = this.deskribapena;
-    //                     this.datosProduk[i].stock = this.stock;
-    //                     this.datosProduk[i].stock_alerta = this.stock_alerta;
-    //                 }
-    //             }
-    //         } catch (error) {
-    //             console.error("Error al editar el dato:", error);
-    //             console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
-    //         }
-    //     },
+                for (let i = 0; i < this.datosProduk.length; i++) {
+                    if (this.datosProduk[i].id == this.aldatu) {
+                        this.datosProduk[i].izena = this.izena;
+                        this.datosProduk[i].marka = this.marka;
+                        this.datosProduk[i].kategoria = this.kategoria;
+                        this.datosProduk[i].deskribapena = this.deskribapena;
+                        this.datosProduk[i].stock = this.stock;
+                        this.datosProduk[i].stock_alerta = this.stock_alerta;
+                    }
+                }
+            } catch (error) {
+                console.error("Error al editar el dato:", error);
+                console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
+            }
+        },
 
-    //     addKarrito(prod){
-    //         aux = false;
-    //         if (this.sazkia.length>0) {
-    //             this.sazkia.forEach(element => {
-    //                 if (element.id == prod.id) {
-    //                     element.kantitatea++;
-    //                     aux = true;
-    //                     return;
-    //                 }
-    //             });
-    //         } 
-    //         if(!aux) {
-    //             this.sazkia.push({'stock':prod.stock, 'id': prod.id, 'kantitatea': 1, 'marka': prod.marka, 'izena': prod.izena, 'kategoria': prod.kategoria, 'id_kategoria': prod.id_kategoria});
-    //         }
-    //     },   
-    //     async langileakLortu(){
-    //         hoy = this.lortuData();
-    //         try {
-    //             const response = await fetch(window.ruta + 'alumnos/' + hoy, {
-    //                 method: 'GET',
-    //             });
+        addKarrito(prod){
+            aux = false;
+            if (this.sazkia.length>0) {
+                this.sazkia.forEach(element => {
+                    if (element.id == prod.id) {
+                        element.kantitatea++;
+                        aux = true;
+                        return;
+                    }
+                });
+            } 
+            if(!aux) {
+                this.sazkia.push({'stock':prod.stock, 'id': prod.id, 'kantitatea': 1, 'marka': prod.marka, 'izena': prod.izena, 'kategoria': prod.kategoria, 'id_kategoria': prod.id_kategoria});
+            }
+        },   
+        async langileakLortu(){
+            hoy = this.lortuData();
+            try {
+                const response = await fetch(window.ruta + 'alumnos/' + hoy, {
+                    method: 'GET',
+                });
 
-    //             const data = await response.json();
-    //             this.langileak = data;
+                const data = await response.json();
+                this.langileak = data;
 
-    //         } catch (error) {
-    //             console.error("Error al eliminar el registro:", error);
-    //             console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
-    //         }
+            } catch (error) {
+                console.error("Error al eliminar el registro:", error);
+                console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
+            }
             
-    //     },
+        },
 
-    //     lortuData(){
-    //         var gaur = new Date();
-    //         var urtea = gaur.getFullYear();
-    //         var hilabetea = gaur.getMonth() + 1;
-    //         var eguna = gaur.getDate();
-    //         return urtea+'-'+hilabetea+'-'+eguna;
-    //     },
+        lortuData(){
+            var gaur = new Date();
+            var urtea = gaur.getFullYear();
+            var hilabetea = gaur.getMonth() + 1;
+            var eguna = gaur.getDate();
+            return urtea+'-'+hilabetea+'-'+eguna;
+        },
 
-    //     erosketak(){
-    //         this.sazkia.forEach(element => {
-    //             if (0 > (element.stock - element.kantitatea)) {
-    //                 alert('No hay stock suficiente del producto');
-    //             }else{
-    //                 this.erosi(element.id, this.langilea, element.kantitatea);
-    //                 window.location.reload();
-    //             }
-    //         });
-    //     },
+        erosketak(){
+            this.sazkia.forEach(element => {
+                if (0 > (element.stock - element.kantitatea)) {
+                    alert('No hay stock suficiente del producto');
+                }else{
+                    this.erosi(element.id, this.langilea, element.kantitatea);
+                    window.location.reload();
+                }
+            });
+        },
 
-    //     async erosi(id_produktua, id_langilea, kopurua){
-    //         js = JSON.stringify({'id_produktua':id_produktua,'id_langilea':id_langilea,'kopurua':kopurua})
-    //         console.log('Kompra'+js);
-    //         const response = await fetch(window.ruta + 'productos/erosi', {
-    //             method: 'POST',
-    //             body: js
-    //         });
-    //         const data = await response.text();
-    //     },
+        async erosi(id_produktua, id_langilea, kopurua){
+            js = JSON.stringify({'id_produktua':id_produktua,'id_langilea':id_langilea,'kopurua':kopurua})
+            console.log('Kompra'+js);
+            const response = await fetch(window.ruta + 'productos/erosi', {
+                method: 'POST',
+                body: js
+            });
+            const data = await response.text();
+        },
 
-    // },
-    // watch:{
-    //     bilatu: function(){
-    //         if (this.bilatu == ''){
-    //             this.taula = this.datosProduk;
-    //         }else{
-    //             this.taula = [];
-    //             for (let i = 0; i < this.datosProduk.length; i++){
-    //                 if(this.datosProduk[i].izena.startsWith(this.bilatu)){
-    //                     this.taula.push(this.datosProduk[i]);   
-    //                 }
-    //             }
-    //         }
-    //     },
+    },
+    watch:{
+        bilatu: function(){
+            if (this.bilatu == ''){
+                this.taula = this.datosProduk;
+            }else{
+                this.taula = [];
+                for (let i = 0; i < this.datosProduk.length; i++){
+                    if(this.datosProduk[i].izena.startsWith(this.bilatu)){
+                        this.taula.push(this.datosProduk[i]);   
+                    }
+                }
+            }
+        },
 
-    //     kategoriak: function(){
-    //         if (this.kategoriak == 'all'){
-    //             this.taula = this.datosProduk;
-    //         }else{
-    //             this.taula = [];
-    //             for (let i = 0; i < this.datosProduk.length; i++){
-    //                 if(this.datosProduk[i].id_kategoria == this.kategoriak){
-    //                     this.taula.push(this.datosProduk[i]);
-    //                 }
-    //             }
-    //         }
-    //     },
-    // },
+        kategoriak: function(){
+            if (this.kategoriak == 'all'){
+                this.taula = this.datosProduk;
+            }else{
+                this.taula = [];
+                for (let i = 0; i < this.datosProduk.length; i++){
+                    if(this.datosProduk[i].id_kategoria == this.kategoriak){
+                        this.taula.push(this.datosProduk[i]);
+                    }
+                }
+            }
+        },
+    },
 
-    // mounted: function() {
-    //     this.langileakLortu();
-    //     this.produktuakGet();
-    //     this.kategoriakGet();
-    // }
+    mounted: function() {
+        this.langileakLortu();
+        this.produktuakGet();
+        this.kategoriakGet();
+    }
 }
-}
+
 </script>
 
 <template>
@@ -323,10 +318,10 @@ export default {
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            
+        
                 <!--    Taula datuekin    -->
-                <!-- <table id="tabla" class="table table-hover table-striped">
+                <table id="tabla" class="table table-hover table-striped">
                     <thead>
                     <tr>
                         <th scope="col">Nombre</th>
@@ -344,7 +339,7 @@ export default {
                             <td :style="{'background-color': dato.stock <= dato.stock_alerta ? 'rgb(226, 107, 107)' : ''}" @click="abrirPopup(dato.id)">{{ dato.marka }}</td>
                             <td :style="{'background-color': dato.stock <= dato.stock_alerta ? 'rgb(226, 107, 107)' : ''}" @click="abrirPopup(dato.id)">{{ dato.kategoria }}</td>
                             <td :style="{'background-color': dato.stock <= dato.stock_alerta ? 'rgb(226, 107, 107)' : ''}" @click="abrirPopup(dato.id)">{{ dato.deskribapena }}</td>
-                            <td :style="{'background-color': dato.stock <= dato.stock_alerta ? 'rgb(226, 107, 107)' : ''}" @click="abrirPopup(dato.id)">{{ dato.stock }}</i></td>
+                            <td :style="{'background-color': dato.stock <= dato.stock_alerta ? 'rgb(226, 107, 107)' : ''}" @click="abrirPopup(dato.id)">{{ dato.stock }}</td>
                             <td :style="{'background-color': dato.stock <= dato.stock_alerta ? 'rgb(226, 107, 107)' : ''}" @click="addKarrito(dato)">
                                 <i class="bi bi-cart mx-3"></i>
                             </td>
@@ -355,9 +350,9 @@ export default {
                     </tbody>
                 </table>
             </div>
-        </div> -->
+        </div>
            <!-- Popup txertatu/editatu     -->
-        <!-- <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
+        <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -418,7 +413,7 @@ export default {
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
         <!-- Popup Saskia -->
         <div id="fondoOscuro" class="fondo-oculto" @click="ocultarVentana()"></div>
         <div class="tablaHorarios" id="tablaEditarP">
