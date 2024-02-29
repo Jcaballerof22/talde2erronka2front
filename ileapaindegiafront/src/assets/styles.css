@@ -8,7 +8,7 @@ header{
     height: 13vh;
     margin-bottom: 10vh;
     /* margin-left: -8vw; */
-    background-color: #56778C;
+    background-color: #48738d;
     font-size: 5vh;
     display: flex;
     justify-content: center;
@@ -47,7 +47,7 @@ body, html {
     left: 0;
     height: 100%;
     width: 100px; 
-    background-color: #63A6A6;
+    background-color: #5db6b6;
     overflow-x: hidden;
     transition: 0.5s;
     margin-top: 13vh;
@@ -95,7 +95,7 @@ body, html {
     color: black;
   }
   
-  .menu-items li:hover .menu-text {
+ .menu-items li:hover .menu-text {
     display: inline;
   }
   
@@ -104,13 +104,9 @@ body, html {
     color: white;
     font-size: 16px;
   }
-  
-  .menu-items a:hover {
-    color: #ffcc00; 
-  }
 
   li:hover{
-    background-color: #A7D9B8;
+    background-color: #a7d9d7;
   }
 
 /* Contenido */
@@ -142,11 +138,11 @@ body, html {
   padding-right: 5vw;
 }
 #but-cesta-productos{
-  background-color: #E99857; 
+  background-color: #1ab7bc; 
   border-radius: 10px;
 }
 #but-cesta-productos:hover{
-  background-color: #e07f2f;
+  background-color: #00dee6;
   border-color: black;
   color:black;
 }
@@ -156,7 +152,7 @@ body, html {
 
 /* pop-up productos */
 .thead-prod-head{
-  background-color: #e07f2f;
+  background-color: #00dee6;
 
 }
 #prod{
@@ -171,28 +167,28 @@ body, html {
   text-align: center;
 }
 #pop-prod{
-  background-color: #e07f2f;
+  background-color: #00dee6;
   color: black;
 }
 
 /* Tablas */
 
 body{
-    background-color: #F4E3C8;
+    background-color: #f1fff7 ;
 }
 
 .table th {
-    background-color: #E99857;
+    background-color: #1ab7bc;
 }
 
 .table-hover tbody tr:hover td {
-    background-color: #e3f8ac;
+    background-color: #9df3de;
     cursor: pointer;
 }
 
 /* Botón añadir */
 .añadir{
-    background-color: #E99857;
+    background-color: #1ab7bc;
     border-color: black;
     color:black;
     margin: 15px;
@@ -200,13 +196,13 @@ body{
 }
 
 .añadir:hover{
-    background-color: #e07f2f;
+    background-color: #00dee6;
     border-color: black;
     color:black;
     margin: 15px;
 }
 .añadir:active {
-    background-color: #dd6d12;
+    background-color: #02adb3;
 }
 
 /*Botón cancelar*/
@@ -225,7 +221,7 @@ body{
   margin: 15px;
 }
 .cancelar:active {
-  background-color: #dd6d12;
+  background-color: #02adb3;
 }
 
 /*Botón papelera*/
@@ -257,19 +253,19 @@ body{
 }
 
 .x:active {
-  background-color: #dd6d12;
+  background-color: #02adb3;
 }
 
 /* Bilatu botoia */
 .lupa{
-    background-color: #E99857;
+    background-color: #1ab7bc;
     border-color: black;
     color: black;
     height: 45px;
 }
 
 .lupa:hover{
-    background-color: #e07f2f;
+    background-color: #00dee6;
     border-color: black;
     color: black;
 }
