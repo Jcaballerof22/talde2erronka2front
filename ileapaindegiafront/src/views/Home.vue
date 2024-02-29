@@ -1045,7 +1045,7 @@ export default {
                             </table>
                         </div>
                         <div class="col-md-5">
-                            <h2 style="background-color: #E99857;">Asignar Roles</h2>
+                            <h2 style="background-color: #1ab7bc;">Asignar Roles</h2>
                             <hr>
                             <div class="row">
                                 <div class="col">
@@ -1090,7 +1090,7 @@ export default {
                 <!--  -->
                 <div @click="quitarFondoNegro" id="fondoOscuro2" class="fondo-oculto"></div>
                 <div id="ventanaEmergenteLangile" class="ventana-oculta"
-                    style="background-color: #F4E3C8; width: 50vw; border-radius: 25px;">
+                    style="background-color: #ddf5f3; width: 50vw; border-radius: 25px;">
                     <div class="input-group-horarios">
                         <button type="button" id="cerrarVentanaLangile" class="btn x" @click="quitarFondoNegro">
                             <i class="bi bi-x"></i>
@@ -1108,7 +1108,7 @@ export default {
                                         <label class="form-check-label rounded bg-white p-2 mx-2 mb-1 text-center">Del
                                             Centro</label>
                                         <input class="form-check-input"
-                                            style="margin-top: 1.4vh; background-color: #E99857; border-color: #E99857;"
+                                            style="margin-top: 1.4vh; background-color: #1ab7bc; border-color: #1ab7bc;"
                                             type="checkbox" v-model="etxekoa" :disabled="idCita != ''">
                                     </div>
                                 </div>
@@ -1171,9 +1171,9 @@ export default {
                                     <input class="form-control" type="number" v-model="extra">
                                 </div>
                                 <div class="col">
-                                    <button class="btn" style="background-color: #E99857;" type="button"
+                                    <button class="btn" style="background-color: #1ab7bc;" type="button"
                                         @click="tratamenduaGehitu">+</button>
-                                    <button class="btn" style="background-color: #E99857;" type="button"
+                                    <button class="btn" style="background-color: #1ab7bc;" type="button"
                                         @click="tratamenduaKendu">-</button>
                                 </div>
                             </div>
@@ -1188,11 +1188,11 @@ export default {
                         </div>
                         <!-- Fin -->
                         <div class="col-12">
-                            <button v-if="idCita != ''" class="btn" type="button" style="background-color: #E99857;"
+                            <button v-if="idCita != ''" class="btn" type="button" style="background-color: #1ab7bc;"
                                 @click="hitzorduaKendu">Eliminar</button>
-                            <button v-else class="btn" type="button" style="background-color: #E99857;"
+                            <button v-else class="btn" type="button" style="background-color: #1ab7bc;"
                                 @click="createCita">Crear</button>
-                            <button v-if="idCita != ''" class="btn" type="button" style="background-color: #E99857;"
+                            <button v-if="idCita != ''" class="btn" type="button" style="background-color: #1ab7bc;"
                                 @click="popupTicket">Generar tiket</button>
                         </div>
                     </form>
@@ -1305,7 +1305,7 @@ export default {
                     <label class="form-label rounded p-2 mb-1"
                         style="background-color: #e9995798;">{{totalPrezioa}}€</label>
                 </div>
-                <button v-if="idCita != ''" class="btn mx-2" type="button" style="background-color: #E99857;"
+                <button v-if="idCita != ''" class="btn mx-2" type="button" style="background-color: #1ab7bc;"
                     @click="quitarFondoNegro">Aceptar</button>
             </form>
         </div>
