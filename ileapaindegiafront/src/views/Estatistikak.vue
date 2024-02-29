@@ -32,8 +32,8 @@
                     {
                         label: 'Limpieza',
                         data: this.alumnosL,
-                        borderColor: 'orange',
-                        backgroundColor: 'rgba(233, 152, 87, 0.5)',
+                        borderColor: 'rgb(0, 128, 128)',
+                        backgroundColor: 'rgb(26, 183, 188, 0.5)',
                         borderWidth: 2,
                         borderRadius: Number.MAX_VALUE,
                         borderSkipped: false,
@@ -119,8 +119,8 @@
                     {
                         label: 'Cantidad',
                         data: this.productosNumero,
-                        borderColor: 'orange',
-                        backgroundColor: 'rgba(233, 152, 87, 0.5)',
+                        borderColor: 'rgb(0, 128, 128)',
+                        backgroundColor: 'rgb(26, 183, 188, 0.5)',
                         borderWidth: 2,
                         borderRadius: 5,
                         borderSkipped: false,
