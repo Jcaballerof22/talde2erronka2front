@@ -344,9 +344,9 @@ export default {
         },
 
         ////////////////////////////////////////////////////////////// P2 CITA //////////////////////////////////////////////////////////////
-        // ordenatzerakoan minutuak kontuan hartzeko
+        // // ordenatzerakoan minutuak kontuan hartzeko
         minCalc(minutua) {
-            counter = 0;
+            var counter = 0;
             switch (minutua) {
                 case '15':
                     counter = +1;
@@ -364,37 +364,37 @@ export default {
             return counter;
         },
 
-        // Pff, gure datuak taulan ondo kokatzeko
+        // // Pff, gure datuak taulan ondo kokatzeko
         ordenan() {
-            timeDiff = 0;
+            var timeDiff = 0;
             for (let i = 0; i < this.datos2.length; i++) {
-                orduH = this.datos2[i].hasiera_ordua.split(":");
-                orduA = this.datos2[i].amaiera_ordua.split(":");
-                orduDif = (parseInt(orduA[0]) - parseInt(orduH[0])) * 4;
-                minDif = this.minCalc(orduA[1]) - this.minCalc(orduH[1]);
-                timeDif = minDif + orduDif;
-                var js = { "izena": this.datos2[i].izena, "deskribapena": this.datos2[i].deskribapena, "orduak": this.datos2[i].hasiera_ordua + "-" + this.datos2[i].amaiera_ordua, "timeDif": timeDif, "visible": true, "disponible": false, "id": this.datos2[i].id };
+                var orduH = this.datos2[i].hasiera_ordua.split(":");
+                var orduA = this.datos2[i].amaiera_ordua.split(":");
+                var orduDif = (parseInt(orduA[0]) - parseInt(orduH[0])) * 4;
+                var minDif = this.minCalc(orduA[1]) - this.minCalc(orduH[1]);
+                var timeDif = minDif + orduDif;
+                var js = { "izena": this.datos2[i].izena, "deskribapena": this.datos2[i].deskribapena, "orduak": this.datos2[i].hasiera_ordua + "-" + this.datos2[i].amaiera_ordua, "timeDif": timeDif, "visible": true, "disponible": false, "id": this.datos2[i].id, "eserlekua": this.datos2[i].eserlekua};
 
                 //Lekua bilatu
-                var sitio = null;
-                for (let j = 0; j < this.langileDisp; j++) {
-                    for (let k = 0; k < this.taula.length; k++) {
-                        if ((orduH[0] + ":" + orduH[1]) == this.orduak[k] && this.taula[k][j].disponible) {
-                            horas2: for (let i = 0; i < js.timeDif; i++) {
-                                if (this.taula[k + i][j].disponible) {
-                                    sitio = j;
-                                } else {
-                                    sitio = null;
-                                    break horas2;
-                                }
-                            }
-                        }
-                    }
-                }
+                // var sitio = null;
+                // for (let j = 0; j < this.langileDisp; j++) {
+                //     for (let k = 0; k < this.taula.length; k++) {
+                //         if ((orduH[0] + ":" + orduH[1]) == this.orduak[k] && this.taula[k][j].disponible) {
+                //             horas2: for (let i = 0; i < js.timeDif; i++) {
+                //                 if (this.taula[k + i][j].disponible) {
+                //                     sitio = j;
+                //                 } else {
+                //                     sitio = null;
+                //                     break horas2;
+                //                 }
+                //             }
+                //         }
+                //     }
+                // }
 
                 //Lekuan Kokatu
                 for (let i = 0; i < this.taula.length; i++) {
-                    if ((orduH[0] + ":" + orduH[1]) == this.orduak[i]) {
+                    if ((orduH[0] + ":" + orduH[1]) == this.orduak[i] && js.eserlekua==i) {
                         for (let l = 0; l < js.timeDif; l++) {
                             if (l == 0) {
                                 this.taula[i + l][sitio] = js;
@@ -410,7 +410,7 @@ export default {
 
         },
 
-        // popup-a zabaltzeko eta datuak esleitzeko
+        // // popup-a zabaltzeko eta datuak esleitzeko
         popupCita(id) {
             this.idCita = id;
             this.dataCita = this.data;
@@ -450,7 +450,7 @@ export default {
             document.getElementById('ventanaEmergenteLangile').style.display = 'block';
         },
 
-        // taulako estruktura sortu
+        // // taulako estruktura sortu
         taulaSortu() {
             for (let i = 0; i < this.orduak.length; i++) {
                 var row = [];
@@ -461,34 +461,45 @@ export default {
             }
         },
 
-        // Hitzorduak lortu // this.data -> nahi ditugun hitzorduen data // this.bilatusinbol -> if('+'){sartutako data eta berriagoak}else{bakarrik gure datakoak}
-        datuakLortu() {
+        // // Hitzorduak lortu // this.data -> nahi ditugun hitzorduen data // this.bilatusinbol -> if('+'){sartutako data eta berriagoak}else{bakarrik gure datakoak}
+        async datuakLortu() {
             this.datos2 = [];
             this.taula = [];
-            fetch(window.ruta + 'hitzordua/' + this.data + this.bilatusinbol, { method: 'GET', mode: 'no-cors' })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    for (let i = 0; i < data.length; i++) {
-                        console.log(data[i]);
-                        // Obtén la referencia de la tabla por su id
-                        this.datos2.push(data[i]);
-                    }
-                    if (this.bilatusinbol != '+') {
-                        this.taulaSortu();
-                        this.ordenan();
-                    } else {
-                        this.taula = [];
-                        for (let i = 0; i < this.datos2.length; i++) {
-                            if (this.datos2[i].izena.startsWith(this.bilatu)) {
-                                this.taula.push({ "id": this.datos2[i].id, "data": this.datos2[i].data, "hasiera_ordua": this.datos2[i].hasiera_ordua, "amaiera_ordua": this.datos2[i].amaiera_ordua, "izena": this.datos2[i].izena, "telefonoa": this.datos2[i].telefonoa, "deskribapena": this.datos2[i].deskribapena, "etxekoa": this.datos2[i].etxekoa });
-                            }
+            try {
+                const response = await fetch(window.ruta + 'hitzordua/' + this.data + this.bilatusinbol, { method: 'GET'});
+                const data = await response.json();
+                console.log(data);
+                for (let i = 0; i < data.length; i++) {
+                    console.log(data[i]);
+                    // Obtén la referencia de la tabla por su id
+                    this.datos2.push(data[i]);
+                }
+                if (this.bilatusinbol != '+') {
+                    this.taulaSortu();
+                    this.ordenan();
+                } else {
+                    this.taula = [];
+                    for (let i = 0; i < this.datos2.length; i++) {
+                        if (this.datos2[i].izena.startsWith(this.bilatu)) {
+                            this.taula.push({
+                                "id": this.datos2[i].id,
+                                "data": this.datos2[i].data,
+                                "hasiera_ordua": this.datos2[i].hasiera_ordua,
+                                "amaiera_ordua": this.datos2[i].amaiera_ordua,
+                                "izena": this.datos2[i].izena,
+                                "telefonoa": this.datos2[i].telefonoa,
+                                "deskribapena": this.datos2[i].deskribapena,
+                                "etxekoa": this.datos2[i].etxekoa
+                            });
                         }
                     }
-                });
+                }
+            } catch (error) {
+                console.error('Errorea gertatu da:', error);
+            }
         },
 
-        // Gaurko data lortzeko
+        // // Gaurko data lortzeko
         lortuData() {
             var gaur = new Date();
             var urtea = gaur.getFullYear();
@@ -510,7 +521,7 @@ export default {
             return urtea + '-' + hilabetea + '-' + eguna;
         },
 
-        // Goizeko horduak eskuratzeko
+        // // Goizeko horduak eskuratzeko
         lortuOrduakG() {
             var mins;
             var orduakaux = [this.intervaloHoras[0], this.intervaloHoras[1]];
@@ -543,7 +554,7 @@ export default {
             }
         },
 
-        // Arratsaldeko horduak eskuratzeko
+        // // Arratsaldeko horduak eskuratzeko
         lortuOrduakA() {
             var mins;
             var orduakaux = [this.intervaloHoras[2], this.intervaloHoras[3]]
@@ -576,145 +587,145 @@ export default {
             }
         },
 
-        // Tratamendu lista lortu
-        async tratamenduakLortu() {
-            try {
-                const response = await fetch(window.ruta + 'tratamenduak', {
-                    method: 'GET',
-                    mode: 'no-cors'
-                });
+        // // Tratamendu lista lortu
+        // async tratamenduakLortu() {
+        //     try {
+        //         const response = await fetch(window.ruta + 'tratamenduak', {
+        //             method: 'GET',
+        //             mode: 'no-cors'
+        //         });
 
-                const data = await response.json();
+        //         const data = await response.json();
 
-                console.log(data);
+        //         console.log(data);
 
-                // Si `data` es un arreglo, puedes usar `forEach` para iterar sobre él.
-                data.forEach(tratamiento => {
-                    console.log(tratamiento);
-                    // Asumiendo que `this.tratamenduak` está definido fuera de esta función
-                    this.tratamenduak.push(tratamiento);
-                });
-            } catch (error) {
-                console.error('Error al obtener los tratamientos:', error);
-            }
-        },
+        //         // Si `data` es un arreglo, puedes usar `forEach` para iterar sobre él.
+        //         data.forEach(tratamiento => {
+        //             console.log(tratamiento);
+        //             // Asumiendo que `this.tratamenduak` está definido fuera de esta función
+        //             this.tratamenduak.push(tratamiento);
+        //         });
+        //     } catch (error) {
+        //         console.error('Error al obtener los tratamientos:', error);
+        //     }
+        // },
 
-        // Hitzordu bat dituen tratamendu guztiak lortu
-        async citaTratamenduaLortu() {
-            this.tratamenduakCitaText = "";
-            try {
-                const response = await fetch(window.ruta + 'tratamenduak/' + this.idCita, {
-                    method: 'GET',
-                    mode: 'no-cors'
-                });
+        // // Hitzordu bat dituen tratamendu guztiak lortu
+        // async citaTratamenduaLortu() {
+        //     this.tratamenduakCitaText = "";
+        //     try {
+        //         const response = await fetch(window.ruta + 'tratamenduak/' + this.idCita, {
+        //             method: 'GET',
+        //             mode: 'no-cors'
+        //         });
 
-                const data = await response.json();
+        //         const data = await response.json();
 
-                console.log(data);
+        //         console.log(data);
 
-                this.tratamenduakCita = data;
+        //         this.tratamenduakCita = data;
 
-                for (let i = 0; i < data.length; i++) {
-                    this.tratamenduakCitaText += data[i].tratamenduIzena + " " + data[i].prezioa + " -- ";
-                }
+        //         for (let i = 0; i < data.length; i++) {
+        //             this.tratamenduakCitaText += data[i].tratamenduIzena + " " + data[i].prezioa + " -- ";
+        //         }
 
-            } catch (error) {
-                console.error('Error al obtener los tratamientos:', error);
-            }
-        },
+        //     } catch (error) {
+        //         console.error('Error al obtener los tratamientos:', error);
+        //     }
+        // },
 
-        // Hitzordak duten tratameduak gehitzeko
-        async tratamenduaGehitu() {
-            var prezioa = 0;
-            if (this.extra == 0) {
-                for (let i = 0; i < this.tratamenduak.length; i++) {
-                    if (this.tratamenduak[i].id == this.tratamendu) {
-                        if (this.etxekoa) {
-                            prezioa = this.tratamenduak[i].etxeko_prezioa;
-                        } else {
-                            prezioa = this.tratamenduak[i].kanpoko_prezioa;
-                        }
-                    }
-                }
-            } else {
-                prezioa = this.extra;
-            }
-            var datos = { "id_hitzordua": this.idCita, "id_tratamendua": this.tratamendu, "prezioa": prezioa };
-            var js = JSON.stringify(datos);
-            console.log("insert: " + js);
+        // // Hitzordak duten tratameduak gehitzeko
+        // async tratamenduaGehitu() {
+        //     var prezioa = 0;
+        //     if (this.extra == 0) {
+        //         for (let i = 0; i < this.tratamenduak.length; i++) {
+        //             if (this.tratamenduak[i].id == this.tratamendu) {
+        //                 if (this.etxekoa) {
+        //                     prezioa = this.tratamenduak[i].etxeko_prezioa;
+        //                 } else {
+        //                     prezioa = this.tratamenduak[i].kanpoko_prezioa;
+        //                 }
+        //             }
+        //         }
+        //     } else {
+        //         prezioa = this.extra;
+        //     }
+        //     var datos = { "id_hitzordua": this.idCita, "id_tratamendua": this.tratamendu, "prezioa": prezioa };
+        //     var js = JSON.stringify(datos);
+        //     console.log("insert: " + js);
 
-            try {
-                const response = await fetch(window.ruta + 'tratamenduak/add', {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: js
-                });
+        //     try {
+        //         const response = await fetch(window.ruta + 'tratamenduak/add', {
+        //             method: 'POST',
+        //             mode: 'no-cors',
+        //             body: js
+        //         });
 
-                const data = await response.json();
+        //         const data = await response.json();
 
-                console.log(data);
-                this.citaTratamenduaLortu();
-            } catch (error) {
-                console.error('Error al obtener los tratamientos:', error);
-            }
-        },
+        //         console.log(data);
+        //         this.citaTratamenduaLortu();
+        //     } catch (error) {
+        //         console.error('Error al obtener los tratamientos:', error);
+        //     }
+        // },
 
-        // Hitzordak duten tratameduak kentzeko
-        async tratamenduaKendu() {
-            var datos = "";
-            for (let i = 0; i < this.tratamenduakCita.length; i++) {
-                if (this.tratamenduakCita[i].id_tratamendua == this.tratamendu) {
-                    datos = { "id": this.tratamenduakCita[i].id };
-                    break;
-                }
-            }
+        // // Hitzordak duten tratameduak kentzeko
+        // async tratamenduaKendu() {
+        //     var datos = "";
+        //     for (let i = 0; i < this.tratamenduakCita.length; i++) {
+        //         if (this.tratamenduakCita[i].id_tratamendua == this.tratamendu) {
+        //             datos = { "id": this.tratamenduakCita[i].id };
+        //             break;
+        //         }
+        //     }
 
-            var js = JSON.stringify(datos);
-            console.log("del: " + js);
-            try {
-                const response = await fetch(window.ruta + 'tratamenduak/remove', {
-                    method: 'PUT',
-                    body: js
-                });
-                const data = await response.json();
-                console.log(data);
-                this.citaTratamenduaLortu();
-            } catch (error) {
-                console.error('Error al obtener los tratamientos:', error);
-            }
-        },
+        //     var js = JSON.stringify(datos);
+        //     console.log("del: " + js);
+        //     try {
+        //         const response = await fetch(window.ruta + 'tratamenduak/remove', {
+        //             method: 'PUT',
+        //             body: js
+        //         });
+        //         const data = await response.json();
+        //         console.log(data);
+        //         this.citaTratamenduaLortu();
+        //     } catch (error) {
+        //         console.error('Error al obtener los tratamientos:', error);
+        //     }
+        // },
 
-        // Hitzortua ezabatzeko
-        async hitzorduaKendu() {
-            const js = JSON.stringify({ "id": this.idCita });
-            console.log("froga: " + js);
+        // // Hitzortua ezabatzeko
+        // async hitzorduaKendu() {
+        //     const js = JSON.stringify({ "id": this.idCita });
+        //     console.log("froga: " + js);
 
-            try {
-                const response = await fetch(window.ruta + 'hitzordua/ezabatu', {
-                    method: 'PUT',
-                    body: js
-                });
+        //     try {
+        //         const response = await fetch(window.ruta + 'hitzordua/ezabatu', {
+        //             method: 'PUT',
+        //             body: js
+        //         });
 
-                const data = await response.text();
-                console.log(data);
+        //         const data = await response.text();
+        //         console.log(data);
 
-                this.taula = this.taula.filter(aux => aux.id !== this.idCita);
-                this.datuakLortu()
-            } catch (error) {
-                console.error("Error al eliminar el registro:", error);
-                console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
-            }
-            this.quitarFondoNegro();
-        },
+        //         this.taula = this.taula.filter(aux => aux.id !== this.idCita);
+        //         this.datuakLortu()
+        //     } catch (error) {
+        //         console.error("Error al eliminar el registro:", error);
+        //         console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
+        //     }
+        //     this.quitarFondoNegro();
+        // },
 
-        // Pop-a ren fondo beltza kentzeko
-        quitarFondoNegro() {
-            document.getElementById('fondoOscuro2').classList.remove('mostrar-fondo');
-            document.getElementById('ventanaEmergenteLangile').style.display = 'none';
-            document.getElementById('ventanaEmergenteTiket').style.display = 'none';
-        },
+        // // Pop-a ren fondo beltza kentzeko
+        // quitarFondoNegro() {
+        //     document.getElementById('fondoOscuro2').classList.remove('mostrar-fondo');
+        //     document.getElementById('ventanaEmergenteLangile').style.display = 'none';
+        //     document.getElementById('ventanaEmergenteTiket').style.display = 'none';
+        // },
 
-        // Langile kopurua lortzeko
+        // // Langile kopurua lortzeko
         async langileKopLortu() {
             try {
                 const response = await fetch(window.ruta + 'alumnos/' + this.data, {
@@ -729,99 +740,99 @@ export default {
                 console.error('Error al obtener los tratamientos:', error);
             }
         },
-        /////////////////////////////////////// HAYQUEACER ///////////////////////////////////////
-        createCita() {
-            datos = '/' + this.dataCita + '/' + this.hasiera_ordua + '/' + this.amaiera_ordua;
-            console.log("losdatos: " + datos);
-            try {
-                fetch(window.ruta + 'hitzordua/horduDisp' + datos)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.length < this.langileDisp) {
-                            // Fetch 2
-                            const js = JSON.stringify({ "izena": this.izena, "telefonoa": this.telefonoa, "deskribapena": this.deskribapena, "hasiera_ordua": this.hasiera_ordua, "amaiera_ordua": this.amaiera_ordua, "langilea": this.alumnoCitaid, "etxekoa": this.etxekoa, "data": this.dataCita });
-                            console.log("insert: " + js);
-                            fetch(window.ruta + 'hitzordua/txertatu', {
-                                method: 'POST',
-                                body: js
-                            })
-                                .then(response => response.json())
-                                .then(data => {
-                                    this.datuakLortu()
-                                });
-                        }
-                        else alert("Se superó el limite de citas para las horas seleccionadas");
-                    });
-            } catch (error) {
-                console.log(error);
-            }
-            // alert("si todo fué bien, es posible que se haya insertado :D");
+        // /////////////////////////////////////// HAYQUEACER ///////////////////////////////////////
+        // createCita() {
+        //     datos = '/' + this.dataCita + '/' + this.hasiera_ordua + '/' + this.amaiera_ordua;
+        //     console.log("losdatos: " + datos);
+        //     try {
+        //         fetch(window.ruta + 'hitzordua/horduDisp' + datos)
+        //             .then(response => response.json())
+        //             .then(data => {
+        //                 if (data.length < this.langileDisp) {
+        //                     // Fetch 2
+        //                     const js = JSON.stringify({ "izena": this.izena, "telefonoa": this.telefonoa, "deskribapena": this.deskribapena, "hasiera_ordua": this.hasiera_ordua, "amaiera_ordua": this.amaiera_ordua, "langilea": this.alumnoCitaid, "etxekoa": this.etxekoa, "data": this.dataCita });
+        //                     console.log("insert: " + js);
+        //                     fetch(window.ruta + 'hitzordua/txertatu', {
+        //                         method: 'POST',
+        //                         body: js
+        //                     })
+        //                         .then(response => response.json())
+        //                         .then(data => {
+        //                             this.datuakLortu()
+        //                         });
+        //                 }
+        //                 else alert("Se superó el limite de citas para las horas seleccionadas");
+        //             });
+        //     } catch (error) {
+        //         console.log(error);
+        //     }
+        //     // alert("si todo fué bien, es posible que se haya insertado :D");
 
-            this.quitarFondoNegro()
-        },
-
-        async aldatuOrduaAmaiera() {
-            const js = JSON.stringify({ "id": this.idCita, "ordua": this.amaiera_ordua });
-            console.log("froga: " + js);
-            try {
-                const response = await fetch(window.ruta + 'hitzordua/horduaAmaiera', {
-                    method: 'PUT',
-                    body: js
-                });
-                const data = await response.text();
-                console.log(data);
-                this.taula = this.taula.filter(aux => aux.id !== id);
-            } catch (error) {
-                console.error("Error al eliminar el registro:", error);
-                console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
-            }
-        },
-
-        async aldatuOrduaHasiera() {
-            const js = JSON.stringify({ "id": this.idCita, "ordua": this.hasiera_ordua });
-            console.log("froga: " + js);
-
-            try {
-                const response = await fetch(window.ruta + 'hitzordua/horduaHasiera', {
-                    method: 'PUT',
-                    body: js
-                });
-
-                const data = await response.text();
-                console.log(data);
-
-                this.taula = this.taula.filter(aux => aux.id !== id);
-            } catch (error) {
-                console.error("Error al eliminar el registro:", error);
-                console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
-            }
-        },
-
-        popupTicket() {
-            document.getElementById('ventanaEmergenteLangile').style.display = 'none';
-            document.getElementById('fondoOscuro2').classList.add('mostrar-fondo');
-            document.getElementById('ventanaEmergenteTiket').style.display = 'block';
-        },
-
-        // fichaSortu(){
-        //   sensible = confirm('Tiene el cuero cabelludo sensible¿')
-        //   alert('ficha sortuta '+ sensible);
-        //   izenabizen = this.izena.split(' ');
-        //   abizena = '';
-        //   for (let i = 1; i < izenabizen.length; i++) {
-        //     abizena = izenabizen[i] + ' ';
-
-        //   }
-        //   js = JSON.stringify({'izena': izenabizen[0],	'abizena': abizena,	'telefonoa': this.telefonoa,	'azal_sentikorra': sensible})
-        //   console.log('Ficha'+js)
+        //     this.quitarFondoNegro()
         // },
+
+        // async aldatuOrduaAmaiera() {
+        //     const js = JSON.stringify({ "id": this.idCita, "ordua": this.amaiera_ordua });
+        //     console.log("froga: " + js);
+        //     try {
+        //         const response = await fetch(window.ruta + 'hitzordua/horduaAmaiera', {
+        //             method: 'PUT',
+        //             body: js
+        //         });
+        //         const data = await response.text();
+        //         console.log(data);
+        //         this.taula = this.taula.filter(aux => aux.id !== id);
+        //     } catch (error) {
+        //         console.error("Error al eliminar el registro:", error);
+        //         console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
+        //     }
+        // },
+
+        // async aldatuOrduaHasiera() {
+        //     const js = JSON.stringify({ "id": this.idCita, "ordua": this.hasiera_ordua });
+        //     console.log("froga: " + js);
+
+        //     try {
+        //         const response = await fetch(window.ruta + 'hitzordua/horduaHasiera', {
+        //             method: 'PUT',
+        //             body: js
+        //         });
+
+        //         const data = await response.text();
+        //         console.log(data);
+
+        //         this.taula = this.taula.filter(aux => aux.id !== id);
+        //     } catch (error) {
+        //         console.error("Error al eliminar el registro:", error);
+        //         console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
+        //     }
+        // },
+
+        // popupTicket() {
+        //     document.getElementById('ventanaEmergenteLangile').style.display = 'none';
+        //     document.getElementById('fondoOscuro2').classList.add('mostrar-fondo');
+        //     document.getElementById('ventanaEmergenteTiket').style.display = 'block';
+        // },
+
+        // // fichaSortu(){
+        // //   sensible = confirm('Tiene el cuero cabelludo sensible¿')
+        // //   alert('ficha sortuta '+ sensible);
+        // //   izenabizen = this.izena.split(' ');
+        // //   abizena = '';
+        // //   for (let i = 1; i < izenabizen.length; i++) {
+        // //     abizena = izenabizen[i] + ' ';
+
+        // //   }
+        // //   js = JSON.stringify({'izena': izenabizen[0],	'abizena': abizena,	'telefonoa': this.telefonoa,	'azal_sentikorra': sensible})
+        // //   console.log('Ficha'+js)
+        // // },
 
     },
     watch: {
         data: function () {
             this.dataCita = this.data;
             this.datuakLortu();
-            this.langileKopLortu();
+            // this.langileKopLortu();
         },
 
         bilatu: function () {
@@ -862,13 +873,15 @@ export default {
     mounted: function () {
         this.nombresGrupo();
         this.lortuOrduakG();
-        this.data = this.lortuData();
         this.hoy = this.data;
         this.grupoSeleccionado().then(() => {
             this.tablaRoles();
         });
         this.lortuOrduakA();
-        this.tratamenduakLortu();
+        // this.tratamenduakLortu();
+
+        //Lo que va funcionando
+        this.data = this.lortuData();
 
 
     }
@@ -1229,13 +1242,18 @@ export default {
                             <tr v-for="(dato, index) in orduak">
                                 <th v-if="index % 4 === 0" :rowspan="4" scope="col">{{ dato }}</th>
                                 <!-- cambiar 4 por 2 para que sea cada 30 mins -->
-                                <td @click="popupCita(taula[index][index2].id)"
+                                <td v-if="taula[index]?.[index2] && Object.keys(taula[index][index2]).length > 2" v-for="(dato2, index2) in taula[index]" @click="popupCita(taula[index][index2].id)" style="background-color: #E26B6B; border: 2px  solid black" :rowspan="taula[index][index2].timeDif"  scope="col">
+                                    {{ taula[index][index2].izena }}<br>{{ taula[index][index2].orduak }}<br>{{ taula[index][index2].deskribapena }} {{ Object.keys(taula[index][index2]).length }}
+                                </td>
+                                <td scope="col" v-else></td>
+                                
+                                <!-- <td v-for="(dato2, index2) in taula[index]" @click="popupCita(taula[index][index2].id)"
                                     style="background-color: #E26B6B; border: 2px  solid black"
-                                    v-for="(dato2, index2) in taula[index]" :rowspan="taula[index][index2].timeDif"
+                                     :rowspan="taula[index][index2].timeDif"
                                     scope="col" v-if="Object.keys(taula[index][index2]).length > 2">
                                     {{ taula[index][index2].izena }}<br>{{ taula[index][index2].orduak }}<br>{{ taula[index][index2].deskribapena }}
-                                </td>
-                                <td scope="col" v-else-if="taula[index][index2].visible"></td>
+                                </td> -->
+                                <!-- <td scope="col" v-else-if="taula[index][index2].visible"></td> -->
                             </tr>
                         </tbody>
                     </table>

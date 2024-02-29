@@ -5,6 +5,7 @@
         });
     const emit = defineEmits(['popukIreki']);
 </script>
+
 <template>
     <!-- Taula -->
     <table id="tabla" class="table table-hover table-striped">
