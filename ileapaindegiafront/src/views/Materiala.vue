@@ -29,6 +29,57 @@ export default {
     alerta(color){
         alert(color)
     },
+
+    abrirPopup(etiketa, izena, id){
+      this.id = id;
+      this.aldatu = id;
+      this.etiketa = etiketa;
+      this.izena = izena;
+      document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
+      document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'block';
+    },
+
+    ocultarVentana(){
+      document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
+      document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'none';
+    },
+
+    txertatuEdoAldatu(){
+      if(this.aldatu != ''){
+        this.aldatuDatuak();
+      }else{
+        this.addDatuak();
+      }
+      document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
+      document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'none';
+      this.datos.splice(0, this.datos.length);
+      this.fetchData();
+    },
+
+    async aldatuDatuak() {
+      try {
+        var js = JSON.stringify({
+          "etiketa": this.etiketa,
+          "izena": this.izena,
+          "id": this.id_materiala
+        });
+        console.log("froga: " + js);
+          
+        const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/editatu', {
+          method: 'PUT',
+          body: js
+        });
+          
+        const data = await response.text();
+          console.log(data);
+
+        this.fetchData();
+        
+      } catch (error) {
+        console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+      }
+    },
+
     async fetchData(){
       this.datosFiltrados = [];
       try {
@@ -211,9 +262,44 @@ export default {
 }
 </script>
 <template>
+  <div id="fondoOscuroLangile" class="fondo-oculto"></div>
+  <div id="ventanaEmergenteAñadirMaterial" class="ventana-oculta">
+              <!-- Leiaren barruan egongo diren elementuak honen barruan daude -->
+      <div class="contenido-ventana">
+          <!-- POPUP-a ixteko botoia -->
+          <div class="input-group-horarios">
+              <button type="button" id="cerrarVentanaAñadirMaterial" class="btn x" @click="ocultarVentana()">
+                  <i class="bi bi-x"></i>
+              </button>
+          </div>
+          <!-- Etiqueta sarzteko kanpoa -->
+          <div class="mt-2">
+              <label for="mensaje" id="etiquetaLabelMaterial">Etiqueta</label>
+          </div>
+          <div class="mt-2">
+              <textarea id="modeloTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" v-model="etiketa"
+                  placeholder="Ingresa la etiqueta aquí" maxlength="10"></textarea>
+          </div>
+          <!-- Izena sartzeko kanpoa -->
+          <div class="mt-2">
+              <label for="mensaje" id="nombreLabelMaterial">Nombre</label>
+          </div>
+          <div class="mt-2">
+              <textarea id="marcaTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" v-model="izena"
+                  placeholder="Ingresa el Nombre aquí"></textarea>
+          </div>
+          <!-- Funtzioari deitzeko botoia eta datuak pasatzeko -->
+          <div class="mt-2">
+              <input id="submitAñadirMaterial" type="submit" class="btn añadir btn-lg mt-3"
+                  @click="txertatuEdoAldatu" value="Enviar">
+          </div>
+      </div>
+    </div>
     <div class="containerPage">
         <div class="input-group-estadisticas">
                 <div class="col">
+                  <button type="button" id="mostrarVentanaMaterial" class="btn añadir btn-lg"
+                                @click="abrirPopup('' , '' , '')">Añadir material</button>
                 </div>
                 <!-- Taula bat datuak erakusteko -->
                 <table id="tabla" class="table table-hover table-striped">
