@@ -12,6 +12,7 @@
             productosNumero: [],
             materialNombre: [],
             materialNumero: [],
+            datosTalde: [],
             fechaInicio: "",
             fechaFin: ""
         };
@@ -166,6 +167,10 @@
         },
         // Talde baten ikasleak lortzeko metodoa
         async sacarAlumnos() {
+            // this.alumnosNombre.splice(0, this.alumnosNombre.length);
+            // this.alumnosL.splice(0, this.alumnosL.length);
+            // this.alumnosM.splice(0, this.alumnosM.length);
+
             try {
               const response = await fetch(window.ruta + `roles/${this.grupoHoy}`, { method: 'GET' });
           
@@ -175,13 +180,23 @@
           
               const data = await response.json();
           
-              for (let i = 0; i < data.length; i++) {
-                this.alumnosNombre.push(data[i].izena + " " + data[i].abizenak);
-                this.alumnosL.push(data[i].suma_m);
-                this.alumnosM.push(data[i].suma_g);
-              }
+              if (data && data.length > 0) { // Verificar si hay datos antes de continuar
+                for (let i = 0; i < data.length; i++) {
+                    this.alumnosNombre.push(data[i].izena + " " + data[i].abizenak);
+                    this.alumnosL.push(data[i].suma_m);
+                    this.alumnosM.push(data[i].suma_g);
+                }
+
+                // if (this.myChart) {
+                //     this.myChart.destroy();
+                // }
+                
+                // this.graficoRoles();
+            } else {
+                console.log('No se recibieron datos de alumnos.');
+            }
             } catch (error) {
-              console.error('Error al obtener datos del servidor:', error);
+                console.error('Error al obtener datos del servidor:', error);
             }
         },          
         // Erabili diren produktuen datuak lortzeko metodoa
@@ -223,9 +238,24 @@
               console.error('Error al obtener datos del servidor:', error);
             }
         },    
-        handleChartDestroy() {
-            this.isChartDestroying = false;
-        }              
+        async nombresGrupo() {            
+            try {
+                const response = await fetch(window.ruta + 'grupos', {
+                    method: 'GET'
+                });
+
+                const data = await response.json();
+                                
+                data.forEach(grupo => {
+                    this.datosTalde.push({
+                        "izena": grupo.izena,
+                        "kodea": grupo.kodea
+                    });
+                });
+            } catch (error) {
+                console.error('Error al obtener los nombres de grupo:', error);
+            }
+        }           
     },
     mounted: function(){
         this.sacarGrupo().then(() => {
@@ -235,6 +265,7 @@
         });
         this.sacarProductos();
         this.sacarMaterial();
+        this.nombresGrupo();
     }
 }
 </script>
@@ -249,6 +280,9 @@
                     <button type="button" class="btn añadir btn-lg" @click="esperar('graficoRoles')">Roles</button>
                     <button type="button" class="btn añadir btn-lg" @click="esperar('graficoProductos')">Productos</button>
                     <button type="button" class="btn añadir btn-lg" @click="esperar('graficoMaterial')">Material</button>
+                    <!-- <select class="form-select combobox" aria-label="Default select example" v-model="grupoHoy" @change="sacarAlumnos">
+                        <option v-for="talde in datosTalde" :value="talde.izena">{{ talde.izena }}</option>
+                    </select> -->
                 </div>
                 <!-- Dataren eta izenaren arabera bilatzeko filtroak -->
                 <div class="col">
