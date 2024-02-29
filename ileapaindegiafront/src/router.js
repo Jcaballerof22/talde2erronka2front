@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router"
 
-import wiki from './views/wiki.vue'
 import home from './views/Home.vue'
 import produktuak from './views/Produktuak.vue'
 import materiala from './views/Materiala.vue'
@@ -18,15 +17,7 @@ const routes = [
         path: '/',
         component: home,
         meta: {
-            title: 'HOME'
-        }
-    },
-    {
-        name: 'wiki',
-        path: '/wiki',
-        component: wiki,
-        meta: {
-            title: 'Wiki'
+            title: 'Home'
         }
     },
     {
@@ -34,7 +25,7 @@ const routes = [
         path: '/productos',
         component: produktuak,
         meta: {
-            title: 'PRODUKTUAK'
+            title: 'Productos'
         }
     },
     {
@@ -42,7 +33,7 @@ const routes = [
         path: '/material',
         component: materiala,
         meta: {
-            title: 'MATERIALA'
+            title: 'Material'
         }
     },
     {
@@ -50,7 +41,7 @@ const routes = [
         path: '/alumnos',
         component: langileak,
         meta: {
-            title: 'LANGILEAK'
+            title: 'Alumnos'
         }
     },
     {
@@ -58,7 +49,7 @@ const routes = [
         path: '/grupos',
         component: taldeak,
         meta: {
-            title: 'TALDEAK'
+            title: 'Grupos'
         }
     },
     {
@@ -66,7 +57,7 @@ const routes = [
         path: '/estadisticas',
         component: estatistikak,
         meta: {
-            title: 'ESTATISTIKAK'
+            title: 'Estadísticas'
         }
     },
     {
@@ -74,7 +65,7 @@ const routes = [
         path: '/historial',
         component: historiala,
         meta: {
-            title: 'HISTORIALA'
+            title: 'Historial'
         }
     },
     {
@@ -82,7 +73,7 @@ const routes = [
         path: '/tickets',
         component: ticket,
         meta: {
-            title: 'TICKET'
+            title: 'Tickets'
         }
     },
     {
@@ -90,7 +81,7 @@ const routes = [
         path: '/fichas',
         component: fitxa,
         meta: {
-            title: 'FITXA'
+            title: 'Fichas'
         }
     },
 ]
