@@ -13,7 +13,7 @@
 <template>
   <div id="menu">
     <header>
-      <h1 id="titulo">{{ titulua }}</h1>
+      <h1 id="titulo">{{ text[hizkuntza]?.[titulua]?.toUpperCase() }}</h1>
       <div class="hroles">
         <p>Mostrador: Julio</p>
         <p>Limpieza: Mikel</p>
