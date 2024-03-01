@@ -943,8 +943,7 @@ export default {
                                         <!-- <option :value="grupo[0].IZENA" selected>{{ grupo[0].IZENA }}</option> -->
                                         <!-- <option selected>a</option> -->
                                         <!-- <option   v-for="(grupos,index) in grupo" :key="index" :value="grupos.IZENA" >{{ grupos.IZENA }}</option> -->
-                                        <option v-for="(dato, index) in datos" :key="index" :value="dato.izena">{{ dato.izena
-                                        }}</option>
+                                        <option v-for="(dato, index) in datos" :key="index" :value="dato.izena">{{dato.izena}}</option>
                                     </select>
                                 </td>
                                 <td><input type="date" id="birthday" name="birthday" v-model="fecha[0].HASIERA_DATA"></td>
@@ -956,8 +955,7 @@ export default {
                                 <td>Martes</td>
                                 <td><select class="form-select combobox" aria-label="Default select example"
                                         v-model="dias[1]">
-                                        <option v-for="(dato, index) in datos" :key="index" :value="dato.izena">{{ dato.izena
-                                        }}</option>
+                                        <option v-for="(dato, index) in datos" :key="index" :value="dato.izena">{{dato.izena}}</option>
                                     </select></td>
                                 <td><input type="date" id="birthday" name="birthday" v-model="fecha[1].HASIERA_DATA"></td>
                                 <td><input type="date" id="birthday" name="birthday" v-model="fecha[1].AMAIERA_DATA"></td>
@@ -968,8 +966,7 @@ export default {
                                 <td>Miércoles</td>
                                 <td><select class="form-select combobox" aria-label="Default select example"
                                         v-model="dias[2]">
-                                        <option v-for="(dato, index) in datos" :key="index" :value="dato.izena">{{ dato.izena
-                                        }}</option>
+                                        <option v-for="(dato, index) in datos" :key="index" :value="dato.izena">{{dato.izena}}</option>
                                     </select></td>
                                 <td><input type="date" id="birthday" name="birthday" v-model="fecha[2].HASIERA_DATA"></td>
                                 <td><input type="date" id="birthday" name="birthday" v-model="fecha[2].AMAIERA_DATA"></td>
@@ -980,8 +977,7 @@ export default {
                                 <td>Jueves</td>
                                 <td><select class="form-select combobox" aria-label="Default select example"
                                         v-model="dias[3]">
-                                        <option v-for="(dato, index) in datos" :key="index" :value="dato.izena">{{ dato.izena
-                                        }}</option>
+                                        <option v-for="(dato, index) in datos" :key="index" :value="dato.izena">{{dato.izena}}</option>
                                     </select></td>
                                 <td><input type="date" id="birthday" name="birthday" v-model="fecha[3].HASIERA_DATA"></td>
                                 <td><input type="date" id="birthday" name="birthday" v-model="fecha[3].AMAIERA_DATA"></td>
@@ -992,8 +988,7 @@ export default {
                                 <td>Viernes</td>
                                 <td><select class="form-select combobox" aria-label="Default select example"
                                         v-model="dias[4]">
-                                        <option v-for="(dato, index) in datos" :key="index" :value="dato.izena">{{ dato.izena
-                                        }}</option>
+                                        <option v-for="(dato, index) in datos" :key="index" :value="dato.izena">{{dato.izena}}</option>
                                     </select></td>
                                 <td><input type="date" id="birthday" name="birthday" v-model="fecha[4].HASIERA_DATA"></td>
                                 <td><input type="date" id="birthday" name="birthday" v-model="fecha[4].AMAIERA_DATA"></td>
@@ -1262,56 +1257,56 @@ export default {
                     </table>
                 </div>
             </div>
-        <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
-        <!-- Ticket -->
-        <div id="ventanaEmergenteTiket" class="ventana-oculta"
-            style="background-color: #F4E3C8; width: 50vw; border-radius: 25px;">
-            <div class="input-group-horarios">
-                <button type="button" id="cerrarVentanaLangile" class="btn x" @click="quitarFondoNegro">
-                    <i class="bi bi-x"></i>
-                </button>
-            </div>
-            <form class="row g-3 p-5">
-                <!-- Primera Fila -->
-                <div class="col-md-12">
-                    <div class="row g-3">
-                        <div class="col">
-                            <label class="form-label rounded bg-white p-2 mb-1">Nombre: </label>
-                            <input type="text" class="form-control" v-model="izena" disabled
-                                style="background-color: white;">
+            <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+            <!-- Ticket -->
+            <div id="ventanaEmergenteTiket" class="ventana-oculta"
+                style="background-color: #F4E3C8; width: 50vw; border-radius: 25px;">
+                <div class="input-group-horarios">
+                    <button type="button" id="cerrarVentanaLangile" class="btn x" @click="quitarFondoNegro">
+                        <i class="bi bi-x"></i>
+                    </button>
+                </div>
+                <form class="row g-3 p-5">
+                    <!-- Primera Fila -->
+                    <div class="col-md-12">
+                        <div class="row g-3">
+                            <div class="col">
+                                <label class="form-label rounded bg-white p-2 mb-1">Nombre: </label>
+                                <input type="text" class="form-control" v-model="izena" disabled
+                                    style="background-color: white;">
+                            </div>
+                            <div class="col">
+                                <label for="inputAddress" class="form-label rounded bg-white p-2 mb-1">Telefono:</label>
+                                <input type="text" class="form-control" v-model="telefonoa" disabled
+                                    style="background-color: white;">
+                            </div>
                         </div>
-                        <div class="col">
-                            <label for="inputAddress" class="form-label rounded bg-white p-2 mb-1">Telefono:</label>
-                            <input type="text" class="form-control" v-model="telefonoa" disabled
-                                style="background-color: white;">
-                        </div>
-                    </div>
 
-                </div>
-                <!-- Quinta Fila -->
-                <div class="col-md-12">
-                    <div class="row g-3" style="display: inline-flex;">
-                        <div class="col">
-                            <label class="form-label rounded bg-white p-2 mb-1">Tratamientos: </label>
-                        </div>
                     </div>
-                    <ul class="list-group">
-                        <li v-for="(dato, index) in tratamenduakCita" :key="index"
-                            class="list-group-item d-flex justify-content-between align-items-center">
-                            {{dato.tratamenduIzena}}
-                            <span class="badge bg-primary rounded-pill">{{dato.prezioa}}</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-12 d-flex justify-content-end">
-                    <label class="form-label rounded bg-white p-2 mb-1 mx-2">Precio: </label>
-                    <label class="form-label rounded p-2 mb-1"
-                        style="background-color: #e9995798;">{{totalPrezioa}}€</label>
-                </div>
-                <button v-if="idCita != ''" class="btn mx-2" type="button" style="background-color: #1ab7bc;"
-                    @click="quitarFondoNegro">Aceptar</button>
-            </form>
+                    <!-- Quinta Fila -->
+                    <div class="col-md-12">
+                        <div class="row g-3" style="display: inline-flex;">
+                            <div class="col">
+                                <label class="form-label rounded bg-white p-2 mb-1">Tratamientos: </label>
+                            </div>
+                        </div>
+                        <ul class="list-group">
+                            <li v-for="(dato, index) in tratamenduakCita" :key="index"
+                                class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ dato.tratamenduIzena }}
+                                <span class="badge bg-primary rounded-pill">{{ dato.prezioa }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-12 d-flex justify-content-end">
+                        <label class="form-label rounded bg-white p-2 mb-1 mx-2">Precio: </label>
+                        <label class="form-label rounded p-2 mb-1"
+                            style="background-color: #e9995798;">{{ totalPrezioa }}€</label>
+                    </div>
+                    <button v-if="idCita != ''" class="btn mx-2" type="button" style="background-color: #1ab7bc;"
+                        @click="quitarFondoNegro">Aceptar</button>
+                </form>
+            </div>
         </div>
-        <!--  -->
     </div>
-</div></template>
+</template>
