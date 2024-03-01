@@ -31,7 +31,7 @@ export default {
     },
 
     abrirPopup(etiketa, izena, id){
-      this.id = id;
+      this.id_materiala = id;
       this.aldatu = id;
       this.etiketa = etiketa;
       this.izena = izena;
@@ -39,9 +39,31 @@ export default {
       document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'block';
     },
 
+    abrirDevolverMaterial(id){
+      this.idMaterial = id;
+      document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
+      document.getElementById('ventanaEmergenteDevolverMaterial').style.display = 'block';
+    },
+
+    abrirReservar(id){
+      this.idMaterial = id;
+      document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
+      document.getElementById('ventanaEmergenteReservarMaterial').style.display = 'block';
+    },
+
     ocultarVentana(){
       document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
       document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'none';
+    },
+
+    ocultarVentanaR(){
+      document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
+      document.getElementById('ventanaEmergenteReservarMaterial').style.display = 'none';
+    },
+
+    cerrarDevolver(){
+      document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
+      document.getElementById('ventanaEmergenteDevolverMaterial').style.display = 'none';
     },
 
     txertatuEdoAldatu(){
@@ -52,8 +74,6 @@ export default {
       }
       document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
       document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'none';
-      this.datos.splice(0, this.datos.length);
-      this.fetchData();
     },
 
     async aldatuDatuak() {
@@ -80,8 +100,32 @@ export default {
       }
     },
 
+    addDatuak(){
+      if(this.izena=="" && this.etiketa==""){
+          alert("Datu falta dira")
+      }else{
+          var js = JSON.stringify({"izena": this.izena, "etiketa": this.etiketa}); 
+          console.log("froga: "+js);
+          fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/txertatu', {method: 'POST', body: js, mode: 'cors'})
+          .then(function (response) {
+                  return response.text();
+          })
+          .then(data=>{
+              console.log(data);
+          })
+          .catch(error => {
+              console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+          });
+      }
+      this.fetchData();
+    },
+
     async fetchData(){
-      this.datosFiltrados = [];
+
+      this.datos = [],
+      this.datosFiltrados = [],
+      this.datosTodos = []
+
       try {
       
         const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materialaN', {
@@ -91,7 +135,6 @@ export default {
       
         const data = await response.json();
       
-        console.log(data);
         this.datos = [];
         for (let i = 0; i < data.length; i++) {
             this.datos.push({
@@ -122,7 +165,8 @@ export default {
       var repetido;
       var idsUsados = [];
 
-      console.log(JSON.parse(JSON.stringify(this.datos)));
+
+      // console.log(JSON.parse(JSON.stringify(this.datos)));
       for (let i = 0; i < this.datos.length; i++) {
 
         repetido = false;
@@ -163,7 +207,7 @@ export default {
 
       }
 
-      console.log(JSON.parse(JSON.stringify(this.datosFiltrados)));
+      // console.log(JSON.parse(JSON.stringify(this.datosFiltrados)));
       this.todosMaterial();
     },
 
@@ -180,7 +224,7 @@ export default {
       const data = await response.json();
     
       console.log(data);
-    
+      this.datosTodos = [];
       for (let i = 0; i < data.length; i++) {
           this.datosTodos.push({
               "etiketa": data[i].etiketa,
@@ -188,7 +232,7 @@ export default {
               "id": data[i].id
           });
       }
-      
+      console.log(this.datosTodos);
       } catch (error) {
         console.error('Error al obtener los datos:', error);
       }
@@ -252,16 +296,99 @@ export default {
       
       this.fetchData();
     },
-    
+    ordenarPorColor(color) {
+      this.colorSeleccionado = color;
+    },
+
+    async devolverMaterial(){
+    try {
+      var js = JSON.stringify({"id_materiala": this.idMaterial});
+          
+      const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/devolver', {
+        method: 'PUT',
+        body: js
+      });
+          
+      const data = await response.text();
+      console.log(data);
+
+      this.cerrarDevolver();
+
+      this.fetchData();
+    } catch (error) {
+      console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+    }
   },
+
+  },
+  
   mounted: function() {
     this.fetchData();
     
-  }
+  },
+
+  computed: {
+      datosFiltrados() {
+        if (this.colorSeleccionado === 'rojo') {
+          return this.datos.filter(dato => dato.amaiera_data === null);
+        } else if (this.colorSeleccionado === 'verde') {
+          return this.datos.filter(dato => dato.amaiera_data !== null);
+        } else {
+          return this.datos;
+        }
+      }
+    },
   // Otro código de la vista
 }
 </script>
 <template>
+
+  <!-- RESERVAR MATERIAL -->
+
+  <div id="ventanaEmergenteReservarMaterial" class="ventana-oculta" style="padding: 1%; padding-right: 6%;">
+      <div class="contenido-ventana">
+          <div class="margenAlBotonReservar" style="margin-right: -160%;">
+              <button type="button" id="cerrarVentanaReservarMaterial" class="btn x" @click="ocultarVentanaR()">
+                  <i class="bi bi-x"></i>
+              </button>
+          </div>
+          <div class="d-flex align-items-center mt-4">
+              <!-- Combobox bat taldeak erakusteko -->
+              <select class="form-select combobox" id="selectorGruposMaterial" aria-label="Default select example" v-model="kodea" @change="nombresAlumnos()">
+                  <option   v-for="(dato,index) in datosTalde" :key="index" :value="dato.kodea">{{ dato.izena }}</option>
+              </select>
+              <!-- Combobox bat ikasleak erakusteko -->
+              <select class="form-select combobox" id="selectorGruposMaterial" aria-label="Default select example" v-model="idlangile">
+                  <option   v-for="(dato,index) in datosAlumnos" :key="index" :value="dato.id">{{ dato.izena + " " + dato.abizenak }}</option>
+                  <option v-if="datosAlumnos.length === 0" disabled>Seleccione Grupo Primero</option>
+              </select>
+          </div>
+          <!-- Botoi bat reservarMaterial funtzioari deitzeko -->
+          <div class="mt-2" id="submitAñadirMaterialBoton" style="margin-left: 90%;">
+              <input id="submitAñadirMaterial" type="submit" class="btn añadir btn-lg"
+                  @click="reservarMaterial()" value="Reservar">
+          </div>
+      </div>
+  </div>
+
+  <!-- DEVOLVER MATERIAL -->
+
+  <div id="ventanaEmergenteDevolverMaterial" class="ventana-oculta">
+      <div class="contenido-ventana">
+          <div>
+              <label for="mensaje" id="mensajeDevolverMaterial">El Material se ha devuelto?</label>
+          </div>
+          <div class="d-flex align-items-center mt-2" style="margin-left: 3%;">
+              <input id="siDevolver" type="submit" class="btn añadir btn-lg mt-3"
+                  @click="devolverMaterial()" value="Si">
+              <input id="noDevolver" type="submit" class="btn añadir btn-lg mt-3"
+                  @click="cerrarDevolver()" value="No">
+          </div>
+      </div>
+  </div>
+
+  <!-- AÑADIR MATERIAL -->
+
   <div id="fondoOscuroLangile" class="fondo-oculto"></div>
   <div id="ventanaEmergenteAñadirMaterial" class="ventana-oculta">
               <!-- Leiaren barruan egongo diren elementuak honen barruan daude -->
@@ -309,8 +436,8 @@ export default {
                             <th scope="col">Nombre</th>
                             <!-- Bi botoi libre edo okupatuta dauden materialak filtratzeko -->
                             <th scope="col" style="display: flex; justify-content: center;">
-                                <button @click="alerta('rojo')" style="border-radius: 10%; background-color: #E26B6B;">Ocupado</button>
-                                <button @click="alerta('verde')" style="border-radius: 10%; background-color: #CDDFA0;">Disponible</button>
+                                <button @click="ordenarPorColor('rojo')" style="border-radius: 10%; background-color: #E26B6B;">Ocupado</button>
+                                <button @click="ordenarPorColor('verde')" style="border-radius: 10%; background-color: #CDDFA0;">Disponible</button>
                             </th>
                             <th scope="col"></th>
                         </tr>
@@ -318,8 +445,8 @@ export default {
                     <tbody>
                         <!-- Datuak v-for batekin erakusten dira, hauetan klikatzerakoan editatu ahal izateko edo erreserbatzeko funtzionalitatea emanda -->
                         <tr v-for="(dato, index) in datosFiltrados" :key="index" :id="dato.id_materiala">
-                          <td>{{ dato.etiketa }}</td>
-                          <td maxlength="100">{{ dato.izena }}</td>
+                          <td @click="abrirPopup(dato.etiketa, dato.izena, dato.id_materiala)">{{ dato.etiketa }}</td>
+                          <td @click="abrirPopup(dato.etiketa, dato.izena, dato.id_materiala)" maxlength="100">{{ dato.izena }}</td>
                           <td style="display: flex; justify-content: center; width: 100%;">
                             <!-- "dato.amaiera_data" kontuan izanda item-aren kolorea aldatzen, bakoitzari funtzionalitate desberdina emanda -->
                             <i v-if="dato.amaiera_data == null" class="bi bi-square-fill" style="color: #E26B6B;" @click="abrirDevolverMaterial(dato.id)"></i>
