@@ -294,12 +294,6 @@
                             <input type="date" id="birthday" name="birthday" v-model="fechaFin">
                             </h4>
                         </div>
-                        <input type="text" class="form-control buscar" placeholder="Buscar por nombre">
-                        <div class="input-group-append">
-                            <button class="btn lupa" type="button">
-                                <i class="bi bi-search"></i>
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>

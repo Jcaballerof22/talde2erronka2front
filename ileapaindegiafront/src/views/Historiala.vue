@@ -9,35 +9,38 @@ export default {
             historialRoles: [],
             historialProductos: [],
             historialMaterial: [],
+            taula: [],
             tablas: ['tablaRoles', 'tablaProductos', 'tablaMaterial'],
             botonTabla: "",
-            titulua: 'HISTORIAL'
+            buscar: "",
+            tabla: "historialRoles"
         };
     },
     methods:{
         // Rolen datuak lortzeko metodoa (zein ikasle egon den rol bakoitzean eta zenbat aldiz)
         async tablaRoles() {
-          try {
-            const response = await fetch(window.ruta + `roles/historial`, { method: 'GET' });
-        
-            if (!response.ok) {
-              throw new Error(`Error en la solicitud: ${response.statusText}`);
+            try {
+                const response = await fetch(window.ruta + `roles/historial`, { method: 'GET' });
+            
+                if (!response.ok) {
+                    throw new Error(`Error en la solicitud: ${response.statusText}`);
+                }
+            
+                const data = await response.json();
+            
+                for (let i = 0; i < data.length; i++) {
+                    this.historialRoles.push({
+                        "izena": data[i].izena + " " + data[i].abizenak,
+                        "mota": data[i].mota,
+                        "data": data[i].data
+                    });
+                }
+
+                this.taula = this.historialRoles;
+            
+            } catch (error) {
+                console.error('Error al obtener datos del servidor:', error);
             }
-        
-            const data = await response.json();
-        
-            for (let i = 0; i < data.length; i++) {
-              this.historialRoles.push({
-                "izena": data[i].izena + " " + data[i].abizenak,
-                "mota": data[i].mota,
-                "data": data[i].data
-              });
-            }
-        
-            this.tituluAldatu();
-          } catch (error) {
-            console.error('Error al obtener datos del servidor:', error);
-          }
       },
       // Produktuen mugimenduen datuak lortzeko metodoa
       async tablaProductos() {
@@ -59,6 +62,9 @@ export default {
                 "data": data[i].data
               });
             }
+
+            this.taula = this.historialProductos;
+
           } catch (error) {
             console.error('Error al obtener datos del servidor:', error);
           }
@@ -83,6 +89,9 @@ export default {
                 "amaiera_data": data[i].amaiera_data
               });
             }
+
+            this.taula = this.historialMaterial;
+
           } catch (error) {
             console.error('Error al obtener datos del servidor:', error);
           }
@@ -90,6 +99,7 @@ export default {
       // Sakatzen den botoiaren arabera taula desberdinak bistaratzeko metodoa
       mostrarTablas(tabla){
           this.botonTabla = tabla;
+          
           for (let i = 0; i < this.tablas.length; i++) {
               if(this.tablas[i]==tabla){
                   document.getElementById(tabla).style.display = 'table';
@@ -97,21 +107,29 @@ export default {
                   document.getElementById(this.tablas[i]).style.display = 'none';
               }
           }
-      },
-      // Titulua aldatzeko metodoa
-      tituluAldatu(){
-          var scriptAnterior = document.getElementById("scriptDinamico");
-          if (scriptAnterior) {
-              scriptAnterior.remove();
+
+          switch (tabla) {
+            case 'tablaRoles':
+                this.tabla = 'historialRoles';
+                this.taula = this.historialRoles;
+                break;
+            case 'tablaProductos':
+                this.tabla = 'historialProductos';
+                this.taula = this.historialProductos;
+                break;
+            case 'tablaMaterial':
+                this.tabla = 'historialMaterial';
+                this.taula = this.historialMaterial;
+                break;
+            default:
+                break;
           }
-          var nuevoScript = document.createElement("script");
-          nuevoScript.id = "scriptDinamico";
-          nuevoScript.onload = function() {
-              console.log("Script cargado exitosamente");
-          };
-          nuevoScript.innerHTML = "var menu = new Vue({el: '#menu',data: {titulo: '"+this.titulua+"'},});";
-          document.body.appendChild(nuevoScript);
-      }
+      },
+    },
+    watch:{
+        bilatu: function(){
+            
+        }
     },
     mounted: function(){
       this.tablaRoles();
@@ -160,7 +178,7 @@ export default {
                     </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(dato, index) in historialRoles" :key="index">
+                        <tr v-for="(dato, index) in taula" :key="index">
                             <td>{{ dato.izena }}</td>
                             <td v-if="dato.mota=='G'">Limpieza</td>
                             <td v-else>Mostrador</td>
@@ -181,7 +199,7 @@ export default {
                     </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(dato, index) in historialProductos" :key="index">
+                        <tr v-for="(dato, index) in taula" :key="index">
                             <td>{{ dato.izena }}</td>
                             <td>{{ dato.produktua }} - {{dato.marka}}</td>
                             <td>{{dato.kopurua}}</td>
@@ -202,7 +220,7 @@ export default {
                     </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(dato, index) in historialMaterial" :key="index">
+                        <tr v-for="(dato, index) in taula" :key="index">
                             <td>{{ dato.material }}</td>
                             <td>{{ dato.izena }}</td>
                             <td>{{dato.hasiera_data}}</td>
