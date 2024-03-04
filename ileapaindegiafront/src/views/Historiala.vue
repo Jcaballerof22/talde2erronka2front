@@ -128,7 +128,11 @@ export default {
     },
     watch:{
         bilatu: function(){
-            
+            if (this.buscar == ''){
+                this.taula = this[this.tabla];
+            }else{
+                this.taula = [];
+            }
         }
     },
     mounted: function(){
@@ -158,9 +162,9 @@ export default {
                             <input type="date" id="birthday" name="birthday">
                             </h4>
                         </div>
-                        <input type="text" class="form-control buscar" placeholder="Buscar por nombre">
+                        <input type="text" class="form-control buscar" placeholder="Buscar por nombre" v-model="buscar">
                         <div class="input-group-append">
-                            <button class="btn lupa" type="button">
+                            <button class="btn lupa" type="button" @click="lupa">
                                 <i class="bi bi-search"></i>
                             </button>
                         </div>
