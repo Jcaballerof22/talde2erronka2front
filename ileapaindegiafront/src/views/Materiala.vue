@@ -66,6 +66,11 @@ export default {
       document.getElementById('ventanaEmergenteDevolverMaterial').style.display = 'none';
     },
 
+    cerrarVentanaX(){
+      document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
+      document.getElementById('ventanaEmergenteReservarMaterial').style.display = 'none';
+    },
+
     txertatuEdoAldatu(){
       if(this.aldatu != ''){
         this.aldatuDatuak();
@@ -243,6 +248,9 @@ export default {
 
     todosFiltrado(){
       var exist = 0;
+      var fechaActual = new Date();
+      var formato = fechaActual.getFullYear() + '-' + ('0' + (fechaActual.getMonth() + 1)).slice(-2) + '-' + ('0' + fechaActual.getDate()).slice(-2) + ' ' + ('0' + fechaActual.getHours()).slice(-2) + ':' + ('0' + fechaActual.getMinutes()).slice(-2) + ':' + ('0' + fechaActual.getSeconds()).slice(-2);
+
 
       for (let i = 0; i < this.datosTodos.length; i++) {
         for (let a = 0; a < this.datosFiltrados.length; a++) {
@@ -261,7 +269,7 @@ export default {
                 "id": "",
                 "id_langilea": "",
                 "id_materiala": this.datosTodos[i].id,
-                "amaiera_data": ""
+                "amaiera_data": formato
           });
           exist = 0;
         } else {
@@ -296,13 +304,87 @@ export default {
       
       this.fetchData();
     },
+
     ordenarPorColor(color) {
       this.colorSeleccionado = color;
     },
 
+    async nombresGrupo() {
+            
+            try {
+                const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/grupos', {
+                    method: 'GET',
+                    mode: 'cors'
+                });
+
+                const data = await response.json();
+                
+                console.log(data);
+                
+                data.forEach(grupo => {
+                    this.datosTalde.push({
+                        "izena": grupo.izena,
+                        "kodea": grupo.kodea
+                    });
+                });
+            } catch (error) {
+                console.error('Error al obtener los nombres de grupo:', error);
+            }
+        },
+
+        async nombresAlumnos(){
+
+            try {
+          
+              const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/alumnos/'+this.kodea, {
+                method: 'GET',
+                mode: 'cors'
+            });
+
+              const data = await response.json();
+              console.log(data);
+              
+              this.datosAlumnos.splice(0, this.datosAlumnos.length);
+
+              data.forEach(alumno => {
+                this.datosAlumnos.push({
+                    "izena": alumno.izena,
+                    "abizenak": alumno.abizenak,
+                    "id": alumno.id
+                });
+            });
+            } catch (error) {
+              console.log(error);
+            }
+        },
+
+async reservarMaterial(){
+    try {
+        var js = JSON.stringify({
+          "id_materiala": this.idMaterial,
+          "id_langilea": this.idlangile
+        });
+        console.log("froga: " + js);
+            
+        const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/reservar', {
+          method: 'POST',
+          body: js
+        });
+            
+        const data = await response.text();
+        console.log(data);
+        this.cerrarVentanaX();
+        this.fetchData();
+
+      } catch (error) {
+        console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+      }
+},
+
     async devolverMaterial(){
     try {
       var js = JSON.stringify({"id_materiala": this.idMaterial});
+      console.log(js);
           
       const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/devolver', {
         method: 'PUT',
@@ -324,17 +406,17 @@ export default {
   
   mounted: function() {
     this.fetchData();
-    
+    this.nombresGrupo();
   },
 
   computed: {
       datosFiltrados() {
         if (this.colorSeleccionado === 'rojo') {
-          return this.datos.filter(dato => dato.amaiera_data === null);
+          return this.datosFiltrados.filter(dato => dato.amaiera_data === null);
         } else if (this.colorSeleccionado === 'verde') {
-          return this.datos.filter(dato => dato.amaiera_data !== null);
+          return this.datosFiltrados.filter(dato => dato.amaiera_data !== null);
         } else {
-          return this.datos;
+          return this.datosFiltrados;
         }
       }
     },
@@ -364,7 +446,7 @@ export default {
               </select>
           </div>
           <!-- Botoi bat reservarMaterial funtzioari deitzeko -->
-          <div class="mt-2" id="submitAñadirMaterialBoton" style="margin-left: 90%;">
+          <div class="mt-2" id="submitReservarMaterial" style="margin-left: 90%;">
               <input id="submitAñadirMaterial" type="submit" class="btn añadir btn-lg"
                   @click="reservarMaterial()" value="Reservar">
           </div>
@@ -449,8 +531,8 @@ export default {
                           <td @click="abrirPopup(dato.etiketa, dato.izena, dato.id_materiala)" maxlength="100">{{ dato.izena }}</td>
                           <td style="display: flex; justify-content: center; width: 100%;">
                             <!-- "dato.amaiera_data" kontuan izanda item-aren kolorea aldatzen, bakoitzari funtzionalitate desberdina emanda -->
-                            <i v-if="dato.amaiera_data == null" class="bi bi-square-fill" style="color: #E26B6B;" @click="abrirDevolverMaterial(dato.id)"></i>
-                            <i v-else class="bi bi-square-fill" style="color: #CDDFA0;" @click="abrirReservar(dato.id)"></i>
+                            <i v-if="dato.amaiera_data == null" class="bi bi-square-fill" style="color: #E26B6B;" @click="abrirDevolverMaterial(dato.id_materiala)"></i>
+                            <i v-else class="bi bi-square-fill" style="color: #CDDFA0;" @click="abrirReservar(dato.id_materiala)"></i>
                           </td>
                           <td>
                             <!-- Materiala ezabatzeko funztioari deitzen dion item-a -->

@@ -528,23 +528,20 @@ body{
   margin-right: 20%;
 }
 
-#submitAñadirMaterialBoton{
-  margin-right: 1108%;
-}
 
-#ventanaEmergenteReservarMaterial{
+
+#ventanaEmergenteReservarMaterial {
   display: none;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border: 2px solid black;
-  padding-top: 4vh;
-  padding-bottom: 2vh;
-  padding-left: 7vh;
-  padding-right: 6vh;
   background-color: white;
   z-index: 999;
+  width: 90%; /* Utiliza un ancho relativo */
+  max-width: 500px; /* Establece un ancho máximo */
+  padding: 1%;
 }
 
 /* .ventana-oculta {
@@ -715,4 +712,18 @@ body{
 
 #eus:hover {
   background-color: #CDDFA0;
+}
+
+
+/* Cambios */
+
+#cerrarVentanaReservarMaterial {
+  position: absolute;
+  top: 1;
+  right: 0;
+  transform: translate(50%, -50%);
+}
+
+#submitReservarMaterial{
+  margin-right: 10%;
 }
