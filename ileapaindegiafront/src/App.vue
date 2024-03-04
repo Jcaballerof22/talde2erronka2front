@@ -1,7 +1,7 @@
 <script setup>
   import {ref} from "vue";
   import Menu from './components/Menu.vue'
-  window.ruta = 'http://localhost/Cosos/Erronka/talde2erronka2back/Erronka2/public/api/';
+  window.ruta = 'http://localhost/talde2erronka2back/Erronka2/public/api/';
   //Funtzioak
   const translate = (hizkuntza) => {
     sessionStorage.setItem("hizkuntza", hizkuntza);
