@@ -717,13 +717,25 @@ body{
 
 /* Cambios */
 
-#cerrarVentanaReservarMaterial {
+/* #cerrarVentanaReservarMaterial {
   position: absolute;
   top: 1;
   right: 0;
   transform: translate(50%, -50%);
+} */
+
+#ventanaEmergenteAñadirMaterial{
+  border-radius: 5%;
 }
 
-#submitReservarMaterial{
-  margin-right: 10%;
+#mostrarVentanaMaterial{
+
+  margin-left: 85%;
+  font-size: large;
+}
+
+@media screen and (max-width: 1400px) {
+  #mostrarVentanaMaterial {
+      font-size: 2vh; /* Cambia el tamaño del texto para pantallas más pequeñas */
+  }
 }

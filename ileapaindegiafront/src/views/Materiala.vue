@@ -279,6 +279,7 @@ export default {
       }
 
       console.log(this.datosFiltrados);
+      this.taula = this.datosFiltrados;
     },
 
     async ezabatu(id) {
@@ -359,6 +360,9 @@ export default {
         },
 
 async reservarMaterial(){
+  if (this.idlangile == "") {
+    alert("Error, faltan datos");
+  } else {
     try {
         var js = JSON.stringify({
           "id_materiala": this.idMaterial,
@@ -379,6 +383,7 @@ async reservarMaterial(){
       } catch (error) {
         console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
       }
+  }
 },
 
     async devolverMaterial(){
@@ -410,16 +415,31 @@ async reservarMaterial(){
   },
 
   computed: {
-      datosFiltrados() {
+      taula() {
         if (this.colorSeleccionado === 'rojo') {
-          return this.datosFiltrados.filter(dato => dato.amaiera_data === null);
+          return this.taula.filter(dato => dato.amaiera_data === null);
         } else if (this.colorSeleccionado === 'verde') {
-          return this.datosFiltrados.filter(dato => dato.amaiera_data !== null);
+          return this.taula.filter(dato => dato.amaiera_data !== null);
         } else {
-          return this.datosFiltrados;
+          return this.taula;
         }
       }
     },
+
+  watch: {
+    bilatu: function(){
+            if (this.bilatu == ''){
+                this.taula = this.datosFiltrados;
+            }else{
+                this.taula = [];
+                for (let i = 0; i < this.datosFiltrados.length; i++){
+                    if(this.datosFiltrados[i].etiketa.toLowerCase().startsWith(this.bilatu.toLowerCase())){
+                        this.taula.push({"amaiera_data" : this.datosFiltrados[i].amaiera_data, "etiketa" : this.datosFiltrados[i].etiketa, "id" : this.datosFiltrados[i].id, "id_langilea" : this.datosFiltrados[i].id_langilea, "id_materiala" : this.datosFiltrados[i].id_materiala, "izena" : this.datosFiltrados[i].izena});
+                    }
+                }
+            }
+    }
+  },
   // Otro código de la vista
 }
 </script>
@@ -427,35 +447,42 @@ async reservarMaterial(){
 
   <!-- RESERVAR MATERIAL -->
 
-  <div id="ventanaEmergenteReservarMaterial" class="ventana-oculta" style="padding: 1%; padding-right: 6%;">
+  <div id="ventanaEmergenteReservarMaterial" class="ventana-oculta" style="padding: 1%; padding-right: 3%; border-radius: 15px;">
       <div class="contenido-ventana">
-          <div class="margenAlBotonReservar" style="margin-right: -160%;">
+        <div class="row justify-content-end">
+          <div class="margenAlBotonReservar col-1">
+              <!-- Boton para cerrar el POPUP -->
               <button type="button" id="cerrarVentanaReservarMaterial" class="btn x" @click="ocultarVentanaR()">
                   <i class="bi bi-x"></i>
               </button>
           </div>
-          <div class="d-flex align-items-center mt-4">
-              <!-- Combobox bat taldeak erakusteko -->
-              <select class="form-select combobox" id="selectorGruposMaterial" aria-label="Default select example" v-model="kodea" @change="nombresAlumnos()">
-                  <option   v-for="(dato,index) in datosTalde" :key="index" :value="dato.kodea">{{ dato.izena }}</option>
-              </select>
-              <!-- Combobox bat ikasleak erakusteko -->
-              <select class="form-select combobox" id="selectorGruposMaterial" aria-label="Default select example" v-model="idlangile">
-                  <option   v-for="(dato,index) in datosAlumnos" :key="index" :value="dato.id">{{ dato.izena + " " + dato.abizenak }}</option>
-                  <option v-if="datosAlumnos.length === 0" disabled>Seleccione Grupo Primero</option>
-              </select>
-          </div>
-          <!-- Botoi bat reservarMaterial funtzioari deitzeko -->
-          <div class="mt-2" id="submitReservarMaterial" style="margin-left: 90%;">
+        </div>
+
+        <div class="d-flex align-items-center mt-4">
+          <!-- El ComboBox para elegir el grupo del alumno -->
+          <select class="form-select combobox" id="selectorGruposMaterial" aria-label="Default select example" v-model="kodea" @change="nombresAlumnos()">  
+            <option   v-for="(dato,index) in datosTalde" :key="index" :value="dato.kodea">{{ dato.izena }}</option>
+          </select>
+          <!-- ComboBox para elegir al alumno -->
+          <select class="form-select combobox" id="selectorGruposMaterial" aria-label="Default select example" v-model="idlangile">
+              <option   v-for="(dato,index) in datosAlumnos" :key="index" :value="dato.id">{{ dato.izena + " " + dato.abizenak }}</option>
+              <option v-if="datosAlumnos.length === 0" disabled>Seleccione Grupo Primero</option>
+          </select>
+        </div>
+          
+        <div class="row justify-content-end">
+          <!-- Boton para reservar -->
+          <div class="mt-2" id="submitReservarMaterial">
               <input id="submitAñadirMaterial" type="submit" class="btn añadir btn-lg"
                   @click="reservarMaterial()" value="Reservar">
           </div>
+        </div>
       </div>
   </div>
 
   <!-- DEVOLVER MATERIAL -->
 
-  <div id="ventanaEmergenteDevolverMaterial" class="ventana-oculta">
+  <div id="ventanaEmergenteDevolverMaterial" class="ventana-oculta" style="border-radius: 20px;">
       <div class="contenido-ventana">
           <div>
               <label for="mensaje" id="mensajeDevolverMaterial">El Material se ha devuelto?</label>
@@ -506,10 +533,15 @@ async reservarMaterial(){
     </div>
     <div class="containerPage">
         <div class="input-group-estadisticas">
-                <div class="col">
-                  <button type="button" id="mostrarVentanaMaterial" class="btn añadir btn-lg"
-                                @click="abrirPopup('' , '' , '')">Añadir material</button>
-                </div>
+
+                    <input type="text" class="form-control buscar" placeholder="Buscar por nombre" v-model="bilatu">
+
+
+                  <div class="col">
+                    <button type="button" id="mostrarVentanaMaterial" class="btn añadir btn-lg"
+                                  @click="abrirPopup('' , '' , '')">Añadir material</button>
+                  </div>
+                
                 <!-- Taula bat datuak erakusteko -->
                 <table id="tabla" class="table table-hover table-striped">
                     <thead>
@@ -526,7 +558,7 @@ async reservarMaterial(){
                     </thead>
                     <tbody>
                         <!-- Datuak v-for batekin erakusten dira, hauetan klikatzerakoan editatu ahal izateko edo erreserbatzeko funtzionalitatea emanda -->
-                        <tr v-for="(dato, index) in datosFiltrados" :key="index" :id="dato.id_materiala">
+                        <tr v-for="(dato, index) in taula" :key="index" :id="dato.id_materiala">
                           <td @click="abrirPopup(dato.etiketa, dato.izena, dato.id_materiala)">{{ dato.etiketa }}</td>
                           <td @click="abrirPopup(dato.etiketa, dato.izena, dato.id_materiala)" maxlength="100">{{ dato.izena }}</td>
                           <td style="display: flex; justify-content: center; width: 100%;">
