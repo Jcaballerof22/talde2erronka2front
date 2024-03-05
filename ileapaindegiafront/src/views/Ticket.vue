@@ -10,7 +10,10 @@ export default {
             tratamendu_izena: '',
             prezioa: '',
             id_tratamendua: '',
-            data: ''
+            data: '',
+            bilatu: '',
+            fechaInicio: '',
+            fechaFin: ''
             };
     },
     methods: {
@@ -142,48 +145,88 @@ export default {
             this.prezioa = '';
             document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
             document.getElementById('ventanaEmergenteTickets').style.display = 'none';
-          },
-          
-        // buscar(){
-        //     if (this.bilatu == ''){
-        //         this.taula = this.datos;
-        //     }else{
-        //         this.taula = [];
-        //         for (let i = 0; i < this.datos.length; i++){
-        //             if(this.datos[i].izena.startsWith(this.bilatu)){
-        //                 this.taula.push({"izena" : this.datos[i].izena, "abizenak" : this.datos[i].abizenak, "kodea" : this.datos[i].kodea, "id" : this.datos[i].id});
-        //             }
-        //         }
-        //     }
-        // },
-        
+        },
+        //Dataren arabera sailkatzeko filtroa
+        bilatuData(){
+            //Egiaztatzen du erabiltzaileak hasiera eta amaiera datak sartu dituela
+            if(!isNaN(new Date(this.fechaInicio)) && !isNaN(new Date(this.fechaFin))){
+                console.log('hola');
+                this.taula = [];
+                for (let i=0; i < this.datosTickets.length; i++){
+                    //Hasiera eta amaiera daten artean dauden datuak bilatzen eta inprimatzen ditu
+                    if(new Date(this.datosTickets[i].data) >= new Date(this.fechaInicio) && new Date(this.datosTickets[i].data) <= new Date(this.fechaFin)){
+                        this.taula.push({
+                            "bezero_izena": this.datosTickets[i].bezero_izena,
+                            "data": this.datosTickets[i].data,
+                            "tratamendu_izena": this.datosTickets[i].tratamendu_izena,
+                            "prezioa": this.datosTickets[i].prezioa,
+                            "id": this.datosTickets[i].id
+                        });
+                    }
+                }
+            }else{
+                this.taula = this.datosTickets;
+            }
+        }
     },
     watch:{
-        // bilatu: function(){
-        //     if (this.bilatu == ''){
-        //         this.taula = this.datos;
-        //     }else{
-        //         this.taula = [];
-        //         for (let i = 0; i < this.datos.length; i++){
-        //             if(this.datos[i].izena.startsWith(this.bilatu)){
-        //                 this.taula.push({"izena" : this.datos[i].izena, "abizenak" : this.datos[i].abizenak, "kodea" : this.datos[i].kodea, "id" : this.datos[i].id});
-        //             }
-        //         }
-        //     }
-        // },
+        //Izenaren arabera bilatzeko filtroa
+        bilatu: function(){
+            if (this.bilatu == ''){
+                //Kontuan hartzen du dataren filtroa erabiltzen ari bada edo ez
+                if(!isNaN(new Date(this.fechaInicio)) && !isNaN(new Date(this.fechaFin))){
+                    this.taula = [];
+                    for (let i=0; i < this.datosTickets.length; i++){
+                        if(new Date(this.datosTickets[i].data) >= new Date(this.fechaInicio) && new Date(this.datosTickets[i].data) <= new Date(this.fechaFin)){
+                            this.taula.push({
+                                "bezero_izena": this.datosTickets[i].bezero_izena,
+                                "data": this.datosTickets[i].data,
+                                "tratamendu_izena": this.datosTickets[i].tratamendu_izena,
+                                "prezioa": this.datosTickets[i].prezioa,
+                                "id": this.datosTickets[i].id
+                            });
+                        }
+                    }
+                }else{
+                    this.taula = this.datosTickets;
+                }
+            }else{
+                this.taula = [];
+                for (let i = 0; i < this.datosTickets.length; i++){
+                    //Sartutako izenaren arabera filtroa egiten du
+                    if(this.datosTickets[i].bezero_izena.toLowerCase().startsWith(this.bilatu.toLowerCase())){
+                        //Kontuan hartzen du dataren filtroa erabiltzen ari bada edo ez
+                        if(!isNaN(new Date(this.fechaInicio)) && !isNaN(new Date(this.fechaFin))){
+                            if(new Date(this.datosTickets[i].data) >= new Date(this.fechaInicio) && new Date(this.datosTickets[i].data) <= new Date(this.fechaFin)){
+                                this.taula.push({
+                                    "bezero_izena": this.datosTickets[i].bezero_izena,
+                                    "data": this.datosTickets[i].data,
+                                    "tratamendu_izena": this.datosTickets[i].tratamendu_izena,
+                                    "prezioa": this.datosTickets[i].prezioa,
+                                    "id": this.datosTickets[i].id
+                                });
+                            }
+                        }else{
+                            this.taula.push({
+                                "bezero_izena": this.datosTickets[i].bezero_izena,
+                                "data": this.datosTickets[i].data,
+                                "tratamendu_izena": this.datosTickets[i].tratamendu_izena,
+                                "prezioa": this.datosTickets[i].prezioa,
+                                "id": this.datosTickets[i].id
+                            });
+                        }
+                    }
+                }
+            }
+        },
 
-        // sailkatu: function(){
-        //     if (this.sailkatu == 'all'){
-        //         this.taula = this.datos;
-        //     }else{
-        //         this.taula = [];
-        //         for (let i = 0; i < this.datos.length; i++){
-        //             if(this.datos[i].kodea == this.sailkatu){
-        //                 this.taula.push({"izena" : this.datos[i].izena, "abizenak" : this.datos[i].abizenak, "kodea" : this.datos[i].kodea, "id" : this.datos[i].id});
-        //             }
-        //         }
-        //     }
-        // }
+        fechaInicio: function(){
+            this.bilatuData();
+        },
+        
+        fechaFin: function(){
+            this.bilatuData();
+        }
     },
     mounted: function() {
         this.mostrarTickets();
@@ -198,8 +241,14 @@ export default {
             <div class="containerPage">
                 <!-- Izenaren arabera bilatzeko atala -->
                 <div class="input-group">
-
-                    <input type="text" class="form-control buscar" placeholder="Buscar por nombre">
+                    <div class="me-4">
+                            <h4>De 
+                            <input type="date" id="birthday" name="birthday" v-model="fechaInicio">
+                            a 
+                            <input type="date" id="birthday" name="birthday" v-model="fechaFin">
+                            </h4>
+                    </div>
+                    <input type="text" class="form-control buscar" placeholder="Buscar por nombre" v-model="bilatu">
                     <div class="input-group-append">
                     <button class="btn lupa" type="button">
                         <i class="bi bi-search"></i>

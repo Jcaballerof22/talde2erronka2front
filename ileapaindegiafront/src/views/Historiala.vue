@@ -12,8 +12,10 @@ export default {
             taula: [],
             tablas: ['tablaRoles', 'tablaProductos', 'tablaMaterial'],
             botonTabla: "",
-            buscar: "",
-            tabla: "historialRoles"
+            bilatu: "",
+            tabla: "historialRoles",
+            fechaInicio: '',
+            fechaFin: ''
         };
     },
     methods:{
@@ -125,20 +127,218 @@ export default {
                 break;
           }
       },
+
+      bilatuData(){
+            //Egiaztatzen du erabiltzaileak hasiera eta amaiera datak sartu dituela
+            if(!isNaN(new Date(this.fechaInicio)) && !isNaN(new Date(this.fechaFin))){
+                console.log('hola');
+                this.taula = [];
+
+                switch (this.tabla) {
+                    case 'historialRoles':
+                        for (let i = 0; i < this.historialRoles.length; i++){
+                            if(new Date(this.historialRoles[i].data) >= new Date(this.fechaInicio) && new Date(this.historialRoles[i].data) <= new Date(this.fechaFin)){
+                                this.taula.push({"izena" : this.historialRoles[i].izena, "mota" : this.historialRoles[i].mota, "data" : this.historialRoles[i].data});
+                            }
+                        }
+                        break;
+                    case 'historialProductos':
+                        for (let i = 0; i < this.historialProductos.length; i++){
+                            if(new Date(this.historialProductos[i].data) >= new Date(this.fechaInicio) && new Date(this.historialProductos[i].data) <= new Date(this.fechaFin)){
+                                this.taula.push({
+                                    "produktua": this.historialProductos[i].produktua,
+                                    "izena": this.historialProductos[i].izena,
+                                    "kopurua": this.historialProductos[i].kopurua,
+                                    "marka": this.historialProductos[i].marka,
+                                    "data": this.historialProductos[i].data
+                                });
+                            }
+                        }
+                        break;
+                    case 'historialMaterial':
+                    let fechaInicio = new Date(this.fechaInicio);
+
+                    let fechaFin = new Date(this.fechaFin);
+                    fechaFin.setDate(fechaFin.getDate() + 1);
+
+                        for (let i = 0; i < this.historialMaterial.length; i++){
+                            if(new Date(this.historialMaterial[i].hasiera_data) >= fechaInicio && new Date(this.historialMaterial[i].hasiera_data) <= fechaFin){
+                                this.taula.push({
+                                    "material": this.historialMaterial[i].material,
+                                    "izena": this.historialMaterial[i].izena,
+                                    "kopurua": this.historialMaterial[i].kopurua,
+                                    "hasiera_data": this.historialMaterial[i].hasiera_data,
+                                    "amaiera_data": this.historialMaterial[i].amaiera_data
+                                });
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }                    
+            }else{
+                switch (this.tabla) {
+                    case 'historialRoles':
+                        this.taula = this.historialRoles;
+                        break;
+                    case 'historialProductos':
+                        this.taula = this.historialProductos;
+                        break;
+                    case 'historialMaterial':
+                        this.taula = this.historialMaterial;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
     },
     watch:{
         bilatu: function(){
-            if (this.buscar == ''){
-                this.taula = this[this.tabla];
+            if (this.bilatu == ''){
+                if(!isNaN(new Date(this.fechaInicio)) && !isNaN(new Date(this.fechaFin))){
+                    this.taula = [];
+
+                switch (this.tabla) {
+                    case 'historialRoles':
+                        for (let i = 0; i < this.historialRoles.length; i++){
+                            if(new Date(this.historialRoles[i].data) >= new Date(this.fechaInicio) && new Date(this.historialRoles[i].data) <= new Date(this.fechaFin)){
+                                this.taula.push({"izena" : this.historialRoles[i].izena, "mota" : this.historialRoles[i].mota, "data" : this.historialRoles[i].data});
+                            }
+                        }
+                        break;
+                    case 'historialProductos':
+                        for (let i = 0; i < this.historialProductos.length; i++){
+                            if(new Date(this.historialProductos[i].data) >= new Date(this.fechaInicio) && new Date(this.historialProductos[i].data) <= new Date(this.fechaFin)){
+                                this.taula.push({
+                                    "produktua": this.historialProductos[i].produktua,
+                                    "izena": this.historialProductos[i].izena,
+                                    "kopurua": this.historialProductos[i].kopurua,
+                                    "marka": this.historialProductos[i].marka,
+                                    "data": this.historialProductos[i].data
+                                });
+                            }
+                        }
+                        break;
+                    case 'historialMaterial':
+                    let fechaInicio = new Date(this.fechaInicio);
+                    let fechaFin = new Date(this.fechaFin);
+                    fechaFin.setDate(fechaFin.getDate() + 1);
+
+                        for (let i = 0; i < this.historialMaterial.length; i++){
+                            if(new Date(this.historialMaterial[i].hasiera_data) >= fechaInicio && new Date(this.historialMaterial[i].hasiera_data) <= fechaFin){
+                                this.taula.push({
+                                    "material": this.historialMaterial[i].material,
+                                    "izena": this.historialMaterial[i].izena,
+                                    "kopurua": this.historialMaterial[i].kopurua,
+                                    "hasiera_data": this.historialMaterial[i].hasiera_data,
+                                    "amaiera_data": this.historialMaterial[i].amaiera_data
+                                });
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }                    
+                }else{
+                    switch (this.tabla) {
+                        case 'historialRoles':
+                            this.taula = this.historialRoles;
+                            break;
+                        case 'historialProductos':
+                            this.taula = this.historialProductos;
+                            break;
+                        case 'historialMaterial':
+                            this.taula = this.historialMaterial;
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }else{
                 this.taula = [];
+
+                switch (this.tabla) {
+                    case 'historialRoles':
+                        for (let i = 0; i < this.historialRoles.length; i++){
+                            if(this.historialRoles[i].izena.toLowerCase().startsWith(this.bilatu.toLowerCase())){
+                                if(!isNaN(new Date(this.fechaInicio)) && !isNaN(new Date(this.fechaFin))){
+                                    if(new Date(this.historialRoles[i].data) >= new Date(this.fechaInicio) && new Date(this.historialRoles[i].data) <= new Date(this.fechaFin)){
+                                        this.taula.push({"izena" : this.historialRoles[i].izena, "mota" : this.historialRoles[i].mota, "data" : this.historialRoles[i].data});
+                                    }
+                                }else{
+                                    this.taula.push({"izena" : this.historialRoles[i].izena, "mota" : this.historialRoles[i].mota, "data" : this.historialRoles[i].data});
+                                }
+                            }
+                        }
+                        break;
+                    case 'historialProductos':
+                        for (let i = 0; i < this.historialProductos.length; i++){
+                            if(this.historialProductos[i].izena.toLowerCase().startsWith(this.bilatu.toLowerCase())){
+                                if(!isNaN(new Date(this.fechaInicio)) && !isNaN(new Date(this.fechaFin))){
+                                    if(new Date(this.historialProductos[i].data) >= new Date(this.fechaInicio) && new Date(this.historialProductos[i].data) <= new Date(this.fechaFin)){
+                                        this.taula.push({
+                                            "produktua": this.historialProductos[i].produktua,
+                                            "izena": this.historialProductos[i].izena,
+                                            "kopurua": this.historialProductos[i].kopurua,
+                                            "marka": this.historialProductos[i].marka,
+                                            "data": this.historialProductos[i].data
+                                        });
+                                    }
+                                }else{
+                                    this.taula.push({
+                                    "produktua": this.historialProductos[i].produktua,
+                                    "izena": this.historialProductos[i].izena,
+                                    "kopurua": this.historialProductos[i].kopurua,
+                                    "marka": this.historialProductos[i].marka,
+                                    "data": this.historialProductos[i].data
+                                });
+                                }
+                            }
+                        }
+                        break;
+                    case 'historialMaterial':
+                        for (let i = 0; i < this.historialMaterial.length; i++){
+                            if(this.historialMaterial[i].izena.toLowerCase().startsWith(this.bilatu.toLowerCase())){
+                                if(new Date(this.historialMaterial[i].hasiera_data) >= new Date(this.fechaInicio) && new Date(this.historialMaterial[i].hasiera_data) <= new Date(this.fechaFin)){
+                                    this.taula.push({
+                                        "material": this.historialMaterial[i].material,
+                                        "izena": this.historialMaterial[i].izena,
+                                        "kopurua": this.historialMaterial[i].kopurua,
+                                        "hasiera_data": this.historialMaterial[i].hasiera_data,
+                                        "amaiera_data": this.historialMaterial[i].amaiera_data
+                                    });
+                                }
+                            }else{
+                                this.taula.push({
+                                    "material": this.historialMaterial[i].material,
+                                    "izena": this.historialMaterial[i].izena,
+                                    "kopurua": this.historialMaterial[i].kopurua,
+                                    "hasiera_data": this.historialMaterial[i].hasiera_data,
+                                    "amaiera_data": this.historialMaterial[i].amaiera_data
+                                });
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
+        },
+
+        fechaInicio: function(){
+            this.bilatuData();
+        },
+
+        fechaFin: function(){
+            this.bilatuData();
         }
     },
     mounted: function(){
       this.tablaRoles();
       this.tablaProductos();
       this.tablaMaterial();
+      this.mostrarTablas('tablaRoles');
     }};
 </script>
 
@@ -157,12 +357,12 @@ export default {
                     <div class="input-group">
                         <div class="me-4">
                             <h4>De 
-                            <input type="date" id="birthday" name="birthday">
+                            <input type="date" id="birthday" name="birthday" v-model="fechaInicio">
                             a 
-                            <input type="date" id="birthday" name="birthday">
+                            <input type="date" id="birthday" name="birthday" v-model="fechaFin">
                             </h4>
                         </div>
-                        <input type="text" class="form-control buscar" placeholder="Buscar por nombre" v-model="buscar">
+                        <input type="text" class="form-control buscar" placeholder="Buscar por nombre" v-model="bilatu">
                         <div class="input-group-append">
                             <button class="btn lupa" type="button" @click="lupa">
                                 <i class="bi bi-search"></i>
