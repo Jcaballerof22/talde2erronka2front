@@ -415,6 +415,7 @@ async reservarMaterial(){
   },
 
   computed: {
+      // para editar el array tabla para filtrar por el color 
       taula() {
         if (this.colorSeleccionado === 'rojo') {
           return this.taula.filter(dato => dato.amaiera_data === null);
@@ -487,6 +488,7 @@ async reservarMaterial(){
           <div>
               <label for="mensaje" id="mensajeDevolverMaterial">El Material se ha devuelto?</label>
           </div>
+          <!-- Botones para especificar si se ha devuelto o no el material -->
           <div class="d-flex align-items-center mt-2" style="margin-left: 3%;">
               <input id="siDevolver" type="submit" class="btn añadir btn-lg mt-3"
                   @click="devolverMaterial()" value="Si">
@@ -500,81 +502,80 @@ async reservarMaterial(){
 
   <div id="fondoOscuroLangile" class="fondo-oculto"></div>
   <div id="ventanaEmergenteAñadirMaterial" class="ventana-oculta">
-              <!-- Leiaren barruan egongo diren elementuak honen barruan daude -->
-      <div class="contenido-ventana">
-          <!-- POPUP-a ixteko botoia -->
-          <div class="input-group-horarios">
-              <button type="button" id="cerrarVentanaAñadirMaterial" class="btn x" @click="ocultarVentana()">
-                  <i class="bi bi-x"></i>
-              </button>
-          </div>
-          <!-- Etiqueta sarzteko kanpoa -->
-          <div class="mt-2">
-              <label for="mensaje" id="etiquetaLabelMaterial">Etiqueta</label>
-          </div>
-          <div class="mt-2">
-              <textarea id="modeloTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" v-model="etiketa"
-                  placeholder="Ingresa la etiqueta aquí" maxlength="10"></textarea>
-          </div>
-          <!-- Izena sartzeko kanpoa -->
-          <div class="mt-2">
-              <label for="mensaje" id="nombreLabelMaterial">Nombre</label>
-          </div>
-          <div class="mt-2">
-              <textarea id="marcaTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" v-model="izena"
-                  placeholder="Ingresa el Nombre aquí"></textarea>
-          </div>
-          <!-- Funtzioari deitzeko botoia eta datuak pasatzeko -->
-          <div class="mt-2">
-              <input id="submitAñadirMaterial" type="submit" class="btn añadir btn-lg mt-3"
-                  @click="txertatuEdoAldatu" value="Enviar">
-          </div>
-      </div>
+    <div class="contenido-ventana">
+        <!-- Boton para cerrar la ventana -->
+        <div class="input-group-horarios">
+            <button type="button" id="cerrarVentanaAñadirMaterial" class="btn x" @click="ocultarVentana()">
+                <i class="bi bi-x"></i>
+            </button>
+        </div>
+        <!-- Campo para meter la etiqueta -->
+        <div class="mt-2">
+            <label for="mensaje" id="etiquetaLabelMaterial">Etiqueta</label>
+        </div>
+        <div class="mt-2">
+            <textarea id="modeloTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" v-model="etiketa"
+                placeholder="Ingresa la etiqueta aquí" maxlength="10"></textarea>
+        </div>
+        <!-- Campo para meter el nombre -->
+        <div class="mt-2">
+            <label for="mensaje" id="nombreLabelMaterial">Nombre</label>
+        </div>
+        <div class="mt-2">
+            <textarea id="marcaTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" v-model="izena"
+                placeholder="Ingresa el Nombre aquí"></textarea>
+        </div>
+        <!-- Boton para llamar a la funcion que añada el  material -->
+        <div class="mt-2">
+            <input id="submitAñadirMaterial" type="submit" class="btn añadir btn-lg mt-3"
+                @click="txertatuEdoAldatu" value="Enviar">
+        </div>
     </div>
+  </div>
     <div class="containerPage">
-        <div class="input-group-estadisticas">
+      <div class="input-group-estadisticas">
+        <!-- Buscador por nombre -->
+        <input type="text" class="form-control buscar" placeholder="Buscar por nombre" v-model="bilatu">
+        <div class="col">
+          <!-- Boton para añadir un nuevo materuak -->
+          <button type="button" id="mostrarVentanaMaterial" class="btn añadir btn-lg"
+            @click="abrirPopup('' , '' , '')">Añadir material</button>
+        </div>
+        <!-- Tabla para enseñar los datos -->
+        <table id="tabla" class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Etiqueta</th>
+                    <th scope="col">Nombre</th>
+                    <!-- Dos botones para llamar a las funciones para filtrar los datos -->
+                    <th scope="col" style="display: flex; justify-content: center;">
+                        <button @click="ordenarPorColor('rojo')" style="border-radius: 10%; background-color: #E26B6B;">Ocupado</button>
+                        <button @click="ordenarPorColor('verde')" style="border-radius: 10%; background-color: #CDDFA0;">Disponible</button>
+                    </th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- es un v-for que recorre el array "taula" donde estan los datos y los enseña-->
+                <tr v-for="(dato, index) in taula" :key="index" :id="dato.id_materiala">
+                  <!-- Si se clica encima de uno de los elementos, puedes editar los datos -->
+                  <td @click="abrirPopup(dato.etiketa, dato.izena, dato.id_materiala)">{{ dato.etiketa }}</td>
+                  <td @click="abrirPopup(dato.etiketa, dato.izena, dato.id_materiala)" maxlength="100">{{ dato.izena }}</td>
+                  <!-- La parte para saber si el material esta en uso o esta libre -->
+                  <td style="display: flex; justify-content: center; width: 100%;">
+                    <!-- Si esta en rojo o esta en verde, se abrira una cosa u otra -->
+                    <i v-if="dato.amaiera_data == null" class="bi bi-square-fill" style="color: #E26B6B;" @click="abrirDevolverMaterial(dato.id_materiala)"></i>
+                    <i v-else class="bi bi-square-fill" style="color: #CDDFA0;" @click="abrirReservar(dato.id_materiala)"></i>
+                  </td>
+                  <td>
+                    <!-- Item para llamar a la funcion de borrado del elemento -->
+                    <i class="bi bi-trash-fill" @click="ezabatu(dato.id_materiala)"></i>
+                  </td>
+                </tr>
+              </tbody>  
+        </table>
 
-                    <input type="text" class="form-control buscar" placeholder="Buscar por nombre" v-model="bilatu">
-
-
-                  <div class="col">
-                    <button type="button" id="mostrarVentanaMaterial" class="btn añadir btn-lg"
-                                  @click="abrirPopup('' , '' , '')">Añadir material</button>
-                  </div>
-                
-                <!-- Taula bat datuak erakusteko -->
-                <table id="tabla" class="table table-hover table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Etiqueta</th>
-                            <th scope="col">Nombre</th>
-                            <!-- Bi botoi libre edo okupatuta dauden materialak filtratzeko -->
-                            <th scope="col" style="display: flex; justify-content: center;">
-                                <button @click="ordenarPorColor('rojo')" style="border-radius: 10%; background-color: #E26B6B;">Ocupado</button>
-                                <button @click="ordenarPorColor('verde')" style="border-radius: 10%; background-color: #CDDFA0;">Disponible</button>
-                            </th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Datuak v-for batekin erakusten dira, hauetan klikatzerakoan editatu ahal izateko edo erreserbatzeko funtzionalitatea emanda -->
-                        <tr v-for="(dato, index) in taula" :key="index" :id="dato.id_materiala">
-                          <td @click="abrirPopup(dato.etiketa, dato.izena, dato.id_materiala)">{{ dato.etiketa }}</td>
-                          <td @click="abrirPopup(dato.etiketa, dato.izena, dato.id_materiala)" maxlength="100">{{ dato.izena }}</td>
-                          <td style="display: flex; justify-content: center; width: 100%;">
-                            <!-- "dato.amaiera_data" kontuan izanda item-aren kolorea aldatzen, bakoitzari funtzionalitate desberdina emanda -->
-                            <i v-if="dato.amaiera_data == null" class="bi bi-square-fill" style="color: #E26B6B;" @click="abrirDevolverMaterial(dato.id_materiala)"></i>
-                            <i v-else class="bi bi-square-fill" style="color: #CDDFA0;" @click="abrirReservar(dato.id_materiala)"></i>
-                          </td>
-                          <td>
-                            <!-- Materiala ezabatzeko funztioari deitzen dion item-a -->
-                            <i class="bi bi-trash-fill" @click="ezabatu(dato.id_materiala)"></i>
-                          </td>
-                        </tr>
-                      </tbody>  
-                </table>
-
-            </div>
+      </div>
     </div>
     
 </template>
