@@ -26,10 +26,7 @@ export default {
     };
   },
   methods: {
-    alerta(color){
-        alert(color)
-    },
-
+    // funcion para abrir el POPUP para añadir material
     abrirPopup(etiketa, izena, id){
       this.id_materiala = id;
       this.aldatu = id;
@@ -38,39 +35,39 @@ export default {
       document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
       document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'block';
     },
-
+    // funcion para abrir el POPUP para devolver el material
     abrirDevolverMaterial(id){
       this.idMaterial = id;
       document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
       document.getElementById('ventanaEmergenteDevolverMaterial').style.display = 'block';
     },
-
+    // funcion para abrir el POPUP para reservar el material
     abrirReservar(id){
       this.idMaterial = id;
       document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
       document.getElementById('ventanaEmergenteReservarMaterial').style.display = 'block';
     },
-
+    // funcion para ocultar el POPUP de añadir el material
     ocultarVentana(){
       document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
       document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'none';
     },
-
+    // funcion para cerrar el POPUP de reservar material
     ocultarVentanaR(){
       document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
       document.getElementById('ventanaEmergenteReservarMaterial').style.display = 'none';
     },
-
+    // funcion para cerrar el POPUP para devolver el material
     cerrarDevolver(){
       document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
       document.getElementById('ventanaEmergenteDevolverMaterial').style.display = 'none';
     },
-
+    // funcion para cerrar el POPUP para reservar el material
     cerrarVentanaX(){
       document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
       document.getElementById('ventanaEmergenteReservarMaterial').style.display = 'none';
     },
-
+    // funcion para saber si se quiere cambiar los datos o sumarlos
     txertatuEdoAldatu(){
       if(this.aldatu != ''){
         this.aldatuDatuak();
@@ -80,7 +77,7 @@ export default {
       document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
       document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'none';
     },
-
+    // la funcion para cambiar los datos, se manda un json con los datos que se quieran cambiar
     async aldatuDatuak() {
       try {
         var js = JSON.stringify({
@@ -88,29 +85,28 @@ export default {
           "izena": this.izena,
           "id": this.id_materiala
         });
-        console.log("froga: " + js);
-          
+        // el fetch que hara la llamada al back para cambiar los datos, metodo 'PUT' 
         const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/editatu', {
           method: 'PUT',
           body: js
         });
           
         const data = await response.text();
-          console.log(data);
-
+        // se vuelve a llamar a la funcion que coje los datos del back al haber cambios en ellos
         this.fetchData();
         
       } catch (error) {
         console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
       }
     },
-
+    // la funcion para sumar datos nuevos
     addDatuak(){
+      // se comprueba si hay datos, si faltan salta una alerta
       if(this.izena=="" && this.etiketa==""){
           alert("Datu falta dira")
       }else{
           var js = JSON.stringify({"izena": this.izena, "etiketa": this.etiketa}); 
-          console.log("froga: "+js);
+          // el fetch que hace la llamda al back para sumar datos, con metodo 'POST', y json y modo 'cors'
           fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/txertatu', {method: 'POST', body: js, mode: 'cors'})
           .then(function (response) {
                   return response.text();
@@ -119,20 +115,22 @@ export default {
               console.log(data);
           })
           .catch(error => {
+              // por si hay algun error por los constraints
               console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
           });
       }
+      // se llama a la siguiente funcion que filtrara los datos recogidos
       this.fetchData();
     },
-
+    // la funcion que llama al back para coger todos los datos sobre los materiales y de la tabla "materiala_erabili"
     async fetchData(){
-
+      // vaciamos los arrays antes de empezar
       this.datos = [],
       this.datosFiltrados = [],
       this.datosTodos = []
 
       try {
-      
+        // el fetch que hace la llamada al back para recoger los datos, usando el metodo 'GET' y el modo 'cors'
         const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materialaN', {
             method: 'GET',
             mode: 'cors'
@@ -141,6 +139,7 @@ export default {
         const data = await response.json();
       
         this.datos = [];
+        // metemos los datos recogidos al array para despues poder filtrarlos
         for (let i = 0; i < data.length; i++) {
             this.datos.push({
                 "etiketa": data[i].etiketa,
@@ -152,13 +151,13 @@ export default {
                 "amaiera_data": data[i].amaiera_data
             });
         }
-        
+        // llamamos a la funcion que empezara con el filtro de los datos
         this.filtrado();
       } catch (error) {
         console.error('Error al obtener los datos:', error);
       }
     },
-
+    // funcion para filtrar todos los datos que se recogen para saber si estan repetidos o no, y si estan borrados o no por el borrado logico que se usa
     filtrado(){
       var ida;
       var id_langileaa;
@@ -169,9 +168,7 @@ export default {
       var izenaa;
       var repetido;
       var idsUsados = [];
-
-
-      // console.log(JSON.parse(JSON.stringify(this.datos)));
+      // se recorre el array con los datos y se meten en las variables
       for (let i = 0; i < this.datos.length; i++) {
 
         repetido = false;
@@ -182,7 +179,7 @@ export default {
         etiketaa = this.datos[i].etiketa;
         izenaa = this.datos[i].izena;
         ezabatze_dataa = this.datos[i].ezabatze_data;
-
+        // se comprueba si el "id" esta repetido o no
         for (let b = 0; b < idsUsados.length; b++) {
           if (idsUsados[b] == this.datos[i].id_materiala) {
             repetido = true;
@@ -190,13 +187,15 @@ export default {
 
           }
         }
-
+        // si esta repetido, no se mete al array de datos
         if (repetido) {
           
         } else {
+          // si el dato no esta repetido, se comprueba si esta borrado o no
           if (ezabatze_dataa != null) {
             
           } else {
+          // si todo esta en orden, se meten los datos al array que se usara mas adelante
           this.datosFiltrados.push({
                 "etiketa": etiketaa,
                 "izena": izenaa,
@@ -207,29 +206,28 @@ export default {
           });
           }
         }
-
+        // se meten los datos dentro del array de "id"-s usados para no repetirlos
         idsUsados.push(this.datos[i].id_materiala);
 
       }
 
-      // console.log(JSON.parse(JSON.stringify(this.datosFiltrados)));
       this.todosMaterial();
     },
-
+    // la funcion que llama al back para coger todos los datos sobre todos los materiales
     async todosMaterial(){
+      // se vacia el array "datosTodos"
       this.datosTodos = [];
-      console.log("Empieza el show");
       try {
-      
+      // el fetch que hace la llamda al back para coger los datos, con metodo 'GET' y modo 'cors'
       const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala', {
           method: 'GET',
           mode: 'cors'
       });
     
       const data = await response.json();
-    
-      console.log(data);
+      // se vuelve a vaciar el array "datosTodos"
       this.datosTodos = [];
+      // metemos los datos recogidos por el fetch al array
       for (let i = 0; i < data.length; i++) {
           this.datosTodos.push({
               "etiketa": data[i].etiketa,
@@ -237,30 +235,31 @@ export default {
               "id": data[i].id
           });
       }
-      console.log(this.datosTodos);
+
       } catch (error) {
         console.error('Error al obtener los datos:', error);
       }
-
+      // se llama a la siguiente funcion que filtrara los datos recogidos
       this.todosFiltrado();
 
     },
-
+    // la funcion que filtra los datos y compara si falta algun dato que no haya tenido ningun registro previo de reserva
     todosFiltrado(){
       var exist = 0;
+      // el dato del la hora y dia en el que se ejecuta con su formato
       var fechaActual = new Date();
       var formato = fechaActual.getFullYear() + '-' + ('0' + (fechaActual.getMonth() + 1)).slice(-2) + '-' + ('0' + fechaActual.getDate()).slice(-2) + ' ' + ('0' + fechaActual.getHours()).slice(-2) + ':' + ('0' + fechaActual.getMinutes()).slice(-2) + ':' + ('0' + fechaActual.getSeconds()).slice(-2);
 
-
+      // se recorre el array de datos y se compara 
       for (let i = 0; i < this.datosTodos.length; i++) {
         for (let a = 0; a < this.datosFiltrados.length; a++) {
-         
+          // si existe el dato, se suma 1 a la variable "exist"
           if (this.datosTodos[i].etiketa == this.datosFiltrados[a].etiketa) {
             exist++;
           } 
 
         }
-
+        // si la variable "exist" es 0, metemos datos nuevos al array
         if (exist == 0) {
           
           this.datosFiltrados.push({
@@ -277,130 +276,125 @@ export default {
         }
 
       }
-
-      console.log(this.datosFiltrados);
+      // e se iguala el array al array que se usara para enseñar datos en la tabla
       this.taula = this.datosFiltrados;
     },
-
+    // la funcion que hace la llamada al back para borrar un dato, se le pasa el "id"
     async ezabatu(id) {
       try {
 
         var js = JSON.stringify({"id": id}); 
-        console.log("frogaBorrar: " + js);
-          
+        // el fetch que hace la llamada al back para borrar el dato con el json que se le pasa, el metodo es 'PUT'
         const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/ezabatu', {
           method: 'PUT',
           body: js
         });
           
         const data = await response.text();
-        console.log(data);
-        console.log(this.datos);
-
+        // el filtrado de los datos para quitar el dato con el "id" que se acaba de borrar
         this.datos = this.datos.filter(aux => aux.id !== id);
-        console.log(this.datos);
+
       } catch (error) {
         console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
       }
-      
+      // se vuelve a llamar a la funcion que coje los datos del back al haber cambios en ellos
       this.fetchData();
     },
-
+    // la funcion que mete el dato del color del que se quiere filtrar en "colorSeleccionado"
     ordenarPorColor(color) {
       this.colorSeleccionado = color;
     },
-
+    // la funcion que hace la llamada al back para coger los datos de los grupos
     async nombresGrupo() {
-            
-            try {
-                const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/grupos', {
-                    method: 'GET',
-                    mode: 'cors'
-                });
+      try {
+          // el fetch que hace la llamda al back, se usa el metodo 'GET' y el modo 'cors'
+          const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/grupos', {
+              method: 'GET',
+              mode: 'cors'
+          });
 
-                const data = await response.json();
-                
-                console.log(data);
-                
-                data.forEach(grupo => {
-                    this.datosTalde.push({
-                        "izena": grupo.izena,
-                        "kodea": grupo.kodea
-                    });
-                });
-            } catch (error) {
-                console.error('Error al obtener los nombres de grupo:', error);
-            }
-        },
-
-        async nombresAlumnos(){
-
-            try {
-          
-              const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/alumnos/'+this.kodea, {
-                method: 'GET',
-                mode: 'cors'
-            });
-
-              const data = await response.json();
-              console.log(data);
-              
-              this.datosAlumnos.splice(0, this.datosAlumnos.length);
-
-              data.forEach(alumno => {
-                this.datosAlumnos.push({
-                    "izena": alumno.izena,
-                    "abizenak": alumno.abizenak,
-                    "id": alumno.id
-                });
-            });
-            } catch (error) {
-              console.log(error);
-            }
-        },
-
-async reservarMaterial(){
-  if (this.idlangile == "") {
-    alert("Error, faltan datos");
-  } else {
-    try {
-        var js = JSON.stringify({
-          "id_materiala": this.idMaterial,
-          "id_langilea": this.idlangile
-        });
-        console.log("froga: " + js);
-            
-        const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/reservar', {
-          method: 'POST',
-          body: js
-        });
-            
-        const data = await response.text();
-        console.log(data);
-        this.cerrarVentanaX();
-        this.fetchData();
-
+          const data = await response.json();
+          // se meten los datos dentro del array "datosTalde"
+          data.forEach(grupo => {
+              this.datosTalde.push({
+                  "izena": grupo.izena,
+                  "kodea": grupo.kodea
+              });
+          });
       } catch (error) {
-        console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+          console.error('Error al obtener los nombres de grupo:', error);
       }
-  }
-},
+    },
+    // la funcion que hace la llamda al back para sacar los datos de los alumnos
+    async nombresAlumnos(){
 
+        try {
+          // el fetch que hace la llamada al back, se usa el metodo 'GET' y el modo 'cors', aparte se manda el codigo del grupo para filtrar los datos
+          const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/alumnos/'+this.kodea, {
+            method: 'GET',
+            mode: 'cors'
+        });
+
+          const data = await response.json();
+          // se vacia el array de datos para no sobreescribirlos
+          this.datosAlumnos.splice(0, this.datosAlumnos.length);
+          // se meten los datos al array "datosAlumnos"
+          data.forEach(alumno => {
+            this.datosAlumnos.push({
+                "izena": alumno.izena,
+                "abizenak": alumno.abizenak,
+                "id": alumno.id
+            });
+        });
+        } catch (error) {
+          console.log(error);
+        }
+    },
+    // funcion que manda un json al back para la funcionalidad de reservar un material, donde se mandan "id_materiala" e "id_langilea" como datos
+    async reservarMaterial(){
+      // si faltan datos al hacer la llamada a la funcion, saltara la alerta
+      if (this.idlangile == "") {
+        alert("Error, faltan datos");
+      } else {
+        // en el caso de tener los datos, se hara una llamada al back mandando el json con los datos
+        try {
+            var js = JSON.stringify({
+              "id_materiala": this.idMaterial,
+              "id_langilea": this.idlangile
+            });
+            // el fetch que manda los datos al back con su ruta, el metodo utilizado es el 'POST'
+            const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/reservar', {
+              method: 'POST',
+              body: js
+            });
+                
+            const data = await response.text();
+            // llamada a la funcion que cierra el POPUP
+            this.cerrarVentanaX();
+            // se vuelve a llamar a la funcion que coje los datos del back al haber cambios en ellos
+            this.fetchData();
+
+          } catch (error) {
+            console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+          }
+      }
+    },
+
+    // funcion que manda un json con el "id_materuala" para editarlo en el back, en este caso para hacer su funcionalidad de devolver
     async devolverMaterial(){
     try {
       var js = JSON.stringify({"id_materiala": this.idMaterial});
-      console.log(js);
           
+      // el fetch que manda el json al back con su ruta, el metodo utilizado es el 'PUT'
       const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/devolver', {
         method: 'PUT',
         body: js
       });
           
       const data = await response.text();
-      console.log(data);
-
+      // llamada a la funcion que cierra el POPUP
       this.cerrarDevolver();
-
+      // se vuelve a llamar a la funcion que coje los datos del back al haber cambios en ellos
       this.fetchData();
     } catch (error) {
       console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
@@ -410,12 +404,13 @@ async reservarMaterial(){
   },
   
   mounted: function() {
+    // funciones que se llaman al entrar en la pagina
     this.fetchData();
     this.nombresGrupo();
   },
 
   computed: {
-      // para editar el array tabla para filtrar por el color 
+      // para editar el array tabla, para filtrar por el color 
       taula() {
         if (this.colorSeleccionado === 'rojo') {
           return this.taula.filter(dato => dato.amaiera_data === null);
@@ -428,10 +423,13 @@ async reservarMaterial(){
     },
 
   watch: {
+    // funcion que siempre esta al tanto de si se escribe en el campo de busqueda para filtrar los datos
     bilatu: function(){
+            // si no hay nada escrito, iguala los datos a los que se van a enseñar en la tabla
             if (this.bilatu == ''){
                 this.taula = this.datosFiltrados;
             }else{
+                // si se escribe, compara los datos y los filtra
                 this.taula = [];
                 for (let i = 0; i < this.datosFiltrados.length; i++){
                     if(this.datosFiltrados[i].etiketa.toLowerCase().startsWith(this.bilatu.toLowerCase())){
@@ -441,7 +439,7 @@ async reservarMaterial(){
             }
     }
   },
-  // Otro código de la vista
+
 }
 </script>
 <template>
@@ -472,7 +470,7 @@ async reservarMaterial(){
         </div>
           
         <div class="row justify-content-end">
-          <!-- Boton para reservar -->
+          <!-- Boton para llamar a la funcion para reservar -->
           <div class="mt-2" id="submitReservarMaterial">
               <input id="submitAñadirMaterial" type="submit" class="btn añadir btn-lg"
                   @click="reservarMaterial()" value="Reservar">
@@ -534,8 +532,8 @@ async reservarMaterial(){
   </div>
     <div class="containerPage">
       <div class="input-group-estadisticas">
-        <!-- Buscador por nombre -->
-        <input type="text" class="form-control buscar" placeholder="Buscar por nombre" v-model="bilatu">
+        <!-- Buscador por etiqueta -->
+        <input type="text" class="form-control buscar" placeholder="Buscar por etiqueta" v-model="bilatu">
         <div class="col">
           <!-- Boton para añadir un nuevo materuak -->
           <button type="button" id="mostrarVentanaMaterial" class="btn añadir btn-lg"
