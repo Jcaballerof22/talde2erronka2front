@@ -75,6 +75,12 @@
                 <span class="menu-text"><b>{{text[hizkuntza]["Historial"]}}</b></span>
               </li>
             </a>
+            <a href="tratamientos">
+              <li>
+                <img src="../IMG/tratamientos.png" alt="Image 3" class="menu-icon">
+                <span class="menu-text"><b>{{text[hizkuntza]["Tratamientos"]}}</b></span>
+              </li>
+            </a>
             <a href="tickets">
               <li>
                 <img src="../IMG/tikets.png" alt="Image 3" class="menu-icon">

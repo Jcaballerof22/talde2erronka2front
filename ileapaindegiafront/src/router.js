@@ -9,6 +9,7 @@ import estatistikak from './views/Estatistikak.vue'
 import historiala from './views/Historiala.vue'
 import ticket from './views/Ticket.vue'
 import fitxa from './views/Fitxa.vue'
+import tratamenduak from './views/Tratamenduak.vue'
 
  
 const routes = [
@@ -82,6 +83,14 @@ const routes = [
         component: fitxa,
         meta: {
             title: 'Fichas'
+        }
+    },
+    {
+        name: 'tratamenduak',
+        path: '/tratamientos',
+        component: tratamenduak,
+        meta: {
+            title: 'Tratamientos'
         }
     },
 ]

@@ -1,10 +1,5 @@
 <script>
-import { ref } from "vue";
-import taula from '../components/Taula.vue'
 export default {
-  components: {
-    taula
-  },
   data() {
     return {
       izena: "",
@@ -19,9 +14,7 @@ export default {
         datosTodos: [],
         datosTalde : [],
         datosAlumnos : [],
-        datosColorMaterialR: [],
         taula: [],
-        resultadosCompletos: [],
         colorSeleccionado: null,
     };
   },
