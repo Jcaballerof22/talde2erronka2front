@@ -1,9 +1,5 @@
 <script>
-import taula from '../components/Taula.vue'
 export default {
-    components: {
-        taula
-    },
     data() {
         return {
             historialRoles: [],
@@ -43,162 +39,103 @@ export default {
             } catch (error) {
                 console.error('Error al obtener datos del servidor:', error);
             }
-      },
-      // Produktuen mugimenduen datuak lortzeko metodoa
-      async tablaProductos() {
-          try {
-            const response = await fetch(window.ruta + `productos/mugimenduguztiak`, { method: 'GET' });
+        },
+        // Produktuen mugimenduen datuak lortzeko metodoa
+        async tablaProductos() {
+            try {
+                const response = await fetch(window.ruta + `productos/mugimenduguztiak`, { method: 'GET' });
         
-            if (!response.ok) {
-              throw new Error(`Error en la solicitud: ${response.statusText}`);
-            }
+                if (!response.ok) {
+                throw new Error(`Error en la solicitud: ${response.statusText}`);
+                }
         
-            const data = await response.json();
+                const data = await response.json();
         
-            for (let i = 0; i < data.length; i++) {
-              this.historialProductos.push({
-                "produktua": data[i].produktu_izena,
-                "izena": data[i].izena + " " + data[i].abizenak,
-                "kopurua": data[i].kopurua,
-                "marka": data[i].marka,
-                "data": data[i].data
-              });
-            }
+                for (let i = 0; i < data.length; i++) {
+                    this.historialProductos.push({
+                        "produktua": data[i].produktu_izena,
+                        "izena": data[i].izena + " " + data[i].abizenak,
+                        "kopurua": data[i].kopurua,
+                        "marka": data[i].marka,
+                        "data": data[i].data
+                    });
+                }
 
-            this.taula = this.historialProductos;
-
-          } catch (error) {
-            console.error('Error al obtener datos del servidor:', error);
-          }
-      },
-      // Materialaren mugimenduen datuak lortzeko metodoa
-      async tablaMaterial() {
-          try {
-            const response = await fetch(window.ruta + `materiala/mugimenduak`, { method: 'GET' });
-        
-            if (!response.ok) {
-              throw new Error(`Error en la solicitud: ${response.statusText}`);
-            }
-        
-            const data = await response.json();
-        
-            for (let i = 0; i < data.length; i++) {
-              this.historialMaterial.push({
-                "material": data[i].materiala,
-                "izena": data[i].izena + " " + data[i].abizenak,
-                "kopurua": data[i].kopurua,
-                "hasiera_data": data[i].hasiera_data,
-                "amaiera_data": data[i].amaiera_data
-              });
-            }
-
-            this.taula = this.historialMaterial;
-
-          } catch (error) {
-            console.error('Error al obtener datos del servidor:', error);
-          }
-      },
-      // Sakatzen den botoiaren arabera taula desberdinak bistaratzeko metodoa
-      mostrarTablas(tabla){
-          this.botonTabla = tabla;
-          
-          for (let i = 0; i < this.tablas.length; i++) {
-              if(this.tablas[i]==tabla){
-                  document.getElementById(tabla).style.display = 'table';
-              }else{
-                  document.getElementById(this.tablas[i]).style.display = 'none';
-              }
-          }
-
-          switch (tabla) {
-            case 'tablaRoles':
-                this.tabla = 'historialRoles';
-                this.taula = this.historialRoles;
-                break;
-            case 'tablaProductos':
-                this.tabla = 'historialProductos';
                 this.taula = this.historialProductos;
-                break;
-            case 'tablaMaterial':
-                this.tabla = 'historialMaterial';
+
+            } catch (error) {
+                console.error('Error al obtener datos del servidor:', error);
+            }
+        },
+        // Materialaren mugimenduen datuak lortzeko metodoa
+        async tablaMaterial() {
+            try {
+                const response = await fetch(window.ruta + `materiala/mugimenduak`, { method: 'GET' });
+        
+                if (!response.ok) {
+                throw new Error(`Error en la solicitud: ${response.statusText}`);
+                }
+        
+                const data = await response.json();
+        
+                for (let i = 0; i < data.length; i++) {
+                this.historialMaterial.push({
+                    "material": data[i].materiala,
+                    "izena": data[i].izena + " " + data[i].abizenak,
+                    "kopurua": data[i].kopurua,
+                    "hasiera_data": data[i].hasiera_data,
+                    "amaiera_data": data[i].amaiera_data
+                });
+                }
+
                 this.taula = this.historialMaterial;
-                break;
-            default:
-                break;
-          }
-      },
 
-      bilatuData(){
-            //Egiaztatzen du erabiltzaileak hasiera eta amaiera datak sartu dituela
-            if(!isNaN(new Date(this.fechaInicio)) && !isNaN(new Date(this.fechaFin))){
-                console.log('hola');
-                this.taula = [];
-
-                switch (this.tabla) {
-                    case 'historialRoles':
-                        for (let i = 0; i < this.historialRoles.length; i++){
-                            if(new Date(this.historialRoles[i].data) >= new Date(this.fechaInicio) && new Date(this.historialRoles[i].data) <= new Date(this.fechaFin)){
-                                this.taula.push({"izena" : this.historialRoles[i].izena, "mota" : this.historialRoles[i].mota, "data" : this.historialRoles[i].data});
-                            }
-                        }
-                        break;
-                    case 'historialProductos':
-                        for (let i = 0; i < this.historialProductos.length; i++){
-                            if(new Date(this.historialProductos[i].data) >= new Date(this.fechaInicio) && new Date(this.historialProductos[i].data) <= new Date(this.fechaFin)){
-                                this.taula.push({
-                                    "produktua": this.historialProductos[i].produktua,
-                                    "izena": this.historialProductos[i].izena,
-                                    "kopurua": this.historialProductos[i].kopurua,
-                                    "marka": this.historialProductos[i].marka,
-                                    "data": this.historialProductos[i].data
-                                });
-                            }
-                        }
-                        break;
-                    case 'historialMaterial':
-                    let fechaInicio = new Date(this.fechaInicio);
-
-                    let fechaFin = new Date(this.fechaFin);
-                    fechaFin.setDate(fechaFin.getDate() + 1);
-
-                        for (let i = 0; i < this.historialMaterial.length; i++){
-                            if(new Date(this.historialMaterial[i].hasiera_data) >= fechaInicio && new Date(this.historialMaterial[i].hasiera_data) <= fechaFin){
-                                this.taula.push({
-                                    "material": this.historialMaterial[i].material,
-                                    "izena": this.historialMaterial[i].izena,
-                                    "kopurua": this.historialMaterial[i].kopurua,
-                                    "hasiera_data": this.historialMaterial[i].hasiera_data,
-                                    "amaiera_data": this.historialMaterial[i].amaiera_data
-                                });
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-                }                    
-            }else{
-                switch (this.tabla) {
-                    case 'historialRoles':
-                        this.taula = this.historialRoles;
-                        break;
-                    case 'historialProductos':
-                        this.taula = this.historialProductos;
-                        break;
-                    case 'historialMaterial':
-                        this.taula = this.historialMaterial;
-                        break;
-                    default:
-                        break;
+            } catch (error) {
+                console.error('Error al obtener datos del servidor:', error);
+            }
+        },
+        // Sakatzen den botoiaren arabera taula desberdinak bistaratzeko metodoa
+        mostrarTablas(tabla){
+            this.botonTabla = tabla;
+          
+            for (let i = 0; i < this.tablas.length; i++) {
+                if(this.tablas[i]==tabla){
+                    document.getElementById(tabla).style.display = 'table';
+                }else{
+                    document.getElementById(this.tablas[i]).style.display = 'none';
                 }
             }
-        }
-    },
-    watch:{
-        bilatu: function(){
+
+            switch (tabla) {
+                case 'tablaRoles':
+                    this.tabla = 'historialRoles';
+                    this.taula = this.historialRoles;
+                    break;
+                case 'tablaProductos':
+                    this.tabla = 'historialProductos';
+                    this.taula = this.historialProductos;
+                    break;
+                case 'tablaMaterial':
+                    this.tabla = 'historialMaterial';
+                    this.taula = this.historialMaterial;
+                    break;
+                default:
+                    break;
+            }
+        },
+
+        buscar(){
+            let fechaInicio = new Date(this.fechaInicio);
+            let fechaFin = new Date(this.fechaFin);
+            fechaFin = fechaFin.setDate(fechaFin.getDate() + 1);
+
+            //Egiaztatzen du erabiltzaileak filtroan zerbait idatzi duela
             if (this.bilatu == ''){
+                //Erabiltzaileak ez badu ezer idatzi, hasiera eta amaiera data ezarrita daudela egiaztatzen du.
                 if(!isNaN(new Date(this.fechaInicio)) && !isNaN(new Date(this.fechaFin))){
                     this.taula = [];
 
+                //Hasiera eta amaiera data ezarrita badaude, data hoien artean dauden datuak bilatuko ditu.
                 switch (this.tabla) {
                     case 'historialRoles':
                         for (let i = 0; i < this.historialRoles.length; i++){
@@ -207,9 +144,9 @@ export default {
                             }
                         }
                         break;
-                    case 'historialProductos':
+                    case 'historialProductos':                    
                         for (let i = 0; i < this.historialProductos.length; i++){
-                            if(new Date(this.historialProductos[i].data) >= new Date(this.fechaInicio) && new Date(this.historialProductos[i].data) <= new Date(this.fechaFin)){
+                            if(new Date(this.historialProductos[i].data) >= new Date(this.fechaInicio) && new Date(this.historialProductos[i].data) <= fechaFin){
                                 this.taula.push({
                                     "produktua": this.historialProductos[i].produktua,
                                     "izena": this.historialProductos[i].izena,
@@ -221,10 +158,6 @@ export default {
                         }
                         break;
                     case 'historialMaterial':
-                    let fechaInicio = new Date(this.fechaInicio);
-                    let fechaFin = new Date(this.fechaFin);
-                    fechaFin.setDate(fechaFin.getDate() + 1);
-
                         for (let i = 0; i < this.historialMaterial.length; i++){
                             if(new Date(this.historialMaterial[i].hasiera_data) >= fechaInicio && new Date(this.historialMaterial[i].hasiera_data) <= fechaFin){
                                 this.taula.push({
@@ -241,6 +174,7 @@ export default {
                         break;
                 }                    
                 }else{
+                    //Hasiera edo amaiera data ez badaude ezarrita, datu guztiak bistaratuko dira.
                     switch (this.tabla) {
                         case 'historialRoles':
                             this.taula = this.historialRoles;
@@ -256,6 +190,7 @@ export default {
                     }
                 }
             }else{
+                //Erabiltzaileak filtroan zerbait idatzi badu, idatzitako izenaren arabera bilaketa egingo du.
                 this.taula = [];
 
                 switch (this.tabla) {
@@ -276,7 +211,7 @@ export default {
                         for (let i = 0; i < this.historialProductos.length; i++){
                             if(this.historialProductos[i].izena.toLowerCase().startsWith(this.bilatu.toLowerCase())){
                                 if(!isNaN(new Date(this.fechaInicio)) && !isNaN(new Date(this.fechaFin))){
-                                    if(new Date(this.historialProductos[i].data) >= new Date(this.fechaInicio) && new Date(this.historialProductos[i].data) <= new Date(this.fechaFin)){
+                                    if(new Date(this.historialProductos[i].data) >= new Date(this.fechaInicio) && new Date(this.historialProductos[i].data) <= fechaFin){
                                         this.taula.push({
                                             "produktua": this.historialProductos[i].produktua,
                                             "izena": this.historialProductos[i].izena,
@@ -287,12 +222,12 @@ export default {
                                     }
                                 }else{
                                     this.taula.push({
-                                    "produktua": this.historialProductos[i].produktua,
-                                    "izena": this.historialProductos[i].izena,
-                                    "kopurua": this.historialProductos[i].kopurua,
-                                    "marka": this.historialProductos[i].marka,
-                                    "data": this.historialProductos[i].data
-                                });
+                                        "produktua": this.historialProductos[i].produktua,
+                                        "izena": this.historialProductos[i].izena,
+                                        "kopurua": this.historialProductos[i].kopurua,
+                                        "marka": this.historialProductos[i].marka,
+                                        "data": this.historialProductos[i].data
+                                    });
                                 }
                             }
                         }
@@ -300,7 +235,17 @@ export default {
                     case 'historialMaterial':
                         for (let i = 0; i < this.historialMaterial.length; i++){
                             if(this.historialMaterial[i].izena.toLowerCase().startsWith(this.bilatu.toLowerCase())){
-                                if(new Date(this.historialMaterial[i].hasiera_data) >= new Date(this.fechaInicio) && new Date(this.historialMaterial[i].hasiera_data) <= new Date(this.fechaFin)){
+                                if(!isNaN(new Date(this.fechaInicio)) && !isNaN(new Date(this.fechaFin))){
+                                    if(new Date(this.historialMaterial[i].hasiera_data) >= new Date(this.fechaInicio) && new Date(this.historialMaterial[i].hasiera_data) <= fechaFin){
+                                        this.taula.push({
+                                            "material": this.historialMaterial[i].material,
+                                            "izena": this.historialMaterial[i].izena,
+                                            "kopurua": this.historialMaterial[i].kopurua,
+                                            "hasiera_data": this.historialMaterial[i].hasiera_data,
+                                            "amaiera_data": this.historialMaterial[i].amaiera_data
+                                        });
+                                    }
+                                }else{
                                     this.taula.push({
                                         "material": this.historialMaterial[i].material,
                                         "izena": this.historialMaterial[i].izena,
@@ -309,14 +254,6 @@ export default {
                                         "amaiera_data": this.historialMaterial[i].amaiera_data
                                     });
                                 }
-                            }else{
-                                this.taula.push({
-                                    "material": this.historialMaterial[i].material,
-                                    "izena": this.historialMaterial[i].izena,
-                                    "kopurua": this.historialMaterial[i].kopurua,
-                                    "hasiera_data": this.historialMaterial[i].hasiera_data,
-                                    "amaiera_data": this.historialMaterial[i].amaiera_data
-                                });
                             }
                         }
                         break;
@@ -324,21 +261,30 @@ export default {
                         break;
                 }
             }
+        }
+    },
+    watch:{
+
+        //Izenaren arabera filtroa egiteko metodoa
+        bilatu: function(){
+            this.buscar();
         },
 
+        //Hasiera data aldatzen den bakoitzean funtzioa egingo du.
         fechaInicio: function(){
-            this.bilatuData();
+            this.buscar();
         },
 
+        //Amaiera data aldatzen den bakoitzean funtzioa egingo du.
         fechaFin: function(){
-            this.bilatuData();
+            this.buscar();
         }
     },
     mounted: function(){
-      this.tablaRoles();
-      this.tablaProductos();
-      this.tablaMaterial();
-      this.mostrarTablas('tablaRoles');
+        this.tablaRoles();
+        this.tablaProductos();
+        this.tablaMaterial();
+        this.mostrarTablas('tablaRoles');
     }};
 </script>
 

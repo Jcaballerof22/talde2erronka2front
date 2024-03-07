@@ -297,6 +297,9 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <button type="button" class="btn añadir btn-lg" @click="esperar('graficoRoles')">Roles</button>
+            </div>
         </div>
         <h2 class="text-center mb-3">{{titulo2}}</h2>
 
