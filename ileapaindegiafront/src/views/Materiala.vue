@@ -523,6 +523,7 @@ export default {
         </div>
     </div>
   </div>
+  
     <div class="containerPage">
       <div class="input-group-estadisticas">
         <!-- Buscador por etiqueta -->
