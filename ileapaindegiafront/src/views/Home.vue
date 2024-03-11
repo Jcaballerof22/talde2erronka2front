@@ -451,15 +451,15 @@ export default {
     //     },
 
     //     // // taulako estruktura sortu
-    //     taulaSortu() {
-    //         for (let i = 0; i < this.orduak.length; i++) {
-    //             var row = [];
-    //             for (let j = 0; j < this.langileDisp; j++) {
-    //                 row.push({ "visible": true, "disponible": true });
-    //             }
-    //             this.taula.push(row);
-    //         }
-    //     },
+        taulaSortu() {
+            for (let i = 0; i < this.orduak.length; i++) {
+                var row = [];
+                for (let j = 0; j < this.langileDisp; j++) {
+                    row.push({ "visible": true, "disponible": true ,"dasd": true });
+                }
+                this.taula.push(row);
+            }
+        },
 
     //     // // Hitzorduak lortu // this.data -> nahi ditugun hitzorduen data // this.bilatusinbol -> if('+'){sartutako data eta berriagoak}else{bakarrik gure datakoak}
         async datuakLortu() {
@@ -476,7 +476,7 @@ export default {
                 }
                 if (this.bilatusinbol != '+') {
                     this.taulaSortu();
-                    this.ordenan();
+                    // this.ordenan();
                 } else {
                     this.taula = [];
                     for (let i = 0; i < this.datos2.length; i++) {
@@ -522,70 +522,70 @@ export default {
         },
 
     //     // // Goizeko horduak eskuratzeko
-    //     lortuOrduakG() {
-    //         var mins;
-    //         var orduakaux = [this.intervaloHoras[0], this.intervaloHoras[1]];
-    //         var orduDif = (orduakaux[1] - orduakaux[0]) + 1;
-    //         for (let i = 0; i < orduDif; i++) {
-    //             var aux = orduakaux[0] + i
-    //             for (let j = 0; j < 4; j++) {
-    //                 switch (j) {
-    //                     case 1:
-    //                         mins = '15';
-    //                         break;
-    //                     case 2:
-    //                         mins = '30';
-    //                         break;
-    //                     case 3:
-    //                         mins = '45';
-    //                         break;
-    //                     default:
-    //                         mins = '00';
-    //                         break;
-    //                 }
-    //                 if (aux < 10) {
-    //                     var h = '0' + aux;
-    //                 } else {
-    //                     h = aux;
-    //                 }
-    //                 this.orduakG.push(h + ':' + mins);
-    //             }
+        lortuOrduakG() {
+            var mins;
+            var orduakaux = [this.intervaloHoras[0], this.intervaloHoras[1]];
+            var orduDif = (orduakaux[1] - orduakaux[0]) + 1;
+            for (let i = 0; i < orduDif; i++) {
+                var aux = orduakaux[0] + i
+                for (let j = 0; j < 4; j++) {
+                    switch (j) {
+                        case 1:
+                            mins = '15';
+                            break;
+                        case 2:
+                            mins = '30';
+                            break;
+                        case 3:
+                            mins = '45';
+                            break;
+                        default:
+                            mins = '00';
+                            break;
+                    }
+                    if (aux < 10) {
+                        var h = '0' + aux;
+                    } else {
+                        h = aux;
+                    }
+                    this.orduakG.push(h + ':' + mins);
+                }
 
-    //         }
-    //     },
+            }
+        },
 
-    //     // // Arratsaldeko horduak eskuratzeko
-    //     lortuOrduakA() {
-    //         var mins;
-    //         var orduakaux = [this.intervaloHoras[2], this.intervaloHoras[3]]
-    //         var orduDif = (orduakaux[1] - orduakaux[0]) + 1;
-    //         for (let i = 0; i < orduDif; i++) {
-    //             var aux = orduakaux[0] + i
-    //             for (let j = 0; j < 4; j++) {
-    //                 switch (j) {
-    //                     case 1:
-    //                         mins = '15';
-    //                         break;
-    //                     case 2:
-    //                         mins = '30';
-    //                         break;
-    //                     case 3:
-    //                         mins = '45';
-    //                         break;
-    //                     default:
-    //                         mins = '00';
-    //                         break;
-    //                 }
-    //                 if (aux < 10) {
-    //                     var h = '0' + aux;
-    //                 } else {
-    //                     h = aux;
-    //                 }
-    //                 this.orduakA.push(h + ':' + mins);
-    //             }
+        // // Arratsaldeko horduak eskuratzeko
+        lortuOrduakA() {
+            var mins;
+            var orduakaux = [this.intervaloHoras[2], this.intervaloHoras[3]]
+            var orduDif = (orduakaux[1] - orduakaux[0]) + 1;
+            for (let i = 0; i < orduDif; i++) {
+                var aux = orduakaux[0] + i
+                for (let j = 0; j < 4; j++) {
+                    switch (j) {
+                        case 1:
+                            mins = '15';
+                            break;
+                        case 2:
+                            mins = '30';
+                            break;
+                        case 3:
+                            mins = '45';
+                            break;
+                        default:
+                            mins = '00';
+                            break;
+                    }
+                    if (aux < 10) {
+                        var h = '0' + aux;
+                    } else {
+                        h = aux;
+                    }
+                    this.orduakA.push(h + ':' + mins);
+                }
 
-    //         }
-    //     },
+            }
+        },
 
     //     // // Tratamendu lista lortu
     //     // async tratamenduakLortu() {
@@ -830,8 +830,10 @@ export default {
     watch: {
         data: function () {
             this.dataCita = this.data;
-            this.langileKopLortu();
-            this.datuakLortu();
+            this.langileKopLortu().then(() => {
+                this.datuakLortu();
+            });
+            
         },
 
         bilatu: function () {
@@ -878,13 +880,13 @@ export default {
 
 
         this.nombresGrupo();
-        // this.lortuOrduakG();
+        this.lortuOrduakG();
         
         this.hoy = this.data;
         this.grupoSeleccionado().then(() => {
             this.tablaRoles();
         });
-        // this.lortuOrduakA();
+        this.lortuOrduakA();
         // this.tratamenduakLortu();
 
     }
@@ -1240,10 +1242,12 @@ export default {
                             <tr v-for="(dato, index) in orduak">
                                 <th v-if="index % 4 === 0" :rowspan="4" scope="col">{{ dato }}</th>
                                 <!-- cambiar 4 por 2 para que sea cada 30 mins -->
-                                <td v-if="taula[index]?.[index2] && Object.keys(taula[index][index2]).length > 2" v-for="(dato2, index2) in taula[index]" @click="popupCita(taula[index][index2].id)" style="background-color: #E26B6B; border: 2px  solid black" :rowspan="taula[index][index2].timeDif"  scope="col">
+                                <td v-for="(dato2, index2) in taula[index]" v-if="taula[index]?.[index2] && Object.keys(taula[index][index2]).length > 2" @click="popupCita(taula[index][index2].id)" style="background-color: #E26B6B; border: 2px  solid black" :rowspan="taula[index][index2].timeDif"  scope="col">
                                     {{ taula[index][index2].izena }}<br>{{ taula[index][index2].orduak }}<br>{{ taula[index][index2].deskribapena }} {{ Object.keys(taula[index][index2]).length }}
                                 </td>
-                                <td scope="col" v-else></td>
+                                <td scope="col" v-for="(dato2, index2) in taula[index]" v-else-if="taula[index]?.[index2]?.visible">a</td>
+                                <td v-for="(dato2, index2) in taula[index]" v-else> {{ taula[index]?.[index2] && Object.keys(taula[index][index2]).length > 2 }} </td>
+                                
                                 
                                 <!-- <td v-for="(dato2, index2) in taula[index]" @click="popupCita(taula[index][index2].id)"
                                     style="background-color: #E26B6B; border: 2px  solid black"
@@ -1255,6 +1259,12 @@ export default {
                             </tr>
                         </tbody>
                     </table>
+                    <!-- aaaaaaaaaaaaaaaaaa -->                      
+                        <!-- <td @click="popupCita(taula[index][index2].id)" style="background-color: #E26B6B; border: 2px  solid black" v-for="(dato2, index2) in taula[index]" :rowspan="taula[index][index2].timeDif" scope="col" v-if="Object.keys(taula[index][index2]).length > 2">
+                            {{taula[index][index2].izena}}<br>{{taula[index][index2].orduak}}<br>{{taula[index][index2].deskribapena}}
+                        </td>
+                        <td scope="col" v-else-if="taula[index][index2].visible"></td> -->
+                    <!-- aaaaaaaaaaaaaaaaaa -->
                 </div>
             </div>
             <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
