@@ -455,7 +455,7 @@ export default {
             for (let i = 0; i < this.orduak.length; i++) {
                 var row = [];
                 for (let j = 0; j < this.langileDisp; j++) {
-                    row.push({ "visible": true, "disponible": true ,"dasd": true });
+                    row.push({ "visible": true, "disponible": true });
                 }
                 this.taula.push(row);
             }
@@ -1242,11 +1242,21 @@ export default {
                             <tr v-for="(dato, index) in orduak">
                                 <th v-if="index % 4 === 0" :rowspan="4" scope="col">{{ dato }}</th>
                                 <!-- cambiar 4 por 2 para que sea cada 30 mins -->
-                                <td v-for="(dato2, index2) in taula[index]" v-if="taula[index]?.[index2] && Object.keys(taula[index][index2]).length > 2" @click="popupCita(taula[index][index2].id)" style="background-color: #E26B6B; border: 2px  solid black" :rowspan="taula[index][index2].timeDif"  scope="col">
+                                <td v-for="(dato2, index2) in taula[index]" :key="index2" v-if=" !(dato2?.visible)">
+                                    <template v-if="taula[index]?.[index2] && Object.keys(dato2).length > 2" @click="popupCita(dato2.id)" style="background-color: #E26B6B; border: 2px  solid black" :rowspan="dato2.timeDif"  scope="col">
+                                        {{ dato2.izena }}<br>{{ dato2.orduak }}<br>{{ dato2.deskribapena }} {{ Object.keys(dato2).length }}
+                                    </template>
+                                    <template v-else-if="dato2.visible">
+                                        {{dato2.visible}}
+                                    </template>
+                                </td>
+
+
+                                <!-- <td v-for="(dato2, index2) in taula[index]" v-if="taula[index]?.[index2] && Object.keys(taula[index][index2]).length > 2" @click="popupCita(taula[index][index2].id)" style="background-color: #E26B6B; border: 2px  solid black" :rowspan="taula[index][index2].timeDif"  scope="col">
                                     {{ taula[index][index2].izena }}<br>{{ taula[index][index2].orduak }}<br>{{ taula[index][index2].deskribapena }} {{ Object.keys(taula[index][index2]).length }}
                                 </td>
                                 <td scope="col" v-for="(dato2, index2) in taula[index]" v-else-if="taula[index]?.[index2]?.visible">a</td>
-                                <td v-for="(dato2, index2) in taula[index]" v-else> {{ taula[index]?.[index2] && Object.keys(taula[index][index2]).length > 2 }} </td>
+                                <td v-for="(dato2, index2) in taula[index]" v-else> {{Object.keys(taula[index][index2]).length > 2 }} {{ taula[index]?.[index2] }} </td> -->
                                 
                                 
                                 <!-- <td v-for="(dato2, index2) in taula[index]" @click="popupCita(taula[index][index2].id)"
