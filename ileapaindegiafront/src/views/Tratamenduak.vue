@@ -13,19 +13,29 @@
                 </div>
                 <!-- Campo para meter la etiqueta -->
                 <div class="mt-2">
-                    <label for="mensaje" id="etiquetaLabelMaterial">Etiqueta</label>
+                    <label for="mensaje" id="izenaTratamendua">Nombre</label>
                 </div>
                 <div class="mt-2">
-                    <textarea id="modeloTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" v-model="etiketa"
-                        placeholder="Ingresa la etiqueta aquí" maxlength="10"></textarea>
+                    <textarea id="modeloTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" v-model="izena"
+                    maxlength="10"></textarea>
                 </div>
                 <!-- Campo para meter el nombre -->
                 <div class="mt-2">
-                    <label for="mensaje" id="nombreLabelMaterial">Nombre</label>
+                    <label for="mensaje" id="etxekoprezioaTratamenduak">Precio de Casa</label>
                 </div>
                 <div class="mt-2">
-                    <textarea id="marcaTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" v-model="izena"
-                        placeholder="Ingresa el Nombre aquí"></textarea>
+                    <input type="text" id="etxekoprezioNumber" class="mt-2" name="mensaje" v-model="etxekoprezioa"
+                    oninput="this.value = this.value.replace(/[^0-9,.]/g, ''); if (this.value.split(',')[1]) { this.value = this.value.split(',')[0] + ',' + this.value.split(',')[1].substring(0, 2); }"
+                     size="4">
+                </div>
+                <!-- Campo para meter el nombre -->
+                <div class="mt-2">
+                    <label for="mensaje" id="kanpokoprezioaTratamenduak">Precio de Fuera</label>
+                </div>
+                <div class="mt-2">
+                    <input type="text" id="kanpokoprezioNumber" class="mt-2" name="mensaje" v-model="kanpokoprezioa"
+                    oninput="this.value = this.value.replace(/[^0-9,.]/g, ''); if (this.value.split(',')[1]) { this.value = this.value.split(',')[0] + ',' + this.value.split(',')[1].substring(0, 2); }"
+                     size="4">
                 </div>
                 <!-- Boton para llamar a la funcion que añada el  material -->
                 <div class="mt-2">
@@ -46,9 +56,9 @@
             <table id="tabla" class="table table-hover table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">Izena</th>
-                        <th scope="col">Etxeko Prezioa €</th>
-                        <th scope="col">Kanpoko Prezioa €</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Precio de Casa €</th>
+                        <th scope="col">Precio de Fuera €</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -128,6 +138,39 @@
                     console.error('Error al obtener los datos:', error);
                 }
             },
+
+            txertatuEdoAldatu(){
+                if(this.aldatu != ''){
+                    this.aldatuDatuak();
+                }else{
+                    this.addDatuak();
+                }
+                document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
+                document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'none';
+            },
+
+            async aldatuDatuak() {
+                try {
+                    var js = JSON.stringify({
+                    "etiketa": this.etiketa,
+                    "izena": this.izena,
+                    "id": this.id_materiala
+                    });
+                    // el fetch que hara la llamada al back para cambiar los datos, metodo 'PUT' 
+                    const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/editatu', {
+                    method: 'PUT',
+                    body: js
+                    });
+                    
+                    const data = await response.text();
+                    // se vuelve a llamar a la funcion que coje los datos del back al haber cambios en ellos
+                    this.fetchData();
+                    
+                } catch (error) {
+                    console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+                }
+            },
+
             async ezabatu(id) {
                 try {
 

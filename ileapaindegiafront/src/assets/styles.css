@@ -739,3 +739,27 @@ body{
       font-size: 2vh; /* Cambia el tamaño del texto para pantallas más pequeñas */
   }
 }
+
+
+#izenaTratamendua{
+  font-size: 2.5em;
+  margin-left: -67%;
+}
+
+#etxekoprezioaTratamenduak{
+  font-size: 2.5em;
+  margin-left: -35%;
+}
+
+#etxekoprezioNumber{
+  margin-left: -72%;
+}
+
+#kanpokoprezioaTratamenduak{
+  font-size: 2.5em;
+  margin-left: -34%;
+}
+
+#kanpokoprezioNumber{
+  margin-left: -72%;
+}
