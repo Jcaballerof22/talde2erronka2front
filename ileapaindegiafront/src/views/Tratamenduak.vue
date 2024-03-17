@@ -24,7 +24,7 @@
                     <label for="mensaje" id="etxekoprezioaTratamenduak">Precio de Casa</label>
                 </div>
                 <div class="mt-2">
-                    <input type="text" id="etxekoprezioNumber" class="mt-2" name="mensaje" v-model="etxekoprezioa"
+                    <input type="text" id="etxekoprezioNumber" class="mt-2" v-model="etxeko_prezioa"
                     oninput="this.value = this.value.replace(/[^0-9,.]/g, ''); if (this.value.split(',')[1]) { this.value = this.value.split(',')[0] + ',' + this.value.split(',')[1].substring(0, 2); }"
                      size="4">
                 </div>
@@ -33,7 +33,7 @@
                     <label for="mensaje" id="kanpokoprezioaTratamenduak">Precio de Fuera</label>
                 </div>
                 <div class="mt-2">
-                    <input type="text" id="kanpokoprezioNumber" class="mt-2" name="mensaje" v-model="kanpokoprezioa"
+                    <input type="text" id="kanpokoprezioNumber" class="mt-2" v-model="kanpoko_prezioa"
                     oninput="this.value = this.value.replace(/[^0-9,.]/g, ''); if (this.value.split(',')[1]) { this.value = this.value.split(',')[0] + ',' + this.value.split(',')[1].substring(0, 2); }"
                      size="4">
                 </div>
@@ -50,7 +50,7 @@
             <div class="col">
             <!-- Boton para añadir un nuevo materuak -->
             <button type="button" id="mostrarVentanaTratamiento" class="btn añadir btn-lg"
-                @click="abrirPopup('' , '' , '')">Añadir tratamiento</button>
+                @click="abrirPopup('' , '' , '', '')">Añadir tratamiento</button>
             </div>
             <!-- Tabla para enseñar los datos -->
             <table id="tabla" class="table table-hover table-striped">
@@ -65,9 +65,9 @@
                 <tbody>
                     <tr v-for="(dato, index) in datos" :key="index" :id="dato.id">
                     <!-- Si se clica encima de uno de los elementos, puedes editar los datos -->
-                    <td>{{ dato.izena }}</td>
-                    <td>{{ dato.etxeko_prezioa }}</td>
-                    <td>{{ dato.kanpoko_prezioa }}</td>
+                    <td @click="abrirPopup(dato.izena, dato.etxeko_prezioa, dato.kanpoko_prezioa, dato.id)">{{ dato.izena }}</td>
+                    <td @click="abrirPopup(dato.izena, dato.etxeko_prezioa, dato.kanpoko_prezioa, dato.id)">{{ dato.etxeko_prezioa }}</td>
+                    <td @click="abrirPopup(dato.izena, dato.etxeko_prezioa, dato.kanpoko_prezioa, dato.id)">{{ dato.kanpoko_prezioa }}</td>
                     <!-- La parte para saber si el material esta en uso o esta libre -->
                     <td>
                         <!-- Item para llamar a la funcion de borrado del elemento -->
@@ -146,18 +146,20 @@
                     this.addDatuak();
                 }
                 document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
-                document.getElementById('ventanaEmergenteAñadirMaterial').style.display = 'none';
+                document.getElementById('ventanaEmergenteAñadirTratamiento').style.display = 'none';
             },
 
             async aldatuDatuak() {
                 try {
+                    console.log(this.id, this.izena, this.etxeko_prezioa, this.kanpoko_prezioa);
                     var js = JSON.stringify({
-                    "etiketa": this.etiketa,
+                    "id": this.id,
                     "izena": this.izena,
-                    "id": this.id_materiala
+                    "etxeko_prezioa": this.etxeko_prezioa,
+                    "kanpoko_prezioa": this.kanpoko_prezioa
                     });
                     // el fetch que hara la llamada al back para cambiar los datos, metodo 'PUT' 
-                    const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/editatu', {
+                    const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/tratamenduak/editatu', {
                     method: 'PUT',
                     body: js
                     });
@@ -169,6 +171,29 @@
                 } catch (error) {
                     console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
                 }
+            },
+
+            addDatuak(){
+                // se comprueba si hay datos, si faltan salta una alerta
+                if(this.izena=="" && this.etxeko_prezioa=="" && this.kanpoko_prezioa==""){
+                    alert("Datu falta dira")
+                }else{
+                    var js = JSON.stringify({"izena": this.izena, "etxeko_prezioa": this.etxeko_prezioa, "kanpoko_prezioa": this.kanpoko_prezioa}); 
+                    // el fetch que hace la llamda al back para sumar datos, con metodo 'POST', y json y modo 'cors'
+                    fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/tratamenduak/txertatu', {method: 'POST', body: js, mode: 'cors'})
+                    .then(function (response) {
+                            return response.text();
+                    })
+                    .then(data=>{
+                        console.log(data);
+                    })
+                    .catch(error => {
+                        // por si hay algun error por los constraints
+                        console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da txertatu" + error);
+                    });
+                }
+                // se llama a la siguiente funcion que filtrara los datos recogidos
+                this.fetchData();
             },
 
             async ezabatu(id) {
