@@ -736,7 +736,7 @@ body{
 
 @media screen and (max-width: 1400px) {
   #mostrarVentanaMaterial {
-      font-size: 2vh; /* Cambia el tamaño del texto para pantallas más pequeñas */
+      font-size: 2vh;
   }
 }
 
@@ -762,4 +762,14 @@ body{
 
 #kanpokoprezioNumber{
   margin-left: -72%;
+}
+
+#mostrarVentanaTratamiento{
+  margin-left: 86%;
+}
+
+@media screen and (max-width: 1500px) {
+  #mostrarVentanaTratamiento {
+      font-size: 1.3vh;
+  }
 }
