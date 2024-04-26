@@ -364,51 +364,35 @@ export default {
             return counter;
         },
 
-    //     // // Pff, gure datuak taulan ondo kokatzeko
-    //     ordenan() {
-    //         var timeDiff = 0;
-    //         for (let i = 0; i < this.datos2.length; i++) {
-    //             var orduH = this.datos2[i].hasiera_ordua.split(":");
-    //             var orduA = this.datos2[i].amaiera_ordua.split(":");
-    //             var orduDif = (parseInt(orduA[0]) - parseInt(orduH[0])) * 4;
-    //             var minDif = this.minCalc(orduA[1]) - this.minCalc(orduH[1]);
-    //             var timeDif = minDif + orduDif;
-    //             var js = { "izena": this.datos2[i].izena, "deskribapena": this.datos2[i].deskribapena, "orduak": this.datos2[i].hasiera_ordua + "-" + this.datos2[i].amaiera_ordua, "timeDif": timeDif, "visible": true, "disponible": false, "id": this.datos2[i].id, "eserlekua": this.datos2[i].eserlekua};
+        // // Pff, gure datuak taulan ondo kokatzeko
+        ordenan() {
+            var timeDiff = 0;
+            for (let i = 0; i < this.datos2.length; i++) {
+                var orduH = this.datos2[i].hasiera_ordua.split(":");
+                var orduA = this.datos2[i].amaiera_ordua.split(":");
+                var orduDif = (parseInt(orduA[0]) - parseInt(orduH[0])) * 4;
+                var minDif = this.minCalc(orduA[1]) - this.minCalc(orduH[1]);
+                var timeDif = minDif + orduDif;
+                var js = { "izena": this.datos2[i].izena, "deskribapena": this.datos2[i].deskribapena, "orduak": this.datos2[i].hasiera_ordua + "-" + this.datos2[i].amaiera_ordua, "timeDif": timeDif, "visible": true, "disponible": false, "id": this.datos2[i].id, "eserlekua": this.datos2[i].eserlekua};
+                console.log(js)
 
-    //             //Lekua bilatu
-    //             // var sitio = null;
-    //             // for (let j = 0; j < this.langileDisp; j++) {
-    //             //     for (let k = 0; k < this.taula.length; k++) {
-    //             //         if ((orduH[0] + ":" + orduH[1]) == this.orduak[k] && this.taula[k][j].disponible) {
-    //             //             horas2: for (let i = 0; i < js.timeDif; i++) {
-    //             //                 if (this.taula[k + i][j].disponible) {
-    //             //                     sitio = j;
-    //             //                 } else {
-    //             //                     sitio = null;
-    //             //                     break horas2;
-    //             //                 }
-    //             //             }
-    //             //         }
-    //             //     }
-    //             // }
+                //Lekuan Kokatu
+                for (let i = 0; i < this.taula.length; i++) {
+                    if ((orduH[0] + ":" + orduH[1]) == this.orduak[i]) {
+                        for (let l = 0; l < js.timeDif; l++) {
+                            if (l == 0) {
+                                this.taula[i + l][js.eserlekua-1] = js;
+                            } else {
+                                this.taula[i + l][js.eserlekua-1] = { "visible": false, "disponible": false };
+                            }
+                        }
+                    }
+                }
+            }
+            //Hay que mirar esto, que no lo entiendo :D supuestamente da la vuelta a el array
+            // this.taula = this.taula.map(subarray => subarray.slice().reverse());
 
-    //             //Lekuan Kokatu
-    //             for (let i = 0; i < this.taula.length; i++) {
-    //                 if ((orduH[0] + ":" + orduH[1]) == this.orduak[i] && js.eserlekua==i) {
-    //                     for (let l = 0; l < js.timeDif; l++) {
-    //                         if (l == 0) {
-    //                             this.taula[i + l][sitio] = js;
-    //                         } else {
-    //                             this.taula[i + l][sitio] = { "visible": false, "disponible": false };
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //         //Hay que mirar esto, que no lo entiendo :D supuestamente da la vuelta a el array
-    //         this.taula = this.taula.map(subarray => subarray.slice().reverse());
-
-    //     },
+        },
 
     //     // // popup-a zabaltzeko eta datuak esleitzeko
     //     popupCita(id) {
@@ -476,7 +460,7 @@ export default {
                 }
                 if (this.bilatusinbol != '+') {
                     this.taulaSortu();
-                    // this.ordenan();
+                    this.ordenan();
                 } else {
                     this.taula = [];
                     for (let i = 0; i < this.datos2.length; i++) {
@@ -554,38 +538,6 @@ export default {
             }
         },
 
-        // // Arratsaldeko horduak eskuratzeko
-        lortuOrduakA() {
-            var mins;
-            var orduakaux = [this.intervaloHoras[2], this.intervaloHoras[3]]
-            var orduDif = (orduakaux[1] - orduakaux[0]) + 1;
-            for (let i = 0; i < orduDif; i++) {
-                var aux = orduakaux[0] + i
-                for (let j = 0; j < 4; j++) {
-                    switch (j) {
-                        case 1:
-                            mins = '15';
-                            break;
-                        case 2:
-                            mins = '30';
-                            break;
-                        case 3:
-                            mins = '45';
-                            break;
-                        default:
-                            mins = '00';
-                            break;
-                    }
-                    if (aux < 10) {
-                        var h = '0' + aux;
-                    } else {
-                        h = aux;
-                    }
-                    this.orduakA.push(h + ':' + mins);
-                }
-
-            }
-        },
 
     //     // // Tratamendu lista lortu
     //     // async tratamenduakLortu() {
@@ -886,7 +838,6 @@ export default {
         this.grupoSeleccionado().then(() => {
             this.tablaRoles();
         });
-        this.lortuOrduakA();
         // this.tratamenduakLortu();
 
     }
@@ -1242,38 +1193,16 @@ export default {
                             <tr v-for="(dato, index) in orduak">
                                 <th v-if="index % 4 === 0" :rowspan="4" scope="col">{{ dato }}</th>
                                 <!-- cambiar 4 por 2 para que sea cada 30 mins -->
-                                <td v-for="(dato2, index2) in taula[index]" :key="index2" v-if=" !(dato2?.visible)" v-show="dato2.visible">
-                                    <template v-if="taula[index][index2] && Object.keys(dato2).length > 2" @click="popupCita(dato2.id)" style="background-color: #E26B6B; border: 2px  solid black" :rowspan="dato2.timeDif"  scope="col">
+                                <td v-for="(dato2, index2) in taula[index]" :key="index2" v-if=" !(dato2?.visible)" v-show="dato2.visible" :rowspan="dato2.timeDif">
+                                    <template v-if="taula[index][index2] && Object.keys(dato2).length > 2" @click="popupCita(dato2.id)" style="background-color: #E26B6B; border: 2px  solid black"   scope="col">
                                         {{ dato2.izena }}<br>{{ dato2.orduak }}<br>{{ dato2.deskribapena }} {{ Object.keys(dato2).length }}
                                     </template>
                                     <template v-else-if="dato2.visible">
                                     </template>
                                 </td>
-
-
-                                <!-- <td v-for="(dato2, index2) in taula[index]" v-if="taula[index]?.[index2] && Object.keys(taula[index][index2]).length > 2" @click="popupCita(taula[index][index2].id)" style="background-color: #E26B6B; border: 2px  solid black" :rowspan="taula[index][index2].timeDif"  scope="col">
-                                    {{ taula[index][index2].izena }}<br>{{ taula[index][index2].orduak }}<br>{{ taula[index][index2].deskribapena }} {{ Object.keys(taula[index][index2]).length }}
-                                </td>
-                                <td scope="col" v-for="(dato2, index2) in taula[index]" v-else-if="taula[index]?.[index2]?.visible">a</td>
-                                <td v-for="(dato2, index2) in taula[index]" v-else> {{Object.keys(taula[index][index2]).length > 2 }} {{ taula[index]?.[index2] }} </td> -->
-                                
-                                
-                                <!-- <td v-for="(dato2, index2) in taula[index]" @click="popupCita(taula[index][index2].id)"
-                                    style="background-color: #E26B6B; border: 2px  solid black"
-                                     :rowspan="taula[index][index2].timeDif"
-                                    scope="col" v-if="Object.keys(taula[index][index2]).length > 2">
-                                    {{ taula[index][index2].izena }}<br>{{ taula[index][index2].orduak }}<br>{{ taula[index][index2].deskribapena }}
-                                </td> -->
-                                <!-- <td scope="col" v-else-if="taula[index][index2].visible"></td> -->
                             </tr>
                         </tbody>
                     </table>
-                    <!-- aaaaaaaaaaaaaaaaaa -->                      
-                        <!-- <td @click="popupCita(taula[index][index2].id)" style="background-color: #E26B6B; border: 2px  solid black" v-for="(dato2, index2) in taula[index]" :rowspan="taula[index][index2].timeDif" scope="col" v-if="Object.keys(taula[index][index2]).length > 2">
-                            {{taula[index][index2].izena}}<br>{{taula[index][index2].orduak}}<br>{{taula[index][index2].deskribapena}}
-                        </td>
-                        <td scope="col" v-else-if="taula[index][index2].visible"></td> -->
-                    <!-- aaaaaaaaaaaaaaaaaa -->
                 </div>
             </div>
             <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
