@@ -395,44 +395,44 @@ export default {
         },
 
     //     // // popup-a zabaltzeko eta datuak esleitzeko
-    //     popupCita(id) {
-    //         this.idCita = id;
-    //         this.dataCita = this.data;
-    //         if (id != '') {
-    //             this.citaTratamenduaLortu();
-    //             for (let i = 0; i < this.datos2.length; i++) {
-    //                 if (this.datos2[i].id == id) {
-    //                     this.izena = this.datos2[i].izena;
-    //                     this.telefonoa = this.datos2[i].telefonoa;
-    //                     this.deskribapena = this.datos2[i].deskribapena;
-    //                     this.hasiera_ordua = this.datos2[i].hasiera_ordua;
-    //                     this.amaiera_ordua = this.datos2[i].amaiera_ordua;
-    //                     this.grupoCita = this.datos2[i].izena_taldea;
-    //                     this.alumnoCita = this.datos2[i].izena_langilea;
-    //                     this.alumnoCitaid = this.datos2[i].id_langilea
-    //                     if (this.datos2[i].etxekoa == 'E') {
-    //                         this.etxekoa = true;
-    //                     } else {
-    //                         this.etxekoa = false;
-    //                     }
-    //                 }
+        popupCita(id) {
+            this.idCita = id;
+            this.dataCita = this.data;
+            if (id != '') {
+                this.citaTratamenduaLortu();
+                for (let i = 0; i < this.datos2.length; i++) {
+                    if (this.datos2[i].id == id) {
+                        this.izena = this.datos2[i].izena;
+                        this.telefonoa = this.datos2[i].telefonoa;
+                        this.deskribapena = this.datos2[i].deskribapena;
+                        this.hasiera_ordua = this.datos2[i].hasiera_ordua;
+                        this.amaiera_ordua = this.datos2[i].amaiera_ordua;
+                        this.grupoCita = this.datos2[i].izena_taldea;
+                        this.alumnoCita = this.datos2[i].izena_langilea;
+                        this.alumnoCitaid = this.datos2[i].id_langilea
+                        if (this.datos2[i].etxekoa == 'E') {
+                            this.etxekoa = true;
+                        } else {
+                            this.etxekoa = false;
+                        }
+                    }
 
-    //             }
-    //         } else {
-    //             this.etxekoa = false;
-    //             this.izena = ''
-    //             this.telefonoa = ''
-    //             this.deskribapena = ''
-    //             this.hasiera_ordua = ''
-    //             this.amaiera_ordua = ''
-    //             this.tratamenduakCitaText = ''
-    //             this.alumnoCitaid = '13'
-    //             this.alumnoCita = '';
-    //             this.grupoCita = ''
-    //         }
-    //         document.getElementById('fondoOscuro2').classList.add('mostrar-fondo');
-    //         document.getElementById('ventanaEmergenteLangile').style.display = 'block';
-    //     },
+                }
+            } else {
+                this.etxekoa = false;
+                this.izena = ''
+                this.telefonoa = ''
+                this.deskribapena = ''
+                this.hasiera_ordua = ''
+                this.amaiera_ordua = ''
+                this.tratamenduakCitaText = ''
+                this.alumnoCitaid = '13'
+                this.alumnoCita = '';
+                this.grupoCita = ''
+            }
+            document.getElementById('fondoOscuro2').classList.add('mostrar-fondo');
+            document.getElementById('ventanaEmergenteLangile').style.display = 'block';
+        },
 
     //     // // taulako estruktura sortu
         taulaSortu() {
@@ -671,11 +671,11 @@ export default {
     //     // },
 
     //     // // Pop-a ren fondo beltza kentzeko
-    //     // quitarFondoNegro() {
-    //     //     document.getElementById('fondoOscuro2').classList.remove('mostrar-fondo');
-    //     //     document.getElementById('ventanaEmergenteLangile').style.display = 'none';
-    //     //     document.getElementById('ventanaEmergenteTiket').style.display = 'none';
-    //     // },
+        quitarFondoNegro() {
+            document.getElementById('fondoOscuro2').classList.remove('mostrar-fondo');
+            document.getElementById('ventanaEmergenteLangile').style.display = 'none';
+            document.getElementById('ventanaEmergenteTiket').style.display = 'none';
+        },
 
     //     // // Langile kopurua lortzeko
         async langileKopLortu() {
@@ -1100,7 +1100,8 @@ export default {
                             <!-- <label v-if="data == hoy" class="form-label rounded bg-white p-2 mb-1">Alumno</label> -->
                             <select v-if="dataCita == hoy" class="form-select" v-model="alumnoCitaid">
                                 <option selected disabled value="13">Alumno</option>
-                                <option v-for="(datos, index) in alumnos" :key="index" :value="datos.id">{{ datos.izena }}
+                                <option v-for="(datos, index) in alumnos" :key="index" :value="datos.id" :title="datos.izena">
+                                    {{ datos.izena }}
                                 </option>
                             </select>
                             <label v-else class="form-label rounded bg-white p-2 mb-1">Alumno: {{ alumnoCita }}</label>
