@@ -92,7 +92,7 @@ const routes = [
         meta: {
             title: 'Tratamientos'
         }
-    },
+    }
 ]
 
 

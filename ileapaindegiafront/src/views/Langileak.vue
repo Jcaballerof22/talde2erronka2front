@@ -26,7 +26,7 @@ export default {
                     });
                     console.log("froga: " + js);
 
-                    const response = await fetch(window.ruta + 'alumnos/txertatu', {
+                    const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/alumnos/txertatu', {
                         method: 'POST',
                         body: js
                     });
@@ -51,7 +51,7 @@ export default {
             this.datosTalde.push({"izena": "All", "kodea": "all"});
             
             try {
-                const response = await fetch(window.ruta + 'grupos', {
+                const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/grupos', {
                     method: 'GET'
                 });
 
@@ -101,7 +101,7 @@ export default {
             console.log("froga: " + js);
             
             try {
-                const response = await fetch(window.ruta + 'alumnos/editatu', {
+                const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/alumnos/editatu', {
                     method: 'PUT',
                     body: js
                 });
@@ -145,7 +145,7 @@ export default {
             console.log("froga: " + js);
             
             try {
-                const response = await fetch(window.ruta + 'alumnos/ezabatu', {
+                const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/alumnos/ezabatu', {
                     method: 'PUT',
                     body: js
                 });
@@ -168,7 +168,7 @@ export default {
 
         async datuakLortu() {
             try {
-                const response = await fetch(window.ruta + 'alumnos', {
+                const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/alumnos', {
                     method: 'GET'
                 });
 

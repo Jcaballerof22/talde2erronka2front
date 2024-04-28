@@ -77,7 +77,7 @@
             </a>
             <a href="tratamientos">
               <li>
-                <img src="../IMG/tratamientos.png" alt="Image 3" class="menu-icon">
+                <img src="../IMG/3460107.png" alt="Image 3" class="menu-icon">
                 <span class="menu-text"><b>{{text[hizkuntza]["Tratamientos"]}}</b></span>
               </li>
             </a>
