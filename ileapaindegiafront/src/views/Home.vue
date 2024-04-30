@@ -685,12 +685,32 @@ export default {
                 });
                 const data = await response.json();
                 console.log(data);
-                this.alumnos = data;
+                this.langileTratamenduLortu(data);
                 this.langileDisp = data.length;
             } catch (error) {
                 console.error('Error al obtener los tratamientos:', error);
             }
         },
+
+        async langileTratamenduLortu(alumnos){
+            var listaTratamendu = "";
+            try {
+                for (let i = 0; i < alumnos.length; i++) {
+                    const response = await fetch(window.ruta + 'alumnosTratamendu/' + alumnos[i].id, {
+                        method: 'GET',
+                    });
+                    const data = await response.json();
+                    console.log(data);
+                    for (let j = 0; j < data.length; j++) {
+                        listaTratamendu+=(data[j].tratamendu_izena+": "+data[j].kopurua+"\n")
+                    }
+                    alumnos[i].tratamenduEgin = listaTratamendu
+                }
+            } catch (error) {
+                console.error('Error al obtener los tratamientos de cada alumno:', error);
+            }
+            this.alumnos = alumnos;
+        }
     //     // /////////////////////////////////////// HAYQUEACER ///////////////////////////////////////
     //     // createCita() {
     //     //     datos = '/' + this.dataCita + '/' + this.hasiera_ordua + '/' + this.amaiera_ordua;
@@ -1100,7 +1120,7 @@ export default {
                             <!-- <label v-if="data == hoy" class="form-label rounded bg-white p-2 mb-1">Alumno</label> -->
                             <select v-if="dataCita == hoy" class="form-select" v-model="alumnoCitaid">
                                 <option selected disabled value="13">Alumno</option>
-                                <option v-for="(datos, index) in alumnos" :key="index" :value="datos.id" :title="datos.izena">
+                                <option v-for="(datos, index) in alumnos" :key="index" :value="datos.id" :title="datos.tratamenduEgin">
                                     {{ datos.izena }}
                                 </option>
                             </select>
