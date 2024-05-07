@@ -1,18 +1,25 @@
 <script setup>
   import {ref} from "vue";
   import Menu from './components/Menu.vue'
-  window.ruta = 'http://localhost/Cosos/KK/Erronka/talde2erronka2back/Erronka2/public/api/';
+  window.ruta = 'http://localhost/talde2erronka2back/Erronka2/public/api/';
   //Funtzioak
   const translate = (hizkuntza) => {
     sessionStorage.setItem("hizkuntza", hizkuntza);
     window.location.reload();
   }
 
+  const isLoginPage = window.location.pathname.includes('login');
+
 </script>
 
 <template>
-  <Menu  @translate = "translate" @hizkuntzaLortu = "hizkuntzaLortu"></Menu>
-  <router-view></router-view>
+  <div>
+    <template v-if="!isLoginPage">
+      <Menu @translate="translate" @hizkuntzaLortu="hizkuntzaLortu"></Menu>
+    </template>
+    
+    <router-view></router-view>
+  </div>
 </template>
 
 <style scoped>

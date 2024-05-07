@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router"
 
+import login from './views/Login.vue'
 import home from './views/Home.vue'
 import produktuak from './views/Produktuak.vue'
 import materiala from './views/Materiala.vue'
@@ -13,6 +14,14 @@ import tratamenduak from './views/Tratamenduak.vue'
 
  
 const routes = [
+    {
+        name: 'login',
+        path: '/login',
+        component: login,
+        meta: {
+            title: 'Login'
+        }
+    },
     {
         name: 'home',
         path: '/',
