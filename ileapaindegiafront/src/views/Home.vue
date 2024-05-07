@@ -538,114 +538,111 @@ export default {
             }
         },
 
+        // Tratamendu lista lortu
+        async tratamenduakLortu() {
+            try {
+                const response = await fetch(window.ruta + 'tratamenduak', {
+                    method: 'GET',
+                });
+                const data = await response.json();
+                console.log(data);
 
-    //     // // Tratamendu lista lortu
-    //     // async tratamenduakLortu() {
-    //     //     try {
-    //     //         const response = await fetch(window.ruta + 'tratamenduak', {
-    //     //             method: 'GET',
-    //     //             mode: 'no-cors'
-    //     //         });
+                // Si `data` es un arreglo, puedes usar `forEach` para iterar sobre él.
+                data.forEach(tratamiento => {
+                    console.log(tratamiento);
+                    // Asumiendo que `this.tratamenduak` está definido fuera de esta función
+                    this.tratamenduak.push(tratamiento);
+                });
+            } catch (error) {
+                console.error('Error al obtener los tratamientos:', error);
+            }
+        },
 
-    //     //         const data = await response.json();
+        // Hitzordu bat dituen tratamendu guztiak lortu
+        async citaTratamenduaLortu() {
+            this.tratamenduakCitaText = "";
+            try {
+                const response = await fetch(window.ruta + 'tratamenduak/' + this.idCita, {
+                    method: 'GET',
+                });
 
-    //     //         console.log(data);
+                const data = await response.json();
 
-    //     //         // Si `data` es un arreglo, puedes usar `forEach` para iterar sobre él.
-    //     //         data.forEach(tratamiento => {
-    //     //             console.log(tratamiento);
-    //     //             // Asumiendo que `this.tratamenduak` está definido fuera de esta función
-    //     //             this.tratamenduak.push(tratamiento);
-    //     //         });
-    //     //     } catch (error) {
-    //     //         console.error('Error al obtener los tratamientos:', error);
-    //     //     }
-    //     // },
+                console.log(data);
+                if (data.message == "Ez dira tratamendurik aurkitu.") {
+                    
+                }else{
+                    this.tratamenduakCita = data;
 
-    //     // // Hitzordu bat dituen tratamendu guztiak lortu
-    //     // async citaTratamenduaLortu() {
-    //     //     this.tratamenduakCitaText = "";
-    //     //     try {
-    //     //         const response = await fetch(window.ruta + 'tratamenduak/' + this.idCita, {
-    //     //             method: 'GET',
-    //     //             mode: 'no-cors'
-    //     //         });
+                    for (let i = 0; i < data.length; i++) {
+                        this.tratamenduakCitaText += data[i].tratamenduIzena + " " + data[i].prezioa + " -- ";
+                    }
+                }
 
-    //     //         const data = await response.json();
+            } catch (error) {
+                console.error('Error al obtener los tratamientos:', error);
+            }
+        },
 
-    //     //         console.log(data);
+        // Hitzordak duten tratameduak gehitzeko
+        async tratamenduaGehitu() {
+            var prezioa = 0;
+            if (this.extra == 0) {
+                for (let i = 0; i < this.tratamenduak.length; i++) {
+                    if (this.tratamenduak[i].id == this.tratamendu) {
+                        if (this.etxekoa) {
+                            prezioa = this.tratamenduak[i].etxeko_prezioa;
+                        } else {
+                            prezioa = this.tratamenduak[i].kanpoko_prezioa;
+                        }
+                    }
+                }
+            } else {
+                prezioa = this.extra;
+            }
+            var datos = { "id_hitzordua": this.idCita, "id_tratamendua": this.tratamendu, "prezioa": prezioa };
+            var js = JSON.stringify(datos);
+            console.log("insert: " + js);
 
-    //     //         this.tratamenduakCita = data;
+            try {
+                const response = await fetch(window.ruta + 'tratamenduak/add', {
+                    method: 'POST',
+                    body: js
+                });
 
-    //     //         for (let i = 0; i < data.length; i++) {
-    //     //             this.tratamenduakCitaText += data[i].tratamenduIzena + " " + data[i].prezioa + " -- ";
-    //     //         }
+                const data = await response.json();
 
-    //     //     } catch (error) {
-    //     //         console.error('Error al obtener los tratamientos:', error);
-    //     //     }
-    //     // },
+                console.log(data);
+                this.citaTratamenduaLortu();
+            } catch (error) {
+                console.error('Error al obtener los tratamientos:', error);
+            }
+        },
 
-    //     // // Hitzordak duten tratameduak gehitzeko
-    //     // async tratamenduaGehitu() {
-    //     //     var prezioa = 0;
-    //     //     if (this.extra == 0) {
-    //     //         for (let i = 0; i < this.tratamenduak.length; i++) {
-    //     //             if (this.tratamenduak[i].id == this.tratamendu) {
-    //     //                 if (this.etxekoa) {
-    //     //                     prezioa = this.tratamenduak[i].etxeko_prezioa;
-    //     //                 } else {
-    //     //                     prezioa = this.tratamenduak[i].kanpoko_prezioa;
-    //     //                 }
-    //     //             }
-    //     //         }
-    //     //     } else {
-    //     //         prezioa = this.extra;
-    //     //     }
-    //     //     var datos = { "id_hitzordua": this.idCita, "id_tratamendua": this.tratamendu, "prezioa": prezioa };
-    //     //     var js = JSON.stringify(datos);
-    //     //     console.log("insert: " + js);
+        // Hitzordak duten tratameduak kentzeko
+        async tratamenduaKendu() {
+            var datos = "";
+            for (let i = 0; i < this.tratamenduakCita.length; i++) {
+                if (this.tratamenduakCita[i].id_tratamendua == this.tratamendu) {
+                    datos = { "id": this.tratamenduakCita[i].id };
+                    break;
+                }
+            }
 
-    //     //     try {
-    //     //         const response = await fetch(window.ruta + 'tratamenduak/add', {
-    //     //             method: 'POST',
-    //     //             mode: 'no-cors',
-    //     //             body: js
-    //     //         });
-
-    //     //         const data = await response.json();
-
-    //     //         console.log(data);
-    //     //         this.citaTratamenduaLortu();
-    //     //     } catch (error) {
-    //     //         console.error('Error al obtener los tratamientos:', error);
-    //     //     }
-    //     // },
-
-    //     // // Hitzordak duten tratameduak kentzeko
-    //     // async tratamenduaKendu() {
-    //     //     var datos = "";
-    //     //     for (let i = 0; i < this.tratamenduakCita.length; i++) {
-    //     //         if (this.tratamenduakCita[i].id_tratamendua == this.tratamendu) {
-    //     //             datos = { "id": this.tratamenduakCita[i].id };
-    //     //             break;
-    //     //         }
-    //     //     }
-
-    //     //     var js = JSON.stringify(datos);
-    //     //     console.log("del: " + js);
-    //     //     try {
-    //     //         const response = await fetch(window.ruta + 'tratamenduak/remove', {
-    //     //             method: 'PUT',
-    //     //             body: js
-    //     //         });
-    //     //         const data = await response.json();
-    //     //         console.log(data);
-    //     //         this.citaTratamenduaLortu();
-    //     //     } catch (error) {
-    //     //         console.error('Error al obtener los tratamientos:', error);
-    //     //     }
-    //     // },
+            var js = JSON.stringify(datos);
+            console.log("del: " + js);
+            try {
+                const response = await fetch(window.ruta + 'tratamenduak/remove', {
+                    method: 'PUT',
+                    body: js
+                });
+                const data = await response.json();
+                console.log(data);
+                this.citaTratamenduaLortu();
+            } catch (error) {
+                console.error('Error al obtener los tratamientos:', error);
+            }
+        },
 
     //     // // Hitzortua ezabatzeko
     //     // async hitzorduaKendu() {
@@ -710,37 +707,37 @@ export default {
                 console.error('Error al obtener los tratamientos de cada alumno:', error);
             }
             this.alumnos = alumnos;
-        }
+        },
     //     // /////////////////////////////////////// HAYQUEACER ///////////////////////////////////////
-    //     // createCita() {
-    //     //     datos = '/' + this.dataCita + '/' + this.hasiera_ordua + '/' + this.amaiera_ordua;
-    //     //     console.log("losdatos: " + datos);
-    //     //     try {
-    //     //         fetch(window.ruta + 'hitzordua/horduDisp' + datos)
-    //     //             .then(response => response.json())
-    //     //             .then(data => {
-    //     //                 if (data.length < this.langileDisp) {
-    //     //                     // Fetch 2
-    //     //                     const js = JSON.stringify({ "izena": this.izena, "telefonoa": this.telefonoa, "deskribapena": this.deskribapena, "hasiera_ordua": this.hasiera_ordua, "amaiera_ordua": this.amaiera_ordua, "langilea": this.alumnoCitaid, "etxekoa": this.etxekoa, "data": this.dataCita });
-    //     //                     console.log("insert: " + js);
-    //     //                     fetch(window.ruta + 'hitzordua/txertatu', {
-    //     //                         method: 'POST',
-    //     //                         body: js
-    //     //                     })
-    //     //                         .then(response => response.json())
-    //     //                         .then(data => {
-    //     //                             this.datuakLortu()
-    //     //                         });
-    //     //                 }
-    //     //                 else alert("Se superó el limite de citas para las horas seleccionadas");
-    //     //             });
-    //     //     } catch (error) {
-    //     //         console.log(error);
-    //     //     }
-    //     //     // alert("si todo fué bien, es posible que se haya insertado :D");
+        // createCita() {
+        //     datos = '/' + this.dataCita + '/' + this.hasiera_ordua + '/' + this.amaiera_ordua;
+        //     console.log("losdatos: " + datos);
+        //     try {
+        //         fetch(window.ruta + 'hitzordua/horduDisp' + datos)
+        //             .then(response => response.json())
+        //             .then(data => {
+        //                 if (data.length < this.langileDisp) {
+        //                     // Fetch 2
+        //                     const js = JSON.stringify({ "izena": this.izena, "telefonoa": this.telefonoa, "deskribapena": this.deskribapena, "hasiera_ordua": this.hasiera_ordua, "amaiera_ordua": this.amaiera_ordua, "langilea": this.alumnoCitaid, "etxekoa": this.etxekoa, "data": this.dataCita });
+        //                     console.log("insert: " + js);
+        //                     fetch(window.ruta + 'hitzordua/txertatu', {
+        //                         method: 'POST',
+        //                         body: js
+        //                     })
+        //                         .then(response => response.json())
+        //                         .then(data => {
+        //                             this.datuakLortu()
+        //                         });
+        //                 }
+        //                 else alert("Se superó el limite de citas para las horas seleccionadas");
+        //             });
+        //     } catch (error) {
+        //         console.log(error);
+        //     }
+        //     // alert("si todo fué bien, es posible que se haya insertado :D");
 
-    //     //     this.quitarFondoNegro()
-    //     // },
+        //     this.quitarFondoNegro()
+        // },
 
     //     // async aldatuOrduaAmaiera() {
     //     //     const js = JSON.stringify({ "id": this.idCita, "ordua": this.amaiera_ordua });
@@ -779,11 +776,11 @@ export default {
     //     //     }
     //     // },
 
-    //     // popupTicket() {
-    //     //     document.getElementById('ventanaEmergenteLangile').style.display = 'none';
-    //     //     document.getElementById('fondoOscuro2').classList.add('mostrar-fondo');
-    //     //     document.getElementById('ventanaEmergenteTiket').style.display = 'block';
-    //     // },
+        popupTicket() {
+            document.getElementById('ventanaEmergenteLangile').style.display = 'none';
+            document.getElementById('fondoOscuro2').classList.add('mostrar-fondo');
+            document.getElementById('ventanaEmergenteTiket').style.display = 'block';
+        },
 
     //     // // fichaSortu(){
     //     // //   sensible = confirm('Tiene el cuero cabelludo sensible¿')
@@ -835,12 +832,12 @@ export default {
     //         this.aldatuOrduaAmaiera();
     //     },
 
-    //     tratamenduakCita: function () {
-    //         this.totalPrezioa = 0;
-    //         this.tratamenduakCita.forEach(element => {
-    //             this.totalPrezioa = + this.totalPrezioa + +element.prezioa;
-    //         });
-    //     },
+        tratamenduakCita: function () {
+            this.totalPrezioa = 0;
+            this.tratamenduakCita.forEach(element => {
+                this.totalPrezioa = + this.totalPrezioa + +element.prezioa;
+            });
+        },
 
     },
     mounted: function () {
@@ -858,7 +855,7 @@ export default {
         this.grupoSeleccionado().then(() => {
             this.tablaRoles();
         });
-        // this.tratamenduakLortu();
+        this.tratamenduakLortu();
 
     }
 }
