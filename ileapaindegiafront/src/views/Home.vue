@@ -344,7 +344,7 @@ export default {
         },
 
         ////////////////////////////////////////////////////////////// P2 CITA //////////////////////////////////////////////////////////////
-        // // ordenatzerakoan minutuak kontuan hartzeko
+        // ordenatzerakoan minutuak kontuan hartzeko
         minCalc(minutua) {
             var counter = 0;
             switch (minutua) {
@@ -364,7 +364,7 @@ export default {
             return counter;
         },
 
-        // // Pff, gure datuak taulan ondo kokatzeko
+        // Pff, gure datuak taulan ondo kokatzeko
         ordenan() {
             var timeDiff = 0;
             for (let i = 0; i < this.datos2.length; i++) {
@@ -394,47 +394,50 @@ export default {
 
         },
 
-    //     // // popup-a zabaltzeko eta datuak esleitzeko
+    // popup-a zabaltzeko eta datuak esleitzeko
         popupCita(id) {
-            this.idCita = id;
-            this.dataCita = this.data;
-            if (id != '') {
-                this.citaTratamenduaLortu();
-                for (let i = 0; i < this.datos2.length; i++) {
-                    if (this.datos2[i].id == id) {
-                        this.izena = this.datos2[i].izena;
-                        this.telefonoa = this.datos2[i].telefonoa;
-                        this.deskribapena = this.datos2[i].deskribapena;
-                        this.hasiera_ordua = this.datos2[i].hasiera_ordua;
-                        this.amaiera_ordua = this.datos2[i].amaiera_ordua;
-                        this.grupoCita = this.datos2[i].izena_taldea;
-                        this.alumnoCita = this.datos2[i].izena_langilea;
-                        this.alumnoCitaid = this.datos2[i].id_langilea
-                        if (this.datos2[i].etxekoa == 'E') {
-                            this.etxekoa = true;
-                        } else {
-                            this.etxekoa = false;
+            if(id != undefined){
+                this.idCita = id;
+                this.dataCita = this.data;
+                if (id != '') {
+                    this.citaTratamenduaLortu();
+                    for (let i = 0; i < this.datos2.length; i++) {
+                        if (this.datos2[i].id == id) {
+                            this.izena = this.datos2[i].izena;
+                            this.telefonoa = this.datos2[i].telefonoa;
+                            this.deskribapena = this.datos2[i].deskribapena;
+                            this.hasiera_ordua = this.datos2[i].hasiera_ordua;
+                            this.amaiera_ordua = this.datos2[i].amaiera_ordua;
+                            this.grupoCita = this.datos2[i].izena_taldea;
+                            this.alumnoCita = this.datos2[i].izena_langilea;
+                            this.alumnoCitaid = this.datos2[i].id_langilea
+                            if (this.datos2[i].etxekoa == 'E') {
+                                this.etxekoa = true;
+                            } else {
+                                this.etxekoa = false;
+                            }
                         }
-                    }
 
+                    }
+                } else {
+                    this.etxekoa = false;
+                    this.izena = ''
+                    this.telefonoa = ''
+                    this.deskribapena = ''
+                    this.hasiera_ordua = ''
+                    this.amaiera_ordua = ''
+                    this.tratamenduakCitaText = ''
+                    this.alumnoCitaid = '13'
+                    this.alumnoCita = '';
+                    this.grupoCita = ''
                 }
-            } else {
-                this.etxekoa = false;
-                this.izena = ''
-                this.telefonoa = ''
-                this.deskribapena = ''
-                this.hasiera_ordua = ''
-                this.amaiera_ordua = ''
-                this.tratamenduakCitaText = ''
-                this.alumnoCitaid = '13'
-                this.alumnoCita = '';
-                this.grupoCita = ''
+            
+                document.getElementById('fondoOscuro2').classList.add('mostrar-fondo');
+                document.getElementById('ventanaEmergenteLangile').style.display = 'block';
             }
-            document.getElementById('fondoOscuro2').classList.add('mostrar-fondo');
-            document.getElementById('ventanaEmergenteLangile').style.display = 'block';
         },
 
-    //     // // taulako estruktura sortu
+    // taulako estruktura sortu
         taulaSortu() {
             for (let i = 0; i < this.orduak.length; i++) {
                 var row = [];
@@ -445,7 +448,7 @@ export default {
             }
         },
 
-    //     // // Hitzorduak lortu // this.data -> nahi ditugun hitzorduen data // this.bilatusinbol -> if('+'){sartutako data eta berriagoak}else{bakarrik gure datakoak}
+    // Hitzorduak lortu // this.data -> nahi ditugun hitzorduen data // this.bilatusinbol -> if('+'){sartutako data eta berriagoak}else{bakarrik gure datakoak}
         async datuakLortu() {
             this.datos2 = [];
             this.taula = [];
@@ -483,7 +486,7 @@ export default {
             }
         },
 
-    //     // // Gaurko data lortzeko
+    // Gaurko data lortzeko
         lortuData() {
             var gaur = new Date();
             var urtea = gaur.getFullYear();
@@ -499,13 +502,14 @@ export default {
             if (ordua < this.intervaloHoras[1]) {
                 this.orduak = this.orduakG;
             } else {
-                this.orduak = this.orduakA;
+                // this.orduak = this.orduakA;
+                this.orduak = this.orduakG;
             }
             // Dar formato :D
             return urtea + '-' + hilabetea + '-' + eguna;
         },
 
-    //     // // Goizeko horduak eskuratzeko
+    // Goizeko horduak eskuratzeko
         lortuOrduakG() {
             var mins;
             var orduakaux = [this.intervaloHoras[0], this.intervaloHoras[1]];
@@ -644,30 +648,29 @@ export default {
             }
         },
 
-    //     // // Hitzortua ezabatzeko
-    //     // async hitzorduaKendu() {
-    //     //     const js = JSON.stringify({ "id": this.idCita });
-    //     //     console.log("froga: " + js);
+    // Hitzortua ezabatzeko
+    async hitzorduaKendu() {
+        const js = JSON.stringify({ "id": this.idCita });
+        console.log("froga: " + js);
 
-    //     //     try {
-    //     //         const response = await fetch(window.ruta + 'hitzordua/ezabatu', {
-    //     //             method: 'PUT',
-    //     //             body: js
-    //     //         });
+        try {
+            const response = await fetch(window.ruta + 'hitzordua/ezabatu', {
+                method: 'PUT',
+                body: js
+            });
 
-    //     //         const data = await response.text();
-    //     //         console.log(data);
+            const data = await response.text();
+            console.log(data);
 
-    //     //         this.taula = this.taula.filter(aux => aux.id !== this.idCita);
-    //     //         this.datuakLortu()
-    //     //     } catch (error) {
-    //     //         console.error("Error al eliminar el registro:", error);
-    //     //         console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
-    //     //     }
-    //     //     this.quitarFondoNegro();
-    //     // },
+            this.datuakLortu()
+        } catch (error) {
+            console.error("Error al eliminar el registro:", error);
+            console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
+        }
+        this.quitarFondoNegro();
+    },
 
-    //     // // Pop-a ren fondo beltza kentzeko
+    // Pop-a ren fondo beltza kentzeko
         quitarFondoNegro() {
             document.getElementById('fondoOscuro2').classList.remove('mostrar-fondo');
             document.getElementById('ventanaEmergenteLangile').style.display = 'none';
@@ -683,7 +686,7 @@ export default {
                 const data = await response.json();
                 console.log(data);
                 this.langileTratamenduLortu(data);
-                this.langileDisp = data.length;
+                this.langileDisp = data.length-1;
             } catch (error) {
                 console.error('Error al obtener los tratamientos:', error);
             }
@@ -708,73 +711,91 @@ export default {
             }
             this.alumnos = alumnos;
         },
-    //     // /////////////////////////////////////// HAYQUEACER ///////////////////////////////////////
-        // createCita() {
-        //     datos = '/' + this.dataCita + '/' + this.hasiera_ordua + '/' + this.amaiera_ordua;
-        //     console.log("losdatos: " + datos);
-        //     try {
-        //         fetch(window.ruta + 'hitzordua/horduDisp' + datos)
-        //             .then(response => response.json())
-        //             .then(data => {
-        //                 if (data.length < this.langileDisp) {
-        //                     // Fetch 2
-        //                     const js = JSON.stringify({ "izena": this.izena, "telefonoa": this.telefonoa, "deskribapena": this.deskribapena, "hasiera_ordua": this.hasiera_ordua, "amaiera_ordua": this.amaiera_ordua, "langilea": this.alumnoCitaid, "etxekoa": this.etxekoa, "data": this.dataCita });
-        //                     console.log("insert: " + js);
-        //                     fetch(window.ruta + 'hitzordua/txertatu', {
-        //                         method: 'POST',
-        //                         body: js
-        //                     })
-        //                         .then(response => response.json())
-        //                         .then(data => {
-        //                             this.datuakLortu()
-        //                         });
-        //                 }
-        //                 else alert("Se superó el limite de citas para las horas seleccionadas");
-        //             });
-        //     } catch (error) {
-        //         console.log(error);
-        //     }
-        //     // alert("si todo fué bien, es posible que se haya insertado :D");
+/////////////////////////////////////// HAYQUEACER ///////////////////////////////////////
+        createCita() {
+            var datos = '/' + this.dataCita + '/' + this.hasiera_ordua + '/' + this.amaiera_ordua;
+            console.log("losdatos: " + datos);
+            console.log(window.ruta + 'hitzordua/horduDisp' +datos)
+            try {
+                fetch(window.ruta + 'hitzordua/horduDisp' + datos)
+                    .then(response => response.json())
+                    .then(data => {
+                        // alert(data.length)
+                        // alert(this.langileDisp)
+                        if (data.length < this.langileDisp) {
+                            // Fetch 2
+                            var eserlekua = (this.langileDisp+1) - (this.langileDisp - data.length)
+                            // alert(eserlekua)
+                            const js = JSON.stringify({ "izena": this.izena, "telefonoa": this.telefonoa, "deskribapena": this.deskribapena, "hasiera_ordua": this.hasiera_ordua, "amaiera_ordua": this.amaiera_ordua, "langilea": this.alumnoCitaid, "etxekoa": this.etxekoa, "data": this.dataCita, "eserlekua": eserlekua });
+                            console.log("insert: " + js);
+                            fetch(window.ruta + 'hitzordua/txertatu', {
+                                method: 'POST',
+                                body: js
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    this.datuakLortu()
+                                });
+                        }
+                        else alert("Se superó el limite de citas para las horas seleccionadas");
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+            // alert("si todo fué bien, es posible que se haya insertado :D");
 
-        //     this.quitarFondoNegro()
-        // },
+            this.quitarFondoNegro()
+        },
 
-    //     // async aldatuOrduaAmaiera() {
-    //     //     const js = JSON.stringify({ "id": this.idCita, "ordua": this.amaiera_ordua });
-    //     //     console.log("froga: " + js);
-    //     //     try {
-    //     //         const response = await fetch(window.ruta + 'hitzordua/horduaAmaiera', {
-    //     //             method: 'PUT',
-    //     //             body: js
-    //     //         });
-    //     //         const data = await response.text();
-    //     //         console.log(data);
-    //     //         this.taula = this.taula.filter(aux => aux.id !== id);
-    //     //     } catch (error) {
-    //     //         console.error("Error al eliminar el registro:", error);
-    //     //         console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
-    //     //     }
-    //     // },
+        async aldatuOrduaAmaiera() {
+            const js = JSON.stringify({ "id": this.idCita, "ordua": this.amaiera_ordua });
+            console.log("froga: " + js);
+            try {
+                const response = await fetch(window.ruta + 'hitzordua/horduaAmaiera', {
+                    method: 'PUT',
+                    body: js
+                });
 
-    //     // async aldatuOrduaHasiera() {
-    //     //     const js = JSON.stringify({ "id": this.idCita, "ordua": this.hasiera_ordua });
-    //     //     console.log("froga: " + js);
+                const data = await response.text();
+                console.log(data);
+            } catch (error) {
+                console.error("Error al cambiar la hora de fin de la cita: ", error);
+            }
+        },
 
-    //     //     try {
-    //     //         const response = await fetch(window.ruta + 'hitzordua/horduaHasiera', {
-    //     //             method: 'PUT',
-    //     //             body: js
-    //     //         });
+        async aldatuOrduaHasiera() {
+            const js = JSON.stringify({ "id": this.idCita, "ordua": this.hasiera_ordua });
+            console.log("froga: " + js);
 
-    //     //         const data = await response.text();
-    //     //         console.log(data);
+            try {
+                const response = await fetch(window.ruta + 'hitzordua/horduaHasiera', {
+                    method: 'PUT',
+                    body: js
+                });
 
-    //     //         this.taula = this.taula.filter(aux => aux.id !== id);
-    //     //     } catch (error) {
-    //     //         console.error("Error al eliminar el registro:", error);
-    //     //         console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
-    //     //     }
-    //     // },
+                const data = await response.text();
+                console.log(data);
+            } catch (error) {
+                console.error("Error al cambiar la hora de inicio de la cita: ", error);
+            }
+        },
+
+        async aldatuLangilea() {
+            const js = JSON.stringify({ "id": this.idCita, "langilea": this.alumnoCitaid });
+            console.log("froga: " + js);
+
+            try {
+                const response = await fetch(window.ruta + 'hitzordua/aldatuLangilea', {
+                    method: 'PUT',
+                    body: js
+                });
+
+                const data = await response.text();
+                console.log(data);
+            } catch (error) {
+                console.error("Error al cambiar la hora de inicio de la cita: ", error);
+            }
+        },
 
         popupTicket() {
             document.getElementById('ventanaEmergenteLangile').style.display = 'none';
@@ -816,21 +837,25 @@ export default {
 
         },
 
-    //     langileDisp: function () {
-    //         this.taulaSortu()
-    //     },
+        alumnoCitaid: function () {
+            this.aldatuLangilea()
+        },
 
-    //     tratamendu: function () {
-    //         this.extra = 0;
-    //     },
+        langileDisp: function () {
+            this.taulaSortu()
+        },
 
-    //     hasiera_ordua: function () {
-    //         this.aldatuOrduaHasiera();
-    //     },
+        tratamendu: function () {
+            this.extra = 0;
+        },
 
-    //     amaiera_ordua: function () {
-    //         this.aldatuOrduaAmaiera();
-    //     },
+        hasiera_ordua: function () {
+            this.aldatuOrduaHasiera();
+        },
+
+        amaiera_ordua: function () {
+            this.aldatuOrduaAmaiera();
+        },
 
         tratamenduakCita: function () {
             this.totalPrezioa = 0;
@@ -841,13 +866,7 @@ export default {
 
     },
     mounted: function () {
-        //lo que va
         this.data = this.lortuData();
-        
-        //lo q ns si va
-
-
-
         this.nombresGrupo();
         this.lortuOrduakG();
         
@@ -1211,7 +1230,7 @@ export default {
                             <tr v-for="(dato, index) in orduak">
                                 <th v-if="index % 4 === 0" :rowspan="4" scope="col">{{ dato }}</th>
                                 <!-- cambiar 4 por 2 para que sea cada 30 mins -->
-                                <td v-for="(dato2, index2) in taula[index]" :key="index2" v-if=" !(dato2?.visible)" v-show="dato2.visible" :rowspan="dato2.timeDif">
+                                <td v-for="(dato2, index2) in taula[index]" :key="index2" v-if=" !(dato2?.visible)" v-show="dato2.visible" :rowspan="dato2.timeDif" @click="popupCita(dato2.id)">
                                     <template v-if="taula[index][index2] && Object.keys(dato2).length > 2" @click="popupCita(dato2.id)" style="background-color: #E26B6B; border: 2px  solid black"   scope="col">
                                         {{ dato2.izena }}<br>{{ dato2.orduak }}<br>{{ dato2.deskribapena }} {{ Object.keys(dato2).length }}
                                     </template>

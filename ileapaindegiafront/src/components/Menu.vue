@@ -8,6 +8,8 @@
     return value !== null ? value : 'ESP';
   } 
   console.log(hizkuntza);
+
+  
 </script>
 
 <template>
