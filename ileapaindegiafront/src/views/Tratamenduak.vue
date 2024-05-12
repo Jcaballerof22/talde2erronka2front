@@ -123,7 +123,7 @@
             async fetchData(){
                 try {
                     // el fetch que hace la llamada al back para recoger los datos, usando el metodo 'GET' y el modo 'cors'
-                    const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/tratamenduak', {
+                    const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/tratamenduak', {
                         method: 'GET',
                         mode: 'cors'
                     });
@@ -167,7 +167,7 @@
                     "kanpoko_prezioa": this.kanpoko_prezioa
                     });
                     // el fetch que hara la llamada al back para cambiar los datos, metodo 'PUT' 
-                    const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/tratamenduak/editatu', {
+                    const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/tratamenduak/editatu', {
                     method: 'PUT',
                     body: js
                     });
@@ -188,7 +188,7 @@
                 }else{
                     var js = JSON.stringify({"izena": this.izena, "etxeko_prezioa": this.etxeko_prezioa, "kanpoko_prezioa": this.kanpoko_prezioa}); 
                     // el fetch que hace la llamda al back para sumar datos, con metodo 'POST', y json y modo 'cors'
-                    fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/tratamenduak/txertatu', {method: 'POST', body: js, mode: 'cors'})
+                    fetch('http://localhost/talde2erronka2back/Erronka2/public/api/tratamenduak/txertatu', {method: 'POST', body: js, mode: 'cors'})
                     .then(function (response) {
                             return response.text();
                     })
@@ -209,7 +209,7 @@
 
                     var js = JSON.stringify({"id": id}); 
                     // el fetch que hace la llamada al back para borrar el dato con el json que se le pasa, el metodo es 'PUT'
-                    const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/tratamenduak/ezabatu', {
+                    const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/tratamenduak/ezabatu', {
                     method: 'PUT',
                     body: js
                     });

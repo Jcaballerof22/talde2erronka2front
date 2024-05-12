@@ -11,6 +11,11 @@ export default {
             aldatu: '',
             sailkatu: "all",
             taula: [],
+            izenaT: "",
+            kodeaT: "",
+            aldatuT: '',
+            datosT: [],
+            taulaT: [],
         }
     },
     methods: {
@@ -26,7 +31,7 @@ export default {
                     });
                     console.log("froga: " + js);
 
-                    const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/alumnos/txertatu', {
+                    const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/alumnos/txertatu', {
                         method: 'POST',
                         body: js
                     });
@@ -47,11 +52,133 @@ export default {
             }
         },
 
+        async addDatuakT() {
+            if (this.izenaT === "") {
+                alert("Falta el dato");
+            } else {
+                try {
+                    const js = JSON.stringify({"izena": this.izenaT}); 
+                    console.log("froga: " + js);
+
+                    const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/grupos/txertatu', {
+                        method: 'POST',
+                        body: js,
+                        mode: 'no-cors'
+                    });
+
+                    const data = await response.text();
+                    console.log(data);
+
+                    this.datosT.push({
+                        "izena": this.izenaT,
+                        "langileKop": "0",
+                        "kodea": data
+                    });
+                } catch (error) {
+                    console.error("Error al añadir el dato:", error);
+                    console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
+                }
+            }
+        },
+
+        // abrirPopupT(kodeaT, izenaT){
+        //     this.aldatuT = kodeaT;
+        //     this.izenaT = izenaT;
+        //     this.kodeaT = kodeaT;
+        //     document.getElementById('fondoOscuroGrupos').classList.add('mostrar-fondo');
+        //     document.getElementById('ventanaEmergenteGrupos').style.display = 'block';
+        // },
+
+        abrirPopupT(){
+            console.log(datosT);
+            document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
+            document.getElementById('ventanaEmergenteLangileT').style.display = 'block';
+        },
+
+        txertatuEdoAldatuT(){
+            if(this.aldatuT != ''){
+                this.aldatuDatuakT();
+            }else{
+                this.addDatuakT();
+            }
+            document.getElementById('fondoOscuroGrupos').classList.remove('mostrar-fondo');
+            document.getElementById('ventanaEmergenteGrupos').style.display = 'none';
+        },
+
+        async aldatuDatuakT() {
+            const js = JSON.stringify({"kodea": this.kodeaT, "izena": this.izenaT}); 
+            console.log("froga: " + js);
+            
+            try {
+                const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/grupos/editatu', {
+                    method: 'PUT',
+                    body: js
+                });
+
+                const data = await response.text();
+                console.log(data);
+
+                for (let i = 0; i < this.datosT.length; i++) {
+                    if (this.datosT[i].kodeaT === this.aldatuT) {
+                        this.datosT[i].kodeaT = this.kodeaT;
+                        this.datosT[i].izenaT = this.izenaT;
+                    }
+                }
+            } catch (error) {
+                console.error("Error al editar el dato:", error);
+                console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
+            }
+        },
+
+        async ezabatuT(kodeaT) {
+            const js = JSON.stringify({"kodea": kodeaT}); 
+            console.log("froga: " + js);
+            
+            try {
+                const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/grupos/ezabatu', {
+                    method: 'PUT',
+                    body: js
+                });
+
+                const data = await response.text();
+                console.log(data);
+
+                this.taulaT = this.taulaT.filter(aux => aux.kodeaT !== kodeaT);
+            } catch (error) {
+                console.error("Error al eliminar el registro:", error);
+                console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
+            }
+        },
+
+        async lortuDatuakT() {
+            try {
+                const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/grupos', { 
+                    method: 'GET',
+                });
+                const data = await response.json();
+                console.log(data); 
+                for (let i = 0; i < data.length; i++) {
+                    this.datosT.push({
+                        "izena": data[i].izena,
+                        "langileKop": data[i].langileak,
+                        "kodea": data[i].kodea
+                    });
+                }
+            } catch (error) {
+                console.error('Error al obtener los datos de los grupos:', error);
+            }
+        },
+
+        ocultarVentanaT() {
+            document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
+            document.getElementById('ventanaEmergenteLangileT').style.display = 'none';
+        },
+
         async nombresGrupo() {
             this.datosTalde.push({"izena": "All", "kodea": "all"});
             
             try {
-                const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/grupos', {
+                const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/grupos', {
                     method: 'GET'
                 });
 
@@ -101,7 +228,7 @@ export default {
             console.log("froga: " + js);
             
             try {
-                const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/alumnos/editatu', {
+                const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/alumnos/editatu', {
                     method: 'PUT',
                     body: js
                 });
@@ -145,7 +272,7 @@ export default {
             console.log("froga: " + js);
             
             try {
-                const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/alumnos/ezabatu', {
+                const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/alumnos/ezabatu', {
                     method: 'PUT',
                     body: js
                 });
@@ -168,7 +295,7 @@ export default {
 
         async datuakLortu() {
             try {
-                const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/alumnos', {
+                const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/alumnos', {
                     method: 'GET'
                 });
 
@@ -234,6 +361,7 @@ export default {
             this.datuakLortu()
         });
         this.buscar();
+        this.lortuDatuakT();
       }
 }
 
@@ -273,6 +401,35 @@ export default {
                 <input id="submitLangile" type="submit" class="btn añadir btn-lg mt-4" @click="txertatuEdoAldatu" value="Enviar">
             </div>
         </div>
+
+        <div id="ventanaEmergenteLangileT" class="ventana-oculta">
+            <div class="contenido-ventana">
+                <div class="input-group-horarios">
+                    <button type="button" id="cerrarVentanaLangileT" class="btn x" @click="ocultarVentanaT()">
+                        <i class="bi bi-x"></i>
+                    </button>
+                </div>
+                <table id="tabla" class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Número de alumnos</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(datosT, index) in taulaT" :key="index" :id="datosT.kodea">
+                            <td @click="abrirPopup(datosT.kodea, datosT.izena)">{{ datosT.izena }}</td>
+                            <td @click="abrirPopup(datosT.kodea, datosT.izena)">{{ datosT.langileKop }}</td>
+                            <td>
+                                <i class="bi bi-trash-fill" @click="ezabatu(datosT.kodea)"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
             <!-- Botoiak/Bilatzaileak -->
         <div class="containerPage">
             <div class="input-group">
@@ -293,7 +450,8 @@ export default {
                 <thead>
                 <tr>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Grupo</th>
+                    <!-- <th scope="col">Grupo</th> -->
+                    <th scope="col">Grupos <i @click="abrirPopupT()" class="bi bi-pencil-square"></i></th>
                     <th scope="col"></th>
                 </tr>
                 </thead>

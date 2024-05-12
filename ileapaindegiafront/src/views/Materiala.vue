@@ -79,7 +79,7 @@ export default {
           "id": this.id_materiala
         });
         // el fetch que hara la llamada al back para cambiar los datos, metodo 'PUT' 
-        const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/editatu', {
+        const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/materiala/editatu', {
           method: 'PUT',
           body: js
         });
@@ -100,7 +100,7 @@ export default {
       }else{
           var js = JSON.stringify({"izena": this.izena, "etiketa": this.etiketa}); 
           // el fetch que hace la llamda al back para sumar datos, con metodo 'POST', y json y modo 'cors'
-          fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/txertatu', {method: 'POST', body: js, mode: 'cors'})
+          fetch('http://localhost/talde2erronka2back/Erronka2/public/api/materiala/txertatu', {method: 'POST', body: js, mode: 'cors'})
           .then(function (response) {
                   return response.text();
           })
@@ -124,7 +124,7 @@ export default {
 
       try {
         // el fetch que hace la llamada al back para recoger los datos, usando el metodo 'GET' y el modo 'cors'
-        const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materialaN', {
+        const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/materialaN', {
             method: 'GET',
             mode: 'cors'
         });
@@ -212,7 +212,7 @@ export default {
       this.datosTodos = [];
       try {
       // el fetch que hace la llamda al back para coger los datos, con metodo 'GET' y modo 'cors'
-      const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala', {
+      const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/materiala', {
           method: 'GET',
           mode: 'cors'
       });
@@ -278,7 +278,7 @@ export default {
 
         var js = JSON.stringify({"id": id}); 
         // el fetch que hace la llamada al back para borrar el dato con el json que se le pasa, el metodo es 'PUT'
-        const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/ezabatu', {
+        const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/materiala/ezabatu', {
           method: 'PUT',
           body: js
         });
@@ -301,7 +301,7 @@ export default {
     async nombresGrupo() {
       try {
           // el fetch que hace la llamda al back, se usa el metodo 'GET' y el modo 'cors'
-          const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/grupos', {
+          const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/materiala/grupos', {
               method: 'GET',
               mode: 'cors'
           });
@@ -323,7 +323,7 @@ export default {
 
         try {
           // el fetch que hace la llamada al back, se usa el metodo 'GET' y el modo 'cors', aparte se manda el codigo del grupo para filtrar los datos
-          const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/alumnos/'+this.kodea, {
+          const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/materiala/alumnos/'+this.kodea, {
             method: 'GET',
             mode: 'cors'
         });
@@ -356,7 +356,7 @@ export default {
               "id_langilea": this.idlangile
             });
             // el fetch que manda los datos al back con su ruta, el metodo utilizado es el 'POST'
-            const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/reservar', {
+            const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/materiala/reservar', {
               method: 'POST',
               body: js
             });
@@ -379,7 +379,7 @@ export default {
       var js = JSON.stringify({"id_materiala": this.idMaterial});
           
       // el fetch que manda el json al back con su ruta, el metodo utilizado es el 'PUT'
-      const response = await fetch('http://localhost/Erronka2/talde2erronka2back/Erronka2/public/api/materiala/devolver', {
+      const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/materiala/devolver', {
         method: 'PUT',
         body: js
       });

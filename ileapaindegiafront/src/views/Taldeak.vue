@@ -19,7 +19,7 @@ export default{
                     const js = JSON.stringify({"izena": this.izena}); 
                     console.log("froga: " + js);
 
-                    const response = await fetch(window.ruta + 'grupos/txertatu', {
+                    const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/grupos/txertatu', {
                         method: 'POST',
                         body: js,
                         mode: 'no-cors'
@@ -63,7 +63,7 @@ export default{
             console.log("froga: " + js);
             
             try {
-                const response = await fetch(window.ruta + 'grupos/editatu', {
+                const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/grupos/editatu', {
                     method: 'PUT',
                     body: js
                 });
@@ -102,7 +102,7 @@ export default{
             console.log("froga: " + js);
             
             try {
-                const response = await fetch(window.ruta + 'grupos/ezabatu', {
+                const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/grupos/ezabatu', {
                     method: 'PUT',
                     body: js
                 });
@@ -125,7 +125,7 @@ export default{
 
         async lortuDatuak() {
             try {
-                const response = await fetch(window.ruta + 'grupos', { 
+                const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/grupos', { 
                     method: 'GET',
                 });
                 const data = await response.json();
@@ -230,11 +230,11 @@ export default{
                     </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(dato, index) in taula" :key="index" :id="dato.kodea">
-                            <td @click="abrirPopup(dato.kodea, dato.izena)">{{ dato.izena }}</td>
-                            <td @click="abrirPopup(dato.kodea, dato.izena)">{{ dato.langileKop }}</td>
+                        <tr v-for="(datos, index) in taula" :key="index" :id="datos.kodea">
+                            <td @click="abrirPopup(datos.kodea, datos.izena)">{{ datos.izena }}</td>
+                            <td @click="abrirPopup(datos.kodea, datos.izena)">{{ datos.langileKop }}</td>
                             <td>
-                                <i class="bi bi-trash-fill" @click="ezabatu(dato.kodea)"></i>
+                                <i class="bi bi-trash-fill" @click="ezabatu(datos.kodea)"></i>
                             </td>
                         </tr>
                     </tbody>
