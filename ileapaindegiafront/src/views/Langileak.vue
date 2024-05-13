@@ -1,4 +1,6 @@
 <script>
+import { resolveTransitionHooks } from 'vue';
+
 export default {
     data() {
         return {
@@ -63,7 +65,7 @@ export default {
                     const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/grupos/txertatu', {
                         method: 'POST',
                         body: js,
-                        mode: 'no-cors'
+                        mode: 'cors'
                     });
 
                     const data = await response.text();
@@ -90,9 +92,18 @@ export default {
         // },
 
         abrirPopupT(){
-            console.log(datosT);
+            console.log(this.datosT);
             document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
             document.getElementById('ventanaEmergenteLangileT').style.display = 'block';
+        },
+
+        abrirPopupG(kodea,izena){
+            this.aldatuT = kodea;
+            this.izenaT = izena;
+            this.kodeaT = kodea;
+            this.ocultarVentanaT();
+            document.getElementById('fondoOscuroLangile').classList.add('mostrar-fondo');
+            document.getElementById('ventanaEmergenteGrupos').style.display = 'block';
         },
 
         txertatuEdoAldatuT(){
@@ -101,7 +112,9 @@ export default {
             }else{
                 this.addDatuakT();
             }
-            document.getElementById('fondoOscuroGrupos').classList.remove('mostrar-fondo');
+            this.ocultarVentanaG();
+            this.abrirPopupT();
+            document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
             document.getElementById('ventanaEmergenteGrupos').style.display = 'none';
         },
 
@@ -118,12 +131,8 @@ export default {
                 const data = await response.text();
                 console.log(data);
 
-                for (let i = 0; i < this.datosT.length; i++) {
-                    if (this.datosT[i].kodeaT === this.aldatuT) {
-                        this.datosT[i].kodeaT = this.kodeaT;
-                        this.datosT[i].izenaT = this.izenaT;
-                    }
-                }
+                this.datosT = [];
+                this.lortuDatuakT();
             } catch (error) {
                 console.error("Error al editar el dato:", error);
                 console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
@@ -143,7 +152,9 @@ export default {
                 const data = await response.text();
                 console.log(data);
 
-                this.taulaT = this.taulaT.filter(aux => aux.kodeaT !== kodeaT);
+                this.datosT = [];
+                this.lortuDatuakT();
+                this.ocultarVentanaT();
             } catch (error) {
                 console.error("Error al eliminar el registro:", error);
                 console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
@@ -235,14 +246,9 @@ export default {
 
                 const data = await response.text();
                 console.log(data);
-
-                for (let i = 0; i < this.datos.length; i++) {
-                    if (this.datos[i].id == this.aldatu) {
-                        this.datos[i].izena = this.izena;
-                        this.datos[i].abizenak = this.abizenak;
-                        this.datos[i].kodea = this.kodea;
-                    }
-                }
+                this.datos = [];
+                this.datuakLortu();
+                this.buscar();
             } catch (error) {
                 console.error("Error al editar el dato:", error);
                 console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
@@ -252,6 +258,11 @@ export default {
         ocultarVentana() {
             document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
             document.getElementById('ventanaEmergenteLangile').style.display = 'none';
+        },
+
+        ocultarVentanaG() {
+            document.getElementById('fondoOscuroLangile').classList.remove('mostrar-fondo');
+            document.getElementById('ventanaEmergenteGrupos').style.display = 'none';
         },
 
         buscar(){
@@ -268,7 +279,7 @@ export default {
         },
 
         async ezabatu(id) {
-            const js = JSON.stringify({"id": id}); 
+            const js = JSON.stringify({"id": id});
             console.log("froga: " + js);
             
             try {
@@ -302,7 +313,6 @@ export default {
                 const data = await response.json();
 
                 console.log(data);
-
                 data.forEach(alumno => {
                     this.datos.push({
                         "izena": alumno.izena,
@@ -333,9 +343,9 @@ export default {
             if (this.bilatu == ''){
                 this.taula = this.datos;
             }else{
-                this.taula = [];
                 for (let i = 0; i < this.datos.length; i++){
                     if(this.datos[i].izena.startsWith(this.bilatu)){
+                        console.log("hoy");
                         this.taula.push({"izena" : this.datos[i].izena, "abizenak" : this.datos[i].abizenak, "kodea" : this.datos[i].kodea, "id" : this.datos[i].id});
                     }
                 }
@@ -360,8 +370,9 @@ export default {
         this.nombresGrupo().then(()=>{
             this.datuakLortu()
         });
-        this.buscar();
+        
         this.lortuDatuakT();
+        this.buscar();
       }
 }
 
@@ -405,6 +416,7 @@ export default {
         <div id="ventanaEmergenteLangileT" class="ventana-oculta">
             <div class="contenido-ventana">
                 <div class="input-group-horarios">
+                    <button id="mostrarVentanaGrupos" type="button" class="btn añadir btn-lg" @click="abrirPopupG('', '', '')">Añadir Grupo</button>
                     <button type="button" id="cerrarVentanaLangileT" class="btn x" @click="ocultarVentanaT()">
                         <i class="bi bi-x"></i>
                     </button>
@@ -418,15 +430,36 @@ export default {
                     </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(datosT, index) in taulaT" :key="index" :id="datosT.kodea">
-                            <td @click="abrirPopup(datosT.kodea, datosT.izena)">{{ datosT.izena }}</td>
-                            <td @click="abrirPopup(datosT.kodea, datosT.izena)">{{ datosT.langileKop }}</td>
+                        <tr v-for="(dato, index) in datosT" :key="index" :id="dato.kodea">
+                            <td @click="abrirPopupG(dato.kodea, dato.izena)">{{ dato.izena }}</td>
+                            <td @click="abrirPopupG(dato.kodea, dato.izena)">{{ dato.langileKop }}</td>
                             <td>
-                                <i class="bi bi-trash-fill" @click="ezabatu(datosT.kodea)"></i>
+                                <i class="bi bi-trash-fill" @click="ezabatuT(dato.kodea)"></i>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+
+        <div id="ventanaEmergenteGrupos" class="ventana-oculta">
+            <div class="contenido-ventana">
+                <div>
+                <!-- Editatzeko/Txertatzeko popup-a -->
+                <div class="input-group-horarios">
+                    <button type="button" id="cerrarVentanaGrupos" class="btn x" @click="ocultarVentanaG()">
+                        <i class="bi bi-x"></i>
+                    </button>
+                </div>
+                <div class="mt-2">
+                    <label for="mensaje" id="nombreLabelGrupos">Nombre</label>
+                </div>
+                <div class="mt-4">
+                    <textarea id="nombreTextoGrupos" name="mensaje" rows="1" cols="50" placeholder="Ingresa tu mensaje aquí" v-model="izenaT" @keyup="teclado">{{izena}}</textarea>
+                </div>
+                    <input id="submitGrupo" type="button" class="btn añadir btn-lg mt-4" @click="txertatuEdoAldatuT" value="Enviar">
+                
+                </div>
             </div>
         </div>
 
@@ -438,9 +471,6 @@ export default {
                 </select>
                 <input type="text" class="form-control buscar" placeholder="Buscar por nombre" v-model="bilatu">
                 <div class="input-group-append">
-                  <button class="btn lupa" type="button" @click="buscar">
-                    <i class="bi bi-search"></i>
-                  </button>
                   <button id="mostrarVentanaLangile" type="button" class="btn añadir btn-lg" @click="abrirPopup('', '', '', '')">Añadir Alumno</button>
                 </div>
                 
