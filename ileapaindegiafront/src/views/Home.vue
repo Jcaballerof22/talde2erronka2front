@@ -888,6 +888,7 @@ export default {
     <div class="home" id="home">
         <div class="containerPage" id="upHorario">
             <div class="input-group">
+                <input type="date" id="fecha" name="fecha"  class="form-control buscar" style="margin-right: 55vh;" v-model="data">
                 <input type="text" class="form-control buscar" placeholder="Buscar por nombre" v-model="bilatu">
                 <div class="input-group-append">
                     <button class="btn lupa" type="button">
@@ -1176,7 +1177,7 @@ export default {
                         </div>
                         <!-- Fin -->
                         <div class="col-12">
-                            <button v-if="idCita != ''" class="btn" type="button" style="background-color: #1ab7bc;"
+                            <button v-if="idCita != ''" class="btn" type="button" style="background-color: #1ab7bc; margin-right: 2vw;"
                                 @click="hitzorduaKendu">Eliminar</button>
                             <button v-else class="btn" type="button" style="background-color: #1ab7bc;"
                                 @click="createCita">Crear</button>
@@ -1187,7 +1188,6 @@ export default {
                 </div>
                 <!-- taula testuarekin -->
                 <br>
-                <input type="date" id="fecha" name="fecha" v-model="data">
                 <div class="table-responsive-xl">
                     <table class="table table-hover table-striped" v-if="bilatu != ''">
                         <thead>
@@ -1229,9 +1229,10 @@ export default {
                         <tbody>
                             <tr v-for="(dato, index) in orduak">
                                 <th v-if="index % 4 === 0" :rowspan="4" scope="col">{{ dato }}</th>
-                                <!-- cambiar 4 por 2 para que sea cada 30 mins -->
-                                <td v-for="(dato2, index2) in taula[index]" :key="index2" v-if=" !(dato2?.visible)" v-show="dato2.visible" :rowspan="dato2.timeDif" @click="popupCita(dato2.id)">
-                                    <template v-if="taula[index][index2] && Object.keys(dato2).length > 2" @click="popupCita(dato2.id)" style="background-color: #E26B6B; border: 2px  solid black"   scope="col">
+                                <!-- cambiar 4 por 2 para que sea cada 30 mins --> 
+                                <!-- Opciones de colores rgb(26, 183, 188,0.5) #bbbeef  #f5fff7-->
+                                <td v-for="(dato2, index2) in taula[index]" :key="index2" v-if=" !(dato2?.visible)" v-show="dato2.visible" :rowspan="dato2.timeDif" @click="popupCita(dato2.id)" :style="{ backgroundColor: (Object.keys(dato2).length > 2) ? '#bbbeef' : '#FFFFFF', border: (Object.keys(dato2).length > 2) ? '2px solid black' : '1px solid #dfe2e6' }">
+                                    <template v-if="taula[index][index2] && Object.keys(dato2).length > 2" @click="popupCita(dato2.id)" scope="col">
                                         {{ dato2.izena }}<br>{{ dato2.orduak }}<br>{{ dato2.deskribapena }} {{ Object.keys(dato2).length }}
                                     </template>
                                     <template v-else-if="dato2.visible">
