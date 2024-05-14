@@ -4,38 +4,56 @@
         return {
             user: '',
             pass: ''
-            };
+        };
     },
     methods: {
+        async login() {
 
+            const js = JSON.stringify({"user": this.user, "pass": this.pass});
+            console.log("login: " + js);
+            
+            try {
+                const response = await fetch(window.ruta + 'erabiltzaileak/login', {
+                    method: 'POST',
+                    body: js
+                });
+  
+                const data = await response.json();
+
+                if (data.status == 200){
+                    console.log("Login zuzena.");
+                } else if (data.status == 401){
+                    console.log("Pasahitza ez da zuzena.")
+                } else if (data.status == 404) {
+                    console.log("Ez da erabiltzailea aurkitu.")
+                }
+  
+            } catch (error) {
+                console.error("Error al hacer el login:", error);
+            }
+        }
     }
 };
 </script>
 
 <template>
-    <head>
-        <meta charset="UTF-8">
-        <title>Proyecto</title>
-        <link rel="stylesheet" href="C:\xampp\htdocs\talde2erronka2front\HTML\login\css\styles.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:400,700&display=swap">
-    </head>
-    <body>
+    <body class="body-login">
         <form>
-            <div class="input-group">
-                <div class="tituloLogo">
-                    <p class="tituloLog">LOGIN</p>
-                    <img class="logo" src="../img/IMP_Logotipoa.png">
+            <div class="input-group-login">
+                <div class="tituloLogo-login">
+                    <p class="tituloLog-login">LOGIN</p>
+                    <img class="logo-login" src="../IMG/IMP_Logotipoa.png">
                 </div>
                 <div>
-                    <input class="input" required type="text" id="username" v-model="user">
-                    <label class="label" for="username">Usuario</label>
+                    <input class="input-login" required type="text" id="username" v-model="user">
+                    <label class="label-login" for="username">Usuario</label>
                 </div>    
                 <br>
                 <div>
-                    <input class="input2" required type="password" id="password" v-model="pass">
-                    <label class="label2" for="password">Contraseña</label>
+                    <input class="input2-login" required type="password" id="password" v-model="pass">
+                    <label class="label2-login" for="password">Contraseña</label>
                 </div>    
-                <button class="acceder" onclick="window.location.href='../../home.html'" type="button">Acceder</button>
+                <button class="acceder-login" @click="login()" type="button">Acceder</button>
             </div>
         </form>
     </body>
