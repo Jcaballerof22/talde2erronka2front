@@ -34,7 +34,7 @@ export default {
                         "abizenak": this.abizenak
                     });
                     // Este es el fetch con la ruta a la api del back
-                    const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/alumnos/txertatu', {
+                    const response = await fetch(window.ruta + 'alumnos/txertatu', {
                         method: 'POST',
                         body: js
                     });
@@ -61,7 +61,7 @@ export default {
                 try {
                     const js = JSON.stringify({"izena": this.izenaT}); 
                     // Este es el fetch que hace la llamada al back con su ruta
-                    const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/grupos/txertatu', {
+                    const response = await fetch(window.ruta + 'grupos/txertatu', {
                         method: 'POST',
                         body: js,
                         mode: 'cors'
@@ -149,7 +149,7 @@ export default {
             
             try {
                 // Este es el fetch que cambia los datos en el back con su ruta a la api
-                const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/grupos/editatu', {
+                const response = await fetch(window.ruta + 'grupos/editatu', {
                     method: 'PUT',
                     body: js
                 });
@@ -169,7 +169,7 @@ export default {
             
             try {
                 // Este es el fetch con la ruta a la api del back
-                const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/grupos/ezabatu', {
+                const response = await fetch(window.ruta + 'grupos/ezabatu', {
                     method: 'PUT',
                     body: js
                 });
@@ -190,7 +190,7 @@ export default {
         async lortuDatuakT() {
             try {
                 // Este es el fetch con la ruta a la api
-                const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/grupos', { 
+                const response = await fetch(window.ruta + 'grupos', { 
                     method: 'GET',
                 });
                 const data = await response.json();
@@ -214,7 +214,7 @@ export default {
             
             try {
                 // El fetch que hace la llamda al back con su ruta
-                const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/grupos', {
+                const response = await fetch(window.ruta + 'grupos', {
                     method: 'GET'
                 });
 
@@ -242,7 +242,7 @@ export default {
             
             try {
                 // Este es el fetch con su ruta a la api para editar el back
-                const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/alumnos/editatu', {
+                const response = await fetch(window.ruta + 'alumnos/editatu', {
                     method: 'PUT',
                     body: js
                 });
@@ -277,7 +277,7 @@ export default {
             
             try {
                 // EL fetch que hace la llamda al back con su ruta a la apu
-                const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/alumnos/ezabatu', {
+                const response = await fetch(window.ruta + 'alumnos/ezabatu', {
                     method: 'PUT',
                     body: js
                 });
@@ -301,7 +301,7 @@ export default {
         async datuakLortu() {
             try {
                 // Este es el fetch que hace la llamada al back
-                const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/alumnos', {
+                const response = await fetch(window.ruta + 'alumnos', {
                     method: 'GET'
                 });
 
@@ -335,9 +335,10 @@ export default {
             if (this.bilatu == ''){
                 this.taula = this.datos;
             }else{
+                this.taula=[]
                 for (let i = 0; i < this.datos.length; i++){
-                    if(this.datos[i].izena.startsWith(this.bilatu)){
-                        this.taula.push({"izena" : this.datos[i].izena, "abizenak" : this.datos[i].abizenak, "kodea" : this.datos[i].kodea, "id" : this.datos[i].id});
+                    if(this.datos[i].izena.toLowerCase().startsWith(this.bilatu.toLowerCase())){
+                        this.taula.push(this.datos[i]);
                     }
                 }
             }
