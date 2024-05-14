@@ -1,5 +1,6 @@
 <script>
 import { resolveTransitionHooks } from 'vue';
+import testua from "../assets/json/Langileak.json";
 
 export default {
     data() {
@@ -18,10 +19,17 @@ export default {
             aldatuT: '',
             datosT: [],
             taulaT: [],
-            iconVisible: true
+            iconVisible: true,
+            ////////////////////////////////////////////////////////////// Hizkuntza //////////////////////////////////////////////////////////////
+            hizkuntza: 'ESP',
+            testua: testua,
         }
     },
     methods: {
+        hizkuntzaLortu() {
+            var value = sessionStorage.getItem('hizkuntza');
+            return value !== null ? value : 'ESP';
+        },
         // Funcion para añadir datos de los alumnos a la base de datos, donde primero mira si los datos necesarios estan llenos y despues hace un fetch mandando un JSON al back
         async addDatuak() {
             if (this.abizenak === "" || this.izena === "") {
@@ -365,6 +373,7 @@ export default {
 
     },
     mounted: function() {
+        this.hizkuntza = this.hizkuntzaLortu();
         // Las distintas llamadas a las funciones que tienen que ejecutarse al principio
         this.nombresGrupo().then(()=>{
             this.datuakLortu()
@@ -393,19 +402,19 @@ export default {
                 </div>
                 <!-- Zona para rellenar de datos -->
                 <div class="mt-5">
-                    <label for="mensaje" id="nombreLabelLangile">Nombre</label>
+                    <label for="mensaje" id="nombreLabelLangile">{{ testua[hizkuntza]?.['Nombre'] }}</label>
                 </div>
                 <div class="mt-4">
                     <textarea id="nombreTextoLangile" name="mensaje" rows="1" cols="50" placeholder="Ingresa el nombre aquí" v-model="izena" @keyup="teclado" ></textarea>
                 </div>
                 <div class="mt-4">
-                    <label for="mensaje" id="apellidoLabelLangile">Apellido</label>
+                    <label for="mensaje" id="apellidoLabelLangile">{{ testua[hizkuntza]?.['Apellido'] }}</label>
                 </div>
                 <div class="mt-4">
                     <textarea id="apellidoTextoLangile" name="mensaje" rows="1" cols="50" placeholder="Ingresa el apellido aquí" v-model="abizenak" @keyup="teclado" ></textarea>
                 </div>
                 <div class="mt-1 d-flex p-2" id="gruposLangilea">
-                    <label for="mensaje" id="gruposLabelLangile">Grupos</label>
+                    <label for="mensaje" id="gruposLabelLangile">{{ testua[hizkuntza]?.['Grupos'] }}</label>
                     <!-- Selector de grupo con previa llamada al back para los datos de "datosTalde" -->
                     <select class="form-select combobox mt-4" id="selectorLangilea" aria-label="Default select example" v-model="kodea">
                         <option   v-for="(dato,index) in datosTalde" :key="index" :value="dato.kodea">{{ dato.izena }}</option>
@@ -420,7 +429,7 @@ export default {
             <div class="contenido-ventana">
                 <div class="input-group-horarios">
                     <!-- Boton para llamar a la accion y sumar grupos -->
-                    <button id="mostrarVentanaGrupos1" type="button" class="btn añadir btn-lg" @click="abrirPopupG('', '', '')">Añadir Grupo</button>
+                    <button id="mostrarVentanaGrupos1" type="button" class="btn añadir btn-lg" @click="abrirPopupG('', '', '')">{{ testua[hizkuntza]?.['AñadirGrupo'] }}</button>
                     <!-- Boton para cerrar el POPUP -->
                     <button type="button" id="cerrarVentanaLangileT" class="btn x" @click="ocultarVentanaT()">
                         <i class="bi bi-x"></i>
@@ -429,8 +438,8 @@ export default {
                 <table id="tabla" class="table table-hover table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Número de alumnos</th>
+                        <th scope="col">{{ testua[hizkuntza]?.['Nombre'] }}</th>
+                        <th scope="col">{{ testua[hizkuntza]?.['NumeroAlumnos'] }}</th>
                         <th scope="col"></th>
                     </tr>
                     </thead>
@@ -458,7 +467,7 @@ export default {
                     </button>
                 </div>
                 <div class="mt-2">
-                    <label for="mensaje" id="nombreLabelGrupos">Nombre</label>
+                    <label for="mensaje" id="nombreLabelGrupos">{{ testua[hizkuntza]?.['Nombre'] }}</label>
                 </div>
                 <div class="mt-4">
                     <textarea id="nombreTextoGrupos" name="mensaje" rows="1" cols="50" placeholder="Ingresa tu mensaje aquí" v-model="izenaT" @keyup="teclado">{{izena}}</textarea>
@@ -480,16 +489,16 @@ export default {
                 <input type="text" class="form-control buscar" placeholder="Buscar por nombre" v-model="bilatu">
                 <div class="input-group-append">
                   <!-- Boton que llama a la accion de abrir el POPUP -->
-                  <button id="mostrarVentanaLangile" type="button" class="btn añadir btn-lg" @click="abrirPopup('', '', '', '')">Añadir Alumno</button>
+                  <button id="mostrarVentanaLangile" type="button" class="btn añadir btn-lg" @click="abrirPopup('', '', '', '')">{{ testua[hizkuntza]?.['AñadirAlumno'] }}</button>
                 </div>
                 
             </div>
             <table id="tabla" class="table table-hover table-striped">
                 <thead>
                 <tr>
-                    <th scope="col">Nombre</th>
+                    <th scope="col">{{ testua[hizkuntza]?.['Nombre'] }}</th>
                     <!-- Icono que llama a la accion de abrir el POPUP de grupos -->
-                    <th scope="col" ><i v-show="iconVisible" >Grupos <i @click="abrirPopupT()" class="bi bi-pencil-square"></i></i></th>
+                    <th scope="col" ><i v-show="iconVisible" >{{ testua[hizkuntza]?.['Grupos'] }} <i @click="abrirPopupT()" class="bi bi-pencil-square"></i></i></th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
