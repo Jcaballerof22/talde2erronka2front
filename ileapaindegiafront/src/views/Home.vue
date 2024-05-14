@@ -1,4 +1,6 @@
 <script>
+import testua from "../assets/json/Home.json";
+
 export default {
     data() {
         return {
@@ -53,6 +55,9 @@ export default {
             tratamenduakCita: [],
             tratamenduakCitaText: "",
             totalPrezioa: 0,
+            ////////////////////////////////////////////////////////////// Hizkuntza //////////////////////////////////////////////////////////////
+            hizkuntza: 'ESP',
+            testua: testua,
         }
     },
     methods: {
@@ -803,6 +808,11 @@ export default {
             document.getElementById('ventanaEmergenteTiket').style.display = 'block';
         },
 
+        hizkuntzaLortu() {
+            var value = sessionStorage.getItem('hizkuntza');
+            return value !== null ? value : 'ESP';
+        },
+
     //     // // fichaSortu(){
     //     // //   sensible = confirm('Tiene el cuero cabelludo sensible¿')
     //     // //   alert('ficha sortuta '+ sensible);
@@ -866,6 +876,7 @@ export default {
 
     },
     mounted: function () {
+        this.hizkuntza = this.hizkuntzaLortu();
         this.data = this.lortuData();
         this.nombresGrupo();
         this.lortuOrduakG();
@@ -894,11 +905,9 @@ export default {
                     <button class="btn lupa" type="button">
                         <i class="bi bi-search"></i>
                     </button>
-                    <button type="button" class="btn añadir btn-lg" @click="popupCita('')">Nueva Cita</button>
-                    <button type="button" id="editarRoles" class="btn añadir btn-lg" @click="mostrarRoles">Asignar
-                        Roles</button>
-                    <button type="button" id="editarHorarios" class="btn añadir btn-lg" @click="mostrarVentana()">Editar
-                        Horario</button>
+                    <button type="button" class="btn añadir btn-lg" @click="popupCita('')">{{ testua[hizkuntza]?.['NuevaCita'] }}</button>
+                    <button type="button" id="editarRoles" class="btn añadir btn-lg" @click="mostrarRoles">{{ testua[hizkuntza]?.['AsignarRoles'] }}</button>
+                    <button type="button" id="editarHorarios" class="btn añadir btn-lg" @click="mostrarVentana()">{{ testua[hizkuntza]?.['EditarHorario'] }}</button>
                 </div>
             </div>
 
@@ -917,16 +926,16 @@ export default {
                     <table id="tabla" class="table table-hover table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">Día</th>
-                                <th scope="col">Grupo</th>
-                                <th scope="col">Fecha Inicio</th>
-                                <th scope="col">Fecha Fin</th>
+                                <th scope="col">{{ testua[hizkuntza]?.['Dia'] }}</th>
+                                <th scope="col">{{ testua[hizkuntza]?.['Grupo'] }}</th>
+                                <th scope="col">{{ testua[hizkuntza]?.['FechaInicio'] }}</th>
+                                <th scope="col">{{ testua[hizkuntza]?.['FechaFin'] }}</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Lunes</td>
+                                <td>{{ testua[hizkuntza]?.['Lunes'] }}</td>
                                 <td>
                                     <select class="form-select combobox" aria-label="Default select example"
                                         v-model="dias[0]">
@@ -942,7 +951,7 @@ export default {
                                             class="bi bi-trash"></i></button></td>
                             </tr>
                             <tr>
-                                <td>Martes</td>
+                                <td>{{ testua[hizkuntza]?.['Martes'] }}</td>
                                 <td><select class="form-select combobox" aria-label="Default select example"
                                         v-model="dias[1]">
                                         <option v-for="(dato, index) in datos" :key="index" :value="dato.izena">{{dato.izena}}</option>
@@ -953,7 +962,7 @@ export default {
                                             class="bi bi-trash"></i></button></td>
                             </tr>
                             <tr>
-                                <td>Miércoles</td>
+                                <td>{{ testua[hizkuntza]?.['Miércoles'] }}</td>
                                 <td><select class="form-select combobox" aria-label="Default select example"
                                         v-model="dias[2]">
                                         <option v-for="(dato, index) in datos" :key="index" :value="dato.izena">{{dato.izena}}</option>
@@ -964,7 +973,7 @@ export default {
                                             class="bi bi-trash"></i></button></td>
                             </tr>
                             <tr>
-                                <td>Jueves</td>
+                                <td>{{ testua[hizkuntza]?.['Jueves'] }}</td>
                                 <td><select class="form-select combobox" aria-label="Default select example"
                                         v-model="dias[3]">
                                         <option v-for="(dato, index) in datos" :key="index" :value="dato.izena">{{dato.izena}}</option>
@@ -975,7 +984,7 @@ export default {
                                             class="bi bi-trash"></i></button></td>
                             </tr>
                             <tr>
-                                <td>Viernes</td>
+                                <td>{{ testua[hizkuntza]?.['Viernes'] }}</td>
                                 <td><select class="form-select combobox" aria-label="Default select example"
                                         v-model="dias[4]">
                                         <option v-for="(dato, index) in datos" :key="index" :value="dato.izena">{{dato.izena}}</option>
@@ -1002,7 +1011,7 @@ export default {
                 <div class="contenidoTabla">
                     <div class="row">
                         <div class="col">
-                            <h2>Grupo: <span v-text="grupoHoy"></span></h2>
+                            <h2>{{ testua[hizkuntza]?.['Grupo'] }}: <span v-text="grupoHoy"></span></h2>
                         </div>
 
                         <div class="col input-group-horarios">
@@ -1018,9 +1027,9 @@ export default {
                             <table id="tabla" class="table table-hover table-striped">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Alumno</th>
-                                        <th scope="col">Limpieza</th>
-                                        <th scope="col">Mostrador</th>
+                                        <th scope="col">{{ testua[hizkuntza]?.['Alumno'] }}</th>
+                                        <th scope="col">{{ testua[hizkuntza]?.['Limpieza'] }}</th>
+                                        <th scope="col">{{ testua[hizkuntza]?.['Mostrador'] }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -1033,11 +1042,11 @@ export default {
                             </table>
                         </div>
                         <div class="col-md-5">
-                            <h2 style="background-color: #1ab7bc;">Asignar Roles</h2>
+                            <h2 style="background-color: #1ab7bc;">{{ testua[hizkuntza]?.['AsignarRoles'] }}</h2>
                             <hr>
                             <div class="row">
                                 <div class="col">
-                                    <h3>Mostrador</h3>
+                                    <h3>{{ testua[hizkuntza]?.['Mostrador'] }}</h3>
                                     <div class="form-floating">
                                         <select class="form-select combobox" id="floatingSelect"
                                             aria-label="Floating label select example" v-model="mostrador">
@@ -1048,7 +1057,7 @@ export default {
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <h3>Limpieza</h3>
+                                    <h3>{{ testua[hizkuntza]?.['Limpieza'] }}</h3>
                                     <div class="form-floating">
                                         <select class="form-select combobox" id="floatingSelect"
                                             aria-label="Floating label select example" v-model="limpieza">
@@ -1063,9 +1072,9 @@ export default {
                     </div>
                     <div class="input-group-horarios">
                         <button type="button" id="aceptarHorarios" class="btn añadir btn-lg"
-                            @click="aceptarRoles()">Aceptar</button>
+                            @click="aceptarRoles()">{{ testua[hizkuntza]?.['Aceptar'] }}</button>
                         <button type="button" id="cancelarHorarios" class="btn cancelar btn-lg"
-                            @click="ocultarRoles()">Cancelar</button>
+                            @click="ocultarRoles()">{{ testua[hizkuntza]?.['Cancelar'] }}</button>
                     </div>
                 </div>
             </div>
@@ -1089,12 +1098,11 @@ export default {
                         <div class="col-md-12">
                             <div class="row g-3">
                                 <div class="col">
-                                    <label class="form-label rounded bg-white p-2 mb-1">Nombre: </label>
+                                    <label class="form-label rounded bg-white p-2 mb-1">{{ testua[hizkuntza]?.['Nombre'] }}: </label>
                                 </div>
                                 <div class="col">
                                     <div class="form-check-reverse form-switch d-flex justify-content-center">
-                                        <label class="form-check-label rounded bg-white p-2 mx-2 mb-1 text-center">Del
-                                            Centro</label>
+                                        <label class="form-check-label rounded bg-white p-2 mx-2 mb-1 text-center">{{ testua[hizkuntza]?.['DelCentro'] }}</label>
                                         <input class="form-check-input"
                                             style="margin-top: 1.4vh; background-color: #1ab7bc; border-color: #1ab7bc;"
                                             type="checkbox" v-model="etxekoa" :disabled="idCita != ''">
@@ -1107,26 +1115,26 @@ export default {
                         <!-- Segunda Fila -->
                         <div class="col-md-12">
                             <div class="input-group" style="margin: 0;">
-                                <span class="input-group-text">Hora-Inicio</span>
+                                <span class="input-group-text">{{ testua[hizkuntza]?.['Hora-Inicio'] }}</span>
                                 <input type="time" class="form-control" v-model="hasiera_ordua">
-                                <span class="input-group-text">Hora-Fin</span>
+                                <span class="input-group-text">{{ testua[hizkuntza]?.['Hora-Fin'] }}</span>
                                 <input type="time" class="form-control" v-model="amaiera_ordua">
-                                <span class="input-group-text">Fecha</span>
+                                <span class="input-group-text">{{ testua[hizkuntza]?.['Fecha'] }}</span>
                                 <input type="date" class="form-control" :disabled="idCita != ''"
                                     style="background-color: white;" v-model="dataCita">
                             </div>
                         </div>
                         <!-- Tercera Fila -->
                         <div class="col-12">
-                            <label for="inputAddress" class="form-label rounded bg-white p-2 mb-1">Telefonoa:</label>
+                            <label for="inputAddress" class="form-label rounded bg-white p-2 mb-1">{{ testua[hizkuntza]?.['Telefono'] }}:</label>
                             <input type="text" class="form-control" v-model="telefonoa" :disabled="idCita != ''"
                                 style="background-color: white;">
                         </div>
                         <!-- Cuarta Fila -->
                         <div v-if="data <= hoy" class="col-md-4">
-                            <label v-if="dataCita == hoy" class="form-label rounded bg-white p-2 mb-1">Grupo:
+                            <label v-if="dataCita == hoy" class="form-label rounded bg-white p-2 mb-1">{{ testua[hizkuntza]?.['Grupo'] }}:
                                 {{ grupoHoy }}</label>
-                            <label v-else class="form-label rounded bg-white p-2 mb-1">Grupo: {{ grupoCita }}</label>
+                            <label v-else class="form-label rounded bg-white p-2 mb-1">{{ testua[hizkuntza]?.['Grupo'] }}: {{ grupoCita }}</label>
 
                             <!-- <select class="form-select">
                                 <option selected disabled value="">Grupo</option>
@@ -1136,22 +1144,22 @@ export default {
                         <div v-if="data <= hoy" class="col-md-8">
                             <!-- <label v-if="data == hoy" class="form-label rounded bg-white p-2 mb-1">Alumno</label> -->
                             <select v-if="dataCita == hoy" class="form-select" v-model="alumnoCitaid">
-                                <option selected disabled value="13">Alumno</option>
+                                <option selected disabled value="13">{{ testua[hizkuntza]?.['Alumno'] }}</option>
                                 <option v-for="(datos, index) in alumnos" :key="index" :value="datos.id" :title="datos.tratamenduEgin">
                                     {{ datos.izena }}
                                 </option>
                             </select>
-                            <label v-else class="form-label rounded bg-white p-2 mb-1">Alumno: {{ alumnoCita }}</label>
+                            <label v-else class="form-label rounded bg-white p-2 mb-1">{{ testua[hizkuntza]?.['Alumno'] }}: {{ alumnoCita }}</label>
                         </div>
                         <!-- Quinta Fila -->
                         <div class="col-md-12">
                             <div class="row g-3" style="display: inline-flex;" v-if="idCita != ''">
                                 <div class="col">
-                                    <label class="form-label rounded bg-white p-2 mb-1">Tratamiento: </label>
+                                    <label class="form-label rounded bg-white p-2 mb-1">{{ testua[hizkuntza]?.['Tratamiento'] }}: </label>
                                 </div>
                                 <div class="col">
                                     <select class="form-select" style="min-width: 15vw;" v-model="tratamendu">
-                                        <option selected disabled value="">Tratamientos</option>
+                                        <option selected disabled value="">{{ testua[hizkuntza]?.['Tratamientos'] }}</option>
                                         <option v-for="tratamendus in tratamenduak" :value="tratamendus.id"
                                             :key="tratamendus.izena">{{ tratamendus.izena }}</option>
                                     </select>
@@ -1171,7 +1179,7 @@ export default {
                         </div>
                         <!-- Sexta Fila -->
                         <div class="col-12">
-                            <label for="inputAddress" class="form-label rounded bg-white p-2 mb-1">Observaciones:</label>
+                            <label for="inputAddress" class="form-label rounded bg-white p-2 mb-1">{{ testua[hizkuntza]?.['Observaciones'] }}:</label>
                             <textarea class="form-control" v-model="deskribapena" :disabled="idCita != ''"
                                 style="background-color: white;"></textarea>
                         </div>
@@ -1182,7 +1190,7 @@ export default {
                             <button v-else class="btn" type="button" style="background-color: #1ab7bc;"
                                 @click="createCita">Crear</button>
                             <button v-if="idCita != ''" class="btn" type="button" style="background-color: #1ab7bc;"
-                                @click="popupTicket">Generar tiket</button>
+                                @click="popupTicket">{{ testua[hizkuntza]?.['GenerarTiket'] }}</button>
                         </div>
                     </form>
                 </div>
@@ -1192,13 +1200,13 @@ export default {
                     <table class="table table-hover table-striped" v-if="bilatu != ''">
                         <thead>
                             <th scope="col">id</th>
-                            <th scope="col">data</th>
-                            <th scope="col">hasiera_ordua</th>
-                            <th scope="col">amaiera_ordua</th>
-                            <th scope="col">izena</th>
-                            <th scope="col">telefonoa</th>
-                            <th scope="col">deskribapena</th>
-                            <th scope="col">etxekoa</th>
+                            <th scope="col">{{ testua[hizkuntza]?.['Fecha'] }}</th>
+                            <th scope="col">{{ testua[hizkuntza]?.['Hora-Inicio'] }}</th>
+                            <th scope="col">{{ testua[hizkuntza]?.['Hora-Fin'] }}</th>
+                            <th scope="col">{{ testua[hizkuntza]?.['Nombre'] }}</th>
+                            <th scope="col">{{ testua[hizkuntza]?.['Telefono'] }}</th>
+                            <th scope="col">{{ testua[hizkuntza]?.['Observaciones'] }}</th>
+                            <th scope="col">{{ testua[hizkuntza]?.['DelCentro'] }}</th>
                             <th scope="col"></th>
                         </thead>
                         <tbody>
