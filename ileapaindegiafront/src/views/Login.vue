@@ -40,21 +40,23 @@
     <body class="body-login">
         <form>
             <div class="input-group-login">
-                <div class="tituloLogo-login">
-                    <p class="tituloLog-login">LOGIN</p>
-                    <img class="logo-login" src="../IMG/IMP_Logotipoa.png">
+                <div>
+                    <h1>LOGIN</h1>
                 </div>
-                <div>
-                    <input class="input-login" required type="text" id="username" v-model="user">
-                    <label class="label-login" for="username">Usuario</label>
-                </div>    
-                <br>
-                <div>
-                    <input class="input2-login" required type="password" id="password" v-model="pass">
-                    <label class="label2-login" for="password">Contraseña</label>
-                </div>    
-                <button class="acceder-login" @click="login()" type="button">Acceder</button>
+                <div class="form-floating">
+                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <button type="button" class="btn btn-success">Iniciar Sesión</button>
+                <hr>
+                <button type="button" class="btn btn-primary">Crear una cuenta</button>
             </div>
         </form>
     </body>
 </template>
+
+
