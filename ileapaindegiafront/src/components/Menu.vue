@@ -17,8 +17,8 @@
     <header>
       <h1 id="titulo">{{ text[hizkuntza]?.[titulua]?.toUpperCase() }}</h1>
       <div class="hroles">
-        <p>Mostrador: Julio</p>
-        <p>Limpieza: Mikel</p>
+        <p>{{ text[hizkuntza]?.['Limpieza'] }}: Julio</p>
+        <p>{{ text[hizkuntza]?.['Mostrador'] }}: Mikel</p>
       </div>
       
       <div class="">

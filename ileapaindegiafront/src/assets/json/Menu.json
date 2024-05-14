@@ -9,7 +9,9 @@
         "Historial": "Historial",
         "Tratamientos": "Tratamientos",
         "Tickets": "Tickets",
-        "Fichas": "Fichas"
+        "Fichas": "Fichas",
+        "Limpieza": "Limpieza",
+        "Mostrador": "Mostrador"
     },
     "EUS": {
         "Home": "Hasiera",
@@ -21,6 +23,8 @@
         "Historial": "Historiala",
         "Tratamientos": "Tratamenduak",
         "Tickets": "Txartelak",
-        "Fichas": "Fitxak"
+        "Fichas": "Fitxak",
+        "Limpieza": "Garbiketa",
+        "Mostrador": "Mostradore"
     }
 }
