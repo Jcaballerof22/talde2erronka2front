@@ -16,7 +16,7 @@ export default{
                 alert("Falta el dato");
             } else {
                 try {
-                    const js = JSON.stringify({"izena": this.izena}); 
+                    const js = JSON.stringify({"izena": this.izena});
                     console.log("froga: " + js);
 
                     const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/grupos/txertatu', {
@@ -157,7 +157,6 @@ export default{
                 this.taula = [];
                 for (let i = 0; i < this.datos.length; i++){
                     if(this.datos[i].izena.startsWith(this.bilatu)){
-                        console.log(this.datos[i].izena + " " + this.datos[i].langileKop+ " " + this.datos[i].kodea)
                         this.taula.push({"izena" : this.datos[i].izena, "langileKop" : this.datos[i].langileKop,  "kodea" : this.datos[i].kodea});
                     }
                 }
@@ -165,7 +164,7 @@ export default{
         }
     },
     mounted: function() {
-        this.lortuDatuak()
+        this.lortuDatuak();
         this.buscar();
     }
 }

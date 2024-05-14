@@ -18,6 +18,7 @@ export default {
             aldatuT: '',
             datosT: [],
             taulaT: [],
+            iconVisible: true
         }
     },
     methods: {
@@ -345,7 +346,6 @@ export default {
             }else{
                 for (let i = 0; i < this.datos.length; i++){
                     if(this.datos[i].izena.startsWith(this.bilatu)){
-                        console.log("hoy");
                         this.taula.push({"izena" : this.datos[i].izena, "abizenak" : this.datos[i].abizenak, "kodea" : this.datos[i].kodea, "id" : this.datos[i].id});
                     }
                 }
@@ -355,8 +355,10 @@ export default {
         sailkatu: function(){
             if (this.sailkatu == 'all'){
                 this.taula = this.datos;
+                this.iconVisible = true;
             }else{
                 this.taula = [];
+                this.iconVisible = false;
                 for (let i = 0; i < this.datos.length; i++){
                     if(this.datos[i].kodea == this.sailkatu){
                         this.taula.push({"izena" : this.datos[i].izena, "abizenak" : this.datos[i].abizenak, "kodea" : this.datos[i].kodea, "id" : this.datos[i].id});
@@ -416,7 +418,7 @@ export default {
         <div id="ventanaEmergenteLangileT" class="ventana-oculta">
             <div class="contenido-ventana">
                 <div class="input-group-horarios">
-                    <button id="mostrarVentanaGrupos" type="button" class="btn añadir btn-lg" @click="abrirPopupG('', '', '')">Añadir Grupo</button>
+                    <button id="mostrarVentanaGrupos1" type="button" class="btn añadir btn-lg" @click="abrirPopupG('', '', '')">Añadir Grupo</button>
                     <button type="button" id="cerrarVentanaLangileT" class="btn x" @click="ocultarVentanaT()">
                         <i class="bi bi-x"></i>
                     </button>
@@ -481,7 +483,7 @@ export default {
                 <tr>
                     <th scope="col">Nombre</th>
                     <!-- <th scope="col">Grupo</th> -->
-                    <th scope="col">Grupos <i @click="abrirPopupT()" class="bi bi-pencil-square"></i></th>
+                    <th scope="col" ><i v-show="iconVisible" >Grupos <i @click="abrirPopupT()" class="bi bi-pencil-square"></i></i></th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
