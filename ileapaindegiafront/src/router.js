@@ -5,7 +5,6 @@ import home from './views/Home.vue'
 import produktuak from './views/Produktuak.vue'
 import materiala from './views/Materiala.vue'
 import langileak from './views/Langileak.vue'
-import taldeak from './views/Taldeak.vue'
 import estatistikak from './views/Estatistikak.vue'
 import historiala from './views/Historiala.vue'
 import ticket from './views/Ticket.vue'
@@ -52,14 +51,6 @@ const routes = [
         component: langileak,
         meta: {
             title: 'Alumnos'
-        }
-    },
-    {
-        name: 'taldeak',
-        path: '/grupos',
-        component: taldeak,
-        meta: {
-            title: 'Grupos'
         }
     },
     {

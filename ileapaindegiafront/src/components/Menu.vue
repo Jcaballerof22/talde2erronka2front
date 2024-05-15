@@ -59,12 +59,6 @@
                 <span class="menu-text"><b>{{text[hizkuntza]["Alumnos"]}}</b></span>
               </li>
             </a>
-            <a href="grupos">
-              <li>
-                <img src="../IMG/grupos.png" alt="Image 3" class="menu-icon">
-                <span class="menu-text"><b>{{text[hizkuntza]["Grupos"]}}</b></span>
-              </li>
-            </a>
             <a href="estadisticas">
               <li>
                 <img src="../IMG/estadisticas.png" alt="Image 3" class="menu-icon">
