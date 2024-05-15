@@ -1,4 +1,30 @@
--Ver titulo y  dependiendo d titulo/idioma ejegir titulo del json, todo preparadito
-
-
 -al crear una cita hay problemas en el back al obtener citasDisp
+
+Paginas Traducidas:
+  -Home
+  -Alumnos
+
+Paginas Para traducir:
+  -Estadisticas
+  -Fitxa
+  -Historial
+  -Material
+  -Productos
+  -Ticket
+  -Tratamientos
+
+-Hay que eliminar grupos
+
+
+Ya terminado no tocar:
+  -
+
+Sin terminar:
+  -Home
+  -Productuak
+  -Materiala
+  -Estadisticas
+  -Fitxa
+  -Historial
+  -Ticket
+  -Tratamientos
