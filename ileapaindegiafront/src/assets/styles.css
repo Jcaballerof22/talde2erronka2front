@@ -735,7 +735,7 @@ body{
 
 #mostrarVentanaMaterial{
 
-  margin-left: 85%;
+  margin-left: 80%;
   font-size: large;
 }
 
@@ -770,7 +770,12 @@ body{
 }
 
 #mostrarVentanaTratamiento{
-  margin-left: 86%;
+  margin-left: 80%;
+}
+
+.dinero{
+  margin-top: -6.5%;
+  margin-left: -44%;
 }
 
 @media screen and (max-width: 1500px) {
@@ -909,3 +914,4 @@ body{
     height: 50px;
     margin-left: 45px;
 }
+

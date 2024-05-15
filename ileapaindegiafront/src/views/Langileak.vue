@@ -470,7 +470,7 @@ export default {
                     <label for="mensaje" id="nombreLabelGrupos">{{ testua[hizkuntza]?.['Nombre'] }}</label>
                 </div>
                 <div class="mt-4">
-                    <textarea id="nombreTextoGrupos" name="mensaje" rows="1" cols="50" placeholder="Ingresa tu mensaje aquí" v-model="izenaT" @keyup="teclado">{{izena}}</textarea>
+                    <textarea id="nombreTextoGrupos" name="mensaje" rows="1" cols="50" placeholder="Ingresa el nombre del grupo aquí" v-model="izenaT" @keyup="teclado">{{izena}}</textarea>
                 </div>
                     <!-- Boton que llama a ala accion para crera o editar el grupo -->
                     <input id="submitGrupo" type="button" class="btn añadir btn-lg mt-4" @click="txertatuEdoAldatuT" value="Enviar">
