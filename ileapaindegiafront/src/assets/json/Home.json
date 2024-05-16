@@ -28,7 +28,8 @@
         "Observaciones": "Observaciones",
         "Eliminar": "Eliminar",
         "Crear": "Crear",
-        "GenerarTiket": "Generar tiket"
+        "GenerarTiket": "Generar tiket",
+        "BuscarxNombre": "Buscar por nombre"
 
     },
     "EUS": {
@@ -60,6 +61,7 @@
         "Observaciones": "Ausnarketak",
         "Eliminar": "Ezabatu",
         "Crear": "Sortu",
-        "GenerarTiket": "Tiket-a sortu"
+        "GenerarTiket": "Tiket-a sortu",
+        "BuscarxNombre": "Izenagatik bilatu"
     }
 }

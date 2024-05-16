@@ -5,7 +5,8 @@
         "Apellido": "Apellido",
         "AñadirGrupo": "Añadir Grupo",
         "NumeroAlumnos": "Número de alumnos",
-        "AñadirAlumno": "Añadir Alumno"
+        "AñadirAlumno": "Añadir Alumno",
+        "BuscarxNombre": "Buscar por nombre"
 
     },
     "EUS": {
@@ -14,7 +15,8 @@
        "Apellido": "Abizena",
        "AñadirGrupo": "Taldea Gehitu",
        "NumeroAlumnos": "Ikasle Kopurua",
-       "AñadirAlumno": "Ikaslea Txertatu"
+       "AñadirAlumno": "Ikaslea Txertatu",
+        "BuscarxNombre": "Izenagatik bilatu"
 
     }
 }

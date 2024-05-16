@@ -936,7 +936,7 @@ export default {
         <div class="containerPage" id="upHorario">
             <div class="input-group">
                 <input type="date" id="fecha" name="fecha"  class="form-control buscar" style="margin-right: 55vh;" v-model="data">
-                <input type="text" class="form-control buscar" placeholder="Buscar por nombre" v-model="bilatu">
+                <input type="text" class="form-control buscar" :placeholder="testua[hizkuntza]?.['BuscarxNombre']" v-model="bilatu">
                 <div class="input-group-append">
                     <button class="btn lupa" type="button">
                         <i class="bi bi-search"></i>

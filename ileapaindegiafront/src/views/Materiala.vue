@@ -1,4 +1,6 @@
 <script>
+import testua from "../assets/json/Materiala.json";
+
 export default {
   data() {
     return {
@@ -16,9 +18,17 @@ export default {
         datosAlumnos : [],
         taula: [],
         colorSeleccionado: null,
+        hizkuntza: 'ESP',
+        testua: testua,
     };
   },
   methods: {
+
+    hizkuntzaLortu() {
+            var value = sessionStorage.getItem('hizkuntza');
+            return value !== null ? value : 'ESP';
+    },
+
     // funcion para abrir el POPUP para añadir material
     abrirPopup(etiketa, izena, id){
       this.id_materiala = id;
@@ -79,7 +89,7 @@ export default {
           "id": this.id_materiala
         });
         // el fetch que hara la llamada al back para cambiar los datos, metodo 'PUT' 
-        const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/materiala/editatu', {
+        const response = await fetch(window.ruta + 'materiala/editatu', {
           method: 'PUT',
           body: js
         });
@@ -100,7 +110,7 @@ export default {
       }else{
           var js = JSON.stringify({"izena": this.izena, "etiketa": this.etiketa}); 
           // el fetch que hace la llamda al back para sumar datos, con metodo 'POST', y json y modo 'cors'
-          fetch('http://localhost/talde2erronka2back/Erronka2/public/api/materiala/txertatu', {method: 'POST', body: js, mode: 'cors'})
+          fetch(window.ruta + 'materiala/txertatu', {method: 'POST', body: js, mode: 'cors'})
           .then(function (response) {
                   return response.text();
           })
@@ -124,7 +134,7 @@ export default {
 
       try {
         // el fetch que hace la llamada al back para recoger los datos, usando el metodo 'GET' y el modo 'cors'
-        const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/materialaN', {
+        const response = await fetch(window.ruta + 'materialaN', {
             method: 'GET',
             mode: 'cors'
         });
@@ -212,7 +222,7 @@ export default {
       this.datosTodos = [];
       try {
       // el fetch que hace la llamda al back para coger los datos, con metodo 'GET' y modo 'cors'
-      const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/materiala', {
+      const response = await fetch(window.ruta + 'materiala', {
           method: 'GET',
           mode: 'cors'
       });
@@ -278,7 +288,7 @@ export default {
 
         var js = JSON.stringify({"id": id}); 
         // el fetch que hace la llamada al back para borrar el dato con el json que se le pasa, el metodo es 'PUT'
-        const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/materiala/ezabatu', {
+        const response = await fetch(window.ruta + 'materiala/ezabatu', {
           method: 'PUT',
           body: js
         });
@@ -301,7 +311,7 @@ export default {
     async nombresGrupo() {
       try {
           // el fetch que hace la llamda al back, se usa el metodo 'GET' y el modo 'cors'
-          const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/materiala/grupos', {
+          const response = await fetch(window.ruta + 'materiala/grupos', {
               method: 'GET',
               mode: 'cors'
           });
@@ -323,7 +333,7 @@ export default {
 
         try {
           // el fetch que hace la llamada al back, se usa el metodo 'GET' y el modo 'cors', aparte se manda el codigo del grupo para filtrar los datos
-          const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/materiala/alumnos/'+this.kodea, {
+          const response = await fetch(window.ruta + 'materiala/alumnos/'+this.kodea, {
             method: 'GET',
             mode: 'cors'
         });
@@ -356,7 +366,7 @@ export default {
               "id_langilea": this.idlangile
             });
             // el fetch que manda los datos al back con su ruta, el metodo utilizado es el 'POST'
-            const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/materiala/reservar', {
+            const response = await fetch(window.ruta + 'materiala/reservar', {
               method: 'POST',
               body: js
             });
@@ -379,7 +389,7 @@ export default {
       var js = JSON.stringify({"id_materiala": this.idMaterial});
           
       // el fetch que manda el json al back con su ruta, el metodo utilizado es el 'PUT'
-      const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/materiala/devolver', {
+      const response = await fetch(window.ruta + 'materiala/devolver', {
         method: 'PUT',
         body: js
       });
@@ -397,6 +407,7 @@ export default {
   },
   
   mounted: function() {
+    this.hizkuntza = this.hizkuntzaLortu();
     // funciones que se llaman al entrar en la pagina
     this.fetchData();
     this.nombresGrupo();
@@ -458,7 +469,7 @@ export default {
           <!-- ComboBox para elegir al alumno -->
           <select class="form-select combobox" id="selectorGruposMaterial" aria-label="Default select example" v-model="idlangile">
               <option   v-for="(dato,index) in datosAlumnos" :key="index" :value="dato.id">{{ dato.izena + " " + dato.abizenak }}</option>
-              <option v-if="datosAlumnos.length === 0" disabled>Seleccione Grupo Primero</option>
+              <option v-if="datosAlumnos.length === 0" disabled>{{testua[hizkuntza]?.['SeleccioneGrupoPrimero']}}</option>
           </select>
         </div>
           
@@ -466,7 +477,7 @@ export default {
           <!-- Boton para llamar a la funcion para reservar -->
           <div class="mt-2" id="submitReservarMaterial">
               <input id="submitAñadirMaterial" type="submit" class="btn añadir btn-lg"
-                  @click="reservarMaterial()" value="Reservar">
+                  @click="reservarMaterial()" :value="testua[hizkuntza]?.['Reservar']">
           </div>
         </div>
       </div>
@@ -477,14 +488,14 @@ export default {
   <div id="ventanaEmergenteDevolverMaterial" class="ventana-oculta" style="border-radius: 20px;">
       <div class="contenido-ventana">
           <div>
-              <label for="mensaje" id="mensajeDevolverMaterial">El Material se ha devuelto?</label>
+              <label for="mensaje" id="mensajeDevolverMaterial">{{testua[hizkuntza]?.['MaterialDevuelto']}}</label>
           </div>
           <!-- Botones para especificar si se ha devuelto o no el material -->
           <div class="d-flex align-items-center mt-2" style="margin-left: 3%;">
               <input id="siDevolver" type="submit" class="btn añadir btn-lg mt-3"
-                  @click="devolverMaterial()" value="Si">
+                  @click="devolverMaterial()" :value="testua[hizkuntza]?.['Si']">
               <input id="noDevolver" type="submit" class="btn añadir btn-lg mt-3"
-                  @click="cerrarDevolver()" value="No">
+                  @click="cerrarDevolver()" :value="testua[hizkuntza]?.['No']">
           </div>
       </div>
   </div>
@@ -502,19 +513,19 @@ export default {
         </div>
         <!-- Campo para meter la etiqueta -->
         <div class="mt-2">
-            <label for="mensaje" id="etiquetaLabelMaterial">Etiqueta</label>
+            <label for="mensaje" id="etiquetaLabelMaterial">{{testua[hizkuntza]?.['Etiqueta']}}</label>
         </div>
         <div class="mt-2">
             <textarea id="modeloTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" v-model="etiketa"
-                placeholder="Ingresa la etiqueta aquí" maxlength="10"></textarea>
+                :placeholder="testua[hizkuntza]?.['IngreseEtiqueta']" maxlength="10"></textarea>
         </div>
         <!-- Campo para meter el nombre -->
         <div class="mt-2">
-            <label for="mensaje" id="nombreLabelMaterial">Nombre</label>
+            <label for="mensaje" id="nombreLabelMaterial">{{testua[hizkuntza]?.['Nombre']}}</label>
         </div>
         <div class="mt-2">
             <textarea id="marcaTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" v-model="izena"
-                placeholder="Ingresa el Nombre aquí"></textarea>
+                :placeholder="testua[hizkuntza]?.['IngreseNombre']"></textarea>
         </div>
         <!-- Boton para llamar a la funcion que añada el  material -->
         <div class="mt-2">
@@ -527,22 +538,22 @@ export default {
     <div class="containerPage">
       <div class="input-group-estadisticas">
         <!-- Buscador por etiqueta -->
-        <input type="text" class="form-control buscar" placeholder="Buscar por etiqueta" v-model="bilatu">
+        <input type="text" class="form-control buscar" :placeholder="testua[hizkuntza]?.['BuscarEtiqueta']" v-model="bilatu">
         <div class="col">
           <!-- Boton para añadir un nuevo materuak -->
           <button type="button" id="mostrarVentanaMaterial" class="btn añadir btn-lg"
-            @click="abrirPopup('' , '' , '')">Añadir material</button>
+            @click="abrirPopup('' , '' , '')">{{testua[hizkuntza]?.['AñadirMaterial']}}</button>
         </div>
         <!-- Tabla para enseñar los datos -->
         <table id="tabla" class="table table-hover table-striped">
             <thead>
                 <tr>
-                    <th scope="col">Etiqueta</th>
-                    <th scope="col">Nombre</th>
+                    <th scope="col">{{testua[hizkuntza]?.['Etiqueta']}}</th>
+                    <th scope="col">{{testua[hizkuntza]?.['Nombre']}}</th>
                     <!-- Dos botones para llamar a las funciones para filtrar los datos -->
                     <th scope="col" style="display: flex; justify-content: center;">
-                        <button @click="ordenarPorColor('rojo')" style="border-radius: 10%; background-color: #E26B6B;">Ocupado</button>
-                        <button @click="ordenarPorColor('verde')" style="border-radius: 10%; background-color: #CDDFA0;">Disponible</button>
+                        <button @click="ordenarPorColor('rojo')" style="border-radius: 10%; background-color: #E26B6B;">{{testua[hizkuntza]?.['Ocupado']}}</button>
+                        <button @click="ordenarPorColor('verde')" style="border-radius: 10%; background-color: #CDDFA0;">{{testua[hizkuntza]?.['Disponible']}}</button>
                     </th>
                     <th scope="col"></th>
                 </tr>

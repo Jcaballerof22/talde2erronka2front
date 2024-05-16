@@ -486,7 +486,7 @@ export default {
                     <option   v-for="(dato,index) in datosTalde" :key="index" :value="dato.kodea">{{ dato.izena }}</option>
                 </select>
                 <!-- Area de texto para buscar datos -->
-                <input type="text" class="form-control buscar" placeholder="Buscar por nombre" v-model="bilatu">
+                <input type="text" class="form-control buscar" :placeholder="testua[hizkuntza]?.['BuscarxNombre']" v-model="bilatu">
                 <div class="input-group-append">
                   <!-- Boton que llama a la accion de abrir el POPUP -->
                   <button id="mostrarVentanaLangile" type="button" class="btn añadir btn-lg" @click="abrirPopup('', '', '', '')">{{ testua[hizkuntza]?.['AñadirAlumno'] }}</button>

@@ -1,0 +1,34 @@
+{
+    "ESP": {
+        "SeleccioneGrupoPrimero": "Seleccione Grupo Primero",
+        "MaterialDevuelto": "El Material se ha devuelto?",
+        "Etiqueta": "Etiqueta",
+        "Nombre": "Nombre",
+        "AñadirMaterial": "Añadir material",
+        "BuscarEtiqueta": "Buscar por etiqueta",
+        "Ocupado": "Ocupado",
+        "Disponible": "Disponible",
+        "IngreseNombre": "Ingresa el Nombre aquí",
+        "IngreseEtiqueta": "Ingresa la etiqueta aquí",
+        "Reservar": "Reservar",
+        "Si": "Si",
+        "No": "No"
+
+    },
+    "EUS": {
+       "SeleccioneGrupoPrimero": "Lehendabizi taldea esleitu",
+       "MaterialDevuelto": "Materiala bueltatu du?",
+       "Etiqueta": "Etiketa",
+       "Nombre": "Izena",
+       "AñadirMaterial": "Materiala txertatu",
+       "BuscarEtiqueta": "Etiketagatik bilatu",
+       "Ocupado": "Hartuta",
+       "Disponible": "Eskuragarri",
+       "IngreseNombre": "Txertatu izena hemen",
+       "IngreseEtiqueta": "Txertatu etiketa hemen",
+       "Reservar": "Erreserbatu",
+       "Si": "Bai",
+       "No": "Ez"
+
+    }
+}
