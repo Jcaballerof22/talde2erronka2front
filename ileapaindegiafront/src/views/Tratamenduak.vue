@@ -17,7 +17,7 @@
                     <label for="mensaje" id="izenaTratamendua">Nombre</label>
                 </div>
                 <div class="mt-2">
-                    <textarea id="modeloTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" v-model="izena"
+                    <textarea id="modeloTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" placeholder="Ingresa el nombre del tratamiento aquí" v-model="izena"
                     ></textarea>
                 </div>
                 <!-- Campo para meter el precio de casa -->
@@ -28,6 +28,7 @@
                     <input type="text" id="etxekoprezioNumber" class="mt-2" v-model="etxeko_prezioa"
                     oninput="this.value = this.value.replace(/[^0-9,.]/g, ''); if (this.value.split(',')[1]) { this.value = this.value.split(',')[0] + ',' + this.value.split(',')[1].substring(0, 2); }"
                      size="4">
+                     <p class="dinero">€</p>
                 </div>
                 <!-- Campo para meter el precio de fuera -->
                 <div class="mt-2">
@@ -38,11 +39,13 @@
                     <input type="text" id="kanpokoprezioNumber" class="mt-2" v-model="kanpoko_prezioa"
                     oninput="this.value = this.value.replace(/[^0-9,.]/g, ''); if (this.value.split(',')[1]) { this.value = this.value.split(',')[0] + ',' + this.value.split(',')[1].substring(0, 2); }"
                      size="4">
+
+                    <p class="dinero">€</p>
                 </div>
                 <!-- Boton para llamar a la funcion que añada el  tratamiento -->
                 <div class="mt-2">
                     <input id="submitAñadirMaterial" type="submit" class="btn añadir btn-lg mt-3"
-                        @click="txertatuEdoAldatu" value="Enviar">
+                        @click="txertatuEdoAldatu" value="Añadir">
                 </div>
             </div>
         </div>

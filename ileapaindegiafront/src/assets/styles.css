@@ -735,7 +735,7 @@ body{
 
 #mostrarVentanaMaterial{
 
-  margin-left: 85%;
+  margin-left: 80%;
   font-size: large;
 }
 
@@ -770,7 +770,12 @@ body{
 }
 
 #mostrarVentanaTratamiento{
-  margin-left: 86%;
+  margin-left: 80%;
+}
+
+.dinero{
+  margin-top: -6.5%;
+  margin-left: -44%;
 }
 
 @media screen and (max-width: 1500px) {
@@ -782,3 +787,131 @@ body{
 #mostrarVentanaGrupos1{
   margin-right: 24%;
 }
+/* Login */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
+
+.body-login{
+  background-image: linear-gradient(246deg, rgba(234, 234, 234, 0.04) 0%, rgba(234, 234, 234, 0.04) 33.3%,rgba(69, 69, 69, 0.04) 33.3%, rgba(69, 69, 69, 0.04) 66.6%,rgba(189, 189, 189, 0.04) 66.6%, rgba(189, 189, 189, 0.04) 99.89999999999999%),linear-gradient(81deg, rgba(126, 126, 126, 0.05) 0%, rgba(126, 126, 126, 0.05) 33.3%,rgba(237, 237, 237, 0.05) 33.3%, rgba(237, 237, 237, 0.05) 66.6%,rgba(74, 74, 74, 0.05) 66.6%, rgba(74, 74, 74, 0.05) 99.89999999999999%),linear-gradient(14deg, rgba(3, 3, 3, 0.08) 0%, rgba(3, 3, 3, 0.08) 33.3%,rgba(156, 156, 156, 0.08) 33.3%, rgba(156, 156, 156, 0.08) 66.6%,rgba(199, 199, 199, 0.08) 66.6%, rgba(199, 199, 199, 0.08) 99.89999999999999%),linear-gradient(323deg, rgba(82, 82, 82, 0.06) 0%, rgba(82, 82, 82, 0.06) 33.3%,rgba(179, 179, 179, 0.06) 33.3%, rgba(179, 179, 179, 0.06) 66.6%,rgba(212, 212, 212, 0.06) 66.6%, rgba(212, 212, 212, 0.06) 99.89999999999999%),linear-gradient(32deg, rgba(70, 70, 70, 0.02) 0%, rgba(70, 70, 70, 0.02) 33.3%,rgba(166, 166, 166, 0.02) 33.3%, rgba(166, 166, 166, 0.02) 66.6%,rgba(53, 53, 53, 0.02) 66.6%, rgba(53, 53, 53, 0.02) 99.89999999999999%),linear-gradient(38deg, rgba(129, 129, 129, 0.09) 0%, rgba(129, 129, 129, 0.09) 33.3%,rgba(38, 38, 38, 0.09) 33.3%, rgba(38, 38, 38, 0.09) 66.6%,rgba(153, 153, 153, 0.09) 66.6%, rgba(153, 153, 153, 0.09) 99.89999999999999%),linear-gradient(63deg, rgba(51, 51, 51, 0.02) 0%, rgba(51, 51, 51, 0.02) 33.3%,rgba(12, 12, 12, 0.02) 33.3%, rgba(12, 12, 12, 0.02) 66.6%,rgba(158, 158, 158, 0.02) 66.6%, rgba(158, 158, 158, 0.02) 99.89999999999999%),linear-gradient(227deg, rgba(63, 63, 63, 0.03) 0%, rgba(63, 63, 63, 0.03) 33.3%,rgba(9, 9, 9, 0.03) 33.3%, rgba(9, 9, 9, 0.03) 66.6%,rgba(85, 85, 85, 0.03) 66.6%, rgba(85, 85, 85, 0.03) 99.89999999999999%),linear-gradient(103deg, rgba(247, 247, 247, 0.07) 0%, rgba(247, 247, 247, 0.07) 33.3%,rgba(93, 93, 93, 0.07) 33.3%, rgba(93, 93, 93, 0.07) 66.6%,rgba(208, 208, 208, 0.07) 66.6%, rgba(208, 208, 208, 0.07) 99%),linear-gradient(0deg, #0b91d7,#6efc29);
+    background-position: center center; /* Ajusta según tus preferencias */
+    /* background-size: 220lvh; */
+    background-repeat: repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.input-group-login{
+    /* font-size: 1.25rem; */
+    position: relative;
+    --primary: #2196f3;
+    width: 500px; /* Ancho del cuadro */
+    height: 500px; /* Altura del cuadro */
+    border-radius: 15px; /* Radio de borde del cuadro */
+    padding: 20px; /* Espaciado interno del cuadro */
+    background-color: hsla(0, 0%, 100%, 0.863);
+    backdrop-filter: blur(5px);
+    display: grid;
+    /* justify-content: center;
+    align-items: center; */
+}
+
+.input-group-login-2{
+    /* font-size: 1.25rem; */
+    position: relative;
+    --primary: #2196f3;
+    width: 500px; /* Ancho del cuadro */
+    height: 500px; /* Altura del cuadro */
+    border-radius: 15px; /* Radio de borde del cuadro */
+    padding: 20px; /* Espaciado interno del cuadro */
+    background-color: hsla(0, 0%, 100%, 0.863);
+    backdrop-filter: blur(5px);
+    display: none;
+    /* justify-content: center;
+    align-items: center; */
+}
+
+.titulo-login {
+  font-family: 'Arial Black', sans-serif;
+  font-size: 3em; /* Ajusta el tamaño según tus necesidades */
+  font-weight: bold;
+  color: black; /* Ajusta el color según tus necesidades */
+  text-align: center;
+}
+
+.input-group-login .form-floating, .input-group-login-2 .form-floating {
+  margin-bottom: 20px; /* Agrega espacio entre los campos de entrada */
+}
+
+
+
+.tituloLogo-login{
+    display: flex;
+    font-family: 'Merriweather', serif;
+}
+
+.tituloLog-login{
+    color: #000000;
+    font-size: larger;
+    padding-right: 50px;
+
+}
+
+.logo-login{
+    width: 100px;
+    height: 70px;
+}
+
+.input-login, .input2-login{
+    all: unset;
+    color: #000000;
+    padding: 1rem;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    transition: 150ms
+        cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.label-login{
+    position: absolute;
+    top: 8.25rem;
+    left: 3.5rem;
+    color: #7e7e7e;
+    pointer-events: none;
+    transition: 150ms
+        cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.label2-login{
+    position: absolute;
+    top: 13.25rem;
+    left: 3.5rem;
+    color: #7e7e7e;
+    pointer-events: none;
+    transition: 150ms
+        cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input-login:focus, .input2-login:focus{
+    border: 1px solid
+        var(--primary);
+}
+
+.input-login:focus ~ .label-login,
+.input-login:valid ~ .label-login,
+.input2-login:focus ~ .label2-login,
+.input2-login:valid ~ .label2-login {
+    transform: translateX(-20%) translateY(-160%) scale(0.8);
+    background-color: none;
+    padding-inline: 0.3rem;
+    color: var(--primary);
+}
+
+.acceder-login{
+    width: 155px;
+    height: 50px;
+    margin-left: 45px;
+}
+
