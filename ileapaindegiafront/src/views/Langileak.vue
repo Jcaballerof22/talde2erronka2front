@@ -414,7 +414,7 @@ export default {
                     <textarea id="apellidoTextoLangile" name="mensaje" rows="1" cols="50" placeholder="Ingresa el apellido aquí" v-model="abizenak" @keyup="teclado" ></textarea>
                 </div>
                 <div class="mt-1 d-flex p-2" id="gruposLangilea">
-                    <label for="mensaje" id="gruposLabelLangile">{{ testua[hizkuntza]?.['Grupos'] }}</label>
+                    <label for="mensaje" id="gruposLabelLangile">{{ testua[hizkuntza]?.['Grupo'] }}</label>
                     <!-- Selector de grupo con previa llamada al back para los datos de "datosTalde" -->
                     <select class="form-select combobox mt-4" id="selectorLangilea" aria-label="Default select example" v-model="kodea">
                         <option   v-for="(dato,index) in datosTalde" :key="index" :value="dato.kodea">{{ dato.izena }}</option>
@@ -498,7 +498,7 @@ export default {
                 <tr>
                     <th scope="col">{{ testua[hizkuntza]?.['Nombre'] }}</th>
                     <!-- Icono que llama a la accion de abrir el POPUP de grupos -->
-                    <th scope="col" ><i v-show="iconVisible" >{{ testua[hizkuntza]?.['Grupos'] }} <i @click="abrirPopupT()" class="bi bi-pencil-square"></i></i></th>
+                    <th scope="col" ><i v-show="iconVisible" >{{ testua[hizkuntza]?.['Grupo'] }} <i @click="abrirPopupT()" class="bi bi-pencil-square"></i></i></th>
                     <th scope="col"></th>
                 </tr>
                 </thead>

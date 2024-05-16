@@ -3,12 +3,27 @@
   import {ref} from "vue";
   const emit = defineEmits(['translate']);
   var hizkuntza =  hizkuntzaLortu();
+  var limpieza = getCookie('limpieza')
+  var mostrador = getCookie('mostrador')
   function hizkuntzaLortu () {
     var value = sessionStorage.getItem('hizkuntza');
     return value !== null ? value : 'ESP';
   } 
-  console.log(hizkuntza);
 
+  function getCookie(nombre) {
+    var nombreCookie = nombre + "=";
+    var cookies = document.cookie.split(';');
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        while (cookie.charAt(0) == ' ') {
+            cookie = cookie.substring(1);
+        }
+        if (cookie.indexOf(nombreCookie) == 0) {
+            return cookie.substring(nombreCookie.length, cookie.length);
+        }
+    }
+    return "";
+  }
   
 </script>
 
@@ -17,13 +32,13 @@
     <header>
       <h1 id="titulo">{{ text[hizkuntza]?.[titulua]?.toUpperCase() }}</h1>
       <div class="hroles">
-        <p>{{ text[hizkuntza]?.['Limpieza'] }}: Julio</p>
-        <p>{{ text[hizkuntza]?.['Mostrador'] }}: Mikel</p>
+        <p>{{ text[hizkuntza]?.['Limpieza'] }}: {{limpieza}}</p>
+        <p>{{ text[hizkuntza]?.['Mostrador'] }}: {{mostrador}}</p>
       </div>
       
       <div class="">
         <div class="text-center">
-          <a :href="'login/HTML/login.html'"><img class="logout" src="../IMG/logout.png" alt="logout" onclick="window.location.href='login/HTML/login.html'"></a>
+          <a :href="'login'"><img class="logout" src="../IMG/logout.png" alt="logout" onclick="window.location.href='login'"></a>
         </div>
         <div class="" style="display: flex;">
             <button class="btn text-center" @click="emit('translate','ESP')">ESP</button>
