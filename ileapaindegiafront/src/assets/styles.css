@@ -735,7 +735,7 @@ body{
 
 #mostrarVentanaMaterial{
 
-  margin-left: 80%;
+  margin-left: 30%;
   font-size: large;
 }
 
@@ -787,6 +787,11 @@ body{
 #mostrarVentanaGrupos1{
   margin-right: 24%;
 }
+
+#buscarMaterial{
+  margin-left: 70%
+}
+
 /* Login */
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");

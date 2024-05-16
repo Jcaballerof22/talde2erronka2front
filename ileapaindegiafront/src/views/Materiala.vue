@@ -527,7 +527,7 @@ export default {
     <div class="containerPage">
       <div class="input-group-estadisticas">
         <!-- Buscador por etiqueta -->
-        <input type="text" class="form-control buscar" placeholder="Buscar por etiqueta" v-model="bilatu">
+        <input id="buscarMaterial" type="text" class="form-control buscar" placeholder="Buscar por etiqueta" v-model="bilatu">
         <div class="col">
           <!-- Boton para añadir un nuevo materuak -->
           <button type="button" id="mostrarVentanaMaterial" class="btn añadir btn-lg"
