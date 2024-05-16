@@ -62,6 +62,19 @@ export default {
     },
     methods: {
 
+        async langileaLortu(id,rol){
+            try{
+                const response = await fetch(window.ruta + 'langileLortu/' + id, { method: 'GET' });
+                const datos = await response.json();
+                console.log(datos[0].izena)
+                this.crarCookie(rol, datos[0].izena+' '+datos[0].abizenak)
+            }catch (error) {
+                console.error('Error al obtener datos del servidor:', error);
+            }
+            
+        },
+
+
         /////////////////////////////////////// EDITAR HORARIOS ////////////////////////////////////////////
         async nombresGrupo() {
             try {
@@ -226,6 +239,19 @@ export default {
         }
         ,
         ///////////////////////////////////////////////// ROLES ///////////////////////////////////////////////////
+        crarCookie(nombre,valor){
+            if(valor == '' || valor == undefined){
+
+            }else{
+                var finCookie = new Date();
+                finCookie.setDate(finCookie.getDate() + 1); // Suma un día a la fecha actual
+                finCookie.setHours(12, 0, 0, 0); // Establece la hora en 12:00:00
+
+                var finC = "expires=" + finCookie.toUTCString();
+                document.cookie = nombre + "=" + valor + ";" + finC + ";path=/";
+            }
+        },
+
         async tablaRoles() {
             try {
                 var today = new Date();
@@ -286,6 +312,7 @@ export default {
                 this.insertRoles(this.mostrador, "M");
             }
             this.ocultarRoles();
+            location.reload();
         },
         async deleteRoles(id_langilea) {
             try {
@@ -873,6 +900,15 @@ export default {
                 this.totalPrezioa = + this.totalPrezioa + +element.prezioa;
             });
         },
+
+        mostrador: function(){
+            this.langileaLortu(this.mostrador,'mostrador')
+        },
+
+        limpieza: function(){
+            this.langileaLortu(this.limpieza,'limpieza')
+            
+        }
 
     },
     mounted: function () {
