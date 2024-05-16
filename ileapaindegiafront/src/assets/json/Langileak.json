@@ -1,7 +1,7 @@
 {
     "ESP": {
         "Nombre": "Nombre",
-        "Grupos": "Grupos",
+        "Grupo": "Grupo",
         "Apellido": "Apellido",
         "AñadirGrupo": "Añadir Grupo",
         "NumeroAlumnos": "Número de alumnos",
@@ -10,7 +10,7 @@
     },
     "EUS": {
        "Nombre": "Izena",
-       "Grupos": "Taldeak",
+       "Grupo": "Taldea",
        "Apellido": "Abizena",
        "AñadirGrupo": "Taldea Gehitu",
        "NumeroAlumnos": "Ikasle Kopurua",
