@@ -1,10 +1,20 @@
 {
     "ESP": {
-        "": ""
+        "Roles": "Roles",
+        "Productos": "Productos",
+        "Material": "Material",
+        "Cantidad": "Cantidad",
+        "Limpieza": "Limpieza",
+        "Recepcion": "Recepción"
 
     },
     "EUS": {
-       "": ""
+        "Roles": "Rolak",
+        "Productos": "Produktuak",
+        "Material": "Materiala",
+        "Cantidad": "Kantitatea",
+        "Limpieza": "Garbiketa",
+        "Recepcion": "Mostradore"
 
     }
 }

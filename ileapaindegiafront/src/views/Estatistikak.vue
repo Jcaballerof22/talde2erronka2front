@@ -35,12 +35,12 @@
         },
         // Rolen grafikoa sortzeko metodoa
         graficoRoles(){
-            this.titulo2 = "ROLES";
+            this.titulo2 = testua[this.hizkuntza]['Roles'];
             const data = {
                 labels: this.alumnosNombre,
                 datasets: [
                     {
-                        label: 'Limpieza',
+                        label: testua[this.hizkuntza]['Limpieza'],
                         data: this.alumnosL,
                         borderColor: 'rgb(0, 128, 128)',
                         backgroundColor: 'rgb(26, 183, 188, 0.5)',
@@ -49,7 +49,7 @@
                         borderSkipped: false,
                     },
                     {
-                        label: 'Recepción',
+                        label: testua[this.hizkuntza]['Recepcion'],
                         data: this.alumnosM,
                         borderColor: 'green',
                         backgroundColor: 'rgba(205, 223, 160, 0.5)',
@@ -83,12 +83,12 @@
         },
         // Materialen grafikoa sortzeko metodoa
         graficoMaterial(){
-            this.titulo2 = "MATERIAL";
+            this.titulo2 = testua[this.hizkuntza]['Material'].toUpperCase();
             const data = {
                 labels: this.materialNombre,
                 datasets: [
                     {
-                        label: 'Cantidad',
+                        label: testua[this.hizkuntza]['Cantidad'],
                         data: this.materialNumero,
                         borderColor: 'green',
                         backgroundColor: 'rgba(205, 223, 160, 0.5)',
@@ -122,12 +122,12 @@
         },
         // Produktuen grafikoa sortzeko metodoa
         graficoProductos(){
-            this.titulo2 = "PRODUCTOS";
+            this.titulo2 = testua[this.hizkuntza]['Productos'];
             const data = {
                 labels: this.productosNombre,
                 datasets: [
                     {
-                        label: 'Cantidad',
+                        label: testua[this.hizkuntza]['Cantidad'],
                         data: this.productosNumero,
                         borderColor: 'rgb(0, 128, 128)',
                         backgroundColor: 'rgb(26, 183, 188, 0.5)',
@@ -268,7 +268,7 @@
         }           
     },
     mounted: function(){
-        this.hizkuntzaLortu()
+        this.hizkuntza = this.hizkuntzaLortu()
         this.sacarGrupo().then(() => {
             this.sacarAlumnos().then(() => {
                 this.graficoRoles();
@@ -288,9 +288,9 @@
             <!-- Kategoria desberdinen arabera sailkatzeko botoiak -->
             <div class="input-group-estadisticas">
                 <div class="col">
-                    <button type="button" class="btn añadir btn-lg" @click="esperar('graficoRoles')">Roles</button>
-                    <button type="button" class="btn añadir btn-lg" @click="esperar('graficoProductos')">Productos</button>
-                    <button type="button" class="btn añadir btn-lg" @click="esperar('graficoMaterial')">Material</button>
+                    <button type="button" class="btn añadir btn-lg" @click="esperar('graficoRoles')">{{testua[hizkuntza]?.['Roles']}}</button>
+                    <button type="button" class="btn añadir btn-lg" @click="esperar('graficoProductos')">{{testua[hizkuntza]?.['Productos']}}</button>
+                    <button type="button" class="btn añadir btn-lg" @click="esperar('graficoMaterial')">{{testua[hizkuntza]?.['Material']}}</button>
                     <!-- <select class="form-select combobox" aria-label="Default select example" v-model="grupoHoy" @change="sacarAlumnos">
                         <option v-for="talde in datosTalde" :value="talde.izena">{{ talde.izena }}</option>
                     </select> -->
@@ -299,17 +299,14 @@
                 <div class="col">
                     <div class="input-group">
                         <div class="me-4">
-                            <h4>De 
+                            <h4>
                             <input type="date" id="birthday" name="birthday" v-model="fechaInicio">
-                            a 
+                            ⇨
                             <input type="date" id="birthday" name="birthday" v-model="fechaFin">
                             </h4>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <button type="button" class="btn añadir btn-lg" @click="esperar('graficoRoles')">Roles</button>
             </div>
         </div>
         <h2 class="text-center mb-3">{{titulo2}}</h2>
