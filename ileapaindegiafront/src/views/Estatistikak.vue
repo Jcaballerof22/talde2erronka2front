@@ -1,4 +1,6 @@
 <script>    
+  import testua from "../assets/json/Estatistikak.json"
+
   export default {
     data() {
         return {
@@ -14,10 +16,18 @@
             materialNumero: [],
             datosTalde: [],
             fechaInicio: "",
-            fechaFin: ""
+            fechaFin: "",
+            hizkuntza: 'ESP',
+            testua: testua,
         };
     },
     methods: {
+
+        hizkuntzaLortu() {
+            var value = sessionStorage.getItem('hizkuntza');
+            return value !== null ? value : 'ESP';
+        },
+
         esperar(grafiko){
             setTimeout(() => {
                 this[grafiko]();
@@ -258,6 +268,7 @@
         }           
     },
     mounted: function(){
+        this.hizkuntzaLortu()
         this.sacarGrupo().then(() => {
             this.sacarAlumnos().then(() => {
                 this.graficoRoles();

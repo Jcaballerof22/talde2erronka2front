@@ -1,13 +1,14 @@
 -al crear una cita hay problemas en el back al obtener citasDisp
+-en ticket, la primera opcion no pilla los datos bien
 
 Paginas Traducidas:
   -Home
   -Alumnos
   -Material
+  -Fitxa
 
 Paginas Para traducir:
   -Estadisticas
-  -Fitxa
   -Historial
   -Productos
   -Ticket
