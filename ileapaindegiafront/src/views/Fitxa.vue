@@ -1,4 +1,6 @@
 <script>
+import testua from "../assets/json/Fitxak.json";
+
 export default {
     data() {
         return {
@@ -13,10 +15,16 @@ export default {
             funtzio: "",
             bilatu: '',
             fechaInicio: '',
-            fechaFin: ''
+            fechaFin: '',
+            hizkuntza: 'ESP',
+            testua: testua,
         };
     },
     methods: {
+        hizkuntzaLortu() {
+            var value = sessionStorage.getItem('hizkuntza');
+            return value !== null ? value : 'ESP';
+        },
         // Fitxen datuak lortzeko metodoa
         async sacarFichas() {
             try {
@@ -254,6 +262,7 @@ export default {
         }
     },
     mounted: function() {
+        this.hizkuntza = this.hizkuntzaLortu();
         this.sacarFichas();
       }
 };
@@ -269,18 +278,18 @@ export default {
                     <!-- Izenaren arabera bilatzeko eta fitxa berria gehitzeko botoia -->
                     <div class="input-group">
                         <div class="me-4">
-                            <h4>De 
+                            <h4>
                             <input type="date" id="birthday" name="birthday" v-model="fechaInicio">
-                            a 
+                            ⇨
                             <input type="date" id="birthday" name="birthday" v-model="fechaFin">
                             </h4>
                         </div>
-                        <input type="text" class="form-control buscar" placeholder="Buscar por nombre" v-model="bilatu">
+                        <input type="text" class="form-control buscar" :placeholder="testua[hizkuntza]?.['BuscarNombre']" v-model="bilatu">
                         <div class="input-group-append">
                             <button class="btn lupa" type="button">
                                 <i class="bi bi-search"></i>
                             </button>
-                            <button type="button" class="btn añadir btn-lg" @click="abrirPopup('', 'txertatu')">Añadir Ficha</button>
+                            <button type="button" class="btn añadir btn-lg" @click="abrirPopup('', 'txertatu')">{{testua[hizkuntza]?.['AñadirFicha']}}</button>
                         </div>
                     </div>
                 
@@ -289,10 +298,10 @@ export default {
                 <table id="tabla" class="table table-hover table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">Cliente</th>
-                        <th scope="col">Teléfono</th>
-                        <th scope="col">Piel sensible</th>
-                        <th scope="col">Fecha de creación</th>
+                        <th scope="col">{{testua[hizkuntza]?.['Cliente']}}</th>
+                        <th scope="col">{{testua[hizkuntza]?.['Telefono']}}</th>
+                        <th scope="col">{{testua[hizkuntza]?.['PielSensible']}}</th>
+                        <th scope="col">{{testua[hizkuntza]?.['FechaCreacion']}}</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -318,33 +327,33 @@ export default {
                         </button>
                     </div>
                     <div class="mt-5">
-                        <label for="mensaje" id="nombreLabelLangile">Cliente</label>
+                        <label for="mensaje" id="nombreLabelLangile">{{testua[hizkuntza]?.['Cliente']}}</label>
                     </div>
                     <div class="row d-flex mt-4">
                         <div class="col">
-                            <textarea type="text" id="nombreTextoLangile" name="mensaje" rows="1" cols="25" placeholder="Ingresa el nombre aquí" v-model="izena"></textarea>
+                            <textarea type="text" id="nombreTextoLangile" name="mensaje" rows="1" cols="25" :placeholder="testua[hizkuntza]?.['IngreseNombre']" v-model="izena"></textarea>
                         </div>
                         <div class="col">
-                            <textarea id="nombreTextoLangile" name="mensaje" rows="1" cols="25" placeholder="Ingresa el apellido aquí" v-model="abizena"></textarea>
+                            <textarea id="nombreTextoLangile" name="mensaje" rows="1" cols="25" :placeholder="testua[hizkuntza]?.['IngresaApellido']" v-model="abizena"></textarea>
                         </div>
                     </div>
                     <div class="mt-4">
-                        <label for="mensaje" id="apellidoLabelLangile">Teléfono</label>
+                        <label for="mensaje" id="apellidoLabelLangile">{{testua[hizkuntza]?.['Telefono']}}</label>
                     </div>
                     <div class="mt-4">
-                        <textarea id="apellidoTextoLangile" name="mensaje" rows="1" cols="50" placeholder="Ingresa el apellido aquí" v-model="telefonoa"></textarea>
+                        <textarea id="apellidoTextoLangile" name="mensaje" rows="1" cols="50" :placeholder="testua[hizkuntza]?.['IngreseTelefono']" v-model="telefonoa"></textarea>
                     </div>
                     <div class="col-md-12">
                         <div class="row g-3">
                             <div class="col">
                                 <div class="form-check-reverse form-switch d-flex justify-content-left">
-                                    <label class="form-check-label rounded bg-white p-2 mx-2 mb-1 text-center">Piel sensible</label>
+                                    <label class="form-check-label rounded bg-white p-2 mx-2 mb-1 text-center">{{testua[hizkuntza]?.['PielSensible']}}</label>
                                     <input class="form-check-input" style="margin-top: 1.4vh;" type="checkbox" v-model="azal_sentikorra">
                                 </div>                        
                             </div>
                         </div>
                     </div>
-                    <input id="submitLangile" type="submit" class="btn añadir btn-lg mt-4" @click="txertatuEdoAldatu" value="Aceptar">
+                    <input id="submitLangile" type="submit" class="btn añadir btn-lg mt-4" @click="txertatuEdoAldatu" :value="testua[hizkuntza]?.['Aceptar']">
                 </div>
             </div>
         </div>

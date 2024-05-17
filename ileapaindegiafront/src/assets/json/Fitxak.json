@@ -1,0 +1,37 @@
+{
+    "ESP": {
+        "AñadirFicha": "Añadir Ficha",
+        "Cliente": "Cliente",
+        "Telefono": "Teléfono",
+        "PielSensible": "Piel sensible",
+        "FechaCreacion": "Fecha de creación",
+        "BuscarNombre": "Buscar por nombre",
+        "Aceptar": "Aceptar",
+        "IngresaApellido": "Ingresa el apellido aquí",
+        "IngreseNombre": "Ingresa el Nombre aquí",
+        "IngreseTelefono": "Ingresa el telefono aquí",
+        "Reservar": "Reservar",
+        "Si": "Si",
+        "No": "No"
+
+    },
+    "EUS": {
+       "AñadirFicha": "Fitxa sortu",
+       "Cliente": "Bezeroa",
+       "Telefono": "Telefonoa",
+       "PielSensible": "Azal sentikorra",
+       "FechaCreacion": "Sortze data",
+       "BuscarNombre": "Izenagatik bilatu",
+       "Aceptar": "Onartu",
+       "IngresaApellido": "Abizena txertatu",
+       "IngreseNombre": "Txertatu izena hemen",
+       "IngreseTelefono": "Txertatu telefonoa hemen",
+       "Reservar": "Erreserbatu",
+       "Si": "Bai",
+       "No": "Ez"
+
+    }
+}
+
+
+
