@@ -1,0 +1,37 @@
+{
+    "ESP": {
+        "Roles": "Roles",
+        "Productos": "Productos",
+        "Material": "Material",
+        "Nombre": "Nombre",
+        "Rol": "Rol",
+        "Fecha": "Fecha",
+        "Limpieza": "Limpieza",
+        "Mostrador": "Mostrador",
+        "BuscarxNombre": "Buscar por nombre",
+        "Producto": "Producto",
+        "Cantidad": "Cantidad",
+        "FechaInicio": "Fecha Inicio",
+        "FechaFin": "Fecha Fin"
+        
+    },
+    "EUS": {
+        "Roles": "Rolak",
+        "Productos": "Produktuak",
+        "Material": "Materiala",
+        "Nombre": "Izena",
+        "Rol": "Rola",
+        "Fecha": "Data",
+        "Limpieza": "Garbiketa",
+        "Mostrador": "Mostradore",
+        "BuscarxNombre": "Izenagatik bilatu",
+        "Producto": "Produktuak",
+        "Cantidad": "Kopurua",
+        "FechaInicio": "Hasiera data",
+        "FechaFin": "Amaiera data"
+        
+    }
+}
+
+
+

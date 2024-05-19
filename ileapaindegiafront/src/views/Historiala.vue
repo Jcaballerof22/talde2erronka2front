@@ -1,4 +1,6 @@
 <script>
+import testua from "../assets/json/Historiala.json";
+
 export default {
     data() {
         return {
@@ -11,10 +13,16 @@ export default {
             bilatu: "",
             tabla: "historialRoles",
             fechaInicio: '',
-            fechaFin: ''
+            fechaFin: '',
+            hizkuntza: 'ESP',
+            testua: testua,
         };
     },
     methods:{
+        hizkuntzaLortu() {
+            var value = sessionStorage.getItem('hizkuntza');
+            return value !== null ? value : 'ESP';
+        },
         // Rolen datuak lortzeko metodoa (zein ikasle egon den rol bakoitzean eta zenbat aldiz)
         async tablaRoles() {
             try {
@@ -281,6 +289,7 @@ export default {
         }
     },
     mounted: function(){
+        this.hizkuntza = this.hizkuntzaLortu();
         this.tablaRoles();
         this.tablaProductos();
         this.tablaMaterial();
@@ -294,21 +303,21 @@ export default {
             <!-- Kategoriaren arabera sailkatzeko botoiak -->
             <div class="input-group-estadisticas">
                 <div class="col">
-                    <button type="button" class="btn añadir btn-lg" @click="mostrarTablas('tablaRoles')">Roles</button>
-                    <button type="button" class="btn añadir btn-lg" @click="mostrarTablas('tablaProductos')">Productos</button>
-                    <button type="button" class="btn añadir btn-lg" @click="mostrarTablas('tablaMaterial')">Material</button>
+                    <button type="button" class="btn añadir btn-lg" @click="mostrarTablas('tablaRoles')">{{testua[hizkuntza]?.['Roles']}}</button>
+                    <button type="button" class="btn añadir btn-lg" @click="mostrarTablas('tablaProductos')">{{testua[hizkuntza]?.['Productos']}}</button>
+                    <button type="button" class="btn añadir btn-lg" @click="mostrarTablas('tablaMaterial')">{{testua[hizkuntza]?.['Material']}}</button>
                 </div>
                 <!-- Dataren eta izenaren arabera sailkatzeko atala -->
                 <div class="col">
                     <div class="input-group">
                         <div class="me-4">
-                            <h4>De 
+                            <h4>
                             <input type="date" id="birthday" name="birthday" v-model="fechaInicio">
-                            a 
+                            ⇨
                             <input type="date" id="birthday" name="birthday" v-model="fechaFin">
                             </h4>
                         </div>
-                        <input type="text" class="form-control buscar" placeholder="Buscar por nombre" v-model="bilatu">
+                        <input type="text" class="form-control buscar" :placeholder="testua[hizkuntza]?.['BuscarxNombre']" v-model="bilatu">
                         <div class="input-group-append">
                             <button class="btn lupa" type="button" @click="lupa">
                                 <i class="bi bi-search"></i>
@@ -322,16 +331,16 @@ export default {
                 <table id="tablaRoles" class="table table-hover table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Rol</th>
-                        <th scope="col">Fecha</th>
+                        <th scope="col">{{testua[hizkuntza]?.['Nombre']}}</th>
+                        <th scope="col">{{testua[hizkuntza]?.['Rol']}}</th>
+                        <th scope="col">{{testua[hizkuntza]?.['Fecha']}}</th>
                     </tr>
                     </thead>
                     <tbody>
                         <tr v-for="(dato, index) in taula" :key="index">
                             <td>{{ dato.izena }}</td>
-                            <td v-if="dato.mota=='G'">Limpieza</td>
-                            <td v-else>Mostrador</td>
+                            <td v-if="dato.mota=='G'">{{testua[hizkuntza]?.['Limpieza']}}</td>
+                            <td v-else>{{testua[hizkuntza]?.['Mostrador']}}</td>
                             <td>{{dato.data}}</td>
                         </tr>
                     </tbody>
@@ -342,10 +351,10 @@ export default {
                 <table id="tablaProductos" class="table table-hover table-striped" style="display: none;">
                     <thead>
                     <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Producto</th>
-                        <th scope="col">Cantidad</th>
-                        <th scope="col">Fecha</th>
+                        <th scope="col">{{testua[hizkuntza]?.['Nombre']}}</th>
+                        <th scope="col">{{testua[hizkuntza]?.['Producto']}}</th>
+                        <th scope="col">{{testua[hizkuntza]?.['Cantidad']}}</th>
+                        <th scope="col">{{testua[hizkuntza]?.['Fecha']}}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -363,10 +372,10 @@ export default {
                 <table id="tablaMaterial" class="table table-hover table-striped" style="display: none;">
                     <thead>
                     <tr>
-                        <th scope="col">Material</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Fecha Inicio</th>
-                        <th scope="col">Fecha Fin</th>
+                        <th scope="col">{{testua[hizkuntza]?.['Material']}}</th>
+                        <th scope="col">{{testua[hizkuntza]?.['Nombre']}}</th>
+                        <th scope="col">{{testua[hizkuntza]?.['FechaInicio']}}</th>
+                        <th scope="col">{{testua[hizkuntza]?.['FechaFin']}}</th>
                     </tr>
                     </thead>
                     <tbody>

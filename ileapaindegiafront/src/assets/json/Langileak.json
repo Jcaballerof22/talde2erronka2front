@@ -10,12 +10,12 @@
 
     },
     "EUS": {
-       "Nombre": "Izena",
-       "Grupo": "Taldea",
-       "Apellido": "Abizena",
-       "AñadirGrupo": "Taldea Gehitu",
-       "NumeroAlumnos": "Ikasle Kopurua",
-       "AñadirAlumno": "Ikaslea Txertatu",
+        "Nombre": "Izena",
+        "Grupo": "Taldea",
+        "Apellido": "Abizena",
+        "AñadirGrupo": "Taldea Gehitu",
+        "NumeroAlumnos": "Ikasle Kopurua",
+        "AñadirAlumno": "Ikaslea Txertatu",
         "BuscarxNombre": "Izenagatik bilatu"
 
     }

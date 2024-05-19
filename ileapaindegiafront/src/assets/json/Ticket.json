@@ -1,0 +1,23 @@
+{
+    "ESP": {
+        "Cliente": "Cliente",
+        "Tratamiento": "Tratamiento",
+        "Precio": "Precio",
+        "Fecha": "Fecha",
+        "Tratamientos": "Tratamientos",
+        "BuscarxNombre": "Buscar por nombre"
+
+    },
+    "EUS": {
+        "Cliente": "Bezeroa",
+        "Tratamiento": "Tratamendua",
+        "Precio": "Prezioa",
+        "Fecha": "Data",
+        "Tratamientos": "Tratamenduak",
+        "BuscarxNombre": "Izenagatik bilatu"
+
+    }
+}
+
+
+

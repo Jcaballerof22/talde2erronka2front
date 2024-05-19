@@ -14,7 +14,7 @@
                 </div>
                 <!-- Campo para meter el nombre -->
                 <div class="mt-2">
-                    <label for="mensaje" id="izenaTratamendua">Nombre</label>
+                    <label for="mensaje" id="izenaTratamendua">{{testua[hizkuntza]?.['Nombre']}}</label>
                 </div>
                 <div class="mt-2">
                     <textarea id="modeloTextoMaterial" class="mt-2" name="mensaje" rows="1" cols="50" placeholder="Ingresa el nombre del tratamiento aquí" v-model="izena"
@@ -22,7 +22,7 @@
                 </div>
                 <!-- Campo para meter el precio de casa -->
                 <div class="mt-2">
-                    <label for="mensaje" id="etxekoprezioaTratamenduak">Precio de Casa</label>
+                    <label for="mensaje" id="etxekoprezioaTratamenduak">{{testua[hizkuntza]?.['PrecioCasa']}}</label>
                 </div>
                 <div class="mt-2">
                     <input type="text" id="etxekoprezioNumber" class="mt-2" v-model="etxeko_prezioa"
@@ -32,7 +32,7 @@
                 </div>
                 <!-- Campo para meter el precio de fuera -->
                 <div class="mt-2">
-                    <label for="mensaje" id="kanpokoprezioaTratamenduak">Precio de Fuera</label>
+                    <label for="mensaje" id="kanpokoprezioaTratamenduak">{{testua[hizkuntza]?.['PrecioFuera']}}</label>
                 </div>
                 <div class="mt-2">
                     <!-- Se fuerza a que solo se puedan meter numeros y luego se les pone con coma -->
@@ -45,7 +45,7 @@
                 <!-- Boton para llamar a la funcion que añada el  tratamiento -->
                 <div class="mt-2">
                     <input id="submitAñadirMaterial" type="submit" class="btn añadir btn-lg mt-3"
-                        @click="txertatuEdoAldatu" value="Añadir">
+                        @click="txertatuEdoAldatu" :value="testua[hizkuntza]?.['Añadir']">
                 </div>
             </div>
         </div>
@@ -55,16 +55,16 @@
             <div class="col">
             <!-- Boton para añadir un nuevo tratamiento -->
             <button type="button" id="mostrarVentanaTratamiento" class="btn añadir btn-lg" 
-                @click="abrirPopup('' , '' , '', '')">Añadir tratamiento</button>
+                @click="abrirPopup('' , '' , '', '')">{{testua[hizkuntza]?.['AñadirTratamiento']}}</button>
             </div>
             <!-- Tabla para enseñar los datos -->
             <table id="tabla" class="table table-hover table-striped">
                 <thead>
                     <tr>
                         <!-- Las distintas columnas de la tabla -->
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Precio de Casa €</th>
-                        <th scope="col">Precio de Fuera €</th>
+                        <th scope="col">{{testua[hizkuntza]?.['Nombre']}}</th>
+                        <th scope="col">{{testua[hizkuntza]?.['PrecioCasa']}} €</th>
+                        <th scope="col">{{testua[hizkuntza]?.['PrecioFuera']}} €</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -91,6 +91,8 @@
 
 </template>
 <script>
+    import testua from "../assets/json/Tratamenduak.json";
+
     export default {
         data() {
             return {
@@ -103,9 +105,16 @@
                 bilatu: '',
                 datos: [],
                 taula: [],
+                hizkuntza: 'ESP',
+                testua: testua,
             };
         },
         methods: {
+
+            hizkuntzaLortu() {
+                var value = sessionStorage.getItem('hizkuntza');
+                return value !== null ? value : 'ESP';
+            },
             // La funcion que abre el POPUP con los datos necesarios
             abrirPopup(izena, etxeko_prezioa, kanpoko_prezioa, id){
                 this.id = id;
@@ -126,7 +135,7 @@
             async fetchData(){
                 try {
                     // el fetch que hace la llamada al back para recoger los datos, usando el metodo 'GET' y el modo 'cors'
-                    const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/tratamenduak', {
+                    const response = await fetch(window.ruta + 'tratamenduak', {
                         method: 'GET',
                         mode: 'cors'
                     });
@@ -170,7 +179,7 @@
                     "kanpoko_prezioa": this.kanpoko_prezioa
                     });
                     // el fetch que hara la llamada al back para cambiar los datos, metodo 'PUT' 
-                    const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/tratamenduak/editatu', {
+                    const response = await fetch(window.ruta + 'tratamenduak/editatu', {
                     method: 'PUT',
                     body: js
                     });
@@ -191,7 +200,7 @@
                 }else{
                     var js = JSON.stringify({"izena": this.izena, "etxeko_prezioa": this.etxeko_prezioa, "kanpoko_prezioa": this.kanpoko_prezioa}); 
                     // el fetch que hace la llamda al back para sumar datos, con metodo 'POST', y json y modo 'cors'
-                    fetch('http://localhost/talde2erronka2back/Erronka2/public/api/tratamenduak/txertatu', {method: 'POST', body: js, mode: 'cors'})
+                    fetch(window.ruta + 'tratamenduak/txertatu', {method: 'POST', body: js, mode: 'cors'})
                     .then(function (response) {
                             return response.text();
                     })
@@ -212,7 +221,7 @@
 
                     var js = JSON.stringify({"id": id}); 
                     // el fetch que hace la llamada al back para borrar el dato con el json que se le pasa, el metodo es 'PUT'
-                    const response = await fetch('http://localhost/talde2erronka2back/Erronka2/public/api/tratamenduak/ezabatu', {
+                    const response = await fetch(window.ruta + 'tratamenduak/ezabatu', {
                     method: 'PUT',
                     body: js
                     });
@@ -230,6 +239,7 @@
         },
         // Para iniciar recogiendo los datos
         mounted: function(){
+            this.hizkuntza = this.hizkuntzaLortu();
             this.fetchData();
         }
     }

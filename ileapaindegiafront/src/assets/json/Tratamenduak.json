@@ -1,0 +1,21 @@
+{
+    "ESP": {
+        "Nombre": "Nombre",
+        "PrecioCasa": "Precio de Casa",
+        "PrecioFuera": "Precio de Fuera",
+        "Añadir": "Añadir",
+        "AñadirTratamiento": "Añadir tratamiento"
+
+    },
+    "EUS": {
+        "Nombre": "Izena",
+        "PrecioCasa": "Etxeko prezioa",
+        "PrecioFuera": "Kanpoko prezioa",
+        "Añadir": "Gehitu",
+        "AñadirTratamiento": "Tratamendua gehitu"
+
+    }
+}
+
+
+

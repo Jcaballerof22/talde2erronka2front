@@ -1,4 +1,6 @@
 <script>
+import testua from "../assets/json/Ticket.json";
+
 export default {
     data() {
         return {
@@ -13,10 +15,16 @@ export default {
             data: '',
             bilatu: '',
             fechaInicio: '',
-            fechaFin: ''
+            fechaFin: '',
+            hizkuntza: 'ESP',
+            testua: testua,
             };
     },
     methods: {
+        hizkuntzaLortu() {
+            var value = sessionStorage.getItem('hizkuntza');
+            return value !== null ? value : 'ESP';
+        },
         // Ticketen datuak lortzeko metodoa
         async mostrarTickets() {
             try {
@@ -229,6 +237,7 @@ export default {
         }
     },
     mounted: function() {
+        this.hizkuntza = this.hizkuntzaLortu();
         this.mostrarTickets();
         this.tratamenduakLortu();
     }
@@ -242,13 +251,13 @@ export default {
                 <!-- Izenaren arabera bilatzeko atala -->
                 <div class="input-group">
                     <div class="me-4">
-                            <h4>De 
+                            <h4> 
                             <input type="date" id="birthday" name="birthday" v-model="fechaInicio">
-                            a 
+                            ⇨ 
                             <input type="date" id="birthday" name="birthday" v-model="fechaFin">
                             </h4>
                     </div>
-                    <input type="text" class="form-control buscar" placeholder="Buscar por nombre" v-model="bilatu">
+                    <input type="text" class="form-control buscar" :placeholder="testua[hizkuntza]?.['BuscarxNombre']" v-model="bilatu">
                     <div class="input-group-append">
                     <button class="btn lupa" type="button">
                         <i class="bi bi-search"></i>
@@ -261,10 +270,10 @@ export default {
                 <table id="tabla" class="table table-hover table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">Cliente</th>
-                        <th scope="col">Tratamiento</th>
-                        <th scope="col">Precio</th>
-                        <th scope="col">Fecha</th>
+                        <th scope="col">{{testua[hizkuntza]?.['Cliente']}}</th>
+                        <th scope="col">{{testua[hizkuntza]?.['Tratamiento']}}</th>
+                        <th scope="col">{{testua[hizkuntza]?.['Precio']}}</th>
+                        <th scope="col">{{testua[hizkuntza]?.['Fecha']}}</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -291,7 +300,7 @@ export default {
                         </button>
                     </div>
                     <div class="mt-5 text-start">
-                        <label for="mensaje"><h2>Cliente</h2></label>
+                        <label for="mensaje"><h2>{{testua[hizkuntza]?.['Cliente']}}</h2></label>
                     </div>
                     <div class="row d-flex mt-4">
                         <div class="col">
@@ -299,16 +308,16 @@ export default {
                         </div>
                     </div>
                     <div class="mt-5 text-start">
-                        <label for="mensaje"><h2>Tratamiento</h2></label>
+                        <label for="mensaje"><h2>{{testua[hizkuntza]?.['Tratamiento']}}</h2></label>
                     </div>
                     <div class="mt-4">
                         <select class="form-select" style="min-width: 15vw;" v-model="tratamendu_izena">
-                            <option selected disabled value="">Tratamientos</option>
+                            <option selected disabled value="">{{testua[hizkuntza]?.['Tratamientos']}}</option>
                             <option v-for="tratamendus in tratamenduak" :value="tratamendus.izena" :key="tratamendus.izena">{{tratamendus.izena}}</option>
                         </select>
                     </div>
                     <div class="mt-5 text-start">
-                        <label for="mensaje"><h2>Precio</h2></label>
+                        <label for="mensaje"><h2>{{testua[hizkuntza]?.['Precio']}}</h2></label>
                     </div>
                     <div class="mt-4">
                         <input type="text" class="form-control" v-model="prezioa" style="background-color: white;">
