@@ -1,19 +1,33 @@
 <script setup>
-<<<<<<< HEAD
-  import Menu from './components/Menu.vue';
-  import './assets/styles.css';
-=======
   import {ref} from "vue";
   import Menu from './components/Menu.vue'
+<<<<<<< Updated upstream
+  // EN VEZ DE CAMBIAR MI RUTA, PLS DESCOMENTA LA DE ABAJO <3
+  window.ruta = 'http://localhost/Cosos/KK/Erronka/talde2erronka2back/Erronka2/public/api/';
+  // window.ruta = 'http://localhost/talde2erronka2back/Erronka2/public/api/';
+=======
+  window.ruta = 'http://localhost/talde2erronka2back/Erronka2/public/api/';
+  // window.ruta = 'http://localhost/Cosos/KK/Erronka/talde2erronka2back/Erronka2/public/api/';
+  window.jsones = 'http://localhost/Cosos/KK/Erronka/talde2erronka2front/ileapaindegiafront/src/assets/json/';
+>>>>>>> Stashed changes
+  //Funtzioak
   const translate = (hizkuntza) => {
     sessionStorage.setItem("hizkuntza", hizkuntza);
+    window.location.reload();
   }
->>>>>>> 1b31a188ed07a9baf818eeaf861ed8e75e46f668
+
+  const isLoginPage = window.location.pathname.includes('login');
+
 </script>
 
 <template>
-  <Menu  @translate = "translate"></Menu>
-  <router-view></router-view>
+  <div>
+    <template v-if="!isLoginPage">
+      <Menu @translate="translate" @hizkuntzaLortu="hizkuntzaLortu"></Menu>
+    </template>
+    
+    <router-view></router-view>
+  </div>
 </template>
 
 <style scoped>

@@ -19,7 +19,6 @@
             fechaFin: "",
             hizkuntza: 'ESP',
             testua: testua,
-            grafico: ""
         };
     },
     methods: {
@@ -37,7 +36,6 @@
         // Rolen grafikoa sortzeko metodoa
         graficoRoles(){
             this.titulo2 = testua[this.hizkuntza]['Roles'];
-            this.grafico = "graficoRoles";
             const data = {
                 labels: this.alumnosNombre,
                 datasets: [
@@ -86,7 +84,6 @@
         // Materialen grafikoa sortzeko metodoa
         graficoMaterial(){
             this.titulo2 = testua[this.hizkuntza]['Material'].toUpperCase();
-            this.grafico = "graficoMaterial";
             const data = {
                 labels: this.materialNombre,
                 datasets: [
@@ -126,7 +123,6 @@
         // Produktuen grafikoa sortzeko metodoa
         graficoProductos(){
             this.titulo2 = testua[this.hizkuntza]['Productos'];
-            this.grafico = "graficoProductos";
             const data = {
                 labels: this.productosNombre,
                 datasets: [
@@ -215,17 +211,8 @@
         },          
         // Erabili diren produktuen datuak lortzeko metodoa
         async sacarProductos() {
-
-            let fechaFin = new Date(this.fechaFin);
-            fechaFin = fechaFin.setDate(fechaFin.getDate() + 1);
-            const js = JSON.stringify({"fechaInicio": this.fechaInicio, "fechaFin": this.fechaFin});
-            console.log("js: ",js);
-
             try {
-              const response = await fetch(window.ruta + `productos/mugimendua`, { 
-                method: 'POST',
-                body: js 
-            });
+              const response = await fetch(window.ruta + `productos/mugimendua`, { method: 'GET' });
           
               if (!response.ok) {
                 throw new Error(`Error en la solicitud: ${response.statusText}`);
@@ -241,37 +228,7 @@
             } catch (error) {
               console.error('Error al obtener datos del servidor:', error);
             }
-        },     
-        async sacarProductos2() {
-
-            let fechaFin = new Date(this.fechaFin);
-            fechaFin = fechaFin.setDate(fechaFin.getDate() + 1);
-            const js = JSON.stringify({"fechaInicio": this.fechaInicio, "fechaFin": this.fechaFin});
-            console.log("js: ",js);
-
-            try {
-            const response = await fetch(window.ruta + `productos/mugimendua`, { 
-                method: 'POST',
-                body: js 
-            });
-
-            if (!response.ok) {
-                throw new Error(`Error en la solicitud: ${response.statusText}`);
-            }
-
-            const data = await response.json();
-
-            for (let i = 0; i < data.length; i++) {
-                this.productosNombre.push(data[i].izena);
-                this.productosNumero.push(data[i].total_kopurua);
-            }
-
-            } catch (error) {
-            console.error('Error al obtener datos del servidor:', error);
-            }
-
-            this.esperar("graficoProductos");
-        },    
+        },          
         // Erabili den materialaren datuak lortzeko metodoa
         async sacarMaterial() {
             try {
@@ -320,24 +277,6 @@
         this.sacarProductos();
         this.sacarMaterial();
         this.nombresGrupo();
-    },
-    watch:{
-        fechaInicio: function(){
-            console.log("Cambia"); 
-            switch (this.grafico) {
-                case "graficoProductos":
-                    this.sacarProductos2();    
-                    break;
-            
-                default:
-                    break;
-            }
-            
-        },
-
-        fechaFin: function(){
-            this.esperar(this.grafico);
-        }
     }
 }
 </script>
@@ -369,9 +308,12 @@
                     </div>
                 </div>
             </div>
+<<<<<<< Updated upstream
+=======
             <!-- <div class="row">
                 <button type="button" class="btn añadir btn-lg" @click="esperar('graficoRoles')">Roles</button>
             </div> -->
+>>>>>>> Stashed changes
         </div>
         <h2 class="text-center mb-3">{{titulo2}}</h2>
 

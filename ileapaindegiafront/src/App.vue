@@ -1,9 +1,9 @@
 <script setup>
   import {ref} from "vue";
   import Menu from './components/Menu.vue'
-  // EN VEZ DE CAMBIAR MI RUTA, PLS DESCOMENTA LA DE ABAJO <3
-  window.ruta = 'http://localhost/Cosos/KK/Erronka/talde2erronka2back/Erronka2/public/api/';
-  // window.ruta = 'http://localhost/talde2erronka2back/Erronka2/public/api/';
+  window.ruta = 'http://localhost/talde2erronka2back/Erronka2/public/api/';
+  // window.ruta = 'http://localhost/Cosos/KK/Erronka/talde2erronka2back/Erronka2/public/api/';
+  window.jsones = 'http://localhost/Cosos/KK/Erronka/talde2erronka2front/ileapaindegiafront/src/assets/json/';
   //Funtzioak
   const translate = (hizkuntza) => {
     sessionStorage.setItem("hizkuntza", hizkuntza);
