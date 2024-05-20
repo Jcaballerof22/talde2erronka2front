@@ -189,65 +189,91 @@ export default {
             }
         },
 
-        addKarrito(prod){
-            aux = false;
-            if (this.sazkia.length>0) {
-                this.sazkia.forEach(element => {
-                    if (element.id == prod.id) {
-                        element.kantitatea++;
-                        aux = true;
-                        return;
-                    }
-                });
-            } 
-            if(!aux) {
-                this.sazkia.push({'stock':prod.stock, 'id': prod.id, 'kantitatea': 1, 'marka': prod.marka, 'izena': prod.izena, 'kategoria': prod.kategoria, 'id_kategoria': prod.id_kategoria});
+        addKarrito(prod) {
+            let aux = false;
+            for (let i = 0; i < this.sazkia.length; i++) {
+                if (this.sazkia[i].id === prod.id) {
+                    this.sazkia[i].kantitatea++;
+                    aux = true;
+                    break;
+                }
             }
-        },   
-        async langileakLortu(){
-            hoy = this.lortuData();
+            if (!aux) {
+                this.sazkia.push({
+                    'stock': prod.stock,
+                    'id': prod.id,
+                    'kantitatea': 1,
+                    'marka': prod.marka,
+                    'izena': prod.izena,
+                    'kategoria': prod.kategoria,
+                    'id_kategoria': prod.id_kategoria
+                });
+            }
+        },
+        removeFromKarrito(index) {
+            this.sazkia.splice(index, 1);
+        },
+        async langileakLortu() {
+            const hoy = this.lortuData();
+            const url = `${window.ruta}alumnos/${hoy}`;
+            console.log('Fetching URL:', url);
             try {
-                const response = await fetch(window.ruta + 'alumnos/' + hoy, {
+                const response = await fetch(url, {
                     method: 'GET',
                 });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
 
                 const data = await response.json();
                 this.langileak = data;
 
             } catch (error) {
-                console.error("Error al eliminar el registro:", error);
-                console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
+                console.error("Error al obtener los datos:", error);
             }
-            
         },
-
-        lortuData(){
-            var gaur = new Date();
-            var urtea = gaur.getFullYear();
-            var hilabetea = gaur.getMonth() + 1;
-            var eguna = gaur.getDate();
-            return urtea+'-'+hilabetea+'-'+eguna;
+        lortuData() {
+            const gaur = new Date();
+            const urtea = gaur.getFullYear();
+            const hilabetea = (gaur.getMonth() + 1).toString().padStart(2, '0');  // Asegura dos dígitos
+            const eguna = gaur.getDate().toString().padStart(2, '0');  // Asegura dos dígitos
+            return `${urtea}-${hilabetea}-${eguna}`;
         },
-
-        erosketak(){
+        erosketak() {
             this.sazkia.forEach(element => {
-                if (0 > (element.stock - element.kantitatea)) {
+                if (element.stock < element.kantitatea) {
                     alert('No hay stock suficiente del producto');
-                }else{
+                } else {
                     this.erosi(element.id, this.langilea, element.kantitatea);
-                    window.location.reload();
                 }
             });
         },
-
-        async erosi(id_produktua, id_langilea, kopurua){
-            js = JSON.stringify({'id_produktua':id_produktua,'id_langilea':id_langilea,'kopurua':kopurua})
-            console.log('Kompra'+js);
-            const response = await fetch(window.ruta + 'productos/erosi', {
-                method: 'POST',
-                body: js
+        async erosi(id_produktua, id_langilea, kopurua) {
+            const js = JSON.stringify({
+                'id_produktua': id_produktua,
+                'id_langilea': id_langilea,
+                'kopurua': kopurua
             });
-            const data = await response.text();
+            console.log('Kompra:', js);
+            try {
+                const response = await fetch(`${window.ruta}productos/erosi`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: js
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.text();
+                console.log('Compra exitosa:', data);
+            } catch (error) {
+                console.error('Error al realizar la compra:', error);
+            }
         },
 
     },
@@ -290,7 +316,7 @@ export default {
 
 <template>
         <div class="contenido-productos" id="orrialdea"></div>
-        <!--     Botoiak/Filtroak/Sazkia     -->
+        <!--     Botoiak/Filtroak/Saskia     -->
         <div class="col d-flex justify-content-end me-4" id="cesta-productos">
             <button id="but-cesta-productos" data-bs-toggle="modal" data-bs-target="#miModal">
                 <i class="bi bi-basket" style="font-size: 30px;"></i>
@@ -393,7 +419,7 @@ export default {
                                     <td>{{dato.marka}}</td>
                                     <td><input type="number" class="form-control text-center" v-model="dato.kantitatea"></td>
                                     <td>
-                                        <i class="bi bi-trash-fill" @click="ezabatu(dato.id)"></i>
+                                        <i class="bi bi-trash-fill" @click="removeFromKarrito(index)"></i>
                                     </td>
                                 </tr>
                             </tbody>
