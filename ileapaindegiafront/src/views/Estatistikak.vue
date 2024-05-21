@@ -12,6 +12,9 @@
             alumnosM: [],
             productosNombre: [],
             productosNumero: [],
+            productosFecha: [],
+            nombreProductos: [],
+            numeroProductos: [],
             materialNombre: [],
             materialNumero: [],
             datosTalde: [],
@@ -38,6 +41,7 @@
         graficoRoles(){
             this.titulo2 = testua[this.hizkuntza]['Roles'];
             this.grafico = "graficoRoles";
+
             const data = {
                 labels: this.alumnosNombre,
                 datasets: [
@@ -124,24 +128,63 @@
             this.myChart = new Chart(ctx, config);               
         },
         // Produktuen grafikoa sortzeko metodoa
-        graficoProductos(){
+        graficoProductos() {
             this.titulo2 = testua[this.hizkuntza]['Productos'];
             this.grafico = "graficoProductos";
+
+            // Limpiar los arrays antes de llenarlos nuevamente
+            this.nombreProductos = [];
+            this.numeroProductos = [];
+
+            // Usar un objeto para acumular los productos y sus cantidades
+            const productosAcumulados = {};
+
+            for (let i = 0; i < this.productosFecha.length; i++) {
+                const fechaActual = new Date(this.productosFecha[i]);
+                const fechaInicio = this.fechaInicio ? new Date(this.fechaInicio) : null;
+                const fechaFin = this.fechaFin ? new Date(this.fechaFin) : null;
+
+                // Filtrar según las fechas
+                if ((fechaInicio && fechaActual < fechaInicio) || (fechaFin && fechaActual > fechaFin)) {
+                    continue; // Saltar las fechas fuera del rango
+                }
+
+                // Acumular los productos por nombre
+                const nombreProducto = this.productosNombre[i];
+                const numeroProducto = parseFloat(this.productosNumero[i]);
+
+                if (productosAcumulados[nombreProducto]) {
+                    productosAcumulados[nombreProducto] += numeroProducto;
+                } else {
+                    productosAcumulados[nombreProducto] = numeroProducto;
+                }
+            }
+
+            // Convertir el objeto acumulador en arrays para el gráfico
+            for (const nombre in productosAcumulados) {
+                if (productosAcumulados.hasOwnProperty(nombre)) {
+                    this.nombreProductos.push(nombre);
+                    this.numeroProductos.push(productosAcumulados[nombre]);
+                }
+            }
+
+
+            // Configuración del gráfico
             const data = {
-                labels: this.productosNombre,
+                labels: this.nombreProductos,
                 datasets: [
                     {
                         label: testua[this.hizkuntza]['Cantidad'],
-                        data: this.productosNumero,
+                        data: this.numeroProductos,
                         borderColor: 'rgb(0, 128, 128)',
-                        backgroundColor: 'rgb(26, 183, 188, 0.5)',
+                        backgroundColor: 'rgba(26, 183, 188, 0.5)',
                         borderWidth: 2,
                         borderRadius: 5,
                         borderSkipped: false,
                     }
                 ]
             };
-              
+            
             const config = {
                 type: 'bar',
                 data: data,
@@ -154,13 +197,15 @@
                     }
                 },
             };
-              
+            
             const ctx = document.getElementById('grafikoa').getContext('2d');
-              
+            
+            // Destruir el gráfico anterior si existe
             if (this.myChart) {
                 this.myChart.destroy();
             }
 
+            // Crear un nuevo gráfico
             this.myChart = new Chart(ctx, config);            
         },
         // Gaur dagoen taldea lortzeko metodoa
@@ -216,15 +261,9 @@
         // Erabili diren produktuen datuak lortzeko metodoa
         async sacarProductos() {
 
-            let fechaFin = new Date(this.fechaFin);
-            fechaFin = fechaFin.setDate(fechaFin.getDate() + 1);
-            const js = JSON.stringify({"fechaInicio": this.fechaInicio, "fechaFin": this.fechaFin});
-            console.log("js: ",js);
-
             try {
               const response = await fetch(window.ruta + `productos/mugimendua`, { 
-                method: 'POST',
-                body: js 
+                method: 'GET'
             });
           
               if (!response.ok) {
@@ -236,42 +275,13 @@
               for (let i = 0; i < data.length; i++) {
                 this.productosNombre.push(data[i].izena);
                 this.productosNumero.push(data[i].total_kopurua);
+                this.productosFecha.push(data[i].data);
               }
           
             } catch (error) {
               console.error('Error al obtener datos del servidor:', error);
             }
         },     
-        async sacarProductos2() {
-
-            let fechaFin = new Date(this.fechaFin);
-            fechaFin = fechaFin.setDate(fechaFin.getDate() + 1);
-            const js = JSON.stringify({"fechaInicio": this.fechaInicio, "fechaFin": this.fechaFin});
-            console.log("js: ",js);
-
-            try {
-            const response = await fetch(window.ruta + `productos/mugimendua`, { 
-                method: 'POST',
-                body: js 
-            });
-
-            if (!response.ok) {
-                throw new Error(`Error en la solicitud: ${response.statusText}`);
-            }
-
-            const data = await response.json();
-
-            for (let i = 0; i < data.length; i++) {
-                this.productosNombre.push(data[i].izena);
-                this.productosNumero.push(data[i].total_kopurua);
-            }
-
-            } catch (error) {
-            console.error('Error al obtener datos del servidor:', error);
-            }
-
-            this.esperar("graficoProductos");
-        },    
         // Erabili den materialaren datuak lortzeko metodoa
         async sacarMaterial() {
             try {
@@ -308,7 +318,10 @@
             } catch (error) {
                 console.error('Error al obtener los nombres de grupo:', error);
             }
-        }           
+        },
+        abrirpdf(){
+            window.open('http://localhost/talde2erronka2front/ileapaindegiafront/src/IMG/Manual%20de%20Usuario.pdf#page=12', '_blank');
+        }     
     },
     mounted: function(){
         this.hizkuntza = this.hizkuntzaLortu()
@@ -324,15 +337,7 @@
     watch:{
         fechaInicio: function(){
             console.log("Cambia"); 
-            switch (this.grafico) {
-                case "graficoProductos":
-                    this.sacarProductos2();    
-                    break;
-            
-                default:
-                    break;
-            }
-            
+            this.esperar(this.grafico);
         },
 
         fechaFin: function(){
@@ -365,6 +370,7 @@
                             ⇨
                             <input type="date" id="birthday" name="birthday" v-model="fechaFin">
                             </h4>
+
                         </div>
                     </div>
                 </div>
