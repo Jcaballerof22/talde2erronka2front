@@ -1277,7 +1277,7 @@ export default {
                                 <!-- Opciones de colores rgb(26, 183, 188,0.5) #bbbeef  #f5fff7-->
                                 <td v-for="(dato2, index2) in taula[index]" :key="index2" v-if=" !(dato2?.visible)" v-show="dato2.visible" :rowspan="dato2.timeDif" @click="popupCita(dato2.id)" :style="{ backgroundColor: (Object.keys(dato2).length > 2) ? '#bbbeef' : '#FFFFFF', border: (Object.keys(dato2).length > 2) ? '2px solid black' : '1px solid #dfe2e6' }">
                                     <template v-if="taula[index][index2] && Object.keys(dato2).length > 2" @click="popupCita(dato2.id)" scope="col">
-                                        {{ dato2.izena }}<br>{{ dato2.orduak }}<br>{{ dato2.deskribapena }} {{ Object.keys(dato2).length }}
+                                        {{ dato2.izena }}<br>{{ dato2.orduak }}<br>{{ dato2.deskribapena }}
                                     </template>
                                     <template v-else-if="dato2.visible">
                                     </template>
