@@ -21,6 +21,7 @@ export default {
         };
     },
     methods:{
+        // Devuelve todos los productos
         async produktuakGet() {
             try {
               const response = await fetch(window.ruta + 'productos', { method: 'GET' });
@@ -35,7 +36,7 @@ export default {
               console.error('Error fetching productos:', error);
             }
           },
-        
+        // Devuelve todas las categorias
         async kategoriakGet() {
             try {
               const response = await fetch(window.ruta + 'kategoria', { method: 'GET' });
@@ -51,11 +52,12 @@ export default {
               console.error('Error fetching categorias:', error);
             }
         },
-
+        // Para ocultar el pop-up
         ocultarVentana() {
             document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
             document.getElementById('tablaEditarP').style.display = 'none';
         },
+        // Para abrir el pop-up con los datos necesarios
         abrirPopup(id){
             this.aldatu=id;
             this.id=id;
@@ -83,7 +85,7 @@ export default {
             document.getElementById('fondoOscuro').classList.add('mostrar-fondo');
             document.getElementById('tablaEditarP').style.display = 'block';
         },
-
+        // Para eliminar productos de la tabla
         async ezabatu(id) {
             const js = JSON.stringify({"id": id}); 
             console.log("froga: " + js);
@@ -102,7 +104,7 @@ export default {
                 console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
             }
         },
-
+        // Añadir datos a la tabla de productos
         async addDatuak() {
             if (this.izena === "" || this.marka === "" || this.marka === "" || this.kategoria === "" || this.deskribapena === "" || this.stock === "" || this.stock_alerta === "") {
                 alert("Faltan datos");
@@ -141,7 +143,7 @@ export default {
                 }
             }
         },
-
+        // Para saber si tiene que abrir el pop-up para editar o de añadir datos a la tabla
         txertatuEdoAldatu(){
             if(this.aldatu != ''){
                 this.aldatuDatuak();
@@ -151,7 +153,7 @@ export default {
             document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
             document.getElementById('tablaEditarP').style.display = 'none';
         },
-
+        // Para editar datos de la tabla
         async aldatuDatuak() {
 
             const js = JSON.stringify({
@@ -188,7 +190,7 @@ export default {
                 console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
             }
         },
-
+        // Para añadir productos al carrito
         addKarrito(prod) {
             let aux = false;
             for (let i = 0; i < this.sazkia.length; i++) {
@@ -212,11 +214,12 @@ export default {
                 alert('Producto añadido al carrito');
             }
         },
-
+        // Para sacar datos del carrito
         removeFromKarrito(index) {
             this.sazkia.splice(index, 1);
             alert('Producto eliminado del carrito');
         },
+        // Para añadir los alumnos al dropbox del carrito
         async langileakLortu() {
             const hoy = this.lortuData();
             const url = `${window.ruta}alumnos`;
@@ -236,6 +239,7 @@ export default {
                 console.error("Error al obtener los datos:", error);
             }
         },
+        // Para que devuelva el dia en el formato correcto
         lortuData() {
             const gaur = new Date();
             const urtea = gaur.getFullYear();
@@ -243,6 +247,7 @@ export default {
             const eguna = gaur.getDate().toString().padStart(2, '0'); 
             return `${urtea}-${hilabetea}-${eguna}`;
         },
+        // Para sacar productos del almacen
         erosketak() {
             this.sazkia.forEach(element => {
                 if (element.stock < element.kantitatea) {
@@ -252,6 +257,7 @@ export default {
                 }
             });
         },
+        // Para sacar productos del almacen y se hagan los cambios en la base de datos
         async erosi(id_produktua, id_langilea, kopurua) {
             const js = JSON.stringify({
                 'id_produktua': id_produktua,
@@ -280,6 +286,7 @@ export default {
         },
 
     },
+    // Los filtros por categoria o en el buscador
     watch:{
         bilatu: function(){
             if (this.bilatu == ''){
