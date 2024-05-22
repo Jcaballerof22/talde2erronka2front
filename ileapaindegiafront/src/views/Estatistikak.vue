@@ -362,7 +362,7 @@
                     </select> -->
                 </div>
                 <!-- Dataren eta izenaren arabera bilatzeko filtroak -->
-                <div class="col">
+                <!-- <div class="col">
                     <div class="input-group">
                         <div class="me-4">
                             <h4>
@@ -373,7 +373,7 @@
 
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <!-- <div class="row">
                 <button type="button" class="btn añadir btn-lg" @click="esperar('graficoRoles')">Roles</button>
