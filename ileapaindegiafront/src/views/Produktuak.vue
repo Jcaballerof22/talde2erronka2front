@@ -195,6 +195,7 @@ export default {
                 if (this.sazkia[i].id === prod.id) {
                     this.sazkia[i].kantitatea++;
                     aux = true;
+                    alert('Producto añadido al carrito');
                     break;
                 }
             }
@@ -208,15 +209,17 @@ export default {
                     'kategoria': prod.kategoria,
                     'id_kategoria': prod.id_kategoria
                 });
+                alert('Producto añadido al carrito');
             }
         },
+
         removeFromKarrito(index) {
             this.sazkia.splice(index, 1);
+            alert('Producto eliminado del carrito');
         },
         async langileakLortu() {
             const hoy = this.lortuData();
-            const url = `${window.ruta}alumnos/${hoy}`;
-            console.log('Fetching URL:', url);
+            const url = `${window.ruta}alumnos`;
             try {
                 const response = await fetch(url, {
                     method: 'GET',
@@ -236,8 +239,8 @@ export default {
         lortuData() {
             const gaur = new Date();
             const urtea = gaur.getFullYear();
-            const hilabetea = (gaur.getMonth() + 1).toString().padStart(2, '0');  // Asegura dos dígitos
-            const eguna = gaur.getDate().toString().padStart(2, '0');  // Asegura dos dígitos
+            const hilabetea = (gaur.getMonth() + 1).toString().padStart(2, '0');  
+            const eguna = gaur.getDate().toString().padStart(2, '0'); 
             return `${urtea}-${hilabetea}-${eguna}`;
         },
         erosketak() {
@@ -433,7 +436,7 @@ export default {
                             </select>
                         </div>
                         <div class="col">
-                            <button id="pop-prod" type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="erosketak">Aceptar</button>
+                            <button id="pop-prod" type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="erosketak()">Aceptar</button>
                             <button id="pop-prod" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                         </div>
                     </div>
