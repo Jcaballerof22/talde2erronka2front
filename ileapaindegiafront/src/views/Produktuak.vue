@@ -410,7 +410,7 @@ export default {
                                     <div class="py-2 text-uppercase">Cantidad</div>
                                 </th>
                                 <th scope="col" class="border-0">
-                                    <div class="py-2 text-uppercase">Precio</div>
+                                    <div class="py-2 text-uppercase"></div>
                                 </th>
                                 <th scope="col" class="border-0">
                                     <div class="py-2 text-uppercase"></div>
