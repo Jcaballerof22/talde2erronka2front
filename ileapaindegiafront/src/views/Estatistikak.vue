@@ -318,12 +318,12 @@
             // this.alumnosL.splice(0, this.alumnosL.length);
             // this.alumnosM.splice(0, this.alumnosM.length);
 
-            try {
-              const response = await fetch(window.ruta + `roles/${this.grupoHoy}`, { method: 'GET' });
+            // try {
+              const response = await fetch(window.ruta + `roles/data/${this.grupoHoy}`, { method: 'GET' });
           
-              if (!response.ok) {
-                throw new Error(`Error en la solicitud: ${response.statusText}`);
-              }
+            //   if (!response.ok) {
+            //     throw new Error(`Error en la solicitud: ${response.statusText}`);
+            //   }
           
               const data = await response.json();
 
@@ -348,9 +348,9 @@
             } else {
                 console.log('No se recibieron datos de alumnos.');
             }
-            } catch (error) {
-                console.error('Error al obtener datos del servidor:', error);
-            }
+            // } catch (error) {
+            //     console.error('Error al obtener datos del servidor:', error);
+            // }
         },          
         // Erabili diren produktuen datuak lortzeko metodoa
         async sacarProductos() {
@@ -457,16 +457,16 @@
                     <button type="button" class="btn añadir btn-lg" @click="esperar('graficoRoles')">{{testua[hizkuntza]?.['Roles']}}</button>
                     <button type="button" class="btn añadir btn-lg" @click="esperar('graficoProductos')">{{testua[hizkuntza]?.['Productos']}}</button>
                     <button type="button" class="btn añadir btn-lg" @click="esperar('graficoMaterial')">{{testua[hizkuntza]?.['Material']}}</button>
-                    <select class=" combobox" id="selectorLangilea" aria-label="Default select example" v-model="grupoHoy" @change="prueba()">
-                                <option   v-for="(dato,index) in datosTalde" :key="index" :value="dato.izena">{{ dato.izena }}</option>
-                            </select>
                     <!-- <select class="form-select combobox" aria-label="Default select example" v-model="grupoHoy" @change="sacarAlumnos">
                         <option v-for="talde in datosTalde" :value="talde.izena">{{ talde.izena }}</option>
                     </select> -->
                 </div>
                 <!-- Dataren eta izenaren arabera bilatzeko filtroak -->
-                <!-- <div class="col">
+                <div class="col">
                     <div class="input-group">
+                        <select class=" form-select" id="selectorLangilea" aria-label="Default select example" v-model="grupoHoy" @change="prueba()">
+                                <option   v-for="(dato,index) in datosTalde" :key="index" :value="dato.izena">{{ dato.izena }}</option>
+                            </select>
                         <div class="row me-4">
                             <h4>
                             <input type="date" id="birthday" name="birthday" v-model="fechaInicio">
@@ -476,7 +476,7 @@
 
                         </div>
                     </div>
-                </div> -->
+                </div>
             </div>
             <!-- <div class="row">
                 <button type="button" class="btn añadir btn-lg" @click="esperar('graficoRoles')">Roles</button>
