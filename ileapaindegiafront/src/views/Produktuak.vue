@@ -182,7 +182,7 @@ export default {
                 for (let i = 0; i < data.length; i++) {
                     this.datosC.push({
                         "izena": data[i].izena,
-                        "kodea": data[i].kodea
+                        "id": data[i].id
                     });
                 }
             } catch (error) {
@@ -376,10 +376,10 @@ export default {
         document.getElementById('ventanaEmergenteCategoriasC').style.display = 'none';
     },
 
-
-    async ezabatuT(kodeaC) {
-        const js = JSON.stringify({"kodea": kodeaC}); 
-        
+    async ezabatuC(kodea) {
+        const js = JSON.stringify({"kodea": kodea}); 
+        console.log(js);
+        console.log(this.datosC);
         try {
             // Este es el fetch con la ruta a la api del back
             const response = await fetch(window.ruta + 'categorias/ezabatu', {
@@ -526,11 +526,11 @@ export default {
                     </thead>
                     <tbody>
                         <!-- El for que enseña los datos que estan en "datosT" -->
-                        <tr v-for="(dato, index) in datosC" :key="index" :id="dato.kodea">
-                            <td @click="abrirPopupCC(dato.kodea, dato.izena)">{{ dato.izena }}</td>
+                        <tr v-for="(dato, index) in datosC" :key="index" :id="dato.id">
+                            <td>{{ dato.izena }}</td>
                             <td>
                                 <!-- Boton para llamar a la accion de borrar un dato -->
-                                <i class="bi bi-trash-fill" @click="ezabatuC(dato.kodea)"></i>
+                                <i class="bi bi-trash-fill" @click="ezabatuC(dato.id)"></i>
                             </td>
                         </tr>
                     </tbody>
