@@ -1034,9 +1034,9 @@ export default {
                     </table>
                     <div class="input-group-horarios">
                         <button type="button" id="aceptarHorarios" class="btn añadir btn-lg"
-                            @click="aceptarCambios()">Aceptar</button>
+                            @click="aceptarCambios()">{{ testua[hizkuntza]?.['Aceptar'] }}</button>
                         <button type="button" id="cancelarHorarios" class="btn cancelar btn-lg"
-                            @click="ocultarVentana()">Cancelar</button>
+                            @click="ocultarVentana()">{{ testua[hizkuntza]?.['Cancelar'] }}</button>
                     </div>
                 </div>
             </div>
@@ -1301,12 +1301,12 @@ export default {
                     <div class="col-md-12">
                         <div class="row g-3">
                             <div class="col">
-                                <label class="form-label rounded bg-white p-2 mb-1">Nombre: </label>
+                                <label class="form-label rounded bg-white p-2 mb-1">{{ testua[hizkuntza]?.['Nombre'] }}: </label>
                                 <input type="text" class="form-control" v-model="izena" disabled
                                     style="background-color: white;">
                             </div>
                             <div class="col">
-                                <label for="inputAddress" class="form-label rounded bg-white p-2 mb-1">Telefono:</label>
+                                <label for="inputAddress" class="form-label rounded bg-white p-2 mb-1">{{ testua[hizkuntza]?.['Telefono'] }}:</label>
                                 <input type="text" class="form-control" v-model="telefonoa" disabled
                                     style="background-color: white;">
                             </div>
@@ -1317,7 +1317,7 @@ export default {
                     <div class="col-md-12">
                         <div class="row g-3" style="display: inline-flex;">
                             <div class="col">
-                                <label class="form-label rounded bg-white p-2 mb-1">Tratamientos: </label>
+                                <label class="form-label rounded bg-white p-2 mb-1">{{ testua[hizkuntza]?.['Tratamientos'] }}: </label>
                             </div>
                         </div>
                         <ul class="list-group">
@@ -1329,12 +1329,12 @@ export default {
                         </ul>
                     </div>
                     <div class="col-md-12 d-flex justify-content-end">
-                        <label class="form-label rounded bg-white p-2 mb-1 mx-2">Precio: </label>
+                        <label class="form-label rounded bg-white p-2 mb-1 mx-2">{{ testua[hizkuntza]?.['Precio'] }}: </label>
                         <label class="form-label rounded p-2 mb-1"
                             style="background-color: #e9995798;">{{ totalPrezioa }}€</label>
                     </div>
                     <button v-if="idCita != ''" class="btn mx-2" type="button" style="background-color: #1ab7bc;"
-                        @click="quitarFondoNegro">Aceptar</button>
+                        @click="quitarFondoNegro">{{ testua[hizkuntza]?.['Aceptar'] }}</button>
                 </form>
             </div>
         </div>

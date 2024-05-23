@@ -29,7 +29,8 @@
         "Eliminar": "Eliminar",
         "Crear": "Crear",
         "GenerarTiket": "Generar tiket",
-        "BuscarxNombre": "Buscar por nombre"
+        "BuscarxNombre": "Buscar por nombre",
+        "Precio": "Precio"
 
     },
     "EUS": {
@@ -62,6 +63,7 @@
         "Eliminar": "Ezabatu",
         "Crear": "Sortu",
         "GenerarTiket": "Tiket-a sortu",
-        "BuscarxNombre": "Izenagatik bilatu"
+        "BuscarxNombre": "Izenagatik bilatu",
+        "Precio": "Balioa"
     }
 }
