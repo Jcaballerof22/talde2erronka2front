@@ -5,6 +5,10 @@
   var hizkuntza =  hizkuntzaLortu();
   var limpieza = getCookie('limpieza')
   var mostrador = getCookie('mostrador')
+  var admin = getCookie('user')
+  if(admin != 'admin' && admin != 'user'){
+    window.location.href='../login'
+  }
   function hizkuntzaLortu () {
     var value = sessionStorage.getItem('hizkuntza');
     return value !== null ? value : 'ESP';
@@ -38,7 +42,7 @@
       
       <div class="">
         <div class="text-center">
-          <a :href="'login'"><img class="logout" src="../IMG/logout.png" alt="logout" onclick="window.location.href='login'"></a>
+          <a :href="'login'"><img class="logout" src="../IMG/logout.png" alt="logout"></a>
         </div>
         <div class="" style="display: flex;">
             <button class="btn text-center" @click="emit('translate','ESP')">ESP</button>
@@ -68,19 +72,19 @@
                 <span class="menu-text"><b>{{text[hizkuntza]["Material"]}}</b></span>
               </li>
             </a>
-            <a href="alumnos">
+            <a href="alumnos" v-if="admin == 'admin'">
               <li>
                 <img src="../IMG/alumnos.png" alt="Image 3" class="menu-icon">
                 <span class="menu-text"><b>{{text[hizkuntza]["Alumnos"]}}</b></span>
               </li>
             </a>
-            <a href="estadisticas">
+            <a href="estadisticas" v-if="admin == 'admin'">
               <li>
                 <img src="../IMG/estadisticas.png" alt="Image 3" class="menu-icon">
                 <span class="menu-text"><b>{{text[hizkuntza]["Estadísticas"]}}</b></span>
               </li>
             </a>
-            <a href="historial">
+            <a href="historial" v-if="admin == 'admin'">
               <li>
                 <img src="../IMG/historial.png" alt="Image 3" class="menu-icon">
                 <span class="menu-text"><b>{{text[hizkuntza]["Historial"]}}</b></span>
@@ -92,7 +96,7 @@
                 <span class="menu-text"><b>{{text[hizkuntza]["Tratamientos"]}}</b></span>
               </li>
             </a>
-            <a href="tickets">
+            <a href="tickets" v-if="admin == 'admin'">
               <li>
                 <img src="../IMG/tikets.png" alt="Image 3" class="menu-icon">
                 <span class="menu-text"><b>{{text[hizkuntza]["Tickets"]}}</b></span>

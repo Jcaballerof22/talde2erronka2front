@@ -58,6 +58,7 @@ export default {
             ////////////////////////////////////////////////////////////// Hizkuntza //////////////////////////////////////////////////////////////
             hizkuntza: 'ESP',
             testua: testua,
+            admin: "",
         }
     },
     methods: {
@@ -373,6 +374,20 @@ export default {
         mostrarRoles() {
             document.getElementById('tablaRoles').style.display = 'block';
             document.getElementById('fondoOscuro').classList.add('mostrar-fondo');
+        },
+
+        getCookie(nombre) {
+            var nombreCookie = nombre + "=";
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i];
+                while (cookie.charAt(0) == ' ') {
+                    cookie = cookie.substring(1);
+                }
+                if (cookie.indexOf(nombreCookie) == 0) {
+                    return cookie.substring(nombreCookie.length, cookie.length);
+                }
+            }
         },
 
         ////////////////////////////////////////////////////////////// P2 CITA //////////////////////////////////////////////////////////////
@@ -916,7 +931,7 @@ export default {
         this.data = this.lortuData();
         this.nombresGrupo();
         this.lortuOrduakG();
-        
+        this.admin = this.getCookie("user")
         this.hoy = this.data;
         this.grupoSeleccionado().then(() => {
             this.tablaRoles();
@@ -943,7 +958,7 @@ export default {
                     </button>
                     <button type="button" class="btn añadir btn-lg" @click="popupCita('')">{{ testua[hizkuntza]?.['NuevaCita'] }}</button>
                     <button type="button" id="editarRoles" class="btn añadir btn-lg" @click="mostrarRoles">{{ testua[hizkuntza]?.['AsignarRoles'] }}</button>
-                    <button type="button" id="editarHorarios" class="btn añadir btn-lg" @click="mostrarVentana()">{{ testua[hizkuntza]?.['EditarHorario'] }}</button>
+                    <button v-if="admin == 'admin'" type="button" id="editarHorarios" class="btn añadir btn-lg" @click="mostrarVentana()">{{ testua[hizkuntza]?.['EditarHorario'] }}</button>
                 </div>
             </div>
 

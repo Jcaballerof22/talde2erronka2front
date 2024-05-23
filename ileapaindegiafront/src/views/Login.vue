@@ -1,4 +1,6 @@
 <script>
+
+
     export default {
     data() {
         return {
@@ -8,6 +10,14 @@
             passC1: '',
             passC2: ''
         };
+    },
+    mounted: function () {
+        var finCookie = new Date();
+        finCookie.setDate(finCookie.getDate() + 1); // Suma un día a la fecha actual
+        finCookie.setHours(12, 0, 0, 0); // Establece la hora en 12:00:00
+        var finC = "expires=" + finCookie.toUTCString();
+        document.cookie = 'user' + "=" + '' + ";" + finC + ";path=/";
+
     },
     methods: {
         async login() {
@@ -26,7 +36,11 @@
                 if (data.status == 200){
                     document.getElementById('floatingInputLogin').classList.remove('is-invalid');
                     document.getElementById('floatingPasswordLogin').classList.remove('is-invalid');
-                    window.location.href='../'
+                    if (data.message.includes('SI')) {
+                        this.crarCookie("user", "admin")
+                    } else {
+                        this.crarCookie("user", "user")
+                    }
                 } else if (data.status == 401){
                     document.getElementById('floatingInputLogin').classList.remove('is-invalid');
                     document.getElementById('floatingPasswordLogin').classList.add('is-invalid');
@@ -37,6 +51,20 @@
   
             } catch (error) {
                 console.error("Error al hacer el login:", error);
+            }
+        },
+
+        crarCookie(nombre,valor){
+            if(valor == '' || valor == undefined){
+
+            }else{
+                var finCookie = new Date();
+                finCookie.setDate(finCookie.getDate() + 1); // Suma un día a la fecha actual
+                finCookie.setHours(12, 0, 0, 0); // Establece la hora en 12:00:00
+
+                var finC = "expires=" + finCookie.toUTCString();
+                document.cookie = nombre + "=" + valor + ";" + finC + ";path=/";
+                window.location.href='../'
             }
         },
 
