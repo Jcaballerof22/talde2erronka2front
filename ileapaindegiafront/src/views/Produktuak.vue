@@ -346,7 +346,7 @@ export default {
         <div class="containerPage-productos">
             <div class="input-group-estadisticas">
                 <div class="col">
-                    <button type="button" class="btn añadir btn-lg">Editar categoria</button>
+                    <button type="button" class="btn añadir btn-lg">{{ testua[hizkuntza]?.['EditarCategoria'] }}</button>
                 </div>
                 <div class="col">
                     <div class="input-group">
@@ -356,12 +356,12 @@ export default {
                                 <option   v-for="(dato,index) in datosKategoria" :key="index" :value="dato.id">{{ dato.izena }}</option>
                             </select>
                         </div>
-                        <input type="text" class="form-control buscar ms-2" placeholder="Buscar por nombre" v-model="bilatu">
+                        <input type="text" class="form-control buscar ms-2" :placeholder="testua[hizkuntza]?.['BuscarxNombre']" v-model="bilatu">
                         <div class="input-group-append">
                             <button class="btn lupa" type="button">
                                 <i class="bi bi-search"></i>
                             </button>
-                            <button type="button" class="btn añadir btn-lg" @click="abrirPopup('')">Añadir producto</button>
+                            <button type="button" class="btn añadir btn-lg" @click="abrirPopup('')">{{ testua[hizkuntza]?.['AñadirProducto'] }}</button>
                         </div>
                     </div>
                 </div>
@@ -371,11 +371,11 @@ export default {
                 <table id="tabla" class="table table-hover table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Marca</th>
-                        <th scope="col">Categoría</th>
-                        <th scope="col">Descripción</th>
-                        <th scope="col">Stock</th>
+                        <th scope="col">{{ testua[hizkuntza]?.['Nombre'] }}</th>
+                        <th scope="col">{{ testua[hizkuntza]?.['Marca'] }}</th>
+                        <th scope="col">{{ testua[hizkuntza]?.['Categoria'] }}</th>
+                        <th scope="col">{{ testua[hizkuntza]?.['Descripcion'] }}</th>
+                        <th scope="col">{{ testua[hizkuntza]?.['Stock'] }}</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
                     </tr>

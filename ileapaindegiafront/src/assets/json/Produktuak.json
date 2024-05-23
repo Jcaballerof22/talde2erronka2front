@@ -10,7 +10,11 @@
         "Descripcion": "Descripción",
         "Categoria": "Categoría",
         "Nombre": "Nombre",
-        "ProductosSeleccionados": "Productos seleccionados"
+        "ProductosSeleccionados": "Productos seleccionados",
+        "BuscarxNombre": "Buscar por nombre",
+        "AñadirProducto": "Añadir producto",
+        "Editar categoria": "Editar categoria"
+
         
         
     },
@@ -25,7 +29,11 @@
         "Descripcion": "Deskribapena",
         "Categoria": "Kategoria",
         "Nombre": "Izena",
-        "ProductosSeleccionados": "Aukeratutako produktuak"
+        "ProductosSeleccionados": "Aukeratutako produktuak",
+        "BuscarxNombre": "Izenagatik bilatu",
+        "AñadirProducto": "Produktua gehitu",
+        "EditarCategoria": "Kategoria Editatu"
+        
         
     }
 }
