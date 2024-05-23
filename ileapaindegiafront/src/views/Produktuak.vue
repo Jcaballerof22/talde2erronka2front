@@ -363,8 +363,8 @@ export default {
         document.getElementById('ventanaEmergenteCategoriak').style.display = 'none';
     },
 
-    async ezabatuC(kodea) {
-        const js = JSON.stringify({"kodea": kodea}); 
+    async ezabatuC(id) {
+        const js = JSON.stringify({"id": id}); 
         console.log(js);
         console.log(this.datosC);
         try {
