@@ -222,7 +222,7 @@ export default {
         // Para añadir los alumnos al dropbox del carrito
         async langileakLortu() {
             const hoy = this.lortuData();
-            const url = `${window.ruta}alumnos`;
+            const url = `${window.ruta}alumnos/`+hoy;
             try {
                 const response = await fetch(url, {
                     method: 'GET',
