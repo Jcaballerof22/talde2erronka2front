@@ -351,17 +351,31 @@ export default {
         document.getElementById('ventanaEmergenteCategoriasC').style.display = 'block';
     },
 
-    txertatuEdoAldatuC(){
-        if(this.aldatuC != ''){
-            this.aldatuDatuakC();
-        }else{
-            this.addDatuakC();
+    async txertatuC(){
+        const js = JSON.stringify({"izena": this.izenaC}); 
+        try {
+            // Este es el fetch con la ruta a la api del back
+            const response = await fetch(window.ruta + 'categorias/txertatu', {
+                method: 'POST',
+                body: js
+            });
+
+            const data = await response.text();
+            // Vaciamos el array para volver a llenarlo con los datos actualizados
+            this.datosC = [];
+            this.lortuDatuakC();
+            // Llamamos a la funcion que cierra el ultimo POPUP
+            this.ocultarVentanaC();
+        } catch (error) {
+            console.error("Error al eliminar el registro:", error);
+            console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
         }
         this.ocultarVentanaC();
         this.abrirPopupCC();
         document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
-        document.getElementById('ventanaEmergenteCategoriak').style.display = 'none';
+        document.getElementById('ventanaEmergenteCategoriasC').style.display = 'none';
     },
+
 
     async ezabatuT(kodeaC) {
         const js = JSON.stringify({"kodea": kodeaC}); 
@@ -497,7 +511,7 @@ export default {
             <div class="contenido-ventana">
                 <div class="input-group-horarios">
                     <!-- Boton para llamar a la accion y sumar grupos -->
-                    <button id="mostrarVentanaCategorias1" type="button" class="btn añadir btn-lg" @click="abrirPopupCC()">Añadir Categoria</button>
+                    <button id="mostrarVentanaCategorias1" type="button" class="btn añadir btn-lg" @click="abrirPopupCC()">{{ testua[hizkuntza]?.['AñadirCategoria'] }}</button>
                     <!-- Boton para cerrar el POPUP -->
                     <button type="button" id="cerrarVentanaCategoria" class="btn x" @click="ocultarVentanaC()">
                         <i class="bi bi-x"></i>
@@ -506,7 +520,7 @@ export default {
                 <table id="tabla" class="table table-hover table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">Nombre</th>
+                        <th scope="col">{{ testua[hizkuntza]?.['Nombre'] }}</th>
                         <th scope="col"></th>
                     </tr>
                     </thead>
@@ -533,13 +547,13 @@ export default {
                     </button>
                 </div>
                 <div class="mt-2">
-                    <label for="mensaje" id="nombreLabelCategoria">Nombre</label>
+                    <label for="mensaje" id="nombreLabelCategoria">{{ testua[hizkuntza]?.['Nombre'] }}</label>
                 </div>
                 <div class="mt-4">
                     <textarea id="nombreTextoCategoria" name="mensaje" rows="1" cols="50" placeholder="Ingresa el nombre de la categoria aquí" v-model="izenaC">{{izenaC}}</textarea>
                 </div>
                     <!-- Boton que llama a ala accion para crera o editar el grupo -->
-                    <input id="submitCategoria" type="button" class="btn añadir btn-lg mt-4" @click="txertatuEdoAldatuC" value="Enviar">
+                    <input id="submitCategoria" type="button" class="btn añadir btn-lg mt-4" @click="txertatuC" :value="testua[hizkuntza]?.['Aceptar']">
                 
                 </div>
             </div>
@@ -602,7 +616,7 @@ export default {
                         </div>
                         <div class="col">
                             <button id="pop-prod" type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="erosketak()">{{ testua[hizkuntza]?.['Aceptar'] }}</button>
-                            <button id="pop-prod" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button id="pop-prod" type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ testua[hizkuntza]?.['Cerrar'] }}</button>
                         </div>
                     </div>
                 </div>

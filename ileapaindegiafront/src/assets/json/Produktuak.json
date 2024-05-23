@@ -13,7 +13,9 @@
         "ProductosSeleccionados": "Productos seleccionados",
         "BuscarxNombre": "Buscar por nombre",
         "AñadirProducto": "Añadir producto",
-        "EditarCategoria": "Editar categoria"
+        "EditarCategoria": "Editar categoria",
+        "AñadirCategoria": "Añadir Categoria",
+        "Cerrar": "Cerrar"
 
         
         
@@ -32,7 +34,9 @@
         "ProductosSeleccionados": "Aukeratutako produktuak",
         "BuscarxNombre": "Izenagatik bilatu",
         "AñadirProducto": "Produktua gehitu",
-        "EditarCategoria": "Kategoria Editatu"
+        "EditarCategoria": "Kategoria Editatu",
+        "AñadirCategoria": "Kategoria Txertatu",
+        "Cerrar": "Itxi"
         
         
     }
