@@ -8,6 +8,7 @@ export default {
             datosProduk: [],
             datosEditatu: [],
             taula: [],
+            datosC: [],
             bilatu:'',
             kategoriak:'all',
             id:'',
@@ -16,6 +17,9 @@ export default {
             kategoria:'',
             deskribapena:'',
             stock:'',
+            izenaC:'',
+            kodeaC:'',
+            aldatuC:'',
             stock_alerta:'',
             sazkia: [],
             langileak: [],
@@ -163,6 +167,33 @@ export default {
             document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
             document.getElementById('tablaEditarP').style.display = 'none';
         },
+
+
+
+        async lortuDatuakC() {
+            try {
+                // Este es el fetch con la ruta a la api
+                const response = await fetch(window.ruta + 'categorias', { 
+                    method: 'GET',
+                });
+                const data = await response.json();
+                console.log(data);
+                // Guardamos los datos recogidos del fetch en el array "datosC" para luego enseñarlos
+                for (let i = 0; i < data.length; i++) {
+                    this.datosC.push({
+                        "izena": data[i].izena,
+                        "kodea": data[i].kodea
+                    });
+                }
+            } catch (error) {
+                console.error('Error al obtener los datos de los grupos:', error);
+            }
+        },
+
+
+
+
+
         // Para editar datos de la tabla
         async aldatuDatuak() {
 
@@ -295,7 +326,69 @@ export default {
             }
         },
 
+        
+    abrirPopupG(kodea,izena){
+        this.aldatuC = kodea;
+        this.izenaC = izena;
+        this.kodeaC = kodea;
+        document.getElementById('fondoOscuro').classList.add('mostrar-fondo');
+        document.getElementById('ventanaEmergenteCategorias').style.display = 'block';
     },
+
+    ocultarVentanaC() {
+        document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
+        document.getElementById('ventanaEmergenteCategorias').style.display = 'none';
+    },
+
+    ocultarVentanaCC() {
+        document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
+        document.getElementById('ventanaEmergenteCategoriasC').style.display = 'none';
+    },
+
+    abrirPopupCC(){
+        document.getElementById('ventanaEmergenteCategorias').style.display = 'none';
+        document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
+        document.getElementById('ventanaEmergenteCategoriasC').style.display = 'block';
+    },
+
+    txertatuEdoAldatuC(){
+        if(this.aldatuC != ''){
+            this.aldatuDatuakC();
+        }else{
+            this.addDatuakC();
+        }
+        this.ocultarVentanaC();
+        this.abrirPopupCC();
+        document.getElementById('fondoOscuro').classList.remove('mostrar-fondo');
+        document.getElementById('ventanaEmergenteCategoriak').style.display = 'none';
+    },
+
+    async ezabatuT(kodeaC) {
+        const js = JSON.stringify({"kodea": kodeaC}); 
+        
+        try {
+            // Este es el fetch con la ruta a la api del back
+            const response = await fetch(window.ruta + 'categorias/ezabatu', {
+                method: 'PUT',
+                body: js
+            });
+
+            const data = await response.text();
+            // Vaciamos el array para volver a llenarlo con los datos actualizados
+            this.datosC = [];
+            this.lortuDatuakC();
+            // Llamamos a la funcion que cierra el ultimo POPUP
+            this.ocultarVentanaC();
+        } catch (error) {
+            console.error("Error al eliminar el registro:", error);
+            console.log("El registro ya está siendo utilizado en otra tabla, por lo tanto, no se puede eliminar.");
+        }
+    },
+
+    },
+
+
+
     // Los filtros por categoria o en el buscador
     watch:{
         bilatu: function(){
@@ -330,6 +423,7 @@ export default {
         this.langileakLortu();
         this.produktuakGet();
         this.kategoriakGet();
+        this.lortuDatuakC();
     }
 }
 
@@ -346,7 +440,7 @@ export default {
         <div class="containerPage-productos">
             <div class="input-group-estadisticas">
                 <div class="col">
-                    <button type="button" class="btn añadir btn-lg">{{ testua[hizkuntza]?.['EditarCategoria'] }}</button>
+                    <button type="button" class="btn añadir btn-lg" @click="abrirPopupG('','')" >{{ testua[hizkuntza]?.['EditarCategoria'] }}</button>
                 </div>
                 <div class="col">
                     <div class="input-group">
@@ -398,6 +492,59 @@ export default {
                 </table>
             </div>
         </div>
+
+        <div id="ventanaEmergenteCategorias" class="ventana-oculta">
+            <div class="contenido-ventana">
+                <div class="input-group-horarios">
+                    <!-- Boton para llamar a la accion y sumar grupos -->
+                    <button id="mostrarVentanaCategorias1" type="button" class="btn añadir btn-lg" @click="abrirPopupCC()">Añadir Categoria</button>
+                    <!-- Boton para cerrar el POPUP -->
+                    <button type="button" id="cerrarVentanaCategoria" class="btn x" @click="ocultarVentanaC()">
+                        <i class="bi bi-x"></i>
+                    </button>
+                </div>
+                <table id="tabla" class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <!-- El for que enseña los datos que estan en "datosT" -->
+                        <tr v-for="(dato, index) in datosC" :key="index" :id="dato.kodea">
+                            <td @click="abrirPopupCC(dato.kodea, dato.izena)">{{ dato.izena }}</td>
+                            <td>
+                                <!-- Boton para llamar a la accion de borrar un dato -->
+                                <i class="bi bi-trash-fill" @click="ezabatuC(dato.kodea)"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="ventanaEmergenteCategoriasC" class="ventana-oculta">
+            <div class="contenido-ventana">
+                <div>
+                <div class="input-group-horarios">
+                    <button type="button" id="cerrarVentanaCategoria" class="btn x" @click="ocultarVentanaCC()">
+                        <i class="bi bi-x"></i>
+                    </button>
+                </div>
+                <div class="mt-2">
+                    <label for="mensaje" id="nombreLabelCategoria">Nombre</label>
+                </div>
+                <div class="mt-4">
+                    <textarea id="nombreTextoCategoria" name="mensaje" rows="1" cols="50" placeholder="Ingresa el nombre de la categoria aquí" v-model="izenaC">{{izenaC}}</textarea>
+                </div>
+                    <!-- Boton que llama a ala accion para crera o editar el grupo -->
+                    <input id="submitCategoria" type="button" class="btn añadir btn-lg mt-4" @click="txertatuEdoAldatuC" value="Enviar">
+                
+                </div>
+            </div>
+        </div>
+
            <!-- Popup txertatu/editatu     -->
         <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
