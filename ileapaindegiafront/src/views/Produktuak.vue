@@ -547,13 +547,13 @@ export default {
                     </button>
                 </div>
                 <div class="mt-2">
-                    <label for="mensaje" id="nombreLabelCategoria">{{ testua[hizkuntza]?.['Nombre'] }}</label>
+                    <label for="mensaje" id="nombreLabelGrupos">{{ testua[hizkuntza]?.['Nombre'] }}</label>
                 </div>
                 <div class="mt-4">
                     <textarea id="nombreTextoCategoria" name="mensaje" rows="1" cols="50" placeholder="Ingresa el nombre de la categoria aquí" v-model="izenaC">{{izenaC}}</textarea>
                 </div>
                     <!-- Boton que llama a ala accion para crera o editar el grupo -->
-                    <input id="submitCategoria" type="button" class="btn añadir btn-lg mt-4" @click="txertatuC" :value="testua[hizkuntza]?.['Aceptar']">
+                    <input id="submitCategoria" type="button" style="margin-left: 20vw;" class="btn añadir btn-lg mt-4" @click="txertatuC" :value="testua[hizkuntza]?.['Aceptar']">
                 
                 </div>
             </div>
