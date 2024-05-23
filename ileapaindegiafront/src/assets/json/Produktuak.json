@@ -1,0 +1,34 @@
+{
+    "ESP": {
+        "Productos": "Productos",
+        "Marca": "Marca",
+        "Cantidad": "Cantidad",
+        "Stock": "Stock",
+        "AlertaStock": "Alerta de stock",
+        "Aceptar": "Aceptar",
+        "Cancelar": "Cancelar",
+        "Descripcion": "Descripción",
+        "Categoria": "Categoría",
+        "Nombre": "Nombre",
+        "ProductosSeleccionados": "Productos seleccionados"
+        
+        
+    },
+    "EUS": {
+        "Productos": "Produktuak",
+        "Marca": "Marka",
+        "Cantidad": "Kopurua",
+        "Stock": "Stock-a",
+        "AlertaStock": "Stock alerta",
+        "Aceptar": "Onartu",
+        "Cancelar": "Ezeztatu",
+        "Descripcion": "Deskribapena",
+        "Categoria": "Kategoria",
+        "Nombre": "Izena",
+        "ProductosSeleccionados": "Aukeratutako produktuak"
+        
+    }
+}
+
+
+

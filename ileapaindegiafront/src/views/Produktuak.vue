@@ -1,4 +1,6 @@
 <script>
+  import testua from "../assets/json/Produktuak.json";
+
 export default {
     data() {
         return {
@@ -18,9 +20,17 @@ export default {
             sazkia: [],
             langileak: [],
             langilea:'',
+            hizkuntza: 'ESP',
+            testua: testua
         };
     },
     methods:{
+
+        hizkuntzaLortu() {
+            var value = sessionStorage.getItem('hizkuntza');
+            return value !== null ? value : 'ESP';
+        },
+
         // Devuelve todos los productos
         async produktuakGet() {
             try {
@@ -316,6 +326,7 @@ export default {
     },
 
     mounted: function() {
+        this.hizkuntza = this.hizkuntzaLortu()
         this.langileakLortu();
         this.produktuakGet();
         this.kategoriakGet();
@@ -392,7 +403,7 @@ export default {
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="miModalLabel">Productos seleccionados</h5>
+                        <h5 class="modal-title" id="miModalLabel">{{ testua[hizkuntza]?.['ProductosSeleccionados'] }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -401,13 +412,13 @@ export default {
                             <thead class="thead-prod-head">
                                 <tr>
                                 <th scope="col" class="border-0">
-                                    <div class="p-2 px-3 text-uppercase">Productos</div>
+                                    <div class="p-2 px-3 text-uppercase">{{ testua[hizkuntza]?.['Productos'] }}</div>
                                 </th>
                                 <th scope="col" class="border-0">
-                                    <div class="py-2 text-uppercase">Marca</div>
+                                    <div class="py-2 text-uppercase">{{ testua[hizkuntza]?.['Marca'] }}</div>
                                 </th>
                                 <th scope="col" class="border-0">
-                                    <div class="py-2 text-uppercase">Cantidad</div>
+                                    <div class="py-2 text-uppercase">{{ testua[hizkuntza]?.['Cantidad'] }}</div>
                                 </th>
                                 <th scope="col" class="border-0">
                                     <div class="py-2 text-uppercase"></div>
@@ -443,7 +454,7 @@ export default {
                             </select>
                         </div>
                         <div class="col">
-                            <button id="pop-prod" type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="erosketak()">Aceptar</button>
+                            <button id="pop-prod" type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="erosketak()">{{ testua[hizkuntza]?.['Aceptar'] }}</button>
                             <button id="pop-prod" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                         </div>
                     </div>
@@ -460,27 +471,27 @@ export default {
                     </button>
                 </div>
                 <div>
-                    <h3 scope="row">Nombre</h3>
+                    <h3 scope="row">{{ testua[hizkuntza]?.['Nombre'] }}</h3>
                     <input type="text" v-model="izena">
-                    <h3 scope="row" class="mt-3">Marca</h3>
+                    <h3 scope="row" class="mt-3">{{ testua[hizkuntza]?.['Marka'] }}</h3>
                     <input type="text" v-model="marka">
-                    <h3 scope="row" class="mt-3">Categoría</h3>
+                    <h3 scope="row" class="mt-3">{{ testua[hizkuntza]?.['Categoria'] }}</h3>
                     <select class="form-select" aria-label="Default select example" style="max-width: 15vw; margin-right: 3vw;" v-model="kategoria">
                         <option   v-for="(dato,index) in datosKategoria" :key="index" :value="dato.id">{{ dato.izena }}</option>
                     </select>
-                    <h3 scope="row" class="mt-3">Descripción</h3>
+                    <h3 scope="row" class="mt-3">{{ testua[hizkuntza]?.['Descripcion'] }}</h3>
                     <div class="form-floating">
                         <textarea class="form-control" type="text" v-model="deskribapena" id="floatingTextarea"></textarea>
                         <label for="floatingTextarea"></label>
                     </div>
-                    <h3 scope="row" class="mt-3">Stock</h3>
+                    <h3 scope="row" class="mt-3">{{ testua[hizkuntza]?.['Stock'] }}</h3>
                     <input type="number" v-model="stock">
-                    <h3 scope="row" class="mt-3">Alerta de stock</h3>
+                    <h3 scope="row" class="mt-3">{{ testua[hizkuntza]?.['AlertaStock'] }}</h3>
                     <input type="number" v-model="stock_alerta">
                 </div>
                 <div class="input-group-horarios">
-                    <button type="button" id="aceptarHorarios" class="btn añadir btn-lg" @click="txertatuEdoAldatu()">Aceptar</button>
-                    <button type="button" id="cancelarHorarios" class="btn cancelar btn-lg" @click="ocultarVentana()">Cancelar</button>
+                    <button type="button" id="aceptarHorarios" class="btn añadir btn-lg" @click="txertatuEdoAldatu()">{{ testua[hizkuntza]?.['Aceptar'] }}</button>
+                    <button type="button" id="cancelarHorarios" class="btn cancelar btn-lg" @click="ocultarVentana()">{{ testua[hizkuntza]?.['Cancelar'] }}</button>
                 </div>
             </div>
         </div>
