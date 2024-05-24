@@ -634,7 +634,7 @@ export default {
                 <div>
                     <h3 scope="row">{{ testua[hizkuntza]?.['Nombre'] }}</h3>
                     <input type="text" v-model="izena">
-                    <h3 scope="row" class="mt-3">{{ testua[hizkuntza]?.['Marka'] }}</h3>
+                    <h3 scope="row" class="mt-3">{{ testua[hizkuntza]?.['Marca'] }}</h3>
                     <input type="text" v-model="marka">
                     <h3 scope="row" class="mt-3">{{ testua[hizkuntza]?.['Categoria'] }}</h3>
                     <select class="form-select" aria-label="Default select example" style="max-width: 15vw; margin-right: 3vw;" v-model="kategoria">
