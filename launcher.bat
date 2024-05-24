@@ -2,13 +2,13 @@
 setlocal
 
 :: Definir las URL de los repositorios de GitHub
-set REPO_URL_1=https://github.com/Sergioto275/E2T1_Back.git
-set REPO_URL_2=https://github.com/Sergioto275/E2T1_Front.git
-set REPO_NAME_1=Back
-set REPO_NAME_2=Front
+set REPO_URL_1=https://github.com/Jcaballerof22/talde2erronka2back.git
+set REPO_URL_2=https://github.com/Jcaballerof22/talde2erronka2front.git
+set REPO_NAME_1=talde2erronka2back
+set REPO_NAME_2=talde2erronka2front
 
 :: Definir la ubicación donde se clonarán los repositorios
-set CLONE_DIR=C:\xampp\htdocs\Erronka2
+set CLONE_DIR=C:\xampp\htdocs
 set REPO_DIR_1=%CLONE_DIR%\%REPO_NAME_1%
 set REPO_DIR_2=%CLONE_DIR%\%REPO_NAME_2%
 
@@ -24,7 +24,7 @@ if not exist "%CLONE_DIR%" (
 )
 
 :: Definir la URL que se abrirá en el navegador
-set URL=http://localhost/Erronka2/Front/Login.html
+set URL=http://localhost:5173
 
 :: Archivo de registro
 set LOGFILE=%CLONE_DIR%\script_log.txt
@@ -45,6 +45,9 @@ if %errorlevel% neq 0 (
     pause
     goto :eof
 )
+
+cd C:\xampp\htdocs\talde2erronka2front\ileapaindegiafront\
+npm run dev
 
 :: Esperar unos segundos para que los servicios se inicien
 timeout /t 10 /nobreak
@@ -93,4 +96,5 @@ if not exist "%REPO_DIR%\.git" (
         goto :eof
     )
 )
+
 exit /b 0
